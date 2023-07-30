@@ -1,0 +1,20 @@
+{
+  "title": "مرحبًا بالعالم",
+  "english": "مرحبًا",
+  "changeLanguage": "اختر اللغة",
+  "next": "التالي",
+  "create_account":"إنشاء حساب",
+  "login":"تسجيل الدخول",
+  "text_or_login" :"أو تسجيل الدخول باستخدام",
+  "welcome_back" : "مرحبًا بعودتك",
+  "email_adress" :"عنوان البريد الإلكتروني",
+  "email_address_hint":"الرجاء ملء عنوان البريد الإلكتروني",
+  "password" :"كلمة المرور",
+  "password_hint":"الرجاء إدخال كلمة المرور",
+  "forgot_password" :"هل نسيت كلمة السر ؟",
+  "first_name" :"الاسم الأول",
+  "last_name" :"اسم العائلة",
+  "sign_up" :"اشتراك"
+    
+  
+}

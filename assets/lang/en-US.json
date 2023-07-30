@@ -1,0 +1,20 @@
+{
+    "title": "Hello World",
+    "greeting": "Hello",
+    "changeLanguage": "Choose Language",
+    "next": "next",
+    "create_account": "Create an Account",
+    "login": "Login",
+    "text_or_login": "Or Login With",
+    "welcome_back": "Welcome Back",
+    "email_adress": " Email Adress",
+    "email_address_hint": "Please Fill Email Adress",
+    "password": "Password",
+    "password_hint": "Please Fill password ",
+    "forgot_password": "Forgot Password ?",
+    "first_name" :"First Name",
+    "last_name" :"Last Name",
+    "sign_up" :"Sign Up"
+    
+
+}
