@@ -36,6 +36,10 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
     );
     _animationRotateDouble = Tween<double>(begin: 0, end: 1.0)
         .animate(animationRotateIndicatorController);
+    setState(() {
+      _selectedLanguage = "English";
+    });
+
     generateWidgetLanguage();
   }
 
@@ -60,7 +64,7 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
     "Indonesian",
     "Hindi",
   ];
-  String? _selectedLanguage = "";
+  String? _selectedLanguage = "English";
 
   List<Widget> listWidgetLanguage = [];
   void generateWidgetLanguage() {
