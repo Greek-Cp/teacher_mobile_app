@@ -37,10 +37,16 @@ class ComponentTextTittle extends StatelessWidget {
 
 class ComponentTextDescription extends StatelessWidget {
   String? textContent;
-  TextAlign textAlign = TextAlign.center;
+  TextAlign textAlign;
   Color teksColor = Colors.black;
+  double fontSize;
+  FontWeight? fontWeight;
+
   ComponentTextDescription(this.textContent,
-      {this.textAlign = TextAlign.center, this.teksColor = Colors.black});
+      {this.textAlign = TextAlign.start,
+      this.teksColor = Colors.black,
+      required this.fontSize,
+      this.fontWeight = FontWeight.normal});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -57,9 +63,7 @@ class ComponentTextDescription extends StatelessWidget {
     return Text(
       "$textDesc",
       style: FontType.font_utama(
-          fontSize: size.sizeDescriptionSedang.sp,
-          fontWeight: FontWeight.normal,
-          color: teksColor),
+          fontSize: fontSize.sp, fontWeight: fontWeight, color: teksColor),
       textAlign: textAlign,
     );
   }

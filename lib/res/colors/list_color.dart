@@ -9,4 +9,7 @@ class ListColor {
   static const GradientwarnaBiruSidoKare = Color.fromARGB(180, 63, 121, 248);
   static const warnaDescriptionItem = Color.fromARGB(255, 126, 131, 146);
   static const warnaBackgroundIcon = Color.fromARGB(255, 239, 245, 244);
+
+  static const colorFontPrimary = Colors.black;
+  
 }

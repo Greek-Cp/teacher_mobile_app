@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
@@ -245,7 +246,9 @@ class _PageSignUpState extends State<PageSignUp> {
                                     height: 30.h,
                                   ),
                                   ComponentTextDescription(
-                                      tr("forgot_password")),
+                                    tr("forgot_password"),
+                                    fontSize: size.textButton,
+                                  ),
                                   SizedBox(
                                     height: 60.h,
                                   ),
@@ -277,7 +280,9 @@ class _PageSignUpState extends State<PageSignUp> {
                                         top: 10.h,
                                         bottom: 10.h),
                                     child: ComponentTextDescription(
-                                        tr("sign_up")))),
+                                        tr("sign_up"),
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal))),
                           ),
                         ),
                       ],

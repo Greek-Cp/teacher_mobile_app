@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
@@ -91,7 +92,7 @@ class _PageLoginState extends State<PageLogin> {
                                 right: 30.h,
                                 top: 10.h,
                                 bottom: 10.h),
-                            child: ComponentTextDescription(tr("login")))),
+                            child: ComponentTextDescription(tr("login"),fontSize: size.textButton,))),
                     SizedBox(
                       height: 20.h,
                     ),
@@ -114,13 +115,14 @@ class _PageLoginState extends State<PageLogin> {
                                 top: 10.h,
                                 bottom: 10.h),
                             child: ComponentTextDescription(
-                                tr("create_account")))),
+                                tr("create_account"),fontSize: size.sizeTextDescriptionGlobal,))),
                     SizedBox(
                       height: 20.h,
                     ),
                     ComponentTextDescription(
                       tr("text_or_login"),
                       textAlign: TextAlign.center,
+                      fontSize: size.sizeTextDescriptionGlobal,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
