@@ -44,7 +44,6 @@ class _TextFieldFormState extends State<TextFieldForm>
       children: [
         Container(
             margin: EdgeInsets.only(top: 10),
-            padding: EdgeInsets.only(right: 5),
             child: TextField(
               controller: widget.textEditingControllerEmail,
               onEditingComplete: () {
@@ -145,6 +144,8 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
 
   bool passwordHidden = true;
 
+  bool isEmpty = true;
+
   late final AnimationController _controllerLottie;
   @override
   void initState() {
@@ -162,9 +163,19 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
       children: [
         Container(
             margin: EdgeInsets.only(top: 10),
-            padding: EdgeInsets.only(right: 5),
             child: TextField(
               controller: widget.textEditingControllerEmail,
+              onChanged: (value) {
+                if (value.isNotEmpty) {
+                  setState(() {
+                    isEmpty = false;
+                  });
+                } else {
+                  setState(() {
+                    isEmpty = true;
+                  });
+                }
+              },
               onEditingComplete: () {
                 _controllerLottie.reset();
                 _controllerLottie.forward();
@@ -203,26 +214,31 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                 suffixIcon: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (passwordHidden == true) {
-                            passwordHidden = false;
-                          } else {
-                            passwordHidden = true;
-                          }
-                        });
-                      },
-                      child: Icon(
-                        passwordHidden
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined,
-                        color: Colors.black,
+                    Container(
+                      margin: EdgeInsets.only(left: 10.h),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (passwordHidden == true) {
+                              passwordHidden = false;
+                            } else {
+                              passwordHidden = true;
+                            }
+                          });
+                        },
+                        child: Icon(
+                          passwordHidden
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: animationSucces!)
+                    this.isEmpty
+                        ? Container()
+                        : Padding(
+                            padding: EdgeInsets.only(right: 10.h),
+                            child: animationSucces!)
                   ],
                 ),
                 hintStyle:

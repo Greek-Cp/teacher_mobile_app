@@ -293,11 +293,11 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                       SizedBox(
                         height: 30.h,
                       ),
-                    ],
+                    ], 
                   ),
                   BottomPageIndicator(),
                   SizedBox(
-                    height: 20.h,
+                    height: 0.h,
                   )
                 ],
               ),

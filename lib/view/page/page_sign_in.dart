@@ -99,18 +99,18 @@ class _PageSignInState extends State<PageSignIn> {
                               hintText: "password_hint",
                             ),
                             SizedBox(
-                              height: 30.h,
+                              height: 40.h,
                             ),
                             ComponentTextDescription(tr("forgot_password"),
                                 fontSize: size.sizeTextDescriptionGlobal),
                             SizedBox(
-                              height: 30.h,
+                              height: 40.h,
                             ),
                           ]),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 280.h),
+                        margin: EdgeInsets.only(top: 300.h),
                         child: Center(
                             child: ButtonSmall(
                           nameButton: "login",
