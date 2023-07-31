@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
-import 'package:teacher_mobile_app/view/page/page_login.dart';
-import 'package:teacher_mobile_app/view/page/page_login_user.dart';
 import 'package:teacher_mobile_app/view/page/page_select_login.dart';
+import 'package:teacher_mobile_app/view/page/page_sign_in.dart';
+import 'package:teacher_mobile_app/view/page/page_select_language.dart';
 import 'package:teacher_mobile_app/view/page/page_sign_up.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -31,16 +31,16 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: PageSelectLogin.routeName,
-      defaultTransition: Transition.rightToLeft,
+      initialRoute: PageSelectLanguage.routeName,
+      defaultTransition: Transition.circularReveal,
       getPages: [
         GetPage(
-            name: PageSelectLogin.routeName.toString(),
-            page: () => PageSelectLogin()),
-        GetPage(name: PageLogin.routeName.toString(), page: () => PageLogin()),
+            name: PageSelectLanguage.routeName.toString(),
+            page: () => PageSelectLanguage()),
+        GetPage(name: PageSelectLogin.routeName.toString(), page: () => PageSelectLogin()),
         GetPage(
-            name: PageLoginArea.routeName.toString(),
-            page: () => PageLoginArea()),
+            name: PageSignIn.routeName.toString(),
+            page: () => PageSignIn()),
         GetPage(name: PageSignUp.routeName.toString(), page: () => PageSignUp())
       ],
     );
