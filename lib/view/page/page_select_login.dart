@@ -86,7 +86,7 @@ class _PageSelectLoginState extends State<PageSelectLogin> {
                     textAlign: TextAlign.center,
                     fontSize: size.sizeTextHeaderGlobal,
                   ),
-                  WidgetDifferentLogin(),
+                  WidgetDifferentLogin(),   
                   SizedBox(
                     height: 70.h,
                   ),

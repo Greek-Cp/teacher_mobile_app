@@ -1,385 +1,265 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/res/dimension/size.dart';
+import 'package:teacher_mobile_app/view/component/button/text_description.dart';
+import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 
 import '../../../res/colors/list_color.dart';
 
-class TextFieldPassword extends StatefulWidget {
-  TextEditingController? text_kontrol;
-  String? hintText;
-  bool? passwordType = false;
-  String? labelName;
-  String? pesanValidasi;
-  TextFieldPassword(this.text_kontrol, this.hintText, this.passwordType,
-      this.labelName, this.pesanValidasi);
+class TextFieldForm extends StatefulWidget {
+  TextFieldForm(
+      {required this.textEditingControllerEmail,
+      required this.hintText,
+      required this.labelText});
+
+  final TextEditingController textEditingControllerEmail;
+  final String labelText;
+  final String hintText;
 
   @override
-  State<TextFieldPassword> createState() => _TextFieldPasswordState();
+  State<TextFieldForm> createState() => _TextFieldFormState();
 }
 
-class _TextFieldPasswordState extends State<TextFieldPassword> {
+class _TextFieldFormState extends State<TextFieldForm>
+    with SingleTickerProviderStateMixin {
+  Widget? animationSucces;
+
+  bool _isValidEmail = true;
+  late final AnimationController _controllerLottie;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controllerLottie = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1300));
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
       children: [
-        SizedBox(
-          height: 10.h,
-        ),
-        Text(
-          "${widget.labelName}",
-          style: GoogleFonts.nunito(
-              textStyle:
-                  TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp)),
-          textAlign: TextAlign.start,
-        ),
-        SizedBox(
-          height: 5.h,
-        ),
-        TextFormField(
-          validator: (value) {
-            if (value!.isEmpty || value == null) {
-              return "${widget.pesanValidasi} Tidak Boleh Kosong";
-            }
-            if (value.length < 7) {
-              return 'Password minimal terdiri dari 7 karakter';
-            }
-            final regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[0-9]).{7,}$');
-            if (!regex.hasMatch(value)) {
-              return 'Password harus mengandung huruf besar dan angka';
-            }
-            return null;
-          },
-          obscureText: !widget.passwordType!,
-          controller: widget.text_kontrol,
-          textInputAction: TextInputAction.done,
-          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal),
-          decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      widget.passwordType = !widget.passwordType!;
-                    });
-                  },
-                  icon: Icon(
-                    widget.passwordType!
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                    color: ListColor.warnaBiruSidoKare,
-                  )),
-              hintText: widget.hintText,
-              contentPadding: EdgeInsets.all(15),
-              enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(width: 1, color: ListColor.warnaBiruSidoKare),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(width: 2, color: ListColor.warnaBiruSidoKare),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              border: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(width: 1, color: ListColor.warnaBiruSidoKare),
-                  borderRadius: BorderRadius.all(Radius.circular(10)))),
-        ),
+        Container(
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(right: 5),
+            child: TextField(
+              controller: widget.textEditingControllerEmail,
+              onEditingComplete: () {
+                _controllerLottie.reset();
+                _controllerLottie.forward();
+
+                if (UtilValidatorData.isEmailValid(
+                    widget.textEditingControllerEmail.text.toString())) {
+                  setState(() {
+                    animationSucces = Lottie.asset(
+                        "assets/icon/animation_succes.json",
+                        width: 20,
+                        height: 20,
+                        repeat: false,
+                        controller: _controllerLottie);
+                  });
+
+                  print("Is Email");
+                } else {
+                  setState(() {
+                    animationSucces = Lottie.asset(
+                        "assets/icon/animation_wrong.json",
+                        width: 30,
+                        height: 30,
+                        repeat: false,
+                        controller: _controllerLottie);
+                  });
+
+                  print("Not Email");
+                }
+              },
+              style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: tr("${widget.hintText}"),
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: animationSucces,
+                ),
+                hintStyle:
+                    TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+                contentPadding: EdgeInsets.all(15.h),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Colors.black, // Change the border color here
+                    width: size
+                        .sizeBorderBlackGlobal, // Change the border width here
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Colors.black, // Change the border color here
+                    width: size
+                        .sizeBorderBlackGlobal, // Change the border width here
+                  ),
+                ),
+              ),
+            )),
+        Align(
+            alignment: Alignment.topLeft,
+            child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                margin: EdgeInsets.only(left: 20.w),
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.h),
+                  child: ComponentTextDescription(
+                    tr("${widget.labelText}"),
+                    fontWeight: FontWeight.bold,
+                    fontSize: size.sizeTextDescriptionGlobal,
+                  ),
+                ))),
       ],
     );
   }
 }
 
-class TextFieldImport {
-  static Padding TextForm(
-      {TextEditingController? text_kontrol,
-      String? hintText,
-      bool? readyOnlyTydack = false,
-      String? labelName,
-      String? pesanValidasi}) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 10.h,
-          ),
-          Text(
-            "${labelName}",
-            style: GoogleFonts.nunito(
-                textStyle:
-                    TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp)),
-            textAlign: TextAlign.start,
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          TextFormField(
-            validator: (value) {
-              if (value!.isEmpty || value == null) {
-                return "${pesanValidasi} Tidak Boleh Kosong";
-              }
-            },
-            readOnly: readyOnlyTydack!,
-            controller: text_kontrol,
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal),
-            decoration: InputDecoration(
-                hintText: hintText,
-                contentPadding: EdgeInsets.all(15),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 2, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10)))),
-          ),
-        ],
-      ),
-    );
+class TextFieldPasswordForm extends StatefulWidget {
+  TextFieldPasswordForm(
+      {required this.textEditingControllerEmail,
+      required this.hintText,
+      required this.labelText});
+
+  final TextEditingController textEditingControllerEmail;
+  final String labelText;
+  final String hintText;
+
+  @override
+  State<TextFieldPasswordForm> createState() => _TextFieldPasswordFormState();
+}
+
+class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
+    with SingleTickerProviderStateMixin {
+  Widget? animationSucces;
+
+  bool passwordHidden = true;
+
+  late final AnimationController _controllerLottie;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controllerLottie = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1300));
+    animationSucces = Lottie.asset("assets/icon/animation_succes.json",
+        width: 20, height: 20, repeat: false, controller: _controllerLottie);
   }
 
-  static Padding TextFormMultiLine(
-      {TextEditingController? text_kontrol,
-      String? hintText,
-      bool? readyOnlyTydack = false,
-      String? labelName,
-      String? pesanValidasi}) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 10.h,
-          ),
-          Text(
-            "${labelName}",
-            style: GoogleFonts.nunito(
-                textStyle:
-                    TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp)),
-            textAlign: TextAlign.start,
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          TextFormField(
-            validator: (value) {
-              if (value!.isEmpty || value == null) {
-                return "${pesanValidasi} Tidak Boleh Kosong";
-              }
-            },
-            readOnly: readyOnlyTydack!,
-            minLines: 3,
-            maxLines: 8,
-            keyboardType: TextInputType.multiline,
-            controller: text_kontrol,
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal),
-            decoration: InputDecoration(
-                hintText: hintText,
-                contentPadding: EdgeInsets.all(15),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 2, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10)))),
-          ),
-        ],
-      ),
-    );
-  }
-
-  static Padding TextFormNama(
-      {TextEditingController? text_kontrol,
-      String? hintText,
-      bool? readyOnlyTydack = false,
-      String? labelName,
-      String? pesanValidasi}) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 10.h,
-          ),
-          Text(
-            "${labelName}",
-            style: GoogleFonts.nunito(
-                textStyle:
-                    TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp)),
-            textAlign: TextAlign.start,
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          TextFormField(
-            validator: (value) {
-              if (value!.isEmpty || value == null) {
-                return "${pesanValidasi} Tidak Boleh Kosong";
-              }
-            },
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp('[a-zA-Z\\s]'))
-            ],
-            readOnly: readyOnlyTydack!,
-            controller: text_kontrol,
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal),
-            decoration: InputDecoration(
-                hintText: hintText,
-                contentPadding: EdgeInsets.all(15),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 2, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10)))),
-          ),
-        ],
-      ),
-    );
-  }
-
-  static Padding TextFormEmail(
-      {TextEditingController? text_kontrol,
-      String? hintText,
-      bool? readyOnlyTydack = false,
-      String? labelName,
-      String? pesanValidasi}) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 10.h,
-          ),
-          Text(
-            "${labelName}",
-            style: GoogleFonts.nunito(
-                textStyle:
-                    TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp)),
-            textAlign: TextAlign.start,
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          TextFormField(
-            validator: (value) {
-              if (value!.isEmpty || value == null) {
-                return "${pesanValidasi} Tidak Boleh Kosong";
-              }
-              final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-              if (!regex.hasMatch(value)) {
-                return 'Format email tidak valid';
-              }
-              return null;
-            },
-            readOnly: readyOnlyTydack!,
-            controller: text_kontrol,
-            keyboardType: TextInputType.emailAddress,
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal),
-            decoration: InputDecoration(
-                hintText: hintText,
-                contentPadding: EdgeInsets.all(15),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 2, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 1, color: ListColor.warnaBiruSidoKare),
-                    borderRadius: BorderRadius.all(Radius.circular(10)))),
-          ),
-        ],
-      ),
-    );
-  }
-
-  static Column TextFormTelp(
-      {TextEditingController? text_kontrol,
-      String? hintText,
-      int? length,
-      bool? readyOnlyTydack = false,
-      String? labelName,
-      String? pesanValidasi}) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
       children: [
-        SizedBox(
-          height: 10.h,
-        ),
-        Text(
-          "${labelName}",
-          style: GoogleFonts.nunito(
-              textStyle:
-                  TextStyle(fontWeight: FontWeight.normal, fontSize: 13.sp)),
-          textAlign: TextAlign.start,
-        ),
-        SizedBox(
-          height: 5.h,
-        ),
-        TextFormField(
-          validator: (value) {
-            if (value!.isEmpty || value == null) {
-              return "${pesanValidasi} Tidak Boleh Kosong";
-            }
-          },
-          controller: text_kontrol,
-          readOnly: readyOnlyTydack!,
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-            LengthLimitingTextInputFormatter(length)
-          ],
-          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.normal),
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-              hintText: hintText,
-              contentPadding: EdgeInsets.all(15),
-              // ignore: prefer_const_constructors
-              enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(width: 1, color: ListColor.warnaBiruSidoKare),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              // ignore: prefer_const_constructors
-              focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(width: 2, color: ListColor.warnaBiruSidoKare),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              // ignore: prefer_const_constructors
-              border: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(width: 1, color: ListColor.warnaBiruSidoKare),
-                  borderRadius: BorderRadius.all(Radius.circular(10)))),
-        ),
+        Container(
+            margin: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(right: 5),
+            child: TextField(
+              controller: widget.textEditingControllerEmail,
+              onEditingComplete: () {
+                _controllerLottie.reset();
+                _controllerLottie.forward();
+
+                if (UtilValidatorData.isPasswordValid(
+                    widget.textEditingControllerEmail.text.toString())) {
+                  setState(() {
+                    animationSucces = Lottie.asset(
+                        "assets/icon/animation_succes.json",
+                        width: 30,
+                        height: 30,
+                        repeat: false,
+                        controller: _controllerLottie);
+                  });
+
+                  print("Is Email");
+                } else {
+                  setState(() {
+                    animationSucces = Lottie.asset(
+                        "assets/icon/animation_wrong.json",
+                        width: 30,
+                        height: 30,
+                        repeat: false,
+                        controller: _controllerLottie);
+                  });
+
+                  print("Not Email");
+                }
+              },
+              obscureText: passwordHidden,
+              style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: tr("${widget.hintText}"),
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (passwordHidden == true) {
+                            passwordHidden = false;
+                          } else {
+                            passwordHidden = true;
+                          }
+                        });
+                      },
+                      child: Icon(
+                        passwordHidden
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: animationSucces!)
+                  ],
+                ),
+                hintStyle:
+                    TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+                contentPadding: EdgeInsets.all(15.h),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Colors.black, // Change the border color here
+                    width: size
+                        .sizeBorderBlackGlobal, // Change the border width here
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Colors.black, // Change the border color here
+                    width: size
+                        .sizeBorderBlackGlobal, // Change the border width here
+                  ),
+                ),
+              ),
+            )),
+        Align(
+            alignment: Alignment.topLeft,
+            child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                margin: EdgeInsets.only(left: 20.w),
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.h),
+                  child: ComponentTextDescription(
+                    tr("${widget.labelText}"),
+                    fontWeight: FontWeight.bold,
+                    fontSize: size.sizeTextDescriptionGlobal,
+                  ),
+                ))),
       ],
     );
   }

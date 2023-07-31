@@ -95,6 +95,7 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
               padding: EdgeInsets.symmetric(
                   horizontal: size.sizePaddingLeftAndRightPage.h),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 75.h, bottom: 15.h),
@@ -109,15 +110,15 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                   ComponentTextDescription("Teach & Earn",
                       fontSize: size.sizeTextHeaderGlobal),
                   SizedBox(
-                    height: 15.h,
+                    height: 0.h,
                   ),
                   Stack(
                     children: [
                       Stack(children: [
                         Align(
-                          alignment: Alignment.bottomCenter,
+                          alignment: Alignment.topCenter,
                           child: Container(
-                              margin: EdgeInsets.only(top: 66.h, bottom: 10),
+                              margin: EdgeInsets.only(top: 140.h, bottom: 10),
                               child: ButtonSmall(
                                 nameButton: "next",
                                 routeName: PageSelectLogin.routeName.toString(),
@@ -212,6 +213,7 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                                                     _selectedLanguage =
                                                         listLanguage[index];
                                                   });
+                                                  //EasyLocalization.of(context)
                                                   selectedIndex = index;
                                                 },
                                                 child: Column(
@@ -293,7 +295,10 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                       ),
                     ],
                   ),
-                  BottomPageIndicator()
+                  BottomPageIndicator(),
+                  SizedBox(
+                    height: 20.h,
+                  )
                 ],
               ),
             )),

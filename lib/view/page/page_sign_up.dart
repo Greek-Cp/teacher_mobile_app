@@ -9,6 +9,7 @@ import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart'
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
+import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/page/page_sign_in.dart';
 
 class PageSignUp extends StatefulWidget {
@@ -19,6 +20,10 @@ class PageSignUp extends StatefulWidget {
 }
 
 class _PageSignUpState extends State<PageSignUp> {
+  TextEditingController textEditingControllerFirstName =
+      TextEditingController();
+  TextEditingController textEditingControllerLastName = TextEditingController();
+
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
 
@@ -73,159 +78,35 @@ class _PageSignUpState extends State<PageSignUp> {
                             SizedBox(
                               height: 30.h,
                             ),
-                            TextField(
-                              controller: textEditingControllerEmail,
-                              onChanged: (value) {},
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  labelStyle: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      backgroundColor: Colors.white),
-                                  fillColor: Colors.white,
-                                  labelText: tr("first_name"),
-                                  hintText: tr("first_name"),
-                                  contentPadding: EdgeInsets.all(15.h),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.r)),
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      child: textEditingControllerEmail
-                                              .text.isEmpty
-                                          ? Lottie.asset(
-                                              "assets/icon/animation_wrong.json",
-                                              width: 3.w,
-                                              height: 3.h,
-                                              fit: BoxFit.cover,
-                                              repeat: false)
-                                          : Lottie.asset(
-                                              "assets/icon/animation_succes.json",
-                                              width: 3.w,
-                                              height: 3.h,
-                                              fit: BoxFit.cover,
-                                              repeat: false),
-                                    ),
-                                  )),
-                            ),
+                            TextFieldForm(
+                                textEditingControllerEmail:
+                                    textEditingControllerFirstName,
+                                hintText: "first_name",
+                                labelText: "first_name"),
                             SizedBox(
                               height: 15.h,
                             ),
-                            TextField(
-                              controller: textEditingControllerEmail,
-                              onChanged: (value) {},
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  labelStyle: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      backgroundColor: Colors.white),
-                                  fillColor: Colors.white,
-                                  labelText: tr("last_name"),
-                                  hintText: tr("last_name"),
-                                  contentPadding: EdgeInsets.all(15.h),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.r)),
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      child: textEditingControllerEmail
-                                              .text.isEmpty
-                                          ? Lottie.asset(
-                                              "assets/icon/animation_wrong.json",
-                                              width: 3.w,
-                                              height: 3.h,
-                                              fit: BoxFit.cover,
-                                              repeat: false)
-                                          : Lottie.asset(
-                                              "assets/icon/animation_succes.json",
-                                              width: 3.w,
-                                              height: 3.h,
-                                              fit: BoxFit.cover,
-                                              repeat: false),
-                                    ),
-                                  )),
-                            ),
+                            TextFieldForm(
+                                textEditingControllerEmail:
+                                    textEditingControllerFirstName,
+                                hintText: "last_name",
+                                labelText: "last_name"),
                             SizedBox(
                               height: 15.h,
                             ),
-                            TextField(
-                              controller: textEditingControllerEmail,
-                              onChanged: (value) {},
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  labelStyle: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      backgroundColor: Colors.white),
-                                  fillColor: Colors.white,
-                                  labelText: tr('email_adress'),
-                                  hintText: tr('email_address_hint'),
-                                  contentPadding: EdgeInsets.all(15.h),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.r)),
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      child: textEditingControllerEmail
-                                              .text.isEmpty
-                                          ? Lottie.asset(
-                                              "assets/icon/animation_wrong.json",
-                                              width: 3.w,
-                                              height: 3.h,
-                                              fit: BoxFit.cover,
-                                              repeat: false)
-                                          : Lottie.asset(
-                                              "assets/icon/animation_succes.json",
-                                              width: 3.w,
-                                              height: 3.h,
-                                              fit: BoxFit.cover,
-                                              repeat: false),
-                                    ),
-                                  )),
-                            ),
+                            TextFieldForm(
+                                textEditingControllerEmail:
+                                    textEditingControllerFirstName,
+                                hintText: "email_adress",
+                                labelText: "email_address_hint"),
                             SizedBox(
                               height: 15.h,
                             ),
-                            TextField(
-                              controller: textEditingControllerPassword,
-                              onChanged: (value) {
-                                setState(() {});
-                              },
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  labelStyle: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      backgroundColor: Colors.white),
-                                  fillColor: Colors.white,
-                                  labelText: tr("password"),
-                                  hintText: tr("password_hint"),
-                                  contentPadding: EdgeInsets.all(15.h),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.r)),
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      child: textEditingControllerPassword
-                                              .text.isEmpty
-                                          ? Lottie.asset(
-                                              "assets/icon/animation_wrong.json",
-                                              width: 3.w,
-                                              height: 3.h,
-                                              fit: BoxFit.cover,
-                                              animate: true,
-                                              repeat: false)
-                                          : Lottie.asset(
-                                              "assets/icon/animation_succes.json",
-                                              width: 3.w,
-                                              animate: true,
-                                              height: 3.h,
-                                              fit: BoxFit.cover,
-                                              repeat: false),
-                                    ),
-                                  )),
+                            TextFieldPasswordForm(
+                              textEditingControllerEmail:
+                                  textEditingControllerPassword,
+                              labelText: "password",
+                              hintText: "password_hint",
                             ),
                             SizedBox(
                               height: 50.h,
@@ -234,7 +115,7 @@ class _PageSignUpState extends State<PageSignUp> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 360.h),
+                        margin: EdgeInsets.only(top: 410.h),
                         child: Center(
                             child: ButtonSmall(
                                 nameButton: "sign_up",
