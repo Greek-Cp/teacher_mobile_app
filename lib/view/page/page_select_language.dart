@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/button/button_small.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/page/page_select_login.dart';
@@ -87,14 +88,12 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
             ),
             child: SafeArea(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.sizePaddingLeftAndRightPage.h),
+              padding: EdgeInsets.symmetric(
+                  horizontal: size.sizePaddingLeftAndRightPage.h),
               child: Column(
                 children: [
-
                   Padding(
-                    padding: EdgeInsets.only(top: 75.h,bottom: 15.h
-                    ),
+                    padding: EdgeInsets.only(top: 75.h, bottom: 15.h),
                     child: ImageRounded(
                       "assets/img/img_intersection_1.png",
                       30,
@@ -103,7 +102,6 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                       borderradius: BorderRadius.circular(20),
                     ),
                   ),
-
                   ComponentTextDescription("Teach & Earn",
                       fontSize: size.sizeTextHeaderGlobal),
                   SizedBox(
@@ -115,33 +113,11 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Container(
-                            margin: EdgeInsets.only(top: 210.h,bottom: 10),
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                    shape: MaterialStatePropertyAll(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30.r),
-                                            side: BorderSide(
-                                                width:
-                                                    size.sizeBorderBlackGlobal,
-                                                color: Colors.black))),
-                                    backgroundColor: MaterialStatePropertyAll(
-                                        Color.fromARGB(255, 63, 254, 202))),
-                                onPressed: () {
-                                  Get.toNamed(PageSelectLogin.routeName.toString());
-                                },
-                                child: Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 30.h,
-                                        right: 30.h,
-                                        top: 10.h,
-                                        bottom: 10.h),
-                                    child: ComponentTextDescription(
-                                      tr("next"),
-                                      fontSize: size.textButton + 10,
-                                    ))),
-                          ),
+                              margin: EdgeInsets.only(top: 66.h, bottom: 10),
+                              child: ButtonSmall(
+                                nameButton: "next",
+                                routeName: PageSelectLogin.routeName.toString(),
+                              )),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -182,7 +158,7 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                             ),
                             child: Padding(
                                 padding: EdgeInsets.only(
-                                  top: 17.h,
+                                  top: 10.h,
                                   left: 10.w,
                                   right: 10.w,
                                 ),
@@ -323,47 +299,55 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
     );
   }
 }
-class BottomPageIndicator extends StatelessWidget{
+
+class BottomPageIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: 10.w,),
-      Container(width: 40.w,
-        height: 13.h,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black,width: size.sizeBorderBlackGlobal),
-          color: ListColor.cyanColor,
-          borderRadius: BorderRadius.all(Radius.circular(20))
+        SizedBox(
+          width: 10.w,
+        ),
+        Container(
+          width: 40.w,
+          height: 13.h,
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Colors.black, width: size.sizeBorderBlackGlobal),
+              color: ListColor.cyanColor,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+        ),
+        SizedBox(
+          width: 10.w,
+        ),
+        Container(
+          width: 15.w,
+          height: 13.h,
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Colors.black, width: size.sizeBorderBlackGlobal),
+              color: ListColor.colorTextFieldBackground,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+        ),
+        SizedBox(
+          width: 10.w,
+        ),
+        Container(
+          width: 15.w,
+          height: 13.h,
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Colors.black, width: size.sizeBorderBlackGlobal),
+              color: ListColor.colorPurple,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
         )
-        ,),
-
-        SizedBox(width: 10.w,),
-      Container(width: 15.w,
-        height: 13.h,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black,width: size.sizeBorderBlackGlobal),
-            color: ListColor.colorTextFieldBackground,
-            borderRadius: BorderRadius.all(Radius.circular(20))
-        )
-        ,)
-,
-    SizedBox(width: 10.w,),
-  Container(width: 15.w,
-        height: 13.h,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black,width: size.sizeBorderBlackGlobal),
-            color: ListColor.colorPurple,
-            borderRadius: BorderRadius.all(Radius.circular(20))
-        )
-        ,)
-
-    ],);
+      ],
+    );
   }
-  
 }
+
 class ImageRounded extends StatelessWidget {
   String imageAssets;
   int circularRadius;

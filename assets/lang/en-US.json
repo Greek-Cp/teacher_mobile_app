@@ -7,14 +7,12 @@
     "login": "Login",
     "text_or_login": "Or Login With",
     "welcome_back": "Welcome Back",
-    "email_adress": " Email Adress",
+    "email_adress": " Email Address ",
     "email_address_hint": "Please Fill Email Adress",
-    "password": "Password",
+    "password": " Password ",
     "password_hint": "Please Fill password ",
     "forgot_password": "Forgot Password ?",
-    "first_name" :"First Name",
-    "last_name" :"Last Name",
-    "sign_up" :"Sign Up"
-    
-
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "sign_up": "Sign Up"
 }
