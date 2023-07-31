@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 class ListColor {
   static const primaryClor = Color.fromARGB(255, 54, 255, 201);
+  static const colorTextFieldBackground = primaryClor;
+  static const colorDropDown = Color.fromARGB(255, 54, 240, 255);
+
   static const warnaHeader = Colors.black;
   static const warnaKuning = Color.fromARGB(255, 250, 208, 44);
   static const warnaDescription = Color.fromARGB(255, 67, 79, 101);
@@ -11,5 +14,4 @@ class ListColor {
   static const warnaBackgroundIcon = Color.fromARGB(255, 239, 245, 244);
 
   static const colorFontPrimary = Colors.black;
-  
 }
