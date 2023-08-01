@@ -31,5 +31,10 @@ class ListColor {
   static const colorBackgroundTutoring = Color.fromARGB(255, 198, 198, 252);
   static const colorBackgroundVideosHeader = Color.fromARGB(255, 239, 177, 11);
   static const colorBackgroundVideo = Color.fromARGB(255, 252, 219, 198);
-  
+  static const colorGray = Color.fromARGB(255, 217, 217, 217);
+  static const colorBackgroundPhotoRequirements =
+      Color.fromARGB(255, 54, 216, 255);
+
+  static const colorBackgroundConfirmToSaveChanges =
+      Color.fromARGB(255, 247, 181, 0);
 }

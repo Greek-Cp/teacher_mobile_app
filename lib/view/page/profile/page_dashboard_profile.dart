@@ -167,8 +167,8 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
             child: SafeArea(
                 child: Padding(
               padding: EdgeInsets.only(
-                  left: size.sizePaddingLeftAndRightPage,
-                  right: size.sizePaddingLeftAndRightPage),
+                  left: size.sizePaddingLeftAndRightPage + 5,
+                  right: size.sizePaddingLeftAndRightPage + 5),
               child: ListView(
                 children: [
                   //profile
@@ -1072,6 +1072,9 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 30.h,
+                  )
                 ],
               ),
             )),

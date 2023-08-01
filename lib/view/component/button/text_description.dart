@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,7 +62,7 @@ class ComponentTextDescription extends StatelessWidget {
       textAlign = TextAlign.center,
       Color teksColor = Colors.black}) {
     return Text(
-      "$textDesc",
+      tr("$textDesc"),
       style: FontType.font_utama(
           fontSize: fontSize.sp, fontWeight: fontWeight, color: teksColor),
       textAlign: textAlign,

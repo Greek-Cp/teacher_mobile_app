@@ -16,6 +16,7 @@ import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_forgot_password.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_up.dart';
+import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
 class PageSignIn extends StatefulWidget {
   static String? routeName = "/PageSignIn";
@@ -137,9 +138,11 @@ class _PageSignInState extends State<PageSignIn> {
                         child: Center(
                             child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.h),
-                          child: ButtonLong(
-                            nameButton: "login",
-                            routeName: PageSignIn.routeName.toString(),
+                          child: GestureDetector(
+                            child: ButtonLong(
+                              nameButton: "login",
+                              routeName: PageDashboardProfile.routeName.toString(),
+                            ),
                           ),
                         )),
                       ),

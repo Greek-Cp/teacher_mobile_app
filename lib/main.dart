@@ -10,7 +10,13 @@ import 'package:teacher_mobile_app/view/page/account_page/page_select_login.dart
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_in.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_up.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_up_fill_username.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile_select_picture.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_about.dart';
+
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
+
+import 'view/page/profile/item_nav/profile_menu/page_profile_menu_change_username.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +42,7 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: PageDashboardProfile.routeName,
+      initialRoute: PageProfileMenuAbout.routeName,
       defaultTransition: Transition.circularReveal,
       getPages: [
         GetPage(
@@ -61,6 +67,18 @@ class MainApp extends StatelessWidget {
         GetPage(
             name: PageDashboardProfile.routeName.toString(),
             page: () => PageDashboardProfile()),
+        GetPage(
+            name: PageNavProfileSelectPicture.routeName.toString(),
+            page: () => PageNavProfileSelectPicture()),
+        GetPage(
+            name: PageNavProfile.routeName.toString(),
+            page: () => PageNavProfile()),
+        GetPage(
+            name: PageProfileMenuChangeUsername.routeName.toString(),
+            page: () => PageProfileMenuChangeUsername()),
+        GetPage(
+            name: PageProfileMenuAbout.routeName.toString(),
+            page: () => PageProfileMenuAbout())
       ],
     );
   }

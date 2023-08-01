@@ -40,13 +40,15 @@ class ButtonLongHeader extends StatelessWidget {
   Color colorButton;
   FontWeight fontWeight;
   Color colorFont;
-
+  TextAlign textAlign;
+  
   ButtonLongHeader(
       {required this.nameButton,
       required this.routeName,
       required this.colorButton,
       required this.fontWeight,
-      required this.colorFont});
+      required this.colorFont,
+      this.textAlign = TextAlign.start});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +70,7 @@ class ButtonLongHeader extends StatelessWidget {
               teksColor: colorFont,
               fontSize: size.textButton + 5,
               fontWeight: fontWeight,
-              
+              textAlign: textAlign,
             )));
   }
 }

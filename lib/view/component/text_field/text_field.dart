@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
@@ -196,6 +197,89 @@ class _TextFieldFormWithValidationState
             ],
           ),
         )
+      ],
+    );
+  }
+}
+class TextFieldFormPhone extends StatefulWidget {
+  TextFieldFormPhone(
+      {required this.textEditingControllerEmail,
+      required this.hintText,
+      required this.labelText});
+
+  final TextEditingController textEditingControllerEmail;
+  final String labelText;
+  final String hintText;
+
+  @override
+  State<TextFieldFormPhone> createState() => _TextFieldFormPhoneState();
+}
+class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
+    with SingleTickerProviderStateMixin {
+  Widget? animationSucces;
+
+  bool _isValidEmail = true;
+  late final AnimationController _controllerLottie;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controllerLottie = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1300));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 10),
+            child: IntlPhoneField(
+              controller: widget.textEditingControllerEmail,
+              style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: tr("${widget.hintText}"),
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: animationSucces,
+                ),
+                hintStyle:
+                    TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+                contentPadding: EdgeInsets.all(15.h),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Colors.black, // Change the border color here
+                    width: size
+                        .sizeBorderBlackGlobal, // Change the border width here
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Colors.black, // Change the border color here
+                    width: size
+                        .sizeBorderBlackGlobal, // Change the border width here
+                  ),
+                ),
+              ),
+            )),
+        Align(
+            alignment: Alignment.topLeft,
+            child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                margin: EdgeInsets.only(left: 20.w),
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.h),
+                  child: ComponentTextDescription(
+                    tr("${widget.labelText}"),
+                    fontWeight: FontWeight.bold,
+                    fontSize: size.sizeTextDescriptionGlobal,
+                  ),
+                ))),
       ],
     );
   }
