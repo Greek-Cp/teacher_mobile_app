@@ -33,3 +33,42 @@ class ButtonLong extends StatelessWidget {
             )));
   }
 }
+
+class ButtonLongHeader extends StatelessWidget {
+  String nameButton;
+  String routeName;
+  Color colorButton;
+  FontWeight fontWeight;
+  Color colorFont;
+
+  ButtonLongHeader(
+      {required this.nameButton,
+      required this.routeName,
+      required this.colorButton,
+      required this.fontWeight,
+      required this.colorFont});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return ElevatedButton(
+        style: ButtonStyle(
+            minimumSize: MaterialStatePropertyAll(Size.fromHeight(55.h)),
+            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.r),
+                side: BorderSide(
+                    width: size.sizeBorderBlackGlobal, color: Colors.black))),
+            backgroundColor: MaterialStatePropertyAll(colorButton)),
+        onPressed: () => {Get.toNamed(this.routeName.toString())},
+        child: Padding(
+            padding: EdgeInsets.only(
+                left: 30.h, right: 30.h, top: 10.h, bottom: 10.h),
+            child: ComponentTextDescription(
+              tr("$nameButton"),
+              teksColor: colorFont,
+              fontSize: size.textButton + 5,
+              fontWeight: fontWeight,
+              
+            )));
+  }
+}

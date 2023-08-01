@@ -7,12 +7,24 @@
     "login": "Login",
     "text_or_login": "Or Login With",
     "welcome_back": "Welcome Back",
-    "email_adress": " Email Address ",
-    "email_address_hint": "Please Fill Email Adress",
+    "email_adress": " Email",
+    "email_address_hint": "Email Adress",
     "password": " Password ",
-    "password_hint": "Please Fill password ",
+    "password_hint": "password ",
     "forgot_password": "Forgot Password ?",
     "first_name": "First Name",
     "last_name": "Last Name",
-    "sign_up": "Sign Up"
+    "sign_up": "Sign Up",
+    "intro_tittle" : "Teach & Earn",
+    "username" : "Username",
+    "validate_username_1" : "- Use characters and number only",
+    "validate_username_2" : "- Minimum 8 characters",
+    "validate_username_3" : "- This Username is unvailable",
+    "validate_username_4" : "- You can't change your username",
+    "forgot_password_text" : "Forgot Password",
+    "reset_password_text" :"Reset Password",
+    "confirm_text" : "Confirm"
+
+    
+    
 }

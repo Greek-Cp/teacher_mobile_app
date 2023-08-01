@@ -14,6 +14,8 @@ class size {
   static double sizeTextDescriptionGlobal = sizeTextHeaderGlobal - 10;
 
   static double sizeBorderBlackGlobal = 2.0;
+  static double sizeRoundedGlobal = 20;
+  
 
   static EdgeInsets paddingHorizontalAwalFrame =
       EdgeInsets.symmetric(horizontal: 25.0);

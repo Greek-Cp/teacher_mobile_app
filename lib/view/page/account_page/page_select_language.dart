@@ -8,8 +8,9 @@ import 'package:teacher_mobile_app/res/localization/locale.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
-import 'package:teacher_mobile_app/view/page/page_select_login.dart';
-import 'package:teacher_mobile_app/view/page/page_sign_in.dart';
+import 'package:teacher_mobile_app/view/component/utils/Util.dart';
+import 'package:teacher_mobile_app/view/page/account_page/page_select_login.dart';
+
 
 class PageSelectLanguage extends StatefulWidget {
   static String? routeName = "/PageSelectLanguage";
@@ -18,11 +19,31 @@ class PageSelectLanguage extends StatefulWidget {
   State<PageSelectLanguage> createState() => _PageSelectLanguageState();
 }
 
+class LanguageModel {
+  String? nameLanguage;
+  String? id, lang;
+  LanguageModel(this.nameLanguage, this.id, this.lang);
+}
+
 class _PageSelectLanguageState extends State<PageSelectLanguage>
     with SingleTickerProviderStateMixin {
   TextEditingController textEditingControllerChooseLanguage =
       TextEditingController();
   String? labelText;
+  List<LanguageModel> listLanguage = [
+    LanguageModel("English", "en", "US"),
+    LanguageModel("Arab", "ar", "AR"),
+    LanguageModel("English", "en", "US"),
+    LanguageModel("Arab", "ar", "AR"),
+    LanguageModel("English", "en", "US"),
+    LanguageModel("Arab", "ar", "AR"),
+    LanguageModel("English", "en", "US"),
+    LanguageModel("Arab", "ar", "AR"),
+    LanguageModel("English", "en", "US"),
+    LanguageModel("Arab", "ar", "AR"),
+    LanguageModel("English", "en", "US"),
+    LanguageModel("Arab", "ar", "AR"),
+  ];
   @override
   void initState() {
     // TODO: implement initState
@@ -47,23 +68,7 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
   late Animation<double> _animationRotateDouble;
 
   double _containerHeight = 50;
-  List<String> listLanguage = [
-    "English",
-    "Arabic",
-    "Spanish",
-    "French",
-    "German",
-    "Italian",
-    "Chinese",
-    "Japanese",
-    "Korean",
-    "Russian",
-    "Portuguese",
-    "Dutch",
-    "Swedish",
-    "Indonesian",
-    "Hindi",
-  ];
+
   String? _selectedLanguage = "English";
 
   List<Widget> listWidgetLanguage = [];
@@ -107,7 +112,7 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                       borderradius: BorderRadius.circular(20),
                     ),
                   ),
-                  ComponentTextDescription("Teach & Earn",
+                  ComponentTextDescription(tr("intro_tittle"),
                       fontSize: size.sizeTextHeaderGlobal),
                   SizedBox(
                     height: 0.h,
@@ -163,7 +168,7 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                             ),
                             child: Padding(
                                 padding: EdgeInsets.only(
-                                  top: 10.h,
+                                  top: 8.h,
                                   left: 10.w,
                                   right: 10.w,
                                 ),
@@ -174,21 +179,42 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                                       fontSize: size.sizeTextHeaderGlobal,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    Positioned(
-                                      right: 1,
-                                      child: RotationTransition(
-                                        turns:
-                                            animationRotateIndicatorController,
-                                        child: Image.asset(
-                                          "assets/icon/ic_drop_down_chose.png",
-                                          width: 20.w,
-                                          height: 20.h,
-                                        ),
-                                      ),
-                                    ),
+                                    UtilLocalization.checkLocalization(context)
+                                                .toString() ==
+                                            "US"
+                                        ? Positioned(
+                                            right: 1,
+                                            child: RotationTransition(
+                                              turns:
+                                                  animationRotateIndicatorController,
+                                              child: Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 5),
+                                                child: Image.asset(
+                                                  "assets/icon/ic_drop_down_chose.png",
+                                                  width: 20.w,
+                                                  height: 20.h,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : Positioned(
+                                            left: 1,
+                                            child: RotationTransition(
+                                              turns:
+                                                  animationRotateIndicatorController,
+                                              child: Image.asset(
+                                                "assets/icon/ic_drop_down_chose.png",
+                                                width: 20.w,
+                                                height: 20.h,
+                                              ),
+                                            ),
+                                          ),
                                     Container(
+                                      color: ListColor.backgroundBack,
                                       margin: EdgeInsets.only(top: 40),
-                                      padding: EdgeInsets.only(right: 5),
+                                      padding:
+                                          EdgeInsets.only(right: 5, left: 5),
                                       child: Scrollbar(
                                           thickness: 6,
                                           thumbVisibility: true,
@@ -211,7 +237,26 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                                                   print("set lang");
                                                   setState(() {
                                                     _selectedLanguage =
-                                                        listLanguage[index];
+                                                        listLanguage[index]
+                                                            .nameLanguage;
+                                                    EasyLocalization.of(
+                                                            context)!
+                                                        .setLocale(Locale(
+                                                      listLanguage[index]
+                                                          .id
+                                                          .toString(),
+                                                      listLanguage[index]
+                                                          .lang
+                                                          .toString(),
+                                                    ));
+                                                    Get.updateLocale(Locale(
+                                                      listLanguage[index]
+                                                          .id
+                                                          .toString(),
+                                                      listLanguage[index]
+                                                          .lang
+                                                          .toString(),
+                                                    ));
                                                   });
                                                   //EasyLocalization.of(context)
                                                   selectedIndex = index;
@@ -223,46 +268,54 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                                                     Divider(
                                                       height: 3,
                                                     ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        ComponentTextDescription(
-                                                          listLanguage[index],
-                                                          fontSize: size
-                                                              .sizeTextDescriptionGlobal,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                        Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  vertical: 2.h,
-                                                                  horizontal:
-                                                                      10),
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                                color: selectedIndex ==
-                                                                        index
-                                                                    ? Colors
-                                                                        .purple
-                                                                    : Colors
-                                                                        .white,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
-                                                                border: Border.all(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    width: size
-                                                                        .sizeBorderBlackGlobal)),
-                                                            width: 25.w,
-                                                            height: 25.h,
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          ComponentTextDescription(
+                                                            listLanguage[index]
+                                                                .nameLanguage,
+                                                            fontSize:
+                                                                size.sizeTextDescriptionGlobal +
+                                                                    5,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                           ),
-                                                        )
-                                                      ],
+                                                          SizedBox()
+                                                          // Padding(
+                                                          //   padding: EdgeInsets
+                                                          //       .symmetric(
+                                                          //           vertical: 2.h,
+                                                          //           horizontal:
+                                                          //               10),
+                                                          //   child: Container(
+                                                          //     decoration: BoxDecoration(
+                                                          //         color: selectedIndex ==
+                                                          //                 index
+                                                          //             ? Colors
+                                                          //                 .purple
+                                                          //             : Colors
+                                                          //                 .white,
+                                                          //         borderRadius:
+                                                          //             BorderRadius
+                                                          //                 .circular(
+                                                          //                     5.0),
+                                                          //         border: Border.all(
+                                                          //             color: Colors
+                                                          //                 .black,
+                                                          //             width: size
+                                                          //                 .sizeBorderBlackGlobal)),
+                                                          //     width: 25.w,
+                                                          //     height: 25.h,
+                                                          //   ),
+                                                          // )
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -284,16 +337,16 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 10.h),
                                   child: ComponentTextDescription(
-                                    "Choose a language",
+                                    tr("changeLanguage"),
                                     fontWeight: FontWeight.bold,
                                     fontSize: size.sizeTextDescriptionGlobal,
                                   ),
                                 ))),
                       ]),
                       SizedBox(
-                        height: 30.h,
+                        height: 35.h,
                       ),
-                    ], 
+                    ],
                   ),
                   BottomPageIndicator(),
                   SizedBox(

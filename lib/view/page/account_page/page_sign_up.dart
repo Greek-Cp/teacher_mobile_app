@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
+import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
-import 'package:teacher_mobile_app/view/page/page_sign_in.dart';
+import 'package:teacher_mobile_app/view/component/utils/Util.dart';
+import 'package:teacher_mobile_app/view/page/account_page/page_sign_in.dart';
 
 class PageSignUp extends StatefulWidget {
   static String? routeName = "/PageSignUp";
@@ -26,10 +29,17 @@ class _PageSignUpState extends State<PageSignUp> {
 
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
-
+  String? lang;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    lang = UtilLocalization.checkLocalization(context).toString();
+    print("lang $lang");
+    if (lang == "AR") {
+      print("arab");
+    } else {
+      print("engl");
+    }
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
@@ -97,17 +107,24 @@ class _PageSignUpState extends State<PageSignUp> {
                             TextFieldForm(
                                 textEditingControllerEmail:
                                     textEditingControllerFirstName,
-                                hintText: "email_adress",
-                                labelText: "email_address_hint"),
+                                labelText: "email_adress",
+                                hintText: "email_address_hint"),
                             SizedBox(
                               height: 15.h,
                             ),
-                            TextFieldPasswordForm(
-                              textEditingControllerEmail:
-                                  textEditingControllerPassword,
-                              labelText: "password",
-                              hintText: "password_hint",
-                            ),
+                            lang == "AR"
+                                ? TextFieldPasswordFormArabic(
+                                    textEditingControllerEmail:
+                                        textEditingControllerPassword,
+                                    labelText: "password",
+                                    hintText: "password_hint",
+                                  )
+                                : TextFieldPasswordForm(
+                                    textEditingControllerEmail:
+                                        textEditingControllerPassword,
+                                    labelText: "password",
+                                    hintText: "password_hint",
+                                  ),
                             SizedBox(
                               height: 50.h,
                             ),
@@ -115,20 +132,69 @@ class _PageSignUpState extends State<PageSignUp> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 410.h),
+                        margin: EdgeInsets.only(top: 410.h, bottom: 75.h),
+                        padding: EdgeInsets.symmetric(horizontal: 20.h),
                         child: Center(
-                            child: ButtonSmall(
+                            child: ButtonLong(
                                 nameButton: "sign_up",
                                 routeName: PageSignIn.routeName.toString())),
                       ),
                     ],
                   ),
+                  Expanded(
+                    child: BottomPageIndicator(),
+                  )
                 ],
               ),
             )),
           ),
         );
       },
+    );
+  }
+}
+
+class BottomPageIndicator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 15.w,
+          height: 13.h,
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Colors.black, width: size.sizeBorderBlackGlobal),
+              color: ListColor.cyanColor,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+        ),
+        SizedBox(
+          width: 10.w,
+        ),
+        Container(
+          width: 15.w,
+          height: 13.h,
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Colors.black, width: size.sizeBorderBlackGlobal),
+              color: ListColor.colorTextFieldBackground,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+        ),
+        SizedBox(
+          width: 10.w,
+        ),
+        Container(
+          width: 40.w,
+          height: 13.h,
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: Colors.black, width: size.sizeBorderBlackGlobal),
+              color: ListColor.colorPurple,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+        )
+      ],
     );
   }
 }

@@ -11,9 +11,10 @@ import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/button/widget_different_login.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
-import 'package:teacher_mobile_app/view/page/page_select_language.dart';
-import 'package:teacher_mobile_app/view/page/page_sign_in.dart';
-import 'package:teacher_mobile_app/view/page/page_sign_up.dart';
+import 'package:teacher_mobile_app/view/page/account_page/page_select_language.dart';
+import 'package:teacher_mobile_app/view/page/account_page/page_sign_in.dart';
+import 'package:teacher_mobile_app/view/page/account_page/page_sign_up.dart';
+
 
 class PageSelectLogin extends StatefulWidget {
   static String? routeName = "/PageSelectLogin";

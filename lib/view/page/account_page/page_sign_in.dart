@@ -14,7 +14,8 @@ import 'package:teacher_mobile_app/view/component/button/widget_different_login.
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
-import 'package:teacher_mobile_app/view/page/page_sign_up.dart';
+import 'package:teacher_mobile_app/view/page/account_page/page_forgot_password.dart';
+import 'package:teacher_mobile_app/view/page/account_page/page_sign_up.dart';
 
 class PageSignIn extends StatefulWidget {
   static String? routeName = "/PageSignIn";
@@ -28,10 +29,18 @@ class _PageSignInState extends State<PageSignIn> {
   String _selectedItem = 'Option 1'; // Initial selected value
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
+  String lang = UtilLocalization.checkLocalization.toString();
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    lang = UtilLocalization.checkLocalization(context).toString();
+    print("lang $lang");
+    if (lang == "AR") {
+      print("arab");
+    } else {
+      print("engl");
+    }
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
@@ -92,17 +101,31 @@ class _PageSignInState extends State<PageSignIn> {
                             SizedBox(
                               height: 15.h,
                             ),
-                            TextFieldPasswordForm(
-                              textEditingControllerEmail:
-                                  textEditingControllerPassword,
-                              labelText: "password",
-                              hintText: "password_hint",
-                            ),
+                            lang == "AR"
+                                ? TextFieldPasswordFormArabic(
+                                    textEditingControllerEmail:
+                                        textEditingControllerPassword,
+                                    labelText: "password",
+                                    hintText: "password_hint",
+                                  )
+                                : TextFieldPasswordForm(
+                                    textEditingControllerEmail:
+                                        textEditingControllerPassword,
+                                    labelText: "password",
+                                    hintText: "password_hint",
+                                  ),
                             SizedBox(
                               height: 40.h,
                             ),
-                            ComponentTextDescription(tr("forgot_password"),
-                                fontSize: size.sizeTextDescriptionGlobal),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(
+                                    PageForgotPassword.routeName.toString());
+                              },
+                              child: ComponentTextDescription(
+                                  tr("forgot_password"),
+                                  fontSize: size.sizeTextDescriptionGlobal),
+                            ),
                             SizedBox(
                               height: 40.h,
                             ),
@@ -112,9 +135,12 @@ class _PageSignInState extends State<PageSignIn> {
                       Container(
                         margin: EdgeInsets.only(top: 300.h),
                         child: Center(
-                            child: ButtonSmall(
-                          nameButton: "login",
-                          routeName: PageSignIn.routeName.toString(),
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.h),
+                          child: ButtonLong(
+                            nameButton: "login",
+                            routeName: PageSignIn.routeName.toString(),
+                          ),
                         )),
                       ),
                     ],
