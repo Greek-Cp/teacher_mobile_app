@@ -18,27 +18,24 @@ import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_language.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_login.dart';
 
-class PageProfileMenuAddEducation extends StatefulWidget {
-  static String? routeName = "/PageProfileMenuAddEducation";
+class PageProfileMenuAddExperience extends StatefulWidget {
+  static String? routeName = "/PageProfileMenuAddExperience";
 
   @override
-  State<PageProfileMenuAddEducation> createState() =>
-      _PageProfileMenuAddEducationState();
+  State<PageProfileMenuAddExperience> createState() =>
+      _PageProfileMenuAddExperienceState();
 }
 
-class _PageProfileMenuAddEducationState
-    extends State<PageProfileMenuAddEducation> with TickerProviderStateMixin {
+class _PageProfileMenuAddExperienceState
+    extends State<PageProfileMenuAddExperience> with TickerProviderStateMixin {
   TextEditingController textEditingControllerFirstName =
       TextEditingController();
   TextEditingController textEditingControllerLastName = TextEditingController();
-  TextEditingController textEditingControllerYear = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
-
   TextEditingController textEditingControllerSelectCountry =
       TextEditingController();
   late AnimationController animationControllerSelectLanguage;
   late AnimationController animationControllerTutoringLanguage;
-  late AnimationController animationControllerYear;
   @override
   void initState() {
     // TODO: implement initState
@@ -55,13 +52,9 @@ class _PageProfileMenuAddEducationState
     // setState(() {
     //   _selectedLanguage = "English";
     // });
-
     animationControllerSelectLanguage = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
-
     animationControllerTutoringLanguage = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
-    animationControllerYear = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
   }
 
@@ -158,7 +151,7 @@ class _PageProfileMenuAddEducationState
                                   ),
                                   Center(
                                       child: ComponentTextTittle(
-                                          tr("your_education"))),
+                                          tr("your_teaching_experiences"))),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -174,9 +167,9 @@ class _PageProfileMenuAddEducationState
                                         animationControllerSelectLanguage,
                                     textEditingControllerDropDown:
                                         textEditingControllerSelectCountry,
-                                    initialValueDropDown: "education_level",
+                                    initialValueDropDown: "selet_experience",
                                     containerHeight: 50,
-                                    labelText: tr("education_level") + " 1",
+                                    labelText: tr("experience") + " 1",
                                     listData: countryOfResidenceList,
                                   ),
                                   SizedBox(
@@ -187,22 +180,12 @@ class _PageProfileMenuAddEducationState
                                         animationControllerTutoringLanguage,
                                     textEditingControllerDropDown:
                                         textEditingControllerSelectCountry,
-                                    initialValueDropDown: tr("select_subject"),
+                                    initialValueDropDown:
+                                        tr("select_experienye_in_years"),
                                     containerHeight: 50,
-                                    labelText: tr("subject") + " 2",
-                                    listData: countryOfResidenceList,
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  DropDownWidget(
-                                    animationRotateIndicatorController:
-                                        animationControllerTutoringLanguage,
-                                    textEditingControllerDropDown:
-                                        textEditingControllerSelectCountry,
-                                    initialValueDropDown: tr("select_year"),
-                                    containerHeight: 50,
-                                    labelText: tr("completion_year") + " 3",
+                                    labelText:
+                                        tr("select_length_of_this_experi") +
+                                            " 2",
                                     listData: countryOfResidenceList,
                                   ),
                                   SizedBox(
@@ -223,11 +206,9 @@ class _PageProfileMenuAddEducationState
                                       TextEditingController
                                           textEditingControllerLanguage =
                                           TextEditingController();
+
                                       TextEditingController
                                           textEditingControllerTutoring =
-                                          TextEditingController();
-                                      TextEditingController
-                                          textEditingControllerYear =
                                           TextEditingController();
                                       AnimationController
                                           animationControllerSelectLanguageList =
@@ -238,14 +219,6 @@ class _PageProfileMenuAddEducationState
                                               upperBound: 0.5);
                                       AnimationController
                                           animationControllerSelectLanguageListTwo =
-                                          AnimationController(
-                                              vsync: this,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              upperBound: 0.5);
-
-                                      AnimationController
-                                          animationControllerSelectYear =
                                           AnimationController(
                                               vsync: this,
                                               duration:
@@ -266,10 +239,11 @@ class _PageProfileMenuAddEducationState
                                                 textEditingControllerDropDown:
                                                     textEditingControllerLanguage,
                                                 initialValueDropDown:
-                                                    "education_level",
+                                                    "select_experience",
                                                 containerHeight: 50,
-                                                labelText:
-                                                    tr("education_level"),
+                                                labelText: tr("experience") +
+                                                    " " +
+                                                    indexLanguage.toString(),
                                                 listData:
                                                     countryOfResidenceList,
                                               ),
@@ -281,31 +255,16 @@ class _PageProfileMenuAddEducationState
                                                     animationControllerSelectLanguageListTwo,
                                                 textEditingControllerDropDown:
                                                     textEditingControllerTutoring,
-                                                initialValueDropDown:
-                                                    tr("select_subject"),
-                                                containerHeight: 50,
-                                                labelText: tr("subject"),
-                                                listData:
-                                                    countryOfResidenceList,
-                                              ),
-                                              SizedBox(
-                                                height: 10.h,
-                                              ),
-                                              DropDownWidget(
-                                                animationRotateIndicatorController:
-                                                    animationControllerYear,
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerYear,
-                                                initialValueDropDown:
-                                                    tr("select_year"),
+                                                initialValueDropDown: tr(
+                                                    "select_experienye_in_years"),
                                                 containerHeight: 50,
                                                 labelText:
-                                                    tr("completion_year"),
+                                                    tr("select_length_of_this_experi") +
+                                                        " " +
+                                                        indexTutoringLanguage
+                                                            .toString(),
                                                 listData:
                                                     countryOfResidenceList,
-                                              ),
-                                              SizedBox(
-                                                height: 10.h,
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.symmetric(
@@ -343,7 +302,7 @@ class _PageProfileMenuAddEducationState
                             child: ButtonLong(
                           nameButton: "Confirm",
                           routeName:
-                              PageProfileMenuAddEducation.routeName.toString(),
+                              PageProfileMenuAddExperience.routeName.toString(),
                         )),
                       ),
                     ],

@@ -300,6 +300,128 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
   }
 }
 
+class TextFieldFormMultiLine extends StatefulWidget {
+  TextFieldFormMultiLine(
+      {required this.textEditingControllerEmail,
+      required this.hintText,
+      required this.labelText,
+      required this.lengthMax,
+      required this.minLines});
+  final TextEditingController textEditingControllerEmail;
+  final String labelText;
+  final String hintText;
+  int lengthMax;
+  int minLines;
+
+  @override
+  State<TextFieldFormMultiLine> createState() => _TextFieldFormMultiLineState();
+}
+
+class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
+    with SingleTickerProviderStateMixin {
+  Widget? animationSucces;
+
+  bool _isValidEmail = true;
+  late final AnimationController _controllerLottie;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controllerLottie = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1300));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 5.h),
+          child: TextField(
+            minLines: widget.minLines,
+            maxLength: widget.lengthMax,
+            controller: widget.textEditingControllerEmail,
+            onEditingComplete: () {
+              _controllerLottie.reset();
+              _controllerLottie.forward();
+
+              if (UtilValidatorData.isEmailValid(
+                  widget.textEditingControllerEmail.text.toString())) {
+                setState(() {
+                  animationSucces = Lottie.asset(
+                    "assets/icon/animation_succes.json",
+                    width: 20,
+                    height: 20,
+                    repeat: false,
+                    controller: _controllerLottie,
+                  );
+                });
+
+                print("Is Email");
+              } else {
+                setState(() {
+                  animationSucces = Lottie.asset(
+                    "assets/icon/animation_wrong.json",
+                    width: 30,
+                    height: 30,
+                    repeat: false,
+                    controller: _controllerLottie,
+                  );
+                });
+
+                print("Not Email");
+              }
+            },
+            style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+            maxLines: null, // Set this to null for multiline support
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              hintText: tr("${widget.hintText}"),
+              suffixIcon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: animationSucces,
+              ),
+              hintStyle: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              contentPadding: EdgeInsets.all(15.h),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black, // Change the border color here
+                  width: size
+                      .sizeBorderBlackGlobal, // Change the border width here
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black, // Change the border color here
+                  width: size
+                      .sizeBorderBlackGlobal, // Change the border width here
+                ),
+              ),
+            ),
+          ),
+        ),
+        Align(
+            alignment: Alignment.topLeft,
+            child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                margin: EdgeInsets.only(left: 20.w),
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.h),
+                  child: ComponentTextDescription(
+                    tr("${widget.labelText}"),
+                    fontWeight: FontWeight.bold,
+                    fontSize: size.sizeTextDescriptionGlobal - 3,
+                  ),
+                ))),
+      ],
+    );
+  }
+}
+
 class TextFieldForm extends StatefulWidget {
   TextFieldForm(
       {required this.textEditingControllerEmail,
