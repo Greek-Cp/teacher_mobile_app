@@ -17,6 +17,7 @@ import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_education.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_videos.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
+import 'package:teacher_mobile_app/view/page/profile/nav/base_nav_account.dart';
 
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
@@ -46,7 +47,7 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: PageProfileMenuAddVideos.routeName,
+      initialRoute: pageNavBar.routeName.toString(),
       defaultTransition: Transition.circularReveal,
       getPages: [
         GetPage(
@@ -94,7 +95,8 @@ class MainApp extends StatelessWidget {
             page: () => PageProfileMenuAddDescription()),
         GetPage(
             name: PageProfileMenuAddVideos.routeName.toString(),
-            page: () => PageProfileMenuAddVideos())
+            page: () => PageProfileMenuAddVideos()),
+        GetPage(name: pageNavBar.routeName.toString(), page: () => pageNavBar())
       ],
     );
   }
