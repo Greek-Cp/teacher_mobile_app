@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
@@ -201,6 +202,7 @@ class _TextFieldFormWithValidationState
     );
   }
 }
+
 class TextFieldFormPhone extends StatefulWidget {
   TextFieldFormPhone(
       {required this.textEditingControllerEmail,
@@ -214,6 +216,7 @@ class TextFieldFormPhone extends StatefulWidget {
   @override
   State<TextFieldFormPhone> createState() => _TextFieldFormPhoneState();
 }
+
 class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
     with SingleTickerProviderStateMixin {
   Widget? animationSucces;
@@ -237,6 +240,18 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
             child: IntlPhoneField(
               controller: widget.textEditingControllerEmail,
               style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              pickerDialogStyle: PickerDialogStyle(
+                  searchFieldCursorColor: Colors.white,
+                  countryNameStyle: TextStyle(
+                      fontSize: size.sizeTextDescriptionGlobal.sp,
+                      color: Colors.white),
+                  countryCodeStyle: TextStyle(
+                      fontSize: size.sizeTextDescriptionGlobal.sp,
+                      color: Colors.white)),
+              dropdownTextStyle: TextStyle(
+                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,

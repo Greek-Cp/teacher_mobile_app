@@ -18,22 +18,24 @@ import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_language.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_login.dart';
 
-class PageProfileMenuAbout extends StatefulWidget {
-  static String? routeName = "/PageProfileMenuAbout";
+class PageProfileMenuSelectLanguage extends StatefulWidget {
+  static String? routeName = "/PageProfileMenuSelectLanguage";
 
   @override
-  State<PageProfileMenuAbout> createState() => _PageProfileMenuAboutState();
+  State<PageProfileMenuSelectLanguage> createState() =>
+      _PageProfileMenuSelectLanguageState();
 }
 
-class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
-    with SingleTickerProviderStateMixin {
+class _PageProfileMenuSelectLanguageState
+    extends State<PageProfileMenuSelectLanguage> with TickerProviderStateMixin {
   TextEditingController textEditingControllerFirstName =
       TextEditingController();
   TextEditingController textEditingControllerLastName = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
   TextEditingController textEditingControllerSelectCountry =
       TextEditingController();
-  late AnimationController animationControllerDropDownSelectCountry;
+  late AnimationController animationControllerSelectLanguage;
+  late AnimationController animationControllerTutoringLanguage;
   @override
   void initState() {
     // TODO: implement initState
@@ -50,7 +52,9 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     // setState(() {
     //   _selectedLanguage = "English";
     // });
-    animationControllerDropDownSelectCountry = AnimationController(
+    animationControllerSelectLanguage = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
+    animationControllerTutoringLanguage = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
   }
 
@@ -72,6 +76,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     "Italy",
     // Tambahkan negara-negara lain sesuai kebutuhan Anda
   ];
+  int marginConfirm = 400;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -99,10 +104,9 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
             child: SafeArea(
                 child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: size.sizePaddingLeftAndRightPage.h,
-                  vertical: 20.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                horizontal: size.sizePaddingLeftAndRightPage.h,
+              ),
+              child: ListView(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,7 +119,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                       ConfirmToSaveChanges()
                     ],
                   ),
-                  Stack(
+                  Column(
                     children: [
                       Container(
                         decoration: BoxDecoration(
@@ -139,67 +143,73 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                                 SizedBox(
                                   height: 30.h,
                                 ),
-                                Center(child: ComponentTextTittle(tr("about"))),
+                                Center(
+                                    child: ComponentTextTittle(tr(
+                                        "languages_you_can_use_to_teach_math"))),
+                                Center(
+                                    child: ComponentTextTittle(tr(
+                                        "you_will_need_to_provide_a_video_presentation_in_each_selected_languages"))),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Container(
+                                      child: DropDownWidget(
+                                        animationRotateIndicatorController:
+                                            animationControllerSelectLanguage,
+                                        textEditingControllerDropDown:
+                                            textEditingControllerSelectCountry,
+                                        initialValueDropDown:
+                                            "select_a_language",
+                                        containerHeight: 50,
+                                        labelText: "language_1",
+                                        listData: countryOfResidenceList,
+                                      ),
+                                    ),
                                     SizedBox(
                                       height: 30.h,
+                                      child: Divider(
+                                        color: Colors.black,
+                                        height: 10.h,
+                                      ),
                                     ),
-                                    TextFieldForm(
-                                        textEditingControllerEmail:
-                                            textEditingControllerFirstName,
-                                        hintText: "first_name",
-                                        labelText: "first_name"),
+                                    DropDownWidget(
+                                      animationRotateIndicatorController:
+                                          animationControllerTutoringLanguage,
+                                      textEditingControllerDropDown:
+                                          textEditingControllerSelectCountry,
+                                      initialValueDropDown: "select_a_language",
+                                      containerHeight: 50,
+                                      labelText: "language_1",
+                                      listData: countryOfResidenceList,
+                                    ),
                                     SizedBox(
-                                      height: 15.h,
+                                      height: 10.h,
                                     ),
-                                    TextFieldForm(
-                                        textEditingControllerEmail:
-                                            textEditingControllerLastName,
-                                        hintText: "last_name",
-                                        labelText: "last_name"),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          marginConfirm += 100;
+                                        });
+                                      },
+                                      child: ComponentTextDescription(
+                                          "+ Add another Language",
+                                          fontSize:
+                                              size.sizeTextDescriptionGlobal),
+                                    ),
                                     SizedBox(
-                                      height: 80.h,
+                                      height: 70.h,
                                     ),
-                                    TextFieldFormPhone(
-                                        textEditingControllerEmail:
-                                            textEditingControllerLastName,
-                                        hintText: "phoneNumber",
-                                        labelText: "phone"),
-                                    ComponentTextDescription(
-                                        "-A code will be sent to this number for verification",
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal)
                                   ],
-                                ),
-                                SizedBox(
-                                  height: 70.h,
                                 ),
                               ]),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: 470.h, left: 20.h, right: 20.h),
-                        child: Center(
-                            child: ButtonLong(
+                      widget(
+                        child: ButtonLong(
                           nameButton: "Confirm",
-                          routeName: PageProfileMenuAbout.routeName.toString(),
-                        )),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: 240.h, left: 20.h, right: 20.h),
-                        child: DropDownWidget(
-                          animationRotateIndicatorController: animationControllerDropDownSelectCountry,
-                          textEditingControllerDropDown:
-                              textEditingControllerSelectCountry,
-                          initialValueDropDown: "Select a country",
-                          containerHeight: 50,
-                          labelText: "Country of residence",
-                          listData: countryOfResidenceList,
+                          routeName:
+                              PageProfileMenuSelectLanguage.routeName.toString(),
                         ),
                       ),
                     ],

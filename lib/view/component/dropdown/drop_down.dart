@@ -9,7 +9,7 @@ import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 class DropDownWidget extends StatefulWidget {
   TextEditingController textEditingControllerDropDown = TextEditingController();
 
-  late AnimationController animationRotateIndicatorController;
+  AnimationController animationRotateIndicatorController;
 
   late Animation<double> animationRotateDouble;
 
@@ -21,6 +21,7 @@ class DropDownWidget extends StatefulWidget {
   String? labelText;
   List<String>? listData;
   DropDownWidget({
+    required this.animationRotateIndicatorController,
     required this.textEditingControllerDropDown,
     required this.initialValueDropDown,
     required this.containerHeight,
@@ -31,18 +32,12 @@ class DropDownWidget extends StatefulWidget {
   State<DropDownWidget> createState() => _DropDownWidgetState();
 }
 
-class _DropDownWidgetState extends State<DropDownWidget>
-    with SingleTickerProviderStateMixin {
+class _DropDownWidgetState extends State<DropDownWidget> {
   @override
   void initState() {
     super.initState();
     // labelText = tr("select_a_country");
     // textEditingControllerDropDown.text = labelText.toString();
-    widget.animationRotateIndicatorController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-      upperBound: 0.5,
-    );
 
     widget.animationRotateDouble = Tween<double>(begin: 0, end: 1.0)
         .animate(widget.animationRotateIndicatorController);
