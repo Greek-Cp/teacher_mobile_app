@@ -18,16 +18,16 @@ import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_language.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_login.dart';
 
-class PageProfileMenuSelectLanguage extends StatefulWidget {
-  static String? routeName = "/PageProfileMenuSelectLanguage";
+class PageProfileMenuAddEducation extends StatefulWidget {
+  static String? routeName = "/PageProfileMenuAddEducation";
 
   @override
-  State<PageProfileMenuSelectLanguage> createState() =>
-      _PageProfileMenuSelectLanguageState();
+  State<PageProfileMenuAddEducation> createState() =>
+      _PageProfileMenuAddEducationState();
 }
 
-class _PageProfileMenuSelectLanguageState
-    extends State<PageProfileMenuSelectLanguage> with TickerProviderStateMixin {
+class _PageProfileMenuAddEducationState
+    extends State<PageProfileMenuAddEducation> with TickerProviderStateMixin {
   TextEditingController textEditingControllerFirstName =
       TextEditingController();
   TextEditingController textEditingControllerLastName = TextEditingController();
@@ -150,11 +150,8 @@ class _PageProfileMenuSelectLanguageState
                                     height: 30.h,
                                   ),
                                   Center(
-                                      child: ComponentTextTittle(tr(
-                                          "languages_you_can_use_to_teach_math"))),
-                                  Center(
-                                      child: ComponentTextTittle(tr(
-                                          "you_will_need_to_provide_a_video_presentation_in_each_selected_languages"))),
+                                      child: ComponentTextTittle(
+                                          tr("your_teaching_experiences"))),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -170,10 +167,29 @@ class _PageProfileMenuSelectLanguageState
                                         animationControllerSelectLanguage,
                                     textEditingControllerDropDown:
                                         textEditingControllerSelectCountry,
-                                    initialValueDropDown: "select_a_language",
+                                    initialValueDropDown: "selet_experience",
                                     containerHeight: 50,
-                                    labelText: tr("language") + " 1",
+                                    labelText: tr("experience") + " 1",
                                     listData: countryOfResidenceList,
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  DropDownWidget(
+                                    animationRotateIndicatorController:
+                                        animationControllerTutoringLanguage,
+                                    textEditingControllerDropDown:
+                                        textEditingControllerSelectCountry,
+                                    initialValueDropDown:
+                                        tr("select_experienye_in_years"),
+                                    containerHeight: 50,
+                                    labelText:
+                                        tr("select_length_of_this_experi") +
+                                            " 2",
+                                    listData: countryOfResidenceList,
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
@@ -183,20 +199,6 @@ class _PageProfileMenuSelectLanguageState
                                       height: 3.h,
                                       thickness: 3.h,
                                     ),
-                                  ),
-                                  DropDownWidget(
-                                    animationRotateIndicatorController:
-                                        animationControllerTutoringLanguage,
-                                    textEditingControllerDropDown:
-                                        textEditingControllerSelectCountry,
-                                    initialValueDropDown:
-                                        tr("select_a_language"),
-                                    containerHeight: 50,
-                                    labelText: tr("tutoring_language") + " 2",
-                                    listData: countryOfResidenceList,
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
                                   ),
                                   ...listWidget,
                                   GestureDetector(
@@ -237,11 +239,30 @@ class _PageProfileMenuSelectLanguageState
                                                 textEditingControllerDropDown:
                                                     textEditingControllerLanguage,
                                                 initialValueDropDown:
-                                                    "select_a_language",
+                                                    "select_experience",
                                                 containerHeight: 50,
-                                                labelText: tr("language") +
+                                                labelText: tr("experience") +
                                                     " " +
                                                     indexLanguage.toString(),
+                                                listData:
+                                                    countryOfResidenceList,
+                                              ),
+                                              SizedBox(
+                                                height: 10.h,
+                                              ),
+                                              DropDownWidget(
+                                                animationRotateIndicatorController:
+                                                    animationControllerSelectLanguageListTwo,
+                                                textEditingControllerDropDown:
+                                                    textEditingControllerTutoring,
+                                                initialValueDropDown: tr(
+                                                    "select_experienye_in_years"),
+                                                containerHeight: 50,
+                                                labelText:
+                                                    tr("select_length_of_this_experi") +
+                                                        " " +
+                                                        indexTutoringLanguage
+                                                            .toString(),
                                                 listData:
                                                     countryOfResidenceList,
                                               ),
@@ -254,22 +275,6 @@ class _PageProfileMenuSelectLanguageState
                                                   height: 3.h,
                                                   thickness: 3.h,
                                                 ),
-                                              ),
-                                              DropDownWidget(
-                                                animationRotateIndicatorController:
-                                                    animationControllerSelectLanguageListTwo,
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerTutoring,
-                                                initialValueDropDown:
-                                                    tr("select_a_language"),
-                                                containerHeight: 50,
-                                                labelText:
-                                                    tr("tutoring_language") +
-                                                        " " +
-                                                        indexTutoringLanguage
-                                                            .toString(),
-                                                listData:
-                                                    countryOfResidenceList,
                                               ),
                                             ],
                                           )
@@ -296,8 +301,8 @@ class _PageProfileMenuSelectLanguageState
                         child: Center(
                             child: ButtonLong(
                           nameButton: "Confirm",
-                          routeName: PageProfileMenuSelectLanguage.routeName
-                              .toString(),
+                          routeName:
+                              PageProfileMenuAddEducation.routeName.toString(),
                         )),
                       ),
                     ],

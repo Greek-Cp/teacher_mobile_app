@@ -218,7 +218,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.h),
                     child: ComponentTextDescription(
-                      tr("country_of_residence"),
+                      tr(widget.labelText.toString()),
                       fontWeight: FontWeight.bold,
                       fontSize: size.sizeTextDescriptionGlobal,
                     ),

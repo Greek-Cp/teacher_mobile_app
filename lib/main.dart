@@ -13,6 +13,7 @@ import 'package:teacher_mobile_app/view/page/account_page/page_sign_up_fill_user
 import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile_select_picture.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_about.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_education.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
@@ -43,7 +44,7 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: PageProfileMenuSelectLanguage.routeName,
+      initialRoute: PageProfileMenuAddEducation.routeName,
       defaultTransition: Transition.circularReveal,
       getPages: [
         GetPage(
@@ -82,7 +83,10 @@ class MainApp extends StatelessWidget {
             page: () => PageProfileMenuAbout()),
         GetPage(
             name: PageProfileMenuSelectLanguage.routeName.toString(),
-            page: () => PageProfileMenuSelectLanguage())
+            page: () => PageProfileMenuSelectLanguage()),
+        GetPage(
+            name: PageProfileMenuAddEducation.routeName.toString(),
+            page: () => PageProfileMenuAddEducation())
       ],
     );
   }
