@@ -282,7 +282,7 @@ class _PageProfileMenuSelectLanguageState
                                             255, 17, 68, 109),
                                         fontSize:
                                             size.sizeTextDescriptionGlobal),
-                                  ),
+                                  ), 
                                   SizedBox(
                                     height: 60.h,
                                   )

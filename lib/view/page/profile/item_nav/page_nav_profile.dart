@@ -15,7 +15,15 @@ import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_in.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_about.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_description.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_education.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_experience.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_change_username.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
+
+import 'profile_menu/page_profile_menu_add_videos.dart';
 
 class PageNavProfile extends StatefulWidget {
   static String? routeName = "/PageNavProfile";
@@ -34,45 +42,37 @@ class _PageNavProfileState extends State<PageNavProfile> {
   String? lang;
   List<ModelProfileMenu> listPrrofileMenu = [
     ModelProfileMenu(
-        nameMenu: tr("profile"),
-        routeNameDirect: "profile",
+        nameMenu: tr("username"),
+        routeNameDirect: PageProfileMenuChangeUsername.routeName.toString(),
         assetsPath: "assets/icon/profile/ic_profile.svg"),
     ModelProfileMenu(
         nameMenu: tr("about"),
-        routeNameDirect: "about",
+        routeNameDirect: PageProfileMenuAbout.routeName.toString(),
         assetsPath: "assets/icon/profile/ic_profile.svg"),
     ModelProfileMenu(
         nameMenu: tr("phone"),
-        routeNameDirect: "phone",
+        routeNameDirect: PageProfileMenuAbout.routeName.toString(),
         assetsPath: "assets/icon/profile/ic_profile.svg"),
     ModelProfileMenu(
         nameMenu: tr("language"),
-        routeNameDirect: "language",
+        routeNameDirect: PageProfileMenuSelectLanguage.routeName.toString(),
         assetsPath: "assets/icon/profile/ic_language.svg"),
     ModelProfileMenu(
-        nameMenu: tr("notification"),
-        routeNameDirect: "notification",
+        nameMenu: tr("experience"),
+        routeNameDirect: PageProfileMenuAddExperience.routeName.toString(),
         assetsPath: "assets/icon/profile/ic_notification.svg"),
     ModelProfileMenu(
-        nameMenu: tr("security"),
-        routeNameDirect: "security",
+        nameMenu: tr("education"),
+        routeNameDirect: PageProfileMenuAddEducation.routeName.toString(),
+        assetsPath: "assets/icon/profile/ic_wallet.svg"),
+    ModelProfileMenu(
+        nameMenu: tr("descriptions"),
+        routeNameDirect: PageProfileMenuAddDescription.routeName.toString(),
         assetsPath: "assets/icon/profile/ic_security.svg"),
     ModelProfileMenu(
-        nameMenu: tr("intive_student"),
-        routeNameDirect: "intive_student",
-        assetsPath: "assets/icon/profile/ic_invite_student.svg"),
-    ModelProfileMenu(
-        nameMenu: tr("help_center"),
-        routeNameDirect: "help_center",
-        assetsPath: "assets/icon/profile/ic_help_center.svg"),
-    ModelProfileMenu(
-        nameMenu: tr("terms_conditions"),
-        routeNameDirect: "terms_conditions",
-        assetsPath: "assets/icon/profile/ic_termscondition.svg"),
-    ModelProfileMenu(
-        nameMenu: tr("logout"),
-        routeNameDirect: "logout",
-        assetsPath: "assets/icon/profile/ic_logout.svg"),
+        nameMenu: tr("videos"),
+        routeNameDirect: PageProfileMenuAddVideos.routeName.toString(),
+        assetsPath: "assets/icon/profile/ic_security.svg"),
   ];
 
   @override
@@ -145,34 +145,41 @@ class _PageNavProfileState extends State<PageNavProfile> {
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            SvgPicture.asset(
-                                              listPrrofileMenu[index]
-                                                  .assetsPath,
-                                              width: 15.w,
-                                              height: 15.h,
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              child: ComponentTextDescription(
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(listPrrofileMenu[index]
+                                              .routeNameDirect
+                                              .toString());
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              SvgPicture.asset(
                                                 listPrrofileMenu[index]
-                                                    .nameMenu,
-                                                fontSize: size
-                                                    .sizeTextDescriptionGlobal,
-                                                fontWeight: FontWeight.bold,
+                                                    .assetsPath,
+                                                width: 15.w,
+                                                height: 15.h,
                                               ),
-                                            ),
-                                            SvgPicture.asset(
-                                                "assets/icon/profile/ic_arrow_rigth.svg")
-                                          ],
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Expanded(
+                                                child: ComponentTextDescription(
+                                                  listPrrofileMenu[index]
+                                                      .nameMenu,
+                                                  fontSize: size
+                                                      .sizeTextDescriptionGlobal,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SvgPicture.asset(
+                                                  "assets/icon/profile/ic_arrow_rigth.svg")
+                                            ],
+                                          ),
                                         ),
                                       );
                                     },

@@ -117,7 +117,8 @@ class _PageProfileMenuChangeUsernameState
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 250.h),
+                        margin: EdgeInsets.only(
+                            top: 250.h, left: 20.r, right: 20.r),
                         child: Center(
                             child: ButtonLong(
                           nameButton: "Confirm",

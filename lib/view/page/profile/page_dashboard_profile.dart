@@ -15,6 +15,7 @@ import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_in.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile.dart';
 
 class ModelProfileMenu {
   String nameMenu;
@@ -44,7 +45,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
   List<ModelProfileMenu> listPrrofileMenu = [
     ModelProfileMenu(
         nameMenu: tr("profile"),
-        routeNameDirect: "profile",
+        routeNameDirect: PageNavProfile.routeName.toString(),
         assetsPath: "assets/icon/profile/ic_profile.svg"),
     ModelProfileMenu(
         nameMenu: tr("language"),
@@ -244,34 +245,40 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            SvgPicture.asset(
-                                              listPrrofileMenu[index]
-                                                  .assetsPath,
-                                              width: 15.w,
-                                              height: 15.h,
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              child: ComponentTextDescription(
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Get.toNamed(listPrrofileMenu[index]
+                                              .routeNameDirect);
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              SvgPicture.asset(
                                                 listPrrofileMenu[index]
-                                                    .nameMenu,
-                                                fontSize: size
-                                                    .sizeTextDescriptionGlobal,
-                                                fontWeight: FontWeight.bold,
+                                                    .assetsPath,
+                                                width: 15.w,
+                                                height: 15.h,
                                               ),
-                                            ),
-                                            SvgPicture.asset(
-                                                "assets/icon/profile/ic_arrow_rigth.svg")
-                                          ],
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Expanded(
+                                                child: ComponentTextDescription(
+                                                  listPrrofileMenu[index]
+                                                      .nameMenu,
+                                                  fontSize: size
+                                                      .sizeTextDescriptionGlobal,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SvgPicture.asset(
+                                                  "assets/icon/profile/ic_arrow_rigth.svg")
+                                            ],
+                                          ),
                                         ),
                                       );
                                     },
