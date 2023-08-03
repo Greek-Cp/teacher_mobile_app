@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/models/CountryCode.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
@@ -15,63 +16,50 @@ import 'package:teacher_mobile_app/view/component/button/widget_different_login.
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
-import 'package:teacher_mobile_app/view/page/account_page/page_select_language.dart';
-import 'package:teacher_mobile_app/view/page/account_page/page_select_login.dart';
 
-class PageProfileMenuAbout extends StatefulWidget {
-  static String? routeName = "/PageProfileMenuAbout";
+class PageProfileMenuAddPhoneNumber extends StatefulWidget {
+  static String? routeName = "/PageProfileMenuAddPhoneNumber";
 
   @override
-  State<PageProfileMenuAbout> createState() => _PageProfileMenuAboutState();
+  State<PageProfileMenuAddPhoneNumber> createState() =>
+      _PageProfileMenuAddPhoneNumberState();
 }
 
-class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
-    with SingleTickerProviderStateMixin {
-  TextEditingController textEditingControllerFirstName =
-      TextEditingController();
-  TextEditingController textEditingControllerLastName = TextEditingController();
+class _PageProfileMenuAddPhoneNumberState
+    extends State<PageProfileMenuAddPhoneNumber> with TickerProviderStateMixin {
+  TextEditingController textEditingControllerEmail = TextEditingController();
+  TextEditingController textEditingControllerPassword = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
+  late AnimationController animationControllerDropDownSelectCountry;
   TextEditingController textEditingControllerSelectCountry =
       TextEditingController();
-  late AnimationController animationControllerDropDownSelectCountry;
+  List<CountryCode> countryCodes = [
+    CountryCode('🇺🇸', 'United States', '+1'),
+    CountryCode('🇬🇧', 'United Kingdom', '+44'),
+    CountryCode('🇨🇦', 'Canada', '+1'),
+    CountryCode('🇦🇺', 'Australia', '+61'),
+    CountryCode('🇩🇪', 'Germany', '+49'),
+    CountryCode('🇯🇵', 'Japan', '+81'),
+    CountryCode('🇧🇷', 'Brazil', '+55'),
+    CountryCode('🇮🇳', 'India', '+91'),
+    CountryCode('🇫🇷', 'France', '+33'),
+    CountryCode('🇮🇹', 'Italy', '+39'),
+    CountryCode('🇪🇸', 'Spain', '+34'),
+    CountryCode('🇨🇳', 'China', '+86'),
+    CountryCode('🇷🇺', 'Russia', '+7'),
+    CountryCode('🇿🇦', 'South Africa', '+27'),
+    CountryCode('🇲🇽', 'Mexico', '+52'),
+  ];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // labelText = tr("select_a_country");
-    // textEditingControllerChooseLanguage.text = labelText.toString();
-    // animationRotateIndicatorController = AnimationController(
-    //   vsync: this,
-    //   duration: Duration(milliseconds: 500),
-    //   upperBound: 0.5,
-    // );
-    // _animationRotateDouble = Tween<double>(begin: 0, end: 1.0)
-    //     .animate(animationRotateIndicatorController);
-    // setState(() {
-    //   _selectedLanguage = "English";
-    // });
     animationControllerDropDownSelectCountry = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+      upperBound: 0.5,
+    );
   }
 
-  final List<String> countryOfResidenceList = [
-    "Indonesia",
-    "United States",
-    "Canada",
-    "United Kingdom",
-    "Australia",
-    "Germany",
-    "France",
-    "Japan",
-    "South Korea",
-    "Brazil",
-    "India",
-    "Russia",
-    "South Africa",
-    "Spain",
-    "Italy",
-    // Tambahkan negara-negara lain sesuai kebutuhan Anda
-  ];
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -104,21 +92,15 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ButtonBackArrow(
-                        onPressed: () {
-                          Navigator.of(context);
-                        },
-                      ),
-                      ConfirmToSaveChanges()
-                    ],
+                  ButtonBackArrow(
+                    onPressed: () {
+                      Navigator.of(context);
+                    },
                   ),
                   Stack(
                     children: [
                       Container(
-                        height: 340.h,
+                        height: 450.h,
                         decoration: BoxDecoration(
                           color: Colors
                               .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -133,7 +115,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: size.sizeFieldText.h),
+                              horizontal: size.sizePaddingLeftAndRightPage.h),
                           child: SingleChildScrollView(
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -143,52 +125,56 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                                   SizedBox(
                                     height: 30.h,
                                   ),
-                                  Center(
-                                      child: ComponentTextTittle(tr("about"))),
+                                  DropDownWidgetChooseCountry(
+                                    animationRotateIndicatorController:
+                                        animationControllerDropDownSelectCountry,
+                                    textEditingControllerDropDown:
+                                        textEditingControllerSelectCountry,
+                                    initialValueDropDown:
+                                        "Select Phone Number Country",
+                                    containerHeight: 50,
+                                    labelText: "Choose a Country",
+                                    listData: countryCodes,
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
-                                        height: 30.h,
+                                      ComponentTextDescription("textContent",
+                                          fontSize:
+                                              size.sizeTextDescriptionGlobal),
+                                      OtpTextField(
+                                        numberOfFields: 5,
+
+                                        borderColor: Colors.black,
+                                        //set to true to show as box or false to show as dash
+                                        showFieldAsBox: true,
+                                        //runs when a code is typed in
+                                        onCodeChanged: (String code) {
+                                          //handle validation or checks here
+                                        },
+                                        //runs when every textfield is filled
+                                        onSubmit: (String verificationCode) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  title:
+                                                      Text("Verification Code"),
+                                                  content: Text(
+                                                      'Code entered is $verificationCode'),
+                                                );
+                                              });
+                                        }, // end onSubmit
                                       ),
-                                      TextFieldForm(
-                                          textEditingControllerEmail:
-                                              textEditingControllerFirstName,
-                                          hintText: "first_name",
-                                          labelText: "first_name"),
-                                      SizedBox(
-                                        height: 15.h,
-                                      ),
-                                      TextFieldForm(
-                                          textEditingControllerEmail:
-                                              textEditingControllerLastName,
-                                          hintText: "last_name",
-                                          labelText: "last_name"),
-                                      SizedBox(
-                                        height: 15.h,
-                                      ),
-                                      DropDownWidget(
-                                        animationRotateIndicatorController:
-                                            animationControllerDropDownSelectCountry,
-                                        textEditingControllerDropDown:
-                                            textEditingControllerSelectCountry,
-                                        initialValueDropDown:
-                                            "Select a country",
-                                        containerHeight: 50,
-                                        labelText: "Country of residence",
-                                        listData: countryOfResidenceList,
-                                      ),
-                                      // TextFieldFormPhone(
-                                      //     textEditingControllerEmail:
-                                      //         textEditingControllerLastName,
-                                      //     hintText: "phoneNumber",
-                                      //     labelText: "phone"),
                                     ],
                                   ),
                                   SizedBox(
-                                    height: 70.h,
+                                    height: 40.h,
                                   ),
                                 ]),
                           ),
@@ -196,11 +182,12 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                            top: 310.h, left: 20.h, right: 20.h),
+                            top: 420.h, left: 20.r, right: 20.r),
                         child: Center(
                             child: ButtonLong(
                           nameButton: "Confirm",
-                          routeName: PageProfileMenuAbout.routeName.toString(),
+                          routeName: PageProfileMenuAddPhoneNumber.routeName
+                              .toString(),
                         )),
                       ),
                     ],

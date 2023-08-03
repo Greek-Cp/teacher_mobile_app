@@ -22,6 +22,7 @@ import 'package:teacher_mobile_app/view/page/profile/nav/base_nav_account.dart';
 
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
+import 'view/page/profile/item_nav/profile_menu/page_profile_menu_add_phone_number.dart';
 import 'view/page/profile/item_nav/profile_menu/page_profile_menu_change_username.dart';
 
 void main() async {
@@ -48,7 +49,7 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: pageNavBar.routeName.toString(),
+      initialRoute: PageDashboardProfile.routeName.toString(),
       defaultTransition: Transition.circularReveal,
       getPages: [
         GetPage(
@@ -100,6 +101,10 @@ class MainApp extends StatelessWidget {
         GetPage(
             name: PageProfileMenuAddExperience.routeName.toString(),
             page: () => PageProfileMenuAddExperience()),
+        GetPage(
+          name: PageProfileMenuAddPhoneNumber.routeName.toString(),
+          page: () => PageProfileMenuAddPhoneNumber(),
+        ),
         GetPage(name: pageNavBar.routeName.toString(), page: () => pageNavBar())
       ],
     );

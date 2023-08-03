@@ -121,7 +121,8 @@ class _TextFieldFormWithValidationState
                       print("Not Email");
                     }
                   },
-                  style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+                  style: GoogleFonts.nunito(
+                      fontSize: size.sizeTextDescriptionGlobal.sp),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -130,11 +131,12 @@ class _TextFieldFormWithValidationState
                       padding: const EdgeInsets.all(8.0),
                       child: animationSucces,
                     ),
-                    hintStyle:
-                        TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+                    hintStyle: GoogleFonts.nunito(
+                        fontSize: size.sizeTextDescriptionGlobal.sp),
                     contentPadding: EdgeInsets.all(15.h),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius:
+                          BorderRadius.circular(size.roundedCircularGlobal),
                       borderSide: BorderSide(
                         color: Colors.black, // Change the border color here
                         width: size
@@ -142,7 +144,8 @@ class _TextFieldFormWithValidationState
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius:
+                          BorderRadius.circular(size.roundedCircularGlobal),
                       borderSide: BorderSide(
                         color: Colors.black, // Change the border color here
                         width: size
@@ -155,7 +158,7 @@ class _TextFieldFormWithValidationState
                 alignment: Alignment.topLeft,
                 child: AnimatedContainer(
                     duration: Duration(milliseconds: 500),
-                    margin: EdgeInsets.only(left: 20.w),
+                    margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
                     color: Colors.white,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.h),
@@ -239,7 +242,8 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
             margin: EdgeInsets.only(top: 10),
             child: IntlPhoneField(
               controller: widget.textEditingControllerEmail,
-              style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              style: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp),
               pickerDialogStyle: PickerDialogStyle(
                   searchFieldCursorColor: Colors.white,
                   countryNameStyle: TextStyle(
@@ -260,11 +264,12 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
                   padding: const EdgeInsets.all(8.0),
                   child: animationSucces,
                 ),
-                hintStyle:
-                    TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+                hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp),
                 contentPadding: EdgeInsets.all(15.h),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
                     color: Colors.black, // Change the border color here
                     width: size
@@ -272,7 +277,8 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
                     color: Colors.black, // Change the border color here
                     width: size
@@ -285,7 +291,7 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
             alignment: Alignment.topLeft,
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
-                margin: EdgeInsets.only(left: 20.w),
+                margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
                 color: Colors.white,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
@@ -372,7 +378,8 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                 print("Not Email");
               }
             },
-            style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+            style:
+                GoogleFonts.nunito(fontSize: size.sizeTextDescriptionGlobal.sp),
             maxLines: null, // Set this to null for multiline support
             decoration: InputDecoration(
               filled: true,
@@ -382,10 +389,11 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                 padding: const EdgeInsets.all(8.0),
                 child: animationSucces,
               ),
-              hintStyle: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              hintStyle: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp),
               contentPadding: EdgeInsets.all(15.h),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(size.roundedCircularGlobal),
                 borderSide: BorderSide(
                   color: Colors.black, // Change the border color here
                   width: size
@@ -393,7 +401,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(size.roundedCircularGlobal),
                 borderSide: BorderSide(
                   color: Colors.black, // Change the border color here
                   width: size
@@ -407,7 +415,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
             alignment: Alignment.topLeft,
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
-                margin: EdgeInsets.only(left: 20.w),
+                margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
                 color: Colors.white,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
@@ -487,7 +495,8 @@ class _TextFieldFormState extends State<TextFieldForm>
                   print("Not Email");
                 }
               },
-              style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              style: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
@@ -496,11 +505,12 @@ class _TextFieldFormState extends State<TextFieldForm>
                   padding: const EdgeInsets.all(8.0),
                   child: animationSucces,
                 ),
-                hintStyle:
-                    TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+                hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp),
                 contentPadding: EdgeInsets.all(15.h),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
                     color: Colors.black, // Change the border color here
                     width: size
@@ -508,7 +518,8 @@ class _TextFieldFormState extends State<TextFieldForm>
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
                     color: Colors.black, // Change the border color here
                     width: size
@@ -521,7 +532,7 @@ class _TextFieldFormState extends State<TextFieldForm>
             alignment: Alignment.topLeft,
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
-                margin: EdgeInsets.only(left: 20.w),
+                margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
                 color: Colors.white,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
@@ -618,7 +629,8 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                 }
               },
               obscureText: passwordHidden,
-              style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              style: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
@@ -627,7 +639,8 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 10.h),
+                      margin:
+                          EdgeInsets.only(left: size.sizeMarginLeftTittle.h),
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -653,11 +666,12 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                             child: animationSucces!)
                   ],
                 ),
-                hintStyle:
-                    TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+                hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp),
                 contentPadding: EdgeInsets.all(15.h),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
                     color: Colors.black, // Change the border color here
                     width: size
@@ -665,7 +679,8 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
                     color: Colors.black, // Change the border color here
                     width: size
@@ -678,7 +693,7 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
             alignment: Alignment.topLeft,
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
-                margin: EdgeInsets.only(left: 20.w),
+                margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
                 color: Colors.white,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
@@ -777,7 +792,8 @@ class _TextFieldPasswordFormArabicState
                 }
               },
               obscureText: passwordHidden,
-              style: TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+              style: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
@@ -786,7 +802,8 @@ class _TextFieldPasswordFormArabicState
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 10.h),
+                      margin:
+                          EdgeInsets.only(left: size.sizeMarginLeftTittle.h),
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -812,11 +829,12 @@ class _TextFieldPasswordFormArabicState
                             child: animationSucces!)
                   ],
                 ),
-                hintStyle:
-                    TextStyle(fontSize: size.sizeTextDescriptionGlobal.sp),
+                hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp),
                 contentPadding: EdgeInsets.all(15.h),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
                     color: Colors.black, // Change the border color here
                     width: size
@@ -824,7 +842,8 @@ class _TextFieldPasswordFormArabicState
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
                     color: Colors.black, // Change the border color here
                     width: size
@@ -837,7 +856,7 @@ class _TextFieldPasswordFormArabicState
             alignment: Alignment.topLeft,
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
-                margin: EdgeInsets.only(left: 20.w),
+                margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
                 color: Colors.white,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),

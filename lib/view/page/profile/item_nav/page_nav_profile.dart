@@ -19,6 +19,7 @@ import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_description.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_education.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_experience.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_phone_number.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_change_username.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
@@ -51,7 +52,7 @@ class _PageNavProfileState extends State<PageNavProfile> {
         assetsPath: "assets/icon/profile/ic_profile.svg"),
     ModelProfileMenu(
         nameMenu: tr("phone"),
-        routeNameDirect: PageProfileMenuAbout.routeName.toString(),
+        routeNameDirect: PageProfileMenuAddPhoneNumber.routeName.toString(),
         assetsPath: "assets/icon/profile/ic_profile.svg"),
     ModelProfileMenu(
         nameMenu: tr("language"),
@@ -96,9 +97,8 @@ class _PageNavProfileState extends State<PageNavProfile> {
             ),
             child: SafeArea(
                 child: Padding(
-              padding: EdgeInsets.only(
-                  left: size.sizePaddingLeftAndRightPage,
-                  right: size.sizePaddingLeftAndRightPage),
+              padding: EdgeInsets.symmetric(
+                  horizontal: size.sizePaddingLeftAndRightPage),
               child: ListView(
                 children: [
                   ButtonBackArrow(
@@ -109,7 +109,6 @@ class _PageNavProfileState extends State<PageNavProfile> {
                   Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 20),
                         decoration: BoxDecoration(
                             color: ListColor
                                 .backgroundContainerProfileWhite, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -123,7 +122,8 @@ class _PageNavProfileState extends State<PageNavProfile> {
                                 .r) // Sudut melengkung sebesar 30 unit
                             ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.sizePaddingLeftAndRightPage.h),
                           child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -152,7 +152,8 @@ class _PageNavProfileState extends State<PageNavProfile> {
                                               .toString());
                                         },
                                         child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
+                                          padding: EdgeInsets.only(
+                                              top: 10.h, bottom: 10.h),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,

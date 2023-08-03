@@ -125,7 +125,7 @@ Requirements
             ),
             child: SafeArea(
                 child: Padding(
-              padding: EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
                 horizontal: size.sizePaddingLeftAndRightPage.h,
               ),
               child: ListView(
@@ -154,10 +154,10 @@ Requirements
                             width: 2.0, // Ketebalan garis tepi
                           ),
                           borderRadius: BorderRadius.circular(
-                              30.0.r), // Sudut melengkung sebesar 30 unit
+                              size.sizeRoundedGlobal.r), // Sudut melengkung sebesar 30 unit
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.h),
+                          padding: EdgeInsets.symmetric(horizontal: size.sizeFieldText.h),
                           child: SingleChildScrollView(
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,

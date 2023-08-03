@@ -167,16 +167,16 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
             ),
             child: SafeArea(
                 child: Padding(
-              padding: EdgeInsets.only(
-                  left: size.sizePaddingLeftAndRightPage + 5,
-                  right: size.sizePaddingLeftAndRightPage + 5),
+              padding: EdgeInsets.symmetric(
+                  horizontal: size.sizePaddingLeftAndRightPage),
               child: ListView(
                 children: [
                   //profile
                   Stack(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 50),
+                        margin:
+                            EdgeInsets.only(top: size.marginTopPageGlobal.h),
                         decoration: BoxDecoration(
                             color: ListColor
                                 .backgroundContainerProfileWhite, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -190,7 +190,8 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                 .r) // Sudut melengkung sebesar 30 unit
                             ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.sizePaddingLeftAndRightPage.h),
                           child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -251,7 +252,8 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                               .routeNameDirect);
                                         },
                                         child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
+                                          padding: EdgeInsets.only(
+                                              top: 10, bottom: 10),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -377,7 +379,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 40.w, vertical: 10.h),
                                     child: Column(children: [
-                                      ComponentTextDescription("650 EUR",
+                                      ComponentTextDescription("0 EUR",
                                           fontSize: size.sizeTextHeaderGlobal),
                                       ComponentTextDescription(
                                         "Balance",
@@ -503,7 +505,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                         child: Column(
                                           children: [
                                             ComponentTextDescription(
-                                              "4.5",
+                                              "-",
                                               fontWeight: FontWeight.bold,
                                               fontSize:
                                                   size.sizeTextHeaderGlobal,
@@ -577,7 +579,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                         child: Column(
                                           children: [
                                             ComponentTextDescription(
-                                              "320 \nEUR",
+                                              "0",
                                               fontWeight: FontWeight.bold,
                                               fontSize: size
                                                   .sizeTextDescriptionGlobal,
@@ -749,7 +751,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                         child: Column(
                                           children: [
                                             ComponentTextDescription(
-                                              "18",
+                                              "0",
                                               fontWeight: FontWeight.bold,
                                               fontSize:
                                                   size.sizeTextHeaderGlobal,
@@ -786,7 +788,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                             Padding(
                                               padding: EdgeInsets.only(top: 10),
                                               child: ComponentTextDescription(
-                                                "340 \nEUR",
+                                                "0\nEUR",
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: size
                                                     .sizeTextDescriptionGlobal,
@@ -922,7 +924,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                         child: Column(
                                           children: [
                                             ComponentTextDescription(
-                                              "2.3 k",
+                                              "0",
                                               fontWeight: FontWeight.bold,
                                               fontSize:
                                                   size.sizeTextHeaderGlobal,
@@ -959,7 +961,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                         child: Column(
                                           children: [
                                             ComponentTextDescription(
-                                              "518",
+                                              "0",
                                               fontWeight: FontWeight.bold,
                                               fontSize:
                                                   size.sizeTextHeaderGlobal,
@@ -995,7 +997,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                         child: Column(
                                           children: [
                                             ComponentTextDescription(
-                                              "5.2k",
+                                              "0",
                                               fontWeight: FontWeight.bold,
                                               fontSize:
                                                   size.sizeTextHeaderGlobal,

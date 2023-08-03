@@ -135,11 +135,14 @@ class _PageProfileMenuSelectLanguageState
                                 .black, // Warna garis tepi (outline) hitam
                             width: 2.0, // Ketebalan garis tepi
                           ),
-                          borderRadius: BorderRadius.circular(
-                              30.0.r), // Sudut melengkung sebesar 30 unit
+                          borderRadius: BorderRadius.circular(size
+                              .sizeRoundedGlobal
+                              .r), // Sudut melengkung sebesar 30 unit
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.h),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: size.sizePaddingLeftAndRightPage.h,
+                          ),
                           child: SingleChildScrollView(
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -150,11 +153,15 @@ class _PageProfileMenuSelectLanguageState
                                     height: 30.h,
                                   ),
                                   Center(
-                                      child: ComponentTextTittle(tr(
-                                          "languages_you_can_use_to_teach_math"))),
+                                      child: ComponentTextDescription(
+                                    tr("languages_you_can_use_to_teach_math"),
+                                    fontSize: size.sizeTextDescriptionGlobal,
+                                  )),
                                   Center(
-                                      child: ComponentTextTittle(tr(
-                                          "you_will_need_to_provide_a_video_presentation_in_each_selected_languages"))),
+                                      child: ComponentTextDescription(
+                                    tr("you_will_need_to_provide_a_video_presentation_in_each_selected_languages"),
+                                    fontSize: size.sizeTextHeaderGlobal,
+                                  )),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -282,7 +289,7 @@ class _PageProfileMenuSelectLanguageState
                                             255, 17, 68, 109),
                                         fontSize:
                                             size.sizeTextDescriptionGlobal),
-                                  ), 
+                                  ),
                                   SizedBox(
                                     height: 60.h,
                                   )

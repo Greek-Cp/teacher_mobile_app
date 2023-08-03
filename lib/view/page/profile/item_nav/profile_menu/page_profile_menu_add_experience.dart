@@ -135,11 +135,12 @@ class _PageProfileMenuAddExperienceState
                                 .black, // Warna garis tepi (outline) hitam
                             width: 2.0, // Ketebalan garis tepi
                           ),
-                          borderRadius: BorderRadius.circular(
-                              30.0.r), // Sudut melengkung sebesar 30 unit
+                          borderRadius: BorderRadius.circular(size
+                              .sizeRoundedGlobal
+                              .r), // Sudut melengkung sebesar 30 unit
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.h),
+                          padding: EdgeInsets.symmetric(horizontal: size.sizeFieldText.h),
                           child: SingleChildScrollView(
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -147,20 +148,13 @@ class _PageProfileMenuAddExperienceState
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   SizedBox(
-                                    height: 30.h,
+                                    height: size.marginTopAndBottom.h,
                                   ),
                                   Center(
                                       child: ComponentTextTittle(
                                           tr("your_teaching_experiences"))),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 30.h,
-                                      ),
-                                    ],
+                                  SizedBox(
+                                    height: size.marginTopAndBottom.h,
                                   ),
                                   DropDownWidget(
                                     animationRotateIndicatorController:
@@ -188,12 +182,9 @@ class _PageProfileMenuAddExperienceState
                                             " 2",
                                     listData: countryOfResidenceList,
                                   ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: 20.h, vertical: 10.h),
+                                        horizontal: 20.w, vertical: 20.h),
                                     child: Divider(
                                       color: Colors.black,
                                       height: 3.h,
@@ -228,9 +219,6 @@ class _PageProfileMenuAddExperienceState
                                       indexTutoringLanguage += 2;
                                       setState(() {
                                         listWidget.addAll([
-                                          SizedBox(
-                                            height: 20.h,
-                                          ),
                                           Column(
                                             children: [
                                               DropDownWidget(
@@ -268,8 +256,8 @@ class _PageProfileMenuAddExperienceState
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.symmetric(
-                                                    horizontal: 20.h,
-                                                    vertical: 10.h),
+                                                    horizontal: 20.w,
+                                                    vertical: 20.h),
                                                 child: Divider(
                                                   color: Colors.black,
                                                   height: 3.h,

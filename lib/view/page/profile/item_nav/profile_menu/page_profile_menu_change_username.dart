@@ -56,8 +56,8 @@ class _PageProfileMenuChangeUsernameState
             child: SafeArea(
                 child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: size.sizePaddingLeftAndRightPage.h,
-                  vertical: 20.h),
+                horizontal: size.sizePaddingLeftAndRightPage.h,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -77,11 +77,13 @@ class _PageProfileMenuChangeUsernameState
                                 .black, // Warna garis tepi (outline) hitam
                             width: 2.0, // Ketebalan garis tepi
                           ),
-                          borderRadius: BorderRadius.circular(
-                              30.0.r), // Sudut melengkung sebesar 30 unit
+                          borderRadius: BorderRadius.circular(size
+                              .sizeRoundedGlobal
+                              .r), // Sudut melengkung sebesar 30 unit
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.sizePaddingLeftAndRightPage.h),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
