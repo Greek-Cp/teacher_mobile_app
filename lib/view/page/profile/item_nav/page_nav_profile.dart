@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
@@ -161,16 +160,8 @@ class _PageNavProfileState extends State<PageNavProfile> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          pushNewScreenWithRouteSettings(
-                                            context,
-                                            settings: RouteSettings(
-                                                name: listPrrofileMenu[index]
-                                                    .routeNameDirect),
-                                            screen:
-                                                listPrrofileMenu[index].page!,
-                                            pageTransitionAnimation:
-                                                PageTransitionAnimation.fade,
-                                          );
+                                          Get.toNamed(
+                                              listPrrofileMenu[index].routeNameDirect);
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.only(
