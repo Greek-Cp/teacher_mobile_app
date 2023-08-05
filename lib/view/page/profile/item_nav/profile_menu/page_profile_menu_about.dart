@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
@@ -34,6 +37,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
   TextEditingController textEditingControllerSelectCountry =
       TextEditingController();
   late AnimationController animationControllerDropDownSelectCountry;
+  int containerHeight = 545;
   @override
   void initState() {
     // TODO: implement initState
@@ -72,6 +76,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     "Italy",
     // Tambahkan negara-negara lain sesuai kebutuhan Anda
   ];
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -85,6 +90,9 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          extendBodyBehindAppBar:
+              true, // Extend the body behind the AppBar to show the blur effect
+          appBar: AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -101,111 +109,119 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
               padding: EdgeInsets.symmetric(
                 horizontal: size.sizePaddingLeftAndRightPage.h,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ButtonBackArrow(
-                        onPressed: () {
-                          Navigator.of(context);
-                        },
-                      ),
-                      ConfirmToSaveChanges()
-                    ],
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        height: 340.h,
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Stack(
+                      children: [
+                        Container(
+                          height: containerHeight.h,
+                          decoration: BoxDecoration(
                             color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
+                                .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                            border: Border.all(
+                              color: Colors
+                                  .black, // Warna garis tepi (outline) hitam
+                              width: 2.0, // Ketebalan garis tepi
+                            ),
+                            borderRadius: BorderRadius.circular(size
+                                .sizeRoundedGlobal
+                                .r), // Sudut melengkung sebesar 30 unit
                           ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizeFieldText.h),
-                          child: SingleChildScrollView(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    height: 30.h,
-                                  ),
-                                  Center(
-                                      child: ComponentTextTittle(tr("about"))),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 30.h,
-                                      ),
-                                      TextFieldForm(
-                                          textEditingControllerEmail:
-                                              textEditingControllerFirstName,
-                                          hintText: "first_name",
-                                          labelText: "first_name"),
-                                      SizedBox(
-                                        height: 15.h,
-                                      ),
-                                      TextFieldForm(
-                                          textEditingControllerEmail:
-                                              textEditingControllerLastName,
-                                          hintText: "last_name",
-                                          labelText: "last_name"),
-                                      SizedBox(
-                                        height: 15.h,
-                                      ),
-                                      DropDownWidget(
-                                        animationRotateIndicatorController:
-                                            animationControllerDropDownSelectCountry,
-                                        textEditingControllerDropDown:
-                                            textEditingControllerSelectCountry,
-                                        initialValueDropDown:
-                                            "Select a country",
-                                        containerHeight: 50,
-                                        labelText: "Country of residence",
-                                        listData: countryOfResidenceList,
-                                      ),
-                                      // TextFieldFormPhone(
-                                      //     textEditingControllerEmail:
-                                      //         textEditingControllerLastName,
-                                      //     hintText: "phoneNumber",
-                                      //     labelText: "phone"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 70.h,
-                                  ),
-                                ]),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.sizeFieldText.h),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      height: 30.h,
+                                    ),
+                                    Center(
+                                        child:
+                                            ComponentTextTittle(tr("about"))),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 30.h,
+                                        ),
+                                        TextFieldForm(
+                                            textEditingControllerEmail:
+                                                textEditingControllerFirstName,
+                                            hintText: "first_name",
+                                            labelText: "first_name"),
+                                        SizedBox(
+                                          height: 15.h,
+                                        ),
+                                        TextFieldForm(
+                                            textEditingControllerEmail:
+                                                textEditingControllerLastName,
+                                            hintText: "last_name",
+                                            labelText: "last_name"),
+                                        SizedBox(
+                                          height: 15.h,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              containerHeight += 50;
+                                            });
+                                          },
+                                          child: DropDownWidget(
+                                            animationRotateIndicatorController:
+                                                animationControllerDropDownSelectCountry,
+                                            textEditingControllerDropDown:
+                                                textEditingControllerSelectCountry,
+                                            initialValueDropDown:
+                                                "Select a country",
+                                            containerHeight: 50,
+                                            labelText: "Country of residence",
+                                            listData: countryOfResidenceList,
+                                          ),
+                                        ),
+                                        // TextFieldFormPhone(
+                                        //     textEditingControllerEmail:
+                                        //         textEditingControllerLastName,
+                                        //     hintText: "phoneNumber",
+                                        //     labelText: "phone"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 70.h,
+                                    ),
+                                  ]),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: 310.h, left: 20.h, right: 20.h),
-                        child: Center(
-                            child: ButtonLong(
-                          nameButton: "Confirm",
-                          routeName: PageProfileMenuAbout.routeName.toString(),
-                        )),
-                      ),
-                    ],
-                  ),
-                ],
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: 520.h, left: 20.h, right: 20.h),
+                          child: Center(
+                              child: ButtonLong(
+                            nameButton: "Confirm",
+                            routeName:
+                                PageProfileMenuAbout.routeName.toString(),
+                          )),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 40,
+                    )
+                  ],
+                ),
               ),
             )),
           ),

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
@@ -45,35 +46,48 @@ class _PageNavProfileState extends State<PageNavProfile> {
     ModelProfileMenu(
         nameMenu: tr("username"),
         routeNameDirect: PageProfileMenuChangeUsername.routeName.toString(),
-        assetsPath: "assets/icon/profile/ic_profile.svg"),
+        assetsPath: "assets/icon/profile/ic_profile.svg",
+        page: PageProfileMenuChangeUsername()),
     ModelProfileMenu(
-        nameMenu: tr("about"),
-        routeNameDirect: PageProfileMenuAbout.routeName.toString(),
-        assetsPath: "assets/icon/profile/ic_profile.svg"),
+      nameMenu: tr("about"),
+      routeNameDirect: PageProfileMenuAbout.routeName.toString(),
+      assetsPath: "assets/icon/profile/ic_profile.svg",
+      page: PageProfileMenuAbout(),
+    ),
     ModelProfileMenu(
-        nameMenu: tr("phone"),
-        routeNameDirect: PageProfileMenuAddPhoneNumber.routeName.toString(),
-        assetsPath: "assets/icon/profile/ic_profile.svg"),
+      nameMenu: tr("phone"),
+      routeNameDirect: PageProfileMenuAddPhoneNumber.routeName.toString(),
+      assetsPath: "assets/icon/profile/ic_profile.svg",
+      page: PageProfileMenuAddPhoneNumber(),
+    ),
     ModelProfileMenu(
-        nameMenu: tr("language"),
-        routeNameDirect: PageProfileMenuSelectLanguage.routeName.toString(),
-        assetsPath: "assets/icon/profile/ic_language.svg"),
+      nameMenu: tr("language"),
+      routeNameDirect: PageProfileMenuSelectLanguage.routeName.toString(),
+      assetsPath: "assets/icon/profile/ic_language.svg",
+      page: PageProfileMenuSelectLanguage(),
+    ),
     ModelProfileMenu(
-        nameMenu: tr("experience"),
-        routeNameDirect: PageProfileMenuAddExperience.routeName.toString(),
-        assetsPath: "assets/icon/profile/ic_notification.svg"),
+      nameMenu: tr("experience"),
+      routeNameDirect: PageProfileMenuAddExperience.routeName.toString(),
+      assetsPath: "assets/icon/profile/ic_notification.svg",
+      page: PageProfileMenuAddExperience(),
+    ),
     ModelProfileMenu(
-        nameMenu: tr("education"),
-        routeNameDirect: PageProfileMenuAddEducation.routeName.toString(),
-        assetsPath: "assets/icon/profile/ic_wallet.svg"),
+      nameMenu: tr("education"),
+      routeNameDirect: PageProfileMenuAddEducation.routeName.toString(),
+      assetsPath: "assets/icon/profile/ic_wallet.svg",
+      page: PageProfileMenuAddEducation(),
+    ),
     ModelProfileMenu(
         nameMenu: tr("descriptions"),
         routeNameDirect: PageProfileMenuAddDescription.routeName.toString(),
-        assetsPath: "assets/icon/profile/ic_security.svg"),
+        assetsPath: "assets/icon/profile/ic_security.svg",
+        page: PageProfileMenuAddDescription()),
     ModelProfileMenu(
         nameMenu: tr("videos"),
         routeNameDirect: PageProfileMenuAddVideos.routeName.toString(),
-        assetsPath: "assets/icon/profile/ic_security.svg"),
+        assetsPath: "assets/icon/profile/ic_security.svg",
+        page: PageProfileMenuAddVideos()),
   ];
 
   @override
@@ -147,9 +161,16 @@ class _PageNavProfileState extends State<PageNavProfile> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(listPrrofileMenu[index]
-                                              .routeNameDirect
-                                              .toString());
+                                          pushNewScreenWithRouteSettings(
+                                            context,
+                                            settings: RouteSettings(
+                                                name: listPrrofileMenu[index]
+                                                    .routeNameDirect),
+                                            screen:
+                                                listPrrofileMenu[index].page!,
+                                            pageTransitionAnimation:
+                                                PageTransitionAnimation.fade,
+                                          );
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.only(

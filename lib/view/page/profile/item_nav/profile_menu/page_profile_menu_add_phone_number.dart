@@ -8,6 +8,7 @@ import 'package:teacher_mobile_app/models/CountryCode.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
@@ -73,6 +74,7 @@ class _PageProfileMenuAddPhoneNumberState
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          appBar: AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -92,11 +94,8 @@ class _PageProfileMenuAddPhoneNumberState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ButtonBackArrow(
-                    onPressed: () {
-                      Navigator.of(context);
-                    },
-                  ),
+                 
+                  SizedBox(height: 20.h,),
                   Stack(
                     children: [
                       Container(
@@ -123,15 +122,14 @@ class _PageProfileMenuAddPhoneNumberState
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   SizedBox(
-                                    height: 30.h,
+                                    height: 60.h,
                                   ),
                                   DropDownWidgetChooseCountry(
                                     animationRotateIndicatorController:
                                         animationControllerDropDownSelectCountry,
                                     textEditingControllerDropDown:
                                         textEditingControllerSelectCountry,
-                                    initialValueDropDown:
-                                        "Select Phone Number Country",
+                                    initialValueDropDown: "Country",
                                     containerHeight: 50,
                                     labelText: "Choose a Country",
                                     listData: countryCodes,
@@ -139,17 +137,40 @@ class _PageProfileMenuAddPhoneNumberState
                                   SizedBox(
                                     height: 10.h,
                                   ),
+                                  ButtonLong(
+                                      nameButton: "Send",
+                                      routeName: PageProfileMenuAddPhoneNumber
+                                          .routeName
+                                          .toString()),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      ComponentTextDescription("textContent",
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      ComponentTextDescription("Verification",
                                           fontSize:
                                               size.sizeTextDescriptionGlobal),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      ComponentTextDescription(
+                                        "5 Digit Pin has been sent to: number_phone}",
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal,
+                                        textAlign: TextAlign.center,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
                                       OtpTextField(
                                         numberOfFields: 5,
-
+                                        fieldWidth: 50.0.w,
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 2.h),
                                         borderColor: Colors.black,
                                         //set to true to show as box or false to show as dash
                                         showFieldAsBox: true,
@@ -157,6 +178,10 @@ class _PageProfileMenuAddPhoneNumberState
                                         onCodeChanged: (String code) {
                                           //handle validation or checks here
                                         },
+                                        fillColor: ListColor
+                                            .colorBackgroundTextFieldAll,
+                                        filled: true,
+                                        enabledBorderColor: Colors.black,
                                         //runs when every textfield is filled
                                         onSubmit: (String verificationCode) {
                                           showDialog(
@@ -170,6 +195,30 @@ class _PageProfileMenuAddPhoneNumberState
                                                 );
                                               });
                                         }, // end onSubmit
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      ComponentTextDescription(
+                                        "minutes:seconds",
+                                        fontSize: size.sizeTextHeaderGlobal - 2,
+                                        teksColor: ListColor.colorPurpleBold,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      SizedBox(
+                                        height: 50.h,
+                                      ),
+                                      ComponentTextDescription(
+                                          "Didn't Receive Code ?",
+                                          fontSize:
+                                              size.sizeTextDescriptionGlobal),
+                                      ComponentTextDescription(
+                                        "Resend Code",
+                                        teksColor: ListColor.colorVerified,
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal,
+                                        textAlign: TextAlign.center,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ],
                                   ),

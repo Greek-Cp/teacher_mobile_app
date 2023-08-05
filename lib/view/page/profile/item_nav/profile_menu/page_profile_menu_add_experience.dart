@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/res/border/divider_global.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
@@ -79,8 +81,9 @@ class _PageProfileMenuAddExperienceState
   int marginConfirm = 60;
   List<Widget> listWidget = [];
   int indexLanguage = 1;
-  int indexTutoringLanguage = 2;
-
+  int indexTutoringLanguage = 1;
+  int limitExpreince = 0;
+  int globalContainer = 545;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -94,6 +97,7 @@ class _PageProfileMenuAddExperienceState
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          appBar: AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -112,21 +116,13 @@ class _PageProfileMenuAddExperienceState
               ),
               child: ListView(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ButtonBackArrow(
-                        onPressed: () {
-                          Navigator.of(context);
-                        },
-                      ),
-                      ConfirmToSaveChanges()
-                    ],
-                  ),
+                  
+                  SizedBox(height: 20.h,),
+                 
                   Stack(
                     children: [
                       Container(
-                        height: 550.h,
+                        height: globalContainer.h,
                         decoration: BoxDecoration(
                           color: Colors
                               .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -140,7 +136,8 @@ class _PageProfileMenuAddExperienceState
                               .r), // Sudut melengkung sebesar 30 unit
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: size.sizeFieldText.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.sizeFieldText.h),
                           child: SingleChildScrollView(
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -182,91 +179,80 @@ class _PageProfileMenuAddExperienceState
                                             " 2",
                                     listData: countryOfResidenceList,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20.w, vertical: 20.h),
-                                    child: Divider(
-                                      color: Colors.black,
-                                      height: 3.h,
-                                      thickness: 3.h,
-                                    ),
-                                  ),
+                                  DividerGlobal(),
                                   ...listWidget,
                                   GestureDetector(
                                     onTap: () {
-                                      TextEditingController
-                                          textEditingControllerLanguage =
-                                          TextEditingController();
-
-                                      TextEditingController
-                                          textEditingControllerTutoring =
-                                          TextEditingController();
-                                      AnimationController
-                                          animationControllerSelectLanguageList =
-                                          AnimationController(
-                                              vsync: this,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              upperBound: 0.5);
-                                      AnimationController
-                                          animationControllerSelectLanguageListTwo =
-                                          AnimationController(
-                                              vsync: this,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              upperBound: 0.5);
-                                      indexLanguage += 2;
-                                      indexTutoringLanguage += 2;
                                       setState(() {
-                                        listWidget.addAll([
-                                          Column(
-                                            children: [
-                                              DropDownWidget(
-                                                animationRotateIndicatorController:
-                                                    animationControllerSelectLanguageList,
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerLanguage,
-                                                initialValueDropDown:
-                                                    "select_experience",
-                                                containerHeight: 50,
-                                                labelText: tr("experience") +
-                                                    " " +
-                                                    indexLanguage.toString(),
-                                                listData:
-                                                    countryOfResidenceList,
-                                              ),
-                                              SizedBox(
-                                                height: 10.h,
-                                              ),
-                                              DropDownWidget(
-                                                animationRotateIndicatorController:
-                                                    animationControllerSelectLanguageListTwo,
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerTutoring,
-                                                initialValueDropDown: tr(
-                                                    "select_experienye_in_years"),
-                                                containerHeight: 50,
-                                                labelText:
-                                                    tr("select_length_of_this_experi") +
-                                                        " " +
-                                                        indexTutoringLanguage
-                                                            .toString(),
-                                                listData:
-                                                    countryOfResidenceList,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 20.w,
-                                                    vertical: 20.h),
-                                                child: Divider(
-                                                  color: Colors.black,
-                                                  height: 3.h,
-                                                  thickness: 3.h,
+                                        if (limitExpreince == 4) {
+                                          Get.snackbar("Notification",
+                                              "Maximal Experience Is 5");
+                                        } else {
+                                          TextEditingController
+                                              textEditingControllerLanguage =
+                                              TextEditingController();
+
+                                          TextEditingController
+                                              textEditingControllerTutoring =
+                                              TextEditingController();
+                                          AnimationController
+                                              animationControllerSelectLanguageList =
+                                              AnimationController(
+                                                  vsync: this,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  upperBound: 0.5);
+                                          AnimationController
+                                              animationControllerSelectLanguageListTwo =
+                                              AnimationController(
+                                                  vsync: this,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  upperBound: 0.5);
+                                          indexLanguage += 1;
+                                          indexTutoringLanguage += 1;
+                                          limitExpreince += 1;
+                                          listWidget.addAll([
+                                            Column(
+                                              children: [
+                                                DropDownWidget(
+                                                  animationRotateIndicatorController:
+                                                      animationControllerSelectLanguageList,
+                                                  textEditingControllerDropDown:
+                                                      textEditingControllerLanguage,
+                                                  initialValueDropDown:
+                                                      "select_experience",
+                                                  containerHeight: 50,
+                                                  labelText: tr("experience") +
+                                                      " " +
+                                                      indexLanguage.toString(),
+                                                  listData:
+                                                      countryOfResidenceList,
                                                 ),
-                                              ),
-                                            ],
-                                          )
-                                        ]);
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                DropDownWidget(
+                                                  animationRotateIndicatorController:
+                                                      animationControllerSelectLanguageListTwo,
+                                                  textEditingControllerDropDown:
+                                                      textEditingControllerTutoring,
+                                                  initialValueDropDown: tr(
+                                                      "select_experienye_in_years"),
+                                                  containerHeight: 50,
+                                                  labelText:
+                                                      tr("select_length_of_this_experi") +
+                                                          " " +
+                                                          indexTutoringLanguage
+                                                              .toString(),
+                                                  listData:
+                                                      countryOfResidenceList,
+                                                ),
+                                                DividerGlobal()
+                                              ],
+                                            )
+                                          ]);
+                                        }
                                       });
                                     },
                                     child: ComponentTextDescription(
@@ -294,6 +280,9 @@ class _PageProfileMenuAddExperienceState
                         )),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 50.h,
                   ),
                 ],
               ),

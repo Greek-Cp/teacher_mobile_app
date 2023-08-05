@@ -125,7 +125,7 @@ class _TextFieldFormWithValidationState
                       fontSize: size.sizeTextDescriptionGlobal.sp),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: ListColor.colorBackgroundTextFieldAll,
                     hintText: tr("${widget.hintText}"),
                     suffixIcon: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -159,12 +159,12 @@ class _TextFieldFormWithValidationState
                 child: AnimatedContainer(
                     duration: Duration(milliseconds: 500),
                     margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                    color: Colors.white,
+                    color: ListColor.colorBackgroundTextFieldAll,
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.h),
                       child: ComponentTextDescription(
                         tr("${widget.labelText}"),
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                         fontSize: size.sizeTextDescriptionGlobal,
                       ),
                     ))),
@@ -258,7 +258,7 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
                   color: Colors.white),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: ListColor.colorBackgroundTextFieldAll,
                 hintText: tr("${widget.hintText}"),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -292,12 +292,12 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                color: Colors.white,
+                color: ListColor.colorBackgroundTextFieldAll,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
                   child: ComponentTextDescription(
                     tr("${widget.labelText}"),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                     fontSize: size.sizeTextDescriptionGlobal,
                   ),
                 ))),
@@ -383,12 +383,8 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
             maxLines: null, // Set this to null for multiline support
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white,
+              fillColor: ListColor.colorBackgroundTextFieldAll,
               hintText: tr("${widget.hintText}"),
-              suffixIcon: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: animationSucces,
-              ),
               hintStyle: GoogleFonts.nunito(
                   fontSize: size.sizeTextDescriptionGlobal.sp),
               contentPadding: EdgeInsets.all(15.h),
@@ -416,12 +412,12 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                color: Colors.white,
+                color: ListColor.colorBackgroundTextFieldAll,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
                   child: ComponentTextDescription(
                     tr("${widget.labelText}"),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                     fontSize: size.sizeTextDescriptionGlobal - 3,
                   ),
                 ))),
@@ -499,7 +495,7 @@ class _TextFieldFormState extends State<TextFieldForm>
                   fontSize: size.sizeTextDescriptionGlobal.sp),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: ListColor.colorBackgroundTextFieldAll,
                 hintText: tr("${widget.hintText}"),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -533,12 +529,12 @@ class _TextFieldFormState extends State<TextFieldForm>
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                color: Colors.white,
+                color: ListColor.colorBackgroundTextFieldAll,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
                   child: ComponentTextDescription(
                     tr("${widget.labelText}"),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                     fontSize: size.sizeTextDescriptionGlobal,
                   ),
                 ))),
@@ -633,7 +629,7 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                   fontSize: size.sizeTextDescriptionGlobal.sp),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: ListColor.colorBackgroundTextFieldAll,
                 hintText: tr("${widget.hintText}"),
                 suffixIcon: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -699,7 +695,7 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
                   child: ComponentTextDescription(
                     tr("${widget.labelText}"),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                     fontSize: size.sizeTextDescriptionGlobal,
                   ),
                 ))),
@@ -796,7 +792,7 @@ class _TextFieldPasswordFormArabicState
                   fontSize: size.sizeTextDescriptionGlobal.sp),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: ListColor.colorBackgroundTextFieldAll,
                 hintText: tr("${widget.hintText}"),
                 suffixIcon: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -857,12 +853,12 @@ class _TextFieldPasswordFormArabicState
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                color: Colors.white,
+                color: ListColor.colorBackgroundTextFieldAll,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
                   child: ComponentTextDescription(
                     tr("${widget.labelText}"),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                     fontSize: size.sizeTextDescriptionGlobal,
                   ),
                 ))),

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
@@ -21,10 +22,11 @@ class ModelProfileMenu {
   String nameMenu;
   String routeNameDirect;
   String assetsPath;
+  Widget? page;
   ModelProfileMenu(
       {required this.nameMenu,
       required this.routeNameDirect,
-      required this.assetsPath});
+      required this.assetsPath, this.page});
 }
 
 class PageDashboardProfile extends StatefulWidget {
@@ -248,8 +250,14 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(listPrrofileMenu[index]
-                                              .routeNameDirect);
+                                          pushNewScreenWithRouteSettings(
+                                              context,
+                                              settings: RouteSettings(
+                                                  name:
+                                                      PageNavProfile.routeName),
+                                              screen: PageNavProfile(),
+                                              pageTransitionAnimation:
+                                                  PageTransitionAnimation.fade);
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.only(

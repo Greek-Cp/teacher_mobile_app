@@ -34,7 +34,9 @@ class ListColor {
   static const colorGray = Color.fromARGB(255, 217, 217, 217);
   static const colorBackgroundPhotoRequirements =
       Color.fromARGB(255, 54, 216, 255);
-
+  static const colorBackgroundTextFieldAll = Color.fromARGB(255, 224, 249, 253);
+  static const colorPurpleBold = Color.fromARGB(255, 168, 144, 255);
+  
   static const colorBackgroundConfirmToSaveChanges =
       Color.fromARGB(255, 247, 181, 0);
 }

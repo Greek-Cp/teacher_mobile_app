@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
@@ -42,6 +43,7 @@ class _PageProfileMenuChangeUsernameState
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          appBar: AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -61,10 +63,8 @@ class _PageProfileMenuChangeUsernameState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ButtonBackArrow(
-                    onPressed: () {
-                      Navigator.of(context);
-                    },
+                  SizedBox(
+                    height: 20.h,
                   ),
                   Stack(
                     children: [

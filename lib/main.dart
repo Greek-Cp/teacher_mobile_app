@@ -49,7 +49,7 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: PageDashboardProfile.routeName.toString(),
+      initialRoute: pageNavBar.routeName.toString(),
       defaultTransition: Transition.circularReveal,
       getPages: [
         GetPage(

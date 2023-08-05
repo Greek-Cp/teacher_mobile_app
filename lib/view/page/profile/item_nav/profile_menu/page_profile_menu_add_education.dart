@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/res/border/divider_global.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
@@ -87,7 +89,7 @@ class _PageProfileMenuAddEducationState
   List<Widget> listWidget = [];
   int indexLanguage = 1;
   int indexTutoringLanguage = 2;
-
+  int limitEducation = 0;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -101,6 +103,7 @@ class _PageProfileMenuAddEducationState
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          appBar: AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -119,17 +122,8 @@ class _PageProfileMenuAddEducationState
               ),
               child: ListView(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ButtonBackArrow(
-                        onPressed: () {
-                          Navigator.of(context);
-                        },
-                      ),
-                      ConfirmToSaveChanges()
-                    ],
-                  ),
+                 
+                  SizedBox(height: 20.h,),
                   Stack(
                     children: [
                       Container(
@@ -142,11 +136,13 @@ class _PageProfileMenuAddEducationState
                                 .black, // Warna garis tepi (outline) hitam
                             width: 2.0, // Ketebalan garis tepi
                           ),
-                          borderRadius: BorderRadius.circular(
-                              size.sizeRoundedGlobal.r), // Sudut melengkung sebesar 30 unit
+                          borderRadius: BorderRadius.circular(size
+                              .sizeRoundedGlobal
+                              .r), // Sudut melengkung sebesar 30 unit
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: size.sizeFieldText.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.sizeFieldText.h),
                           child: SingleChildScrollView(
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -208,118 +204,107 @@ class _PageProfileMenuAddEducationState
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20.h, vertical: 10.h),
-                                    child: Divider(
-                                      color: Colors.black,
-                                      height: 3.h,
-                                      thickness: 3.h,
-                                    ),
-                                  ),
+                                  DividerGlobal(),
                                   ...listWidget,
                                   GestureDetector(
                                     onTap: () {
-                                      TextEditingController
-                                          textEditingControllerLanguage =
-                                          TextEditingController();
-                                      TextEditingController
-                                          textEditingControllerTutoring =
-                                          TextEditingController();
-                                      TextEditingController
-                                          textEditingControllerYear =
-                                          TextEditingController();
-                                      AnimationController
-                                          animationControllerSelectLanguageList =
-                                          AnimationController(
-                                              vsync: this,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              upperBound: 0.5);
-                                      AnimationController
-                                          animationControllerSelectLanguageListTwo =
-                                          AnimationController(
-                                              vsync: this,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              upperBound: 0.5);
-
-                                      AnimationController
-                                          animationControllerSelectYear =
-                                          AnimationController(
-                                              vsync: this,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              upperBound: 0.5);
-                                      indexLanguage += 2;
-                                      indexTutoringLanguage += 2;
                                       setState(() {
-                                        listWidget.addAll([
-                                          SizedBox(
-                                            height: 20.h,
-                                          ),
-                                          Column(
-                                            children: [
-                                              DropDownWidget(
-                                                animationRotateIndicatorController:
-                                                    animationControllerSelectLanguageList,
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerLanguage,
-                                                initialValueDropDown:
-                                                    "education_level",
-                                                containerHeight: 50,
-                                                labelText:
-                                                    tr("education_level"),
-                                                listData:
-                                                    countryOfResidenceList,
-                                              ),
-                                              SizedBox(
-                                                height: 10.h,
-                                              ),
-                                              DropDownWidget(
-                                                animationRotateIndicatorController:
-                                                    animationControllerSelectLanguageListTwo,
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerTutoring,
-                                                initialValueDropDown:
-                                                    tr("select_subject"),
-                                                containerHeight: 50,
-                                                labelText: tr("subject"),
-                                                listData:
-                                                    countryOfResidenceList,
-                                              ),
-                                              SizedBox(
-                                                height: 10.h,
-                                              ),
-                                              DropDownWidget(
-                                                animationRotateIndicatorController:
-                                                    animationControllerYear,
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerYear,
-                                                initialValueDropDown:
-                                                    tr("select_year"),
-                                                containerHeight: 50,
-                                                labelText:
-                                                    tr("completion_year"),
-                                                listData:
-                                                    countryOfResidenceList,
-                                              ),
-                                              SizedBox(
-                                                height: 10.h,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 20.h,
-                                                    vertical: 10.h),
-                                                child: Divider(
-                                                  color: Colors.black,
-                                                  height: 3.h,
-                                                  thickness: 3.h,
+                                        if (limitEducation == 3) {
+                                          Get.snackbar("Notification",
+                                              "Maximal Education Is 4");
+                                        } else {
+                                          TextEditingController
+                                              textEditingControllerLanguage =
+                                              TextEditingController();
+                                          TextEditingController
+                                              textEditingControllerTutoring =
+                                              TextEditingController();
+                                          TextEditingController
+                                              textEditingControllerYear =
+                                              TextEditingController();
+                                          AnimationController
+                                              animationControllerSelectLanguageList =
+                                              AnimationController(
+                                                  vsync: this,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  upperBound: 0.5);
+                                          AnimationController
+                                              animationControllerSelectLanguageListTwo =
+                                              AnimationController(
+                                                  vsync: this,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  upperBound: 0.5);
+
+                                          AnimationController
+                                              animationControllerSelectYear =
+                                              AnimationController(
+                                                  vsync: this,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  upperBound: 0.5);
+                                          indexLanguage += 2;
+                                          indexTutoringLanguage += 2;
+                                          limitEducation += 1;
+                                          listWidget.addAll([
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Column(
+                                              children: [
+                                                DropDownWidget(
+                                                  animationRotateIndicatorController:
+                                                      animationControllerSelectLanguageList,
+                                                  textEditingControllerDropDown:
+                                                      textEditingControllerLanguage,
+                                                  initialValueDropDown:
+                                                      "education_level",
+                                                  containerHeight: 50,
+                                                  labelText:
+                                                      tr("education_level"),
+                                                  listData:
+                                                      countryOfResidenceList,
                                                 ),
-                                              ),
-                                            ],
-                                          )
-                                        ]);
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                DropDownWidget(
+                                                  animationRotateIndicatorController:
+                                                      animationControllerSelectLanguageListTwo,
+                                                  textEditingControllerDropDown:
+                                                      textEditingControllerTutoring,
+                                                  initialValueDropDown:
+                                                      tr("select_subject"),
+                                                  containerHeight: 50,
+                                                  labelText: tr("subject"),
+                                                  listData:
+                                                      countryOfResidenceList,
+                                                ),
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                DropDownWidget(
+                                                  animationRotateIndicatorController:
+                                                      animationControllerYear,
+                                                  textEditingControllerDropDown:
+                                                      textEditingControllerYear,
+                                                  initialValueDropDown:
+                                                      tr("select_year"),
+                                                  containerHeight: 50,
+                                                  labelText:
+                                                      tr("completion_year"),
+                                                  listData:
+                                                      countryOfResidenceList,
+                                                ),
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                DividerGlobal(),
+                                              ],
+                                            )
+                                          ]);
+                                        }
                                       });
                                     },
                                     child: ComponentTextDescription(
@@ -347,6 +332,9 @@ class _PageProfileMenuAddEducationState
                         )),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 60.h,
                   ),
                 ],
               ),

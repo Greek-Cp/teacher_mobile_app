@@ -15,11 +15,13 @@ class size {
 
   static double sizeBorderBlackGlobal = 2.0;
   static double sizeRoundedGlobal = 10;
-  static double sizeMarginLeftTittle = 30.0;
+  static double sizeMarginLeftTittle = 20.0;
   static double marginTopAndBottom = 30.0;
 
   static double roundedCircularGlobal = sizeRoundedGlobal;
   static double marginTopPageGlobal = 50;
   static EdgeInsets paddingHorizontalAwalFrame =
       EdgeInsets.symmetric(horizontal: 25.0);
+
+  static double sizeThicknessDivider = 2.0;
 }

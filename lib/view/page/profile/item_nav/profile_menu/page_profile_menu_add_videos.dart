@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/res/border/divider_global.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
@@ -112,6 +114,7 @@ Requirements
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          appBar: AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -125,21 +128,14 @@ Requirements
             ),
             child: SafeArea(
                 child: Padding(
-            padding: EdgeInsets.symmetric(
+              padding: EdgeInsets.symmetric(
                 horizontal: size.sizePaddingLeftAndRightPage.h,
               ),
               child: ListView(
+                physics: AlwaysScrollableScrollPhysics(),
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ButtonBackArrow(
-                        onPressed: () {
-                          Navigator.of(context);
-                        },
-                      ),
-                      ConfirmToSaveChanges()
-                    ],
+                  SizedBox(
+                    height: 20.h,
                   ),
                   Stack(
                     children: [
@@ -153,11 +149,13 @@ Requirements
                                 .black, // Warna garis tepi (outline) hitam
                             width: 2.0, // Ketebalan garis tepi
                           ),
-                          borderRadius: BorderRadius.circular(
-                              size.sizeRoundedGlobal.r), // Sudut melengkung sebesar 30 unit
+                          borderRadius: BorderRadius.circular(size
+                              .sizeRoundedGlobal
+                              .r), // Sudut melengkung sebesar 30 unit
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: size.sizeFieldText.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.sizeFieldText.h),
                           child: SingleChildScrollView(
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -476,15 +474,7 @@ Requirements
                                       ),
                                     ],
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20.h, vertical: 10.h),
-                                    child: Divider(
-                                      color: Colors.black,
-                                      height: 3.h,
-                                      thickness: 3.h,
-                                    ),
-                                  ),
+                                  DividerGlobal(),
                                   Center(
                                       child: ComponentTextDescription(
                                     tr("Videos-French"),
@@ -646,6 +636,9 @@ Requirements
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 60.h,
+                  )
                 ],
               ),
             )),

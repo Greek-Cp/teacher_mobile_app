@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
@@ -102,6 +103,7 @@ class _PageProfileMenuAddDescriptionState
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          appBar:AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -120,17 +122,8 @@ class _PageProfileMenuAddDescriptionState
               ),
               child: ListView(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ButtonBackArrow(
-                        onPressed: () {
-                          Navigator.of(context);
-                        },
-                      ),
-                      ConfirmToSaveChanges()
-                    ],
-                  ),
+                  SizedBox(height: 20.h,),
+                
                   Stack(
                     children: [
                       Container(
@@ -148,7 +141,8 @@ class _PageProfileMenuAddDescriptionState
                               .r), // Sudut melengkung sebesar 30 unit
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: size.sizeFieldText.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.sizeFieldText.h),
                           child: SingleChildScrollView(
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -176,24 +170,24 @@ class _PageProfileMenuAddDescriptionState
                                   ),
                                   TextFieldFormMultiLine(
                                     labelText:
-                                        "Short Description (max 150 character)",
+                                        "Short Description (max 120 character)",
                                     textEditingControllerEmail:
                                         textEditingControllerShortDescription,
                                     hintText: "test",
                                     minLines: 5,
-                                    lengthMax: 150,
+                                    lengthMax: 120,
                                   ),
                                   SizedBox(
                                     height: 20.h,
                                   ),
                                   TextFieldFormMultiLine(
                                     labelText:
-                                        "Short Description (max 150 character)",
+                                        "Short Description (max 300 character)",
                                     textEditingControllerEmail:
                                         textEditingControllerFullDescription,
                                     hintText: "test",
                                     minLines: 10,
-                                    lengthMax: 400,
+                                    lengthMax: 300,
                                   )
                                 ]),
                           ),
@@ -211,6 +205,9 @@ class _PageProfileMenuAddDescriptionState
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 60.h,
+                  )
                 ],
               ),
             )),
