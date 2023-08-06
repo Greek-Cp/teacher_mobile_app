@@ -74,6 +74,8 @@ class _PageProfileMenuAddPhoneNumberState
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+           extendBodyBehindAppBar:
+              true, // 
           appBar: AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(

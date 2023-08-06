@@ -44,6 +44,8 @@ class _PageProfileMenuChangeUsernameState
       builder: (context, child) {
         return Scaffold(
           appBar: AppBarGlobal(),
+           extendBodyBehindAppBar:
+              true, // 
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(

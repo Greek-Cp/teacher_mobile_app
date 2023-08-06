@@ -27,7 +27,7 @@ import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart
 import 'profile_menu/page_profile_menu_add_videos.dart';
 
 class PageNavProfile extends StatefulWidget {
-  static String? routeName = "/PageNavProfile";
+  static const String? routeName = "/PageNavProfile";
 
   @override
   State<PageNavProfile> createState() => _PageNavProfileState();
@@ -114,6 +114,7 @@ class _PageNavProfileState extends State<PageNavProfile> {
                   horizontal: size.sizePaddingLeftAndRightPage),
               child: ListView(
                 children: [
+                  SizedBox(height: 30),
                   ButtonBackArrow(
                     onPressed: () {
                       Navigator.of(context);
@@ -121,6 +122,7 @@ class _PageNavProfileState extends State<PageNavProfile> {
                   ),
                   Column(
                     children: [
+                      SizedBox(height: 30),
                       Container(
                         decoration: BoxDecoration(
                             color: ListColor
@@ -160,8 +162,14 @@ class _PageNavProfileState extends State<PageNavProfile> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(
-                                              listPrrofileMenu[index].routeNameDirect);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      listPrrofileMenu[index]
+                                                          .page!));
+                                          // Get.toNamed(listPrrofileMenu[index]
+                                          //     .routeNameDirect);
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.only(

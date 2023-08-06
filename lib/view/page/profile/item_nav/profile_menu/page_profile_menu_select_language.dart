@@ -92,6 +92,7 @@ class _PageProfileMenuSelectLanguageState
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          extendBodyBehindAppBar: true,
           appBar: AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(
@@ -111,8 +112,9 @@ class _PageProfileMenuSelectLanguageState
               ),
               child: ListView(
                 children: [
-             
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Stack(
                     children: [
                       Container(

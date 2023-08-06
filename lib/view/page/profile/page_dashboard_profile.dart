@@ -174,7 +174,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
               child: ListView(
                 children: [
                   //profile
-                  SizedBox(height: 20),
+                  SizedBox(height: 60),
                   Stack(
                     children: [
                       Container(
@@ -251,8 +251,11 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(listPrrofileMenu[index]
-                                              .routeNameDirect);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      PageNavProfile()));
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.only(

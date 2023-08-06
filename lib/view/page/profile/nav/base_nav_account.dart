@@ -1,11 +1,14 @@
-
-import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile.dart';
-
+import 'package:teacher_mobile_app/view/component/appbar/custom_bottom_tab_bar.dart';
+import 'package:flutter/cupertino.dart'
+    hide CupertinoTabScaffold, CupertinoTabBar;
+import 'package:teacher_mobile_app/view/component/appbar/custom_tab_scaffold.dart';
+import 'package:teacher_mobile_app/view/component/appbar/custom_bottom_tab_bar.dart';
+import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
 class pageNavBar extends StatefulWidget {
   static String? routeName = "/BaseNavAccount";
@@ -52,22 +55,31 @@ class _pageNavBarState extends State<pageNavBar> {
       builder: (context, child) {
         return CupertinoTabScaffold(
             tabBar: CupertinoTabBar(
+              activeColor: Colors.white,
+              inactiveColor: Colors.white,
               backgroundColor: Color.fromARGB(255, 168, 144, 255),
               items: [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home), label: "Videos"),
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: "Chat"),
+                    icon: SvgPicture.asset(
+                        "assets/icon/profile/ic_nav_videos.svg"),
+                    label: "Videos"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home), label: "Tutoring"),
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: "Quick"),
+                    icon: SvgPicture.asset(
+                        "assets/icon/profile/icon_nav_chat.svg"),
+                    label: "Chat"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home), label: "Profile"),
+                    icon:
+                        SvgPicture.asset("assets/icon/profile/ic_nav_book.svg"),
+                    label: "Tutoring"),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                        "assets/icon/profile/ic_nav_quick.svg"),
+                    label: "Q. Help"),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                        "assets/icon/profile/ic_nav_profile.svg"),
+                    label: "Profile"),
               ],
-              border: Border(
-                  top: BorderSide(
-                color: Colors.black,
-                width: 1.0,
-              )),
             ),
             tabBuilder: (context, index) {
               switch (index) {
@@ -92,7 +104,8 @@ class _pageNavBarState extends State<pageNavBar> {
                 case 3:
                   return CupertinoTabView(
                     builder: (context) {
-                      return CupertinoPageScaffold(child: PageNavProfile());
+                      return CupertinoPageScaffold(
+                          child: PageDashboardProfile());
                     },
                   );
               }

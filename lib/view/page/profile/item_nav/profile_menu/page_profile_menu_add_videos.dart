@@ -115,6 +115,8 @@ Requirements
       builder: (context, child) {
         return Scaffold(
           appBar: AppBarGlobal(),
+           extendBodyBehindAppBar:
+              true, // 
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(

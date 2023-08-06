@@ -18,13 +18,14 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
           // Clip the background to avoid blur overflow
           child: BackdropFilter(
             // Add blur effect to the background
+
             filter: ImageFilter.blur(
-                sigmaX: 10,
+                sigmaX: 12,
                 sigmaY:
-                    10), // Adjust the sigma values for the desired blur intensity
+                    12), // Adjust the sigma values for the desired blur intensity
             child: Container(
-              color: const Color.fromARGB(255, 255, 197, 197)
-                  .withOpacity(0.3), // Adjust the opacity of the blur effect
+              color: Colors.white
+                  .withOpacity(0.2), // Adjust the opacity of the blur effect
             ),
           ),
         ),
@@ -55,4 +56,3 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(90.h);
 }
-
