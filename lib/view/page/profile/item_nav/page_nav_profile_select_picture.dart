@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
@@ -20,10 +25,12 @@ class PageNavProfileSelectPicture extends StatefulWidget {
   static String? routeName = "/PageNavProfileSelectPicture";
 
   @override
-  State<PageNavProfileSelectPicture> createState() => _PageNavProfileSelectPictureState();
+  State<PageNavProfileSelectPicture> createState() =>
+      _PageNavProfileSelectPictureState();
 }
 
-class _PageNavProfileSelectPictureState extends State<PageNavProfileSelectPicture> {
+class _PageNavProfileSelectPictureState
+    extends State<PageNavProfileSelectPicture> {
   TextEditingController textEditingControllerFirstName =
       TextEditingController();
   TextEditingController textEditingControllerLastName = TextEditingController();
@@ -31,6 +38,30 @@ class _PageNavProfileSelectPictureState extends State<PageNavProfileSelectPictur
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
   String? lang;
+  File? selectedImage;
+
+  Future<void> pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+
+    // Pick an image from the gallery
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      // Crop the selected image
+      ImageCropper imageCropper = ImageCropper();
+      CroppedFile? croppedImage =
+          await imageCropper.cropImage(sourcePath: image.path);
+
+      setState(() {
+        selectedImage =
+            File(croppedImage!.path); // Set the selected and cropped image
+      });
+    } else {
+      // User canceled the selection
+      print('No image selected');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -39,6 +70,8 @@ class _PageNavProfileSelectPictureState extends State<PageNavProfileSelectPictur
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          appBar: AppBarGlobal(),
+          extendBodyBehindAppBar: true,
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -50,18 +83,12 @@ class _PageNavProfileSelectPictureState extends State<PageNavProfileSelectPictur
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: SafeArea(
-                child: Padding(
+            child: Padding(
               padding: EdgeInsets.only(
                   left: size.sizePaddingLeftAndRightPage,
                   right: size.sizePaddingLeftAndRightPage),
               child: ListView(
                 children: [
-                  ButtonBackArrow(
-                    onPressed: () {
-                      Navigator.of(context);
-                    },
-                  ),
                   Stack(
                     children: [
                       Container(
@@ -103,7 +130,13 @@ class _PageNavProfileSelectPictureState extends State<PageNavProfileSelectPictur
                                             color: Colors.black)),
                                     child: Container(
                                       width: double.infinity,
-                                      height: 260.h,
+                                      height: 230.h,
+                                      child: selectedImage == null
+                                          ? Container()
+                                          : CircleAvatar(
+                                              backgroundImage:
+                                                  FileImage(selectedImage!),
+                                            ),
                                     ),
                                   ),
                                 ),
@@ -119,13 +152,18 @@ class _PageNavProfileSelectPictureState extends State<PageNavProfileSelectPictur
                                 SizedBox(
                                   height: 20.h,
                                 ),
-                                ButtonLongHeader(
-                                  nameButton: "select_your_profile_picture",
-                                  routeName: "profile_picture",
-                                  fontWeight: FontWeight.bold,
-                                  colorButton:
-                                      ListColor.backgroundItemRatingGreen,
-                                  colorFont: Colors.black,
+                                InkWell(
+                                  onTap: () {
+                                    pickImage();
+                                  },
+                                  child: CardButtonLong(
+                                    nameButton: "select_your_profile_picture",
+                                    routeName: "profile_picture",
+                                    fontWeight: FontWeight.bold,
+                                    colorButton:
+                                        ListColor.backgroundItemRatingGreen,
+                                    colorFont: Colors.black,
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 20.h,
@@ -202,7 +240,7 @@ class _PageNavProfileSelectPictureState extends State<PageNavProfileSelectPictur
                   //Tutoring
                 ],
               ),
-            )),
+            ),
           ),
         );
       },

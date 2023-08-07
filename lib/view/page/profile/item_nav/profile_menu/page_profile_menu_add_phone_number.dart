@@ -74,8 +74,7 @@ class _PageProfileMenuAddPhoneNumberState
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
-           extendBodyBehindAppBar:
-              true, // 
+          extendBodyBehindAppBar: true, //
           appBar: AppBarGlobal(),
           body: Container(
             decoration: BoxDecoration(
@@ -88,16 +87,15 @@ class _PageProfileMenuAddPhoneNumberState
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: SafeArea(
-                child: Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: size.sizePaddingLeftAndRightPage.h,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
-                 
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Stack(
                     children: [
                       Container(
@@ -124,7 +122,7 @@ class _PageProfileMenuAddPhoneNumberState
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   SizedBox(
-                                    height: 60.h,
+                                    height: 40.h,
                                   ),
                                   DropDownWidgetChooseCountry(
                                     animationRotateIndicatorController:
@@ -208,7 +206,7 @@ class _PageProfileMenuAddPhoneNumberState
                                         fontWeight: FontWeight.bold,
                                       ),
                                       SizedBox(
-                                        height: 50.h,
+                                        height: 20.h,
                                       ),
                                       ComponentTextDescription(
                                           "Didn't Receive Code ?",
@@ -245,7 +243,7 @@ class _PageProfileMenuAddPhoneNumberState
                   ),
                 ],
               ),
-            )),
+            ),
           ),
         );
       },

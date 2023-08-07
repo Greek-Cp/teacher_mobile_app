@@ -105,8 +105,7 @@ class _PageProfileMenuSelectLanguageState
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: SafeArea(
-                child: Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: size.sizePaddingLeftAndRightPage.h,
               ),
@@ -254,7 +253,7 @@ class _PageProfileMenuSelectLanguageState
                   )
                 ],
               ),
-            )),
+            ),
           ),
         );
       },

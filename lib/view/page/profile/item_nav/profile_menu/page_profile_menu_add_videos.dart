@@ -128,522 +128,521 @@ Requirements
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: SafeArea(
-                child: Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: size.sizePaddingLeftAndRightPage.h,
+            horizontal: size.sizePaddingLeftAndRightPage.h,
               ),
               child: ListView(
-                physics: AlwaysScrollableScrollPhysics(),
+            physics: AlwaysScrollableScrollPhysics(),
+            children: [
+              SizedBox(
+                height: 20.h,
+              ),
+              Stack(
                 children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        height: 550.h,
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
-                          ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizeFieldText.h),
-                          child: SingleChildScrollView(
-                            child: Column(
+                  Container(
+                    height: 550.h,
+                    decoration: BoxDecoration(
+                      color: Colors
+                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                      border: Border.all(
+                        color: Colors
+                            .black, // Warna garis tepi (outline) hitam
+                        width: 2.0, // Ketebalan garis tepi
+                      ),
+                      borderRadius: BorderRadius.circular(size
+                          .sizeRoundedGlobal
+                          .r), // Sudut melengkung sebesar 30 unit
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: size.sizeFieldText.h),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              SizedBox(
+                                height: 30.h,
+                              ),
+                              Center(
+                                  child: ComponentTextTittle(
+                                      tr("videos_english"))),
+                              Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
                                     height: 30.h,
                                   ),
-                                  Center(
-                                      child: ComponentTextTittle(
-                                          tr("videos_english"))),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 30.h,
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              Center(
+                                  child: ComponentTextDescription(
+                                tr("1_intro_video"),
+                                fontSize: size.sizeTextHeaderGlobal,
+                                fontWeight: FontWeight.bold,
+                              )),
+                              Center(
+                                  child: ComponentTextDescription(
+                                tr("introduce_yourself_to_the_students"),
+                                fontSize: size.sizeTextDescriptionGlobal,
+                                fontWeight: FontWeight.bold,
+                              )),
+                              Stack(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 30.h),
+                                    decoration: BoxDecoration(
+                                      color: Colors
+                                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                                      border: Border.all(
+                                        color: Colors
+                                            .black, // Warna garis tepi (outline) hitam
+                                        width: 2.0, // Ketebalan garis tepi
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("1_intro_video"),
-                                    fontSize: size.sizeTextHeaderGlobal,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("introduce_yourself_to_the_students"),
-                                    fontSize: size.sizeTextDescriptionGlobal,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(top: 30.h),
-                                        decoration: BoxDecoration(
-                                          color: Colors
-                                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                                          border: Border.all(
-                                            color: Colors
-                                                .black, // Warna garis tepi (outline) hitam
-                                            width: 2.0, // Ketebalan garis tepi
-                                          ),
-                                          borderRadius: BorderRadius.circular(size
-                                              .sizeRoundedGlobal
-                                              .r), // Sudut melengkung sebesar 30 unit
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10.h),
-                                          child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
+                                      borderRadius: BorderRadius.circular(size
+                                          .sizeRoundedGlobal
+                                          .r), // Sudut melengkung sebesar 30 unit
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.h),
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 60.h,
+                                            ),
+                                            ComponentTextDescription(
+                                              tr("$requirements"),
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisSize:
+                                                  MainAxisSize.max,
                                               children: [
-                                                SizedBox(
-                                                  height: 60.h,
-                                                ),
-                                                ComponentTextDescription(
-                                                  tr("$requirements"),
-                                                  fontSize: size
-                                                      .sizeTextDescriptionGlobal,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                SizedBox(
-                                                  height: 20.h,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
+                                                Column(
                                                   children: [
-                                                    Column(
-                                                      children: [
-                                                        Card(
-                                                          child: Container(
-                                                            width: 110.w,
-                                                            height: 150.h,
-                                                          ),
-                                                        ),
-                                                        ComponentTextDescription(
-                                                            "Video",
-                                                            fontSize: size
-                                                                .sizeTextDescriptionGlobal)
-                                                      ],
+                                                    Card(
+                                                      child: Container(
+                                                        width: 110.w,
+                                                        height: 150.h,
+                                                      ),
                                                     ),
-                                                    Column(
-                                                      children: [
-                                                        Card(
-                                                          child: Container(
-                                                            width: 110.w,
-                                                            height: 150.h,
-                                                          ),
-                                                        ),
-                                                        ComponentTextDescription(
-                                                            "Thumbnail",
-                                                            fontSize: size
-                                                                .sizeTextDescriptionGlobal)
-                                                      ],
-                                                    )
+                                                    ComponentTextDescription(
+                                                        "Video",
+                                                        fontSize: size
+                                                            .sizeTextDescriptionGlobal)
                                                   ],
                                                 ),
-                                                SizedBox(
-                                                  height: 40.h,
-                                                )
-                                              ]),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 20.w, vertical: 10.h),
-                                        child: Align(
-                                            alignment: Alignment.topCenter,
-                                            child: Center(
-                                              child: Card(
-                                                color: ListColor
-                                                    .backgroundColorVerified,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30.r),
-                                                    side: BorderSide(
-                                                        width: size
-                                                            .sizeBorderBlackGlobal,
-                                                        color: Colors.black)),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      ComponentTextDescription(
-                                                        "Status: ",
-                                                        fontSize: size
-                                                            .sizeTextDescriptionGlobal,
-                                                        teksColor: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                      ComponentTextDescription(
-                                                        "Verified",
-                                                        fontSize: size
-                                                            .sizeTextDescriptionGlobal,
-                                                        teksColor: ListColor
-                                                            .colorVerified,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("2_intro_video"),
-                                    fontSize: size.sizeTextHeaderGlobal,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("Display an example of your teaching skills to potential students through real example."),
-                                    fontSize: size.sizeTextDescriptionGlobal,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(top: 30.h),
-                                        decoration: BoxDecoration(
-                                          color: Colors
-                                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                                          border: Border.all(
-                                            color: Colors
-                                                .black, // Warna garis tepi (outline) hitam
-                                            width: 2.0, // Ketebalan garis tepi
-                                          ),
-                                          borderRadius: BorderRadius.circular(size
-                                              .sizeRoundedGlobal
-                                              .r), // Sudut melengkung sebesar 30 unit
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10.h),
-                                          child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SizedBox(
-                                                  height: 60.h,
-                                                ),
-                                                ComponentTextDescription(
-                                                  tr("$requirements"),
-                                                  fontSize: size
-                                                      .sizeTextDescriptionGlobal,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                SizedBox(
-                                                  height: 20.h,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
+                                                Column(
                                                   children: [
-                                                    Column(
-                                                      children: [
-                                                        Card(
-                                                          child: Container(
-                                                            width: 110.w,
-                                                            height: 150.h,
-                                                          ),
-                                                        ),
-                                                        ComponentTextDescription(
-                                                            "Video",
-                                                            fontSize: size
-                                                                .sizeTextDescriptionGlobal)
-                                                      ],
+                                                    Card(
+                                                      child: Container(
+                                                        width: 110.w,
+                                                        height: 150.h,
+                                                      ),
                                                     ),
-                                                    Column(
-                                                      children: [
-                                                        Card(
-                                                          child: Container(
-                                                            width: 110.w,
-                                                            height: 150.h,
-                                                          ),
-                                                        ),
-                                                        ComponentTextDescription(
-                                                            "Thumbnail",
-                                                            fontSize: size
-                                                                .sizeTextDescriptionGlobal)
-                                                      ],
-                                                    )
+                                                    ComponentTextDescription(
+                                                        "Thumbnail",
+                                                        fontSize: size
+                                                            .sizeTextDescriptionGlobal)
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 40.h,
+                                            )
+                                          ]),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 10.h),
+                                    child: Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Center(
+                                          child: Card(
+                                            color: ListColor
+                                                .backgroundColorVerified,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        30.r),
+                                                side: BorderSide(
+                                                    width: size
+                                                        .sizeBorderBlackGlobal,
+                                                    color: Colors.black)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                children: [
+                                                  ComponentTextDescription(
+                                                    "Status: ",
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    teksColor: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ),
+                                                  ComponentTextDescription(
+                                                    "Verified",
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    teksColor: ListColor
+                                                        .colorVerified,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              Center(
+                                  child: ComponentTextDescription(
+                                tr("2_intro_video"),
+                                fontSize: size.sizeTextHeaderGlobal,
+                                fontWeight: FontWeight.bold,
+                              )),
+                              Center(
+                                  child: ComponentTextDescription(
+                                tr("Display an example of your teaching skills to potential students through real example."),
+                                fontSize: size.sizeTextDescriptionGlobal,
+                                fontWeight: FontWeight.bold,
+                              )),
+                              Stack(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 30.h),
+                                    decoration: BoxDecoration(
+                                      color: Colors
+                                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                                      border: Border.all(
+                                        color: Colors
+                                            .black, // Warna garis tepi (outline) hitam
+                                        width: 2.0, // Ketebalan garis tepi
+                                      ),
+                                      borderRadius: BorderRadius.circular(size
+                                          .sizeRoundedGlobal
+                                          .r), // Sudut melengkung sebesar 30 unit
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.h),
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 60.h,
+                                            ),
+                                            ComponentTextDescription(
+                                              tr("$requirements"),
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisSize:
+                                                  MainAxisSize.max,
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    Card(
+                                                      child: Container(
+                                                        width: 110.w,
+                                                        height: 150.h,
+                                                      ),
+                                                    ),
+                                                    ComponentTextDescription(
+                                                        "Video",
+                                                        fontSize: size
+                                                            .sizeTextDescriptionGlobal)
                                                   ],
                                                 ),
-                                                SizedBox(
-                                                  height: 40.h,
-                                                )
-                                              ]),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 20.w, vertical: 10.h),
-                                        child: Align(
-                                            alignment: Alignment.topCenter,
-                                            child: Center(
-                                              child: Card(
-                                                color: ListColor
-                                                    .colorBackgroundConfirmToSaveChanges,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30.r),
-                                                    side: BorderSide(
-                                                        width: size
-                                                            .sizeBorderBlackGlobal,
-                                                        color: Colors.black)),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      ComponentTextDescription(
-                                                        "Status: ",
-                                                        fontSize: size
-                                                            .sizeTextDescriptionGlobal,
-                                                        teksColor: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                      ComponentTextDescription(
-                                                        "modifications needed",
-                                                        fontSize: size
-                                                            .sizeTextDescriptionGlobal,
-                                                        teksColor: ListColor
-                                                            .colorVerified,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                  DividerGlobal(),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("Videos-French"),
-                                    fontSize: size.sizeTextHeaderGlobal,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("Introduce yourself to the students."),
-                                    fontSize: size.sizeTextDescriptionGlobal,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(top: 30.h),
-                                        decoration: BoxDecoration(
-                                          color: Colors
-                                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                                          border: Border.all(
-                                            color: Colors
-                                                .black, // Warna garis tepi (outline) hitam
-                                            width: 2.0, // Ketebalan garis tepi
-                                          ),
-                                          borderRadius: BorderRadius.circular(size
-                                              .sizeRoundedGlobal
-                                              .r), // Sudut melengkung sebesar 30 unit
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10.h),
-                                          child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SizedBox(
-                                                  height: 60.h,
-                                                ),
-                                                ComponentTextDescription(
-                                                  tr("$requirements"),
-                                                  fontSize: size
-                                                      .sizeTextDescriptionGlobal,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                SizedBox(
-                                                  height: 20.h,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
+                                                Column(
                                                   children: [
-                                                    Column(
-                                                      children: [
-                                                        Card(
-                                                          child: Container(
-                                                            width: 110.w,
-                                                            height: 150.h,
-                                                          ),
-                                                        ),
-                                                        ComponentTextDescription(
-                                                            "Video",
-                                                            fontSize: size
-                                                                .sizeTextDescriptionGlobal)
-                                                      ],
+                                                    Card(
+                                                      child: Container(
+                                                        width: 110.w,
+                                                        height: 150.h,
+                                                      ),
                                                     ),
-                                                    Column(
-                                                      children: [
-                                                        Card(
-                                                          child: Container(
-                                                            width: 110.w,
-                                                            height: 150.h,
-                                                          ),
-                                                        ),
-                                                        ComponentTextDescription(
-                                                            "Thumbnail",
-                                                            fontSize: size
-                                                                .sizeTextDescriptionGlobal)
-                                                      ],
-                                                    )
+                                                    ComponentTextDescription(
+                                                        "Thumbnail",
+                                                        fontSize: size
+                                                            .sizeTextDescriptionGlobal)
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 40.h,
+                                            )
+                                          ]),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 10.h),
+                                    child: Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Center(
+                                          child: Card(
+                                            color: ListColor
+                                                .colorBackgroundConfirmToSaveChanges,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        30.r),
+                                                side: BorderSide(
+                                                    width: size
+                                                        .sizeBorderBlackGlobal,
+                                                    color: Colors.black)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                children: [
+                                                  ComponentTextDescription(
+                                                    "Status: ",
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    teksColor: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ),
+                                                  ComponentTextDescription(
+                                                    "modifications needed",
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    teksColor: ListColor
+                                                        .colorVerified,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              DividerGlobal(),
+                              Center(
+                                  child: ComponentTextDescription(
+                                tr("Videos-French"),
+                                fontSize: size.sizeTextHeaderGlobal,
+                                fontWeight: FontWeight.bold,
+                              )),
+                              Center(
+                                  child: ComponentTextDescription(
+                                tr("Introduce yourself to the students."),
+                                fontSize: size.sizeTextDescriptionGlobal,
+                                fontWeight: FontWeight.bold,
+                              )),
+                              Stack(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 30.h),
+                                    decoration: BoxDecoration(
+                                      color: Colors
+                                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                                      border: Border.all(
+                                        color: Colors
+                                            .black, // Warna garis tepi (outline) hitam
+                                        width: 2.0, // Ketebalan garis tepi
+                                      ),
+                                      borderRadius: BorderRadius.circular(size
+                                          .sizeRoundedGlobal
+                                          .r), // Sudut melengkung sebesar 30 unit
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.h),
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 60.h,
+                                            ),
+                                            ComponentTextDescription(
+                                              tr("$requirements"),
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisSize:
+                                                  MainAxisSize.max,
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    Card(
+                                                      child: Container(
+                                                        width: 110.w,
+                                                        height: 150.h,
+                                                      ),
+                                                    ),
+                                                    ComponentTextDescription(
+                                                        "Video",
+                                                        fontSize: size
+                                                            .sizeTextDescriptionGlobal)
                                                   ],
                                                 ),
-                                                SizedBox(
-                                                  height: 40.h,
+                                                Column(
+                                                  children: [
+                                                    Card(
+                                                      child: Container(
+                                                        width: 110.w,
+                                                        height: 150.h,
+                                                      ),
+                                                    ),
+                                                    ComponentTextDescription(
+                                                        "Thumbnail",
+                                                        fontSize: size
+                                                            .sizeTextDescriptionGlobal)
+                                                  ],
                                                 )
-                                              ]),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 20.w, vertical: 10.h),
-                                        child: Align(
-                                            alignment: Alignment.topCenter,
-                                            child: Center(
-                                              child: Card(
-                                                color: Color.fromARGB(
-                                                    255, 12, 131, 175),
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30.r),
-                                                    side: BorderSide(
-                                                        width: size
-                                                            .sizeBorderBlackGlobal,
-                                                        color: Colors.black)),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      ComponentTextDescription(
-                                                        "Status: ",
-                                                        fontSize: size
-                                                            .sizeTextDescriptionGlobal,
-                                                        teksColor: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                      ComponentTextDescription(
-                                                        "In Review",
-                                                        fontSize: size
-                                                            .sizeTextDescriptionGlobal,
-                                                        teksColor: ListColor
-                                                            .colorVerified,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ],
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 40.h,
+                                            )
+                                          ]),
+                                    ),
                                   ),
-                                ]),
-                          ),
-                        ),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 10.h),
+                                    child: Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Center(
+                                          child: Card(
+                                            color: Color.fromARGB(
+                                                255, 12, 131, 175),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        30.r),
+                                                side: BorderSide(
+                                                    width: size
+                                                        .sizeBorderBlackGlobal,
+                                                    color: Colors.black)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                children: [
+                                                  ComponentTextDescription(
+                                                    "Status: ",
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    teksColor: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ),
+                                                  ComponentTextDescription(
+                                                    "In Review",
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    teksColor: ListColor
+                                                        .colorVerified,
+                                                    fontWeight:
+                                                        FontWeight.bold,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ]),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: 520.h, left: 20.h, right: 20.h),
-                        child: Center(
-                            child: ButtonLong(
-                          nameButton: "Confirm",
-                          routeName:
-                              PageProfileMenuAddVideos.routeName.toString(),
-                        )),
-                      ),
-                    ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 60.h,
-                  )
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: 520.h, left: 20.h, right: 20.h),
+                    child: Center(
+                        child: ButtonLong(
+                      nameButton: "Confirm",
+                      routeName:
+                          PageProfileMenuAddVideos.routeName.toString(),
+                    )),
+                  ),
                 ],
               ),
-            )),
+              SizedBox(
+                height: 60.h,
+              )
+            ],
+              ),
+            ),
           ),
         );
       },

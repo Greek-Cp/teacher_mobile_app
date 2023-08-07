@@ -186,24 +186,28 @@ class CustomCupertinoTabBar extends StatelessWidget {
           ),
         ],
       ),
-      child: CupertinoTabBar(
-        currentIndex: currentIndex,
-        onTap: onTap,
-        backgroundColor: Colors.transparent,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.person),
-            label: 'Profile',
-          ),
-        ],
+      child: ScreenUtilInit(
+        builder: (context, child) {
+          return CupertinoTabBar(
+            currentIndex: currentIndex,
+            onTap: onTap,
+            backgroundColor: Colors.transparent,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.search),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.person),
+                label: 'Profile',
+              ),
+            ],
+          );
+        },
       ),
     );
   }

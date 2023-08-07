@@ -8,9 +8,10 @@ import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart'
 class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 30.h),
+    return Container(
+      margin: EdgeInsets.only(top: 20),
       child: AppBar(
+        forceMaterialTransparency: true,
         backgroundColor:
             Colors.transparent, // Make the AppBar background transparent
         elevation: 0, // Remove shadow under the AppBar
@@ -20,12 +21,14 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
             // Add blur effect to the background
 
             filter: ImageFilter.blur(
-                sigmaX: 12,
+                sigmaX: 5,
                 sigmaY:
-                    12), // Adjust the sigma values for the desired blur intensity
+                    5), // Adjust the sigma values for the desired blur intensity
             child: Container(
-              color: Colors.white
-                  .withOpacity(0.2), // Adjust the opacity of the blur effect
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.black
+                  .withOpacity(0.07), // Adjust the opacity of the blur effect
             ),
           ),
         ),

@@ -16,6 +16,7 @@ import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_in.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile_select_picture.dart';
 
 class ModelProfileMenu {
   String nameMenu;
@@ -322,17 +323,30 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                 Positioned(
                                   right: 1,
                                   bottom: 1,
-                                  child: Card(
-                                    color: ListColor.primaryClor,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SvgPicture.asset(
-                                        "assets/icon/ic_pencil.svg",
-                                        width: 15.w,
-                                        height: 15.h,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  PageNavProfileSelectPicture()));
+                                    },
+                                    child: Card(
+                                      color: ListColor.primaryClor,
+                                      shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                              color: Colors.black,
+                                              width:
+                                                  size.sizeBorderBlackGlobal),
+                                          borderRadius:
+                                              BorderRadius.circular(10.r)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SvgPicture.asset(
+                                          "assets/icon/ic_pencil.svg",
+                                          width: 15.w,
+                                          height: 15.h,
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -34,6 +34,52 @@ class ButtonLong extends StatelessWidget {
   }
 }
 
+class CardButtonLong extends StatelessWidget {
+  final String nameButton;
+  final String routeName;
+  final Color colorButton;
+  final FontWeight fontWeight;
+  final Color colorFont;
+  final TextAlign textAlign;
+
+  CardButtonLong({
+    required this.nameButton,
+    required this.routeName,
+    required this.colorButton,
+    required this.fontWeight,
+    required this.colorFont,
+    this.textAlign = TextAlign.start,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: colorButton,
+      elevation: 4.0, // Elevation card
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.r),
+        side: BorderSide(
+          width: size.sizeBorderBlackGlobal,
+          color: Colors.black,
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 30.h,
+          vertical: 10.h,
+        ),
+        child: ComponentTextDescription(
+          tr("$nameButton"),
+          teksColor: colorFont,
+          fontSize: size.textButton + 5,
+          fontWeight: fontWeight,
+          textAlign: textAlign,
+        ),
+      ),
+    );
+  }
+}
+
 class ButtonLongHeader extends StatelessWidget {
   String nameButton;
   String routeName;
@@ -41,7 +87,7 @@ class ButtonLongHeader extends StatelessWidget {
   FontWeight fontWeight;
   Color colorFont;
   TextAlign textAlign;
-  
+
   ButtonLongHeader(
       {required this.nameButton,
       required this.routeName,
