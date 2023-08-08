@@ -56,6 +56,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     // });
     animationControllerDropDownSelectCountry = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
+    marginContainer = 320;
   }
 
   final List<String> countryOfResidenceList = [
@@ -76,7 +77,8 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     "Italy",
     // Tambahkan negara-negara lain sesuai kebutuhan Anda
   ];
-
+  int marginContainer = 0;
+  int marginConfirm = 320;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -116,7 +118,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                   Stack(
                     children: [
                       Container(
-                        height: containerHeight.h,
+                        height: marginContainer.h,
                         decoration: BoxDecoration(
                           color: Colors
                               .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -174,6 +176,12 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                                           });
                                         },
                                         child: DropDownWidget(
+                                          voidCallbackDropDownArrowOnTap: () {
+                                            setState(() {
+                                              print("Clicked");
+                                              marginContainer += 30;
+                                            });
+                                          },
                                           animationRotateIndicatorController:
                                               animationControllerDropDownSelectCountry,
                                           textEditingControllerDropDown:
@@ -201,7 +209,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                            top: 520.h, left: 20.h, right: 20.h),
+                            top: marginConfirm.h, left: 20.h, right: 20.h),
                         child: Center(
                             child: ButtonLong(
                           nameButton: "Confirm",

@@ -137,11 +137,15 @@ class _PageProfileMenuAddPhoneNumberState
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                  ButtonLong(
-                                      nameButton: "Send",
-                                      routeName: PageProfileMenuAddPhoneNumber
-                                          .routeName
-                                          .toString()),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 30.h, right: 30.h),
+                                    child: ButtonLong(
+                                        nameButton: "Send",
+                                        routeName: PageProfileMenuAddPhoneNumber
+                                            .routeName
+                                            .toString()),
+                                  ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:

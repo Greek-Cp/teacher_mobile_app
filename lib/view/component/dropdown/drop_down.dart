@@ -24,7 +24,9 @@ class DropDownWidget extends StatefulWidget {
   double containerHeight = 50;
   String? labelText;
   List<String>? listData;
+  VoidCallback? voidCallbackDropDownArrowOnTap;
   DropDownWidget({
+    this.voidCallbackDropDownArrowOnTap,
     required this.animationRotateIndicatorController,
     required this.textEditingControllerDropDown,
     required this.initialValueDropDown,
@@ -67,6 +69,9 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               if (widget.containerHeight <= 90) {
                 setState(() {
                   widget.containerHeight += containerHeight;
+                  // if (widget.voidCallbackDropDownArrowOnTap != null) {
+                  //   widget.voidCallbackDropDownArrowOnTap!();
+                  // }
                 });
               } else {
                 setState(() {

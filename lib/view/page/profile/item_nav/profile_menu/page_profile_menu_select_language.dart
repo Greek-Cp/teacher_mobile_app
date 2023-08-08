@@ -55,6 +55,8 @@ class _PageProfileMenuSelectLanguageState
     // });
     animationControllerSelectLanguage = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
+    marginConfirm = 310;
+    marginContainer = 340;
   }
 
   final List<String> countryOfResidenceList = [
@@ -75,7 +77,9 @@ class _PageProfileMenuSelectLanguageState
     "Italy",
     // Tambahkan negara-negara lain sesuai kebutuhan Anda
   ];
-  int marginConfirm = 60;
+  double marginConfirm = 0;
+  double marginContainer = 0;
+
   List<Widget> listWidget = [];
   int indexLanguage = 1;
   int limitLanguage = 0;
@@ -117,7 +121,7 @@ class _PageProfileMenuSelectLanguageState
                   Stack(
                     children: [
                       Container(
-                        height: 550.h,
+                        height: marginContainer!.h,
                         decoration: BoxDecoration(
                           color: Colors
                               .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -194,6 +198,8 @@ class _PageProfileMenuSelectLanguageState
                                         } else {
                                           indexLanguage += 1;
                                           limitLanguage += 1;
+                                          marginConfirm += 60;
+                                          marginContainer += 60;
                                           listWidget.addAll([
                                             Column(
                                               children: [
@@ -238,7 +244,7 @@ class _PageProfileMenuSelectLanguageState
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                            top: 520.h, left: 20.h, right: 20.h),
+                            top: marginConfirm.h, left: 20.h, right: 20.h),
                         child: Center(
                             child: ButtonLong(
                           nameButton: "Confirm",

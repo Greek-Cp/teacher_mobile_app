@@ -49,8 +49,17 @@ class _PageNavProfileSelectPictureState
     if (image != null) {
       // Crop the selected image
       ImageCropper imageCropper = ImageCropper();
-      CroppedFile? croppedImage =
-          await imageCropper.cropImage(sourcePath: image.path);
+      CroppedFile? croppedImage = await imageCropper.cropImage(
+          sourcePath: image.path,
+          cropStyle: CropStyle.circle,
+          uiSettings: [
+            AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: ListColor.primaryClor,
+                toolbarWidgetColor: Colors.white,
+                initAspectRatio: CropAspectRatioPreset.original,
+                lockAspectRatio: false),
+          ]);
 
       setState(() {
         selectedImage =

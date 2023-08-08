@@ -58,6 +58,8 @@ class _PageProfileMenuAddExperienceState
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
     animationControllerTutoringLanguage = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
+    marginConfirm = 310;
+    marginContainer = 340;
   }
 
   final List<String> countryOfResidenceList = [
@@ -78,7 +80,8 @@ class _PageProfileMenuAddExperienceState
     "Italy",
     // Tambahkan negara-negara lain sesuai kebutuhan Anda
   ];
-  int marginConfirm = 60;
+  int marginConfirm = 0;
+  int marginContainer = 0;
   List<Widget> listWidget = [];
   int indexLanguage = 1;
   int indexTutoringLanguage = 1;
@@ -112,179 +115,181 @@ class _PageProfileMenuAddExperienceState
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(
-            horizontal: size.sizePaddingLeftAndRightPage.h,
+                horizontal: size.sizePaddingLeftAndRightPage.h,
               ),
               child: ListView(
-            children: [
-              SizedBox(
-                height: 20.h,
-              ),
-              Stack(
                 children: [
-                  Container(
-                    height: globalContainer.h,
-                    decoration: BoxDecoration(
-                      color: Colors
-                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                      border: Border.all(
-                        color: Colors
-                            .black, // Warna garis tepi (outline) hitam
-                        width: 2.0, // Ketebalan garis tepi
-                      ),
-                      borderRadius: BorderRadius.circular(size
-                          .sizeRoundedGlobal
-                          .r), // Sudut melengkung sebesar 30 unit
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: size.sizeFieldText.h),
-                      child: SingleChildScrollView(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              SizedBox(
-                                height: size.marginTopAndBottom.h,
-                              ),
-                              Center(
-                                  child: ComponentTextTittle(
-                                      tr("your_teaching_experiences"))),
-                              SizedBox(
-                                height: size.marginTopAndBottom.h,
-                              ),
-                              DropDownWidget(
-                                animationRotateIndicatorController:
-                                    animationControllerSelectLanguage,
-                                textEditingControllerDropDown:
-                                    textEditingControllerSelectCountry,
-                                initialValueDropDown: "selet_experience",
-                                containerHeight: 50,
-                                labelText: tr("experience") + " 1",
-                                listData: countryOfResidenceList,
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              DropDownWidget(
-                                animationRotateIndicatorController:
-                                    animationControllerTutoringLanguage,
-                                textEditingControllerDropDown:
-                                    textEditingControllerSelectCountry,
-                                initialValueDropDown:
-                                    tr("select_experienye_in_years"),
-                                containerHeight: 50,
-                                labelText:
-                                    tr("select_length_of_this_experi") +
-                                        " 2",
-                                listData: countryOfResidenceList,
-                              ),
-                              DividerGlobal(),
-                              ...listWidget,
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    if (limitExpreince == 4) {
-                                      Get.snackbar("Notification",
-                                          "Maximal Experience Is 5");
-                                    } else {
-                                      TextEditingController
-                                          textEditingControllerLanguage =
-                                          TextEditingController();
-
-                                      TextEditingController
-                                          textEditingControllerTutoring =
-                                          TextEditingController();
-                                      AnimationController
-                                          animationControllerSelectLanguageList =
-                                          AnimationController(
-                                              vsync: this,
-                                              duration: Duration(
-                                                  milliseconds: 500),
-                                              upperBound: 0.5);
-                                      AnimationController
-                                          animationControllerSelectLanguageListTwo =
-                                          AnimationController(
-                                              vsync: this,
-                                              duration: Duration(
-                                                  milliseconds: 500),
-                                              upperBound: 0.5);
-                                      indexLanguage += 1;
-                                      indexTutoringLanguage += 1;
-                                      limitExpreince += 1;
-                                      listWidget.addAll([
-                                        Column(
-                                          children: [
-                                            DropDownWidget(
-                                              animationRotateIndicatorController:
-                                                  animationControllerSelectLanguageList,
-                                              textEditingControllerDropDown:
-                                                  textEditingControllerLanguage,
-                                              initialValueDropDown:
-                                                  "select_experience",
-                                              containerHeight: 50,
-                                              labelText: tr("experience") +
-                                                  " " +
-                                                  indexLanguage.toString(),
-                                              listData:
-                                                  countryOfResidenceList,
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            DropDownWidget(
-                                              animationRotateIndicatorController:
-                                                  animationControllerSelectLanguageListTwo,
-                                              textEditingControllerDropDown:
-                                                  textEditingControllerTutoring,
-                                              initialValueDropDown: tr(
-                                                  "select_experienye_in_years"),
-                                              containerHeight: 50,
-                                              labelText:
-                                                  tr("select_length_of_this_experi") +
-                                                      " " +
-                                                      indexTutoringLanguage
-                                                          .toString(),
-                                              listData:
-                                                  countryOfResidenceList,
-                                            ),
-                                            DividerGlobal()
-                                          ],
-                                        )
-                                      ]);
-                                    }
-                                  });
-                                },
-                                child: ComponentTextDescription(
-                                    "+ Add another Language",
-                                    teksColor: const Color.fromARGB(
-                                        255, 17, 68, 109),
-                                    fontSize:
-                                        size.sizeTextDescriptionGlobal),
-                              ),
-                              SizedBox(
-                                height: 60.h,
-                              )
-                            ]),
-                      ),
-                    ),
+                  SizedBox(
+                    height: 20.h,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: 520.h, left: 20.h, right: 20.h),
-                    child: Center(
-                        child: ButtonLong(
-                      nameButton: "Confirm",
-                      routeName:
-                          PageProfileMenuAddExperience.routeName.toString(),
-                    )),
+                  Stack(
+                    children: [
+                      Container(
+                        height: marginContainer.h,
+                        decoration: BoxDecoration(
+                          color: Colors
+                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                          border: Border.all(
+                            color: Colors
+                                .black, // Warna garis tepi (outline) hitam
+                            width: 2.0, // Ketebalan garis tepi
+                          ),
+                          borderRadius: BorderRadius.circular(size
+                              .sizeRoundedGlobal
+                              .r), // Sudut melengkung sebesar 30 unit
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.sizeFieldText.h),
+                          child: SingleChildScrollView(
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  SizedBox(
+                                    height: size.marginTopAndBottom.h,
+                                  ),
+                                  Center(
+                                      child: ComponentTextTittle(
+                                          tr("your_teaching_experiences"))),
+                                  SizedBox(
+                                    height: size.marginTopAndBottom.h,
+                                  ),
+                                  DropDownWidget(
+                                    animationRotateIndicatorController:
+                                        animationControllerSelectLanguage,
+                                    textEditingControllerDropDown:
+                                        textEditingControllerSelectCountry,
+                                    initialValueDropDown: "selet_experience",
+                                    containerHeight: 50,
+                                    labelText: tr("experience") + " 1",
+                                    listData: countryOfResidenceList,
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  DropDownWidget(
+                                    animationRotateIndicatorController:
+                                        animationControllerTutoringLanguage,
+                                    textEditingControllerDropDown:
+                                        textEditingControllerSelectCountry,
+                                    initialValueDropDown:
+                                        tr("select_experienye_in_years"),
+                                    containerHeight: 50,
+                                    labelText:
+                                        tr("select_length_of_this_experi") +
+                                            " 2",
+                                    listData: countryOfResidenceList,
+                                  ),
+                                  DividerGlobal(),
+                                  ...listWidget,
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        if (limitExpreince == 4) {
+                                          Get.snackbar("Notification",
+                                              "Maximal Experience Is 5");
+                                        } else {
+                                          TextEditingController
+                                              textEditingControllerLanguage =
+                                              TextEditingController();
+
+                                          TextEditingController
+                                              textEditingControllerTutoring =
+                                              TextEditingController();
+                                          AnimationController
+                                              animationControllerSelectLanguageList =
+                                              AnimationController(
+                                                  vsync: this,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  upperBound: 0.5);
+                                          AnimationController
+                                              animationControllerSelectLanguageListTwo =
+                                              AnimationController(
+                                                  vsync: this,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  upperBound: 0.5);
+                                          indexLanguage += 1;
+                                          marginConfirm += 60;
+                                          marginContainer += 60;
+                                          indexTutoringLanguage += 1;
+                                          limitExpreince += 1;
+                                          listWidget.addAll([
+                                            Column(
+                                              children: [
+                                                DropDownWidget(
+                                                  animationRotateIndicatorController:
+                                                      animationControllerSelectLanguageList,
+                                                  textEditingControllerDropDown:
+                                                      textEditingControllerLanguage,
+                                                  initialValueDropDown:
+                                                      "select_experience",
+                                                  containerHeight: 50,
+                                                  labelText: tr("experience") +
+                                                      " " +
+                                                      indexLanguage.toString(),
+                                                  listData:
+                                                      countryOfResidenceList,
+                                                ),
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                DropDownWidget(
+                                                  animationRotateIndicatorController:
+                                                      animationControllerSelectLanguageListTwo,
+                                                  textEditingControllerDropDown:
+                                                      textEditingControllerTutoring,
+                                                  initialValueDropDown: tr(
+                                                      "select_experienye_in_years"),
+                                                  containerHeight: 50,
+                                                  labelText:
+                                                      tr("select_length_of_this_experi") +
+                                                          " " +
+                                                          indexTutoringLanguage
+                                                              .toString(),
+                                                  listData:
+                                                      countryOfResidenceList,
+                                                ),
+                                                DividerGlobal()
+                                              ],
+                                            )
+                                          ]);
+                                        }
+                                      });
+                                    },
+                                    child: ComponentTextDescription(
+                                        "+ Add another Language",
+                                        teksColor: const Color.fromARGB(
+                                            255, 17, 68, 109),
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal),
+                                  ),
+                                  SizedBox(
+                                    height: 60.h,
+                                  )
+                                ]),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: marginConfirm.h, left: 20.h, right: 20.h),
+                        child: Center(
+                            child: ButtonLong(
+                          nameButton: "Confirm",
+                          routeName:
+                              PageProfileMenuAddExperience.routeName.toString(),
+                        )),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50.h,
                   ),
                 ],
-              ),
-              SizedBox(
-                height: 50.h,
-              ),
-            ],
               ),
             ),
           ),
