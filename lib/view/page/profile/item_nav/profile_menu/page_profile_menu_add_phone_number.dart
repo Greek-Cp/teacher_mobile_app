@@ -137,11 +137,13 @@ class _PageProfileMenuAddPhoneNumberState
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 30.h, right: 30.h),
-                                    child: ButtonLong(
+                                  Center(
+                                    child: CardButtonLong(
+                                        colorButton:
+                                            Color.fromARGB(255, 167, 143, 252),
                                         nameButton: "Send",
+                                        colorFont: Colors.white,
+                                        fontWeight: FontWeight.normal,
                                         routeName: PageProfileMenuAddPhoneNumber
                                             .routeName
                                             .toString()),
@@ -206,28 +208,32 @@ class _PageProfileMenuAddPhoneNumberState
                                       ComponentTextDescription(
                                         "minutes:seconds",
                                         fontSize: size.sizeTextHeaderGlobal - 2,
-                                        teksColor: ListColor.colorPurpleBold,
+                                        teksColor:
+                                            Color.fromARGB(255, 114, 87, 215),
                                         fontWeight: FontWeight.bold,
                                       ),
                                       SizedBox(
-                                        height: 20.h,
+                                        height: 10.h,
                                       ),
-                                      ComponentTextDescription(
-                                          "Didn't Receive Code ?",
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal),
-                                      ComponentTextDescription(
-                                        "Resend Code",
-                                        teksColor: ListColor.colorVerified,
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal,
-                                        textAlign: TextAlign.center,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      /*
+                                      30 second
+                                      */
+                                      // ComponentTextDescription(
+                                      //     "Didn't Receive Code ?",
+                                      //     fontSize:
+                                      //         size.sizeTextDescriptionGlobal),
+                                      // ComponentTextDescription(
+                                      //   "Resend Code",
+                                      //   teksColor: ListColor.colorVerified,
+                                      //   fontSize:
+                                      //       size.sizeTextDescriptionGlobal,
+                                      //   textAlign: TextAlign.center,
+                                      //   fontWeight: FontWeight.bold,
+                                      // ),
                                     ],
                                   ),
                                   SizedBox(
-                                    height: 40.h,
+                                    height: 10.h,
                                   ),
                                 ]),
                           ),

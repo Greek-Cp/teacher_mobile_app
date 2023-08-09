@@ -320,9 +320,9 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                         ListColor.colorBackgroundPhotoProfile,
                                   ),
                                 ),
-                                Positioned(
-                                  right: 1,
-                                  bottom: 1,
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 60.h, left: 60.h),
                                   child: GestureDetector(
                                     onTap: () {
                                       Navigator.push(
@@ -506,118 +506,25 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize
+                                      .max, // Ensures minimum required space
                                   children: [
-                                    Card(
-                                      color:
-                                          ListColor.backgroundItemRatingYellow,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: size.sizeBorderBlackGlobal,
-                                              color: Colors.black),
-                                          borderRadius: BorderRadius.circular(
-                                              size.sizeRoundedGlobal.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 20.h,
-                                            bottom: 20.h,
-                                            left: 20.w,
-                                            right: 20.w),
-                                        child: Column(
-                                          children: [
-                                            ComponentTextDescription(
-                                              "-",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextHeaderGlobal,
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            ComponentTextDescription(
-                                              "Rating",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      2,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      color:
-                                          ListColor.backgroundItemRatingGreen,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: size.sizeBorderBlackGlobal,
-                                              color: Colors.black),
-                                          borderRadius: BorderRadius.circular(
-                                              size.sizeRoundedGlobal.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 20.h,
-                                            bottom: 20.h,
-                                            left: 10.w,
-                                            right: 10.w),
-                                        child: Column(
-                                          children: [
-                                            ComponentTextDescription(
-                                              "28",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextHeaderGlobal,
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            ComponentTextDescription(
-                                              "Time(min)",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      2,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      color:
-                                          ListColor.backgroundItemRatingGreen,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: size.sizeBorderBlackGlobal,
-                                              color: Colors.black),
-                                          borderRadius: BorderRadius.circular(
-                                              size.sizeRoundedGlobal.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 12.h,
-                                            bottom: 20.h,
-                                            left: 20.w,
-                                            right: 20.w),
-                                        child: Column(
-                                          children: [
-                                            ComponentTextDescription(
-                                              "0",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: size
-                                                  .sizeTextDescriptionGlobal,
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            ComponentTextDescription(
-                                              "Earnings",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      2,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    CardItemBoxNoFormat(
+                                        colorCardItem: ListColor
+                                            .backgroundItemRatingYellow,
+                                        valueCard: "-",
+                                        descriptionCard: "Rating"),
+                                    CardItemBoxNoFormat(
+                                        colorCardItem:
+                                            ListColor.backgroundItemRatingGreen,
+                                        valueCard: "28",
+                                        descriptionCard: "Time(min)"),
+                                    CardItemBoxWithFormat(
+                                        colorCardItem:
+                                            ListColor.backgroundItemRatingCyan,
+                                        valueCard: "0",
+                                        formatData: "EUR",
+                                        descriptionCard: "Earnings"),
                                   ],
                                 ),
                                 SizedBox(
@@ -715,119 +622,26 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize
+                                      .min, // Ensures minimum required space
+
                                   children: [
-                                    Card(
-                                      color:
-                                          ListColor.backgroundItemRatingYellow,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: size.sizeBorderBlackGlobal,
-                                              color: Colors.black),
-                                          borderRadius: BorderRadius.circular(
-                                              size.sizeRoundedGlobal.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 20.h,
-                                            bottom: 20.h,
-                                            left: 20.w,
-                                            right: 20.w),
-                                        child: Column(
-                                          children: [
-                                            ComponentTextDescription(
-                                              "4.5",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextHeaderGlobal,
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            ComponentTextDescription(
-                                              "Rating",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      2,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      color:
-                                          ListColor.backgroundItemRatingGreen,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: size.sizeBorderBlackGlobal,
-                                              color: Colors.black),
-                                          borderRadius: BorderRadius.circular(
-                                              size.sizeRoundedGlobal.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 20.h,
-                                            bottom: 20.h,
-                                            left: 10.w,
-                                            right: 10.w),
-                                        child: Column(
-                                          children: [
-                                            ComponentTextDescription(
-                                              "0",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextHeaderGlobal,
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            ComponentTextDescription(
-                                              "Sessions",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      2,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      color: ListColor.backgroundItemRatingCyan,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: size.sizeBorderBlackGlobal,
-                                              color: Colors.black),
-                                          borderRadius: BorderRadius.circular(
-                                              size.sizeRoundedGlobal.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: 10.h,
-                                            left: 20.w,
-                                            right: 20.w),
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(top: 10),
-                                              child: ComponentTextDescription(
-                                                "0\nEUR",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: size
-                                                    .sizeTextDescriptionGlobal,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            ComponentTextDescription(
-                                              "Earned \nthis month",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      2,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    CardItemBoxNoFormat(
+                                        colorCardItem: ListColor
+                                            .backgroundItemRatingYellow,
+                                        valueCard: "-",
+                                        descriptionCard: "Rating"),
+                                    CardItemBoxNoFormat(
+                                        colorCardItem:
+                                            ListColor.backgroundItemRatingGreen,
+                                        valueCard: "0",
+                                        descriptionCard: "Sessions"),
+                                    CardItemBoxWithFormat(
+                                        colorCardItem:
+                                            ListColor.backgroundItemRatingCyan,
+                                        valueCard: "0",
+                                        formatData: "EUR",
+                                        descriptionCard: "Earned this month"),
                                   ],
                                 ),
                                 SizedBox(
@@ -926,116 +740,21 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Card(
-                                      color:
-                                          ListColor.backgroundItemRatingYellow,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: size.sizeBorderBlackGlobal,
-                                              color: Colors.black),
-                                          borderRadius: BorderRadius.circular(
-                                              size.sizeRoundedGlobal.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 20.h,
-                                            bottom: 20.h,
-                                            left: 20.w,
-                                            right: 20.w),
-                                        child: Column(
-                                          children: [
-                                            ComponentTextDescription(
-                                              "0",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextHeaderGlobal,
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            ComponentTextDescription(
-                                              "Likes",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      2,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      color:
-                                          ListColor.backgroundItemRatingGreen,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: size.sizeBorderBlackGlobal,
-                                              color: Colors.black),
-                                          borderRadius: BorderRadius.circular(
-                                              size.sizeRoundedGlobal.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 20.h,
-                                            bottom: 20.h,
-                                            left: 10.w,
-                                            right: 10.w),
-                                        child: Column(
-                                          children: [
-                                            ComponentTextDescription(
-                                              "0",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextHeaderGlobal,
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            ComponentTextDescription(
-                                              "Followers",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      2,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Card(
-                                      color: ListColor.backgroundItemRatingCyan,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              width: size.sizeBorderBlackGlobal,
-                                              color: Colors.black),
-                                          borderRadius: BorderRadius.circular(
-                                              size.sizeRoundedGlobal.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 20.h,
-                                            bottom: 20.h,
-                                            left: 20.w,
-                                            right: 20.w),
-                                        child: Column(
-                                          children: [
-                                            ComponentTextDescription(
-                                              "0",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextHeaderGlobal,
-                                            ),
-                                            SizedBox(
-                                              height: 20.h,
-                                            ),
-                                            ComponentTextDescription(
-                                              "Views",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      2,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    CardItemBoxNoFormat(
+                                        colorCardItem: ListColor
+                                            .backgroundItemRatingYellow,
+                                        valueCard: "0",
+                                        descriptionCard: "Likes"),
+                                    CardItemBoxNoFormat(
+                                        colorCardItem:
+                                            ListColor.backgroundItemRatingGreen,
+                                        valueCard: "0",
+                                        descriptionCard: "Followers)"),
+                                    CardItemBoxNoFormat(
+                                        colorCardItem:
+                                            ListColor.backgroundItemRatingCyan,
+                                        valueCard: "0",
+                                        descriptionCard: "Views"),
                                   ],
                                 ),
                                 SizedBox(
@@ -1110,6 +829,109 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
           ),
         );
       },
+    );
+  }
+}
+
+class CardItemBoxNoFormat extends StatelessWidget {
+  Color? colorCardItem;
+  String? valueCard;
+  String? descriptionCard;
+  CardItemBoxNoFormat(
+      {super.key,
+      required this.colorCardItem,
+      required this.valueCard,
+      required this.descriptionCard});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Card(
+        color: colorCardItem,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            width: size.sizeBorderBlackGlobal,
+            color: Colors.black,
+          ),
+          borderRadius: BorderRadius.circular(size.sizeRoundedGlobal.r),
+        ),
+        child: Container(
+          height: 120.h,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ComponentTextDescription(
+                "${valueCard}",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextHeaderGlobal,
+              ),
+              SizedBox(height: 20),
+              ComponentTextDescription(
+                "$descriptionCard",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextDescriptionGlobal - 2,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CardItemBoxWithFormat extends StatelessWidget {
+  Color? colorCardItem;
+  String? valueCard;
+  String? descriptionCard;
+  String? formatData;
+  CardItemBoxWithFormat(
+      {super.key,
+      required this.colorCardItem,
+      required this.valueCard,
+      required this.descriptionCard,
+      required this.formatData});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Card(
+        color: colorCardItem,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            width: size.sizeBorderBlackGlobal,
+            color: Colors.black,
+          ),
+          borderRadius: BorderRadius.circular(size.sizeRoundedGlobal.r),
+        ),
+        child: Container(
+          height: 120.h,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ComponentTextDescription(
+                "${valueCard}",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextHeaderGlobal,
+              ),
+              ComponentTextDescription(
+                "$formatData",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextDescriptionGlobal - 2,
+              ),
+              SizedBox(height: 10),
+              ComponentTextDescription(
+                "$descriptionCard",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextDescriptionGlobal - 2,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

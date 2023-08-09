@@ -261,7 +261,7 @@ class _PageProfileMenuAddExperienceState
                                       });
                                     },
                                     child: ComponentTextDescription(
-                                        "+ Add another Language",
+                                        "+ Add another Experience",
                                         teksColor: const Color.fromARGB(
                                             255, 17, 68, 109),
                                         fontSize:

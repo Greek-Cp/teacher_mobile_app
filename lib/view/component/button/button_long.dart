@@ -41,6 +41,7 @@ class CardButtonLong extends StatelessWidget {
   final FontWeight fontWeight;
   final Color colorFont;
   final TextAlign textAlign;
+  RoundedRectangleBorder? borderShape;
 
   CardButtonLong({
     required this.nameButton,
@@ -48,6 +49,7 @@ class CardButtonLong extends StatelessWidget {
     required this.colorButton,
     required this.fontWeight,
     required this.colorFont,
+    this.borderShape,
     this.textAlign = TextAlign.start,
   });
 
@@ -56,24 +58,28 @@ class CardButtonLong extends StatelessWidget {
     return Card(
       color: colorButton,
       elevation: 4.0, // Elevation card
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.r),
-        side: BorderSide(
-          width: size.sizeBorderBlackGlobal,
-          color: Colors.black,
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 30.h,
-          vertical: 10.h,
-        ),
-        child: ComponentTextDescription(
-          tr("$nameButton"),
-          teksColor: colorFont,
-          fontSize: size.textButton + 5,
-          fontWeight: fontWeight,
-          textAlign: textAlign,
+      shape: borderShape == null
+          ? RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.r),
+              side: BorderSide(
+                width: size.sizeBorderBlackGlobal,
+                color: Colors.black,
+              ),
+            )
+          : borderShape,
+      child: Container(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.h),
+          child: Center(
+            child: ComponentTextDescription(
+              tr("$nameButton"),
+              teksColor: colorFont,
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+              fontWeight: fontWeight,
+              textAlign: textAlign,
+            ),
+          ),
         ),
       ),
     );

@@ -101,7 +101,7 @@ class _pageNavBarState extends State<pageNavBar> {
                       return CupertinoPageScaffold(child: Text("Page 3 "));
                     },
                   );
-                case 3:
+                case 4:
                   return CupertinoTabView(
                     builder: (context) {
                       return CupertinoPageScaffold(

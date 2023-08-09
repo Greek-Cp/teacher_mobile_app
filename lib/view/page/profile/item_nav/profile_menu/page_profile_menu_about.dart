@@ -56,7 +56,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     // });
     animationControllerDropDownSelectCountry = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
-    marginContainer = 320;
+    marginContainer = 380;
   }
 
   final List<String> countryOfResidenceList = [
@@ -78,7 +78,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     // Tambahkan negara-negara lain sesuai kebutuhan Anda
   ];
   int marginContainer = 0;
-  int marginConfirm = 320;
+  int marginConfirm = 350;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
