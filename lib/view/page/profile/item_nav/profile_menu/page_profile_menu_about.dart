@@ -79,6 +79,8 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
   ];
   int marginContainer = 0;
   int marginConfirm = 350;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -132,78 +134,96 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                               .r), // Sudut melengkung sebesar 30 unit
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizeFieldText.h),
-                          child: SingleChildScrollView(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    height: 30.h,
-                                  ),
-                                  Center(
-                                      child: ComponentTextTittle(tr("about"))),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 30.h,
-                                      ),
-                                      TextFieldForm(
-                                          textEditingControllerEmail:
-                                              textEditingControllerFirstName,
-                                          hintText: "first_name",
-                                          labelText: "first_name"),
-                                      SizedBox(
-                                        height: 15.h,
-                                      ),
-                                      TextFieldForm(
-                                          textEditingControllerEmail:
-                                              textEditingControllerLastName,
-                                          hintText: "last_name",
-                                          labelText: "last_name"),
-                                      SizedBox(
-                                        height: 15.h,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            containerHeight += 50;
-                                          });
-                                        },
-                                        child: DropDownWidget(
-                                          voidCallbackDropDownArrowOnTap: () {
-                                            setState(() {
-                                              print("Clicked");
-                                              marginContainer += 30;
-                                            });
-                                          },
-                                          animationRotateIndicatorController:
-                                              animationControllerDropDownSelectCountry,
-                                          textEditingControllerDropDown:
-                                              textEditingControllerSelectCountry,
-                                          initialValueDropDown:
-                                              "Select a country",
-                                          containerHeight: 50,
-                                          labelText: "Country of residence",
-                                          listData: countryOfResidenceList,
+                          padding: EdgeInsets.symmetric(horizontal: 0),
+                          child: Scrollbar(
+                            thickness: 2.5,
+                            thumbVisibility: true,
+                            trackVisibility: true,
+                            child: SingleChildScrollView(
+                              child: Form(
+                                key: _formKey,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.sizeFieldText.h),
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SizedBox(
+                                          height: 30.h,
                                         ),
-                                      ),
-                                      // TextFieldFormPhone(
-                                      //     textEditingControllerEmail:
-                                      //         textEditingControllerLastName,
-                                      //     hintText: "phoneNumber",
-                                      //     labelText: "phone"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 70.h,
-                                  ),
-                                ]),
+                                        Center(
+                                            child: ComponentTextTittle(
+                                                tr("about"))),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              height: 30.h,
+                                            ),
+                                            TextFieldForm(
+                                                textEditingControllerEmail:
+                                                    textEditingControllerFirstName,
+                                                hintText: "first_name",
+                                                labelText: "first_name"),
+                                            SizedBox(
+                                              height: 15.h,
+                                            ),
+                                            TextFieldForm(
+                                                textEditingControllerEmail:
+                                                    textEditingControllerLastName,
+                                                hintText: "last_name",
+                                                labelText: "last_name"),
+                                            SizedBox(
+                                              height: 15.h,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  containerHeight += 50;
+                                                });
+                                              },
+                                              child: DropDownWidget(
+                                                voidCallbackDropDownArrowOnTap:
+                                                    () {
+                                                  setState(() {
+                                                    print("Clicked");
+                                                    marginContainer += 30;
+                                                  });
+                                                },
+                                                animationRotateIndicatorController:
+                                                    animationControllerDropDownSelectCountry,
+                                                textEditingControllerDropDown:
+                                                    textEditingControllerSelectCountry,
+                                                initialValueDropDown:
+                                                    "Select a country",
+                                                containerHeight: 50,
+                                                labelText:
+                                                    "Country of residence",
+                                                listData:
+                                                    countryOfResidenceList,
+                                              ),
+                                            ),
+                                            // TextFieldFormPhone(
+                                            //     textEditingControllerEmail:
+                                            //         textEditingControllerLastName,
+                                            //     hintText: "phoneNumber",
+                                            //     labelText: "phone"),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 70.h,
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -211,9 +231,10 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                         margin: EdgeInsets.only(
                             top: marginConfirm.h, left: 20.h, right: 20.h),
                         child: Center(
-                            child: ButtonLong(
+                            child: ButtonLongForm(
                           nameButton: "Confirm",
                           routeName: PageProfileMenuAbout.routeName.toString(),
+                          formKey: _formKey,
                         )),
                       ),
                     ],

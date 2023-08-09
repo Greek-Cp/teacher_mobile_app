@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:flutter/cupertino.dart' hide CupertinoTabBar;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 
 // Standard iOS 10 tab bar height.
@@ -255,7 +256,7 @@ class CupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
                           },
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 8.0, top: 4.0, left: 2, right: 2),
+                          bottom: 8.0, top: 8.0, left: 2, right: 2),
                       child: Container(
                         decoration: active
                             ? BoxDecoration(
@@ -288,12 +289,14 @@ class CupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
     return <Widget>[
       Expanded(
         child: Padding(
-          padding: EdgeInsets.only(top: 7, bottom: 4),
+          padding: EdgeInsets.only(top: 8, bottom: 4),
           child: Center(child: active ? item.activeIcon : item.icon),
         ),
       ),
       if (item.label != null)
-        Padding(padding: EdgeInsets.only(bottom: 5), child: Text(item.label!)),
+        Padding(
+            padding: EdgeInsets.only(bottom: 5),
+            child: Text(item.label!, style: GoogleFonts.nunito())),
     ];
   }
 

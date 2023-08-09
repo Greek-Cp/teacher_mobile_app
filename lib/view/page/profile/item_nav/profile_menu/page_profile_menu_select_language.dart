@@ -79,7 +79,7 @@ class _PageProfileMenuSelectLanguageState
   ];
   double marginConfirm = 0;
   double marginContainer = 0;
-
+  final _formKey = GlobalKey<FormState>();
   List<Widget> listWidget = [];
   int indexLanguage = 1;
   int limitLanguage = 0;
@@ -139,106 +139,109 @@ class _PageProfileMenuSelectLanguageState
                             horizontal: size.sizePaddingLeftAndRightPage.h,
                           ),
                           child: SingleChildScrollView(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  SizedBox(
-                                    height: 30.h,
-                                  ),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("languages_you_can_use_to_teach_math"),
-                                    fontSize: size.sizeTextDescriptionGlobal,
-                                  )),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("you_will_need_to_provide_a_video_presentation_in_each_selected_languages"),
-                                    fontSize: size.sizeTextHeaderGlobal,
-                                  )),
-                                  SizedBox(
-                                    height: 30.h,
-                                  ),
-                                  DropDownWidget(
-                                    animationRotateIndicatorController:
-                                        animationControllerSelectLanguage,
-                                    textEditingControllerDropDown:
-                                        textEditingControllerSelectCountry,
-                                    initialValueDropDown: "select_a_language",
-                                    containerHeight: 50,
-                                    labelText: tr("language") + " 1",
-                                    listData: countryOfResidenceList,
-                                  ),
-                                  ...listWidget,
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      TextEditingController
-                                          textEditingControllerLanguage =
-                                          TextEditingController();
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    SizedBox(
+                                      height: 30.h,
+                                    ),
+                                    Center(
+                                        child: ComponentTextDescription(
+                                      tr("languages_you_can_use_to_teach_math"),
+                                      fontSize: size.sizeTextDescriptionGlobal,
+                                    )),
+                                    Center(
+                                        child: ComponentTextDescription(
+                                      tr("you_will_need_to_provide_a_video_presentation_in_each_selected_languages"),
+                                      fontSize: size.sizeTextHeaderGlobal,
+                                    )),
+                                    SizedBox(
+                                      height: 30.h,
+                                    ),
+                                    DropDownWidget(
+                                      animationRotateIndicatorController:
+                                          animationControllerSelectLanguage,
+                                      textEditingControllerDropDown:
+                                          textEditingControllerSelectCountry,
+                                      initialValueDropDown: "select_a_language",
+                                      containerHeight: 50,
+                                      labelText: tr("language") + " 1",
+                                      listData: countryOfResidenceList,
+                                    ),
+                                    ...listWidget,
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        TextEditingController
+                                            textEditingControllerLanguage =
+                                            TextEditingController();
 
-                                      TextEditingController
-                                          textEditingControllerTutoring =
-                                          TextEditingController();
-                                      AnimationController
-                                          animationControllerSelectLanguageList =
-                                          AnimationController(
-                                              vsync: this,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              upperBound: 0.5);
+                                        TextEditingController
+                                            textEditingControllerTutoring =
+                                            TextEditingController();
+                                        AnimationController
+                                            animationControllerSelectLanguageList =
+                                            AnimationController(
+                                                vsync: this,
+                                                duration:
+                                                    Duration(milliseconds: 500),
+                                                upperBound: 0.5);
 
-                                      setState(() {
-                                        if (limitLanguage == 2) {
-                                          Get.snackbar("Notification",
-                                              "You Only Can Add Maximal 3 Language");
-                                        } else {
-                                          indexLanguage += 1;
-                                          limitLanguage += 1;
-                                          marginConfirm += 60;
-                                          marginContainer += 60;
-                                          listWidget.addAll([
-                                            Column(
-                                              children: [
-                                                DividerGlobal(),
-                                                DropDownWidget(
-                                                  animationRotateIndicatorController:
-                                                      animationControllerSelectLanguageList,
-                                                  textEditingControllerDropDown:
-                                                      textEditingControllerTutoring,
-                                                  initialValueDropDown:
-                                                      tr("select_a_language"),
-                                                  containerHeight: 50,
-                                                  labelText:
-                                                      tr("tutoring_language") +
-                                                          " " +
-                                                          indexLanguage
-                                                              .toString(),
-                                                  listData:
-                                                      countryOfResidenceList,
-                                                ),
-                                              ],
-                                            )
-                                          ]);
-                                        }
-                                      });
-                                    },
-                                    child: limitLanguage == 2
-                                        ? Container()
-                                        : ComponentTextDescription(
-                                            "+ Add another Language",
-                                            teksColor: const Color.fromARGB(
-                                                255, 17, 68, 109),
-                                            fontSize:
-                                                size.sizeTextDescriptionGlobal),
-                                  ),
-                                  SizedBox(
-                                    height: 60.h,
-                                  )
-                                ]),
+                                        setState(() {
+                                          if (limitLanguage == 2) {
+                                            Get.snackbar("Notification",
+                                                "You Only Can Add Maximal 3 Language");
+                                          } else {
+                                            indexLanguage += 1;
+                                            limitLanguage += 1;
+                                            marginConfirm += 60;
+                                            marginContainer += 60;
+                                            listWidget.addAll([
+                                              Column(
+                                                children: [
+                                                  DividerGlobal(),
+                                                  DropDownWidget(
+                                                    animationRotateIndicatorController:
+                                                        animationControllerSelectLanguageList,
+                                                    textEditingControllerDropDown:
+                                                        textEditingControllerTutoring,
+                                                    initialValueDropDown:
+                                                        tr("select_a_language"),
+                                                    containerHeight: 50,
+                                                    labelText:
+                                                        tr("tutoring_language") +
+                                                            " " +
+                                                            indexLanguage
+                                                                .toString(),
+                                                    listData:
+                                                        countryOfResidenceList,
+                                                  ),
+                                                ],
+                                              )
+                                            ]);
+                                          }
+                                        });
+                                      },
+                                      child: limitLanguage == 2
+                                          ? Container()
+                                          : ComponentTextDescription(
+                                              "+ Add another Language",
+                                              teksColor: const Color.fromARGB(
+                                                  255, 17, 68, 109),
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal),
+                                    ),
+                                    SizedBox(
+                                      height: 60.h,
+                                    )
+                                  ]),
+                            ),
                           ),
                         ),
                       ),
@@ -246,10 +249,11 @@ class _PageProfileMenuSelectLanguageState
                         margin: EdgeInsets.only(
                             top: marginConfirm.h, left: 20.h, right: 20.h),
                         child: Center(
-                            child: ButtonLong(
+                            child: ButtonLongForm(
                           nameButton: "Confirm",
                           routeName: PageProfileMenuSelectLanguage.routeName
                               .toString(),
+                          formKey: _formKey,
                         )),
                       ),
                     ],

@@ -51,6 +51,7 @@ class _PageProfileMenuAddPhoneNumberState
     CountryCode('🇿🇦', 'South Africa', '+27'),
     CountryCode('🇲🇽', 'Mexico', '+52'),
   ];
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();

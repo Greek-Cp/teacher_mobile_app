@@ -307,17 +307,21 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                               child: Stack(children: [
                                 Container(
                                   decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 216, 216, 216),
                                     shape: BoxShape.circle,
                                     border: Border.all(
                                       color: Colors.black,
                                       width: size.sizeBorderBlackGlobal,
                                     ),
                                   ),
-                                  child: CircleAvatar(
-                                    radius: 45 - size.sizeBorderBlackGlobal,
+                                  child: ClipOval(
                                     // Replace this with your image source
-                                    backgroundColor:
-                                        ListColor.colorBackgroundPhotoProfile,
+
+                                    child: SvgPicture.asset(
+                                      "assets/icon/profile/ic_avatar_profile.svg",
+                                      width: 90, // adjust the size as needed
+                                      height: 90,
+                                    ),
                                   ),
                                 ),
                                 Container(

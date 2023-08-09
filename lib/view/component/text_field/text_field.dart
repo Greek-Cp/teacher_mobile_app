@@ -50,6 +50,7 @@ class _TextFieldFormWithValidationState
   bool warningRule4 = false;
 
   @override
+
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -104,19 +105,19 @@ class _TextFieldFormWithValidationState
                             width: 20,
                             height: 20,
                             repeat: false,
-                            controller: _controllerLottie);
-                      });
-
-                      print("Is Email");
-                    } else {
-                      setState(() {
-                        animationSucces = Lottie.asset(
-                            "assets/icon/animation_wrong.json",
-                            width: 30,
-                            height: 30,
-                            repeat: false,
-                            controller: _controllerLottie);
-                      });
+                                                   controller: _controllerLottie);
+                                });
+          
+                                print("Is Email");
+                              } else {
+                                setState(() {
+                                  animationSucces = Lottie.asset(
+                                      "assets/icon/animation_wrong.json",
+                                      width: 30,
+                                      height: 30,
+                                      repeat: false,
+                                      controller: _controllerLottie);
+                                });
 
                       print("Not Email");
                     }
@@ -446,6 +447,7 @@ class _TextFieldFormState extends State<TextFieldForm>
 
   bool _isValidEmail = true;
   late final AnimationController _controllerLottie;
+  bool isEmpty = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -460,12 +462,33 @@ class _TextFieldFormState extends State<TextFieldForm>
       children: [
         Container(
             margin: EdgeInsets.only(top: 10),
-            child: TextField(
+            child: TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  setState(() {
+                    isEmpty = true;
+                  });
+                  return null;
+                } else {
+                  setState(() {
+                    isEmpty = false;
+                  });
+                }
+                return null;
+              },
               controller: widget.textEditingControllerEmail,
               onEditingComplete: () {
                 _controllerLottie.reset();
                 _controllerLottie.forward();
-
+                if (widget.textEditingControllerEmail.text.toString().isEmpty) {
+                  setState(() {
+                    isEmpty = true;
+                  });
+                } else {
+                  setState(() {
+                    isEmpty = false;
+                  });
+                }
                 if (UtilValidatorData.isEmailValid(
                     widget.textEditingControllerEmail.text.toString())) {
                   setState(() {
@@ -495,7 +518,9 @@ class _TextFieldFormState extends State<TextFieldForm>
                   fontSize: size.sizeTextDescriptionGlobal.sp),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: ListColor.colorBackgroundTextFieldAll,
+                fillColor: isEmpty == true
+                    ? ListColor.colorValidationTextFieldBackgroundEmpty
+                    : ListColor.colorBackgroundTextFieldAll,
                 hintText: tr("${widget.hintText}"),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -508,7 +533,10 @@ class _TextFieldFormState extends State<TextFieldForm>
                   borderRadius:
                       BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
-                    color: Colors.black, // Change the border color here
+                    color: isEmpty == true
+                        ? ListColor
+                            .colorOutlineTextFieldWhenEmpty  
+                        : Colors.black, // Change the border color here
                     width: size
                         .sizeBorderBlackGlobal, // Change the border width here
                   ),
@@ -517,7 +545,10 @@ class _TextFieldFormState extends State<TextFieldForm>
                   borderRadius:
                       BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
-                    color: Colors.black, // Change the border color here
+                    color: isEmpty == true
+                        ?ListColor
+                            .colorOutlineTextFieldWhenEmpty  
+                        : Colors.black, // Change the border color here
                     width: size
                         .sizeBorderBlackGlobal, // Change the border width here
                   ),
@@ -529,7 +560,9 @@ class _TextFieldFormState extends State<TextFieldForm>
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                color: ListColor.colorBackgroundTextFieldAll,
+                color: isEmpty == true
+                    ? ListColor.colorValidationTextFieldBackgroundEmpty
+                    : ListColor.colorBackgroundTextFieldAll,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
                   child: ComponentTextDescription(

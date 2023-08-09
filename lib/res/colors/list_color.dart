@@ -36,7 +36,11 @@ class ListColor {
       Color.fromARGB(255, 54, 216, 255);
   static const colorBackgroundTextFieldAll = Color.fromARGB(255, 224, 249, 253);
   static const colorPurpleBold = Color.fromARGB(255, 168, 144, 255);
-  
   static const colorBackgroundConfirmToSaveChanges =
-      Color.fromARGB(255, 247, 181, 0);
+      Color.fromARGB(255, 255, 211, 90);
+  static const colorValidationTextFieldBackgroundEmpty =
+      colorBackgroundConfirmToSaveChanges;
+  static const colorOutlineTextFieldWhenEmpty =
+      Color.fromARGB(255, 247, 0, 180);
+      
 }

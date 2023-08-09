@@ -74,10 +74,10 @@ class _PageNavProfileSelectPictureState
           uiSettings: [
             AndroidUiSettings(
                 toolbarTitle: 'Cropper',
-                toolbarColor: Color.fromARGB(255, 114, 87, 215),
+                toolbarColor: Color.fromARGB(255, 32, 36, 47),
                 activeControlsWidgetColor: Color.fromARGB(255, 114, 87, 215),
                 toolbarWidgetColor: Colors.white,
-                cropFrameColor: Color.fromARGB(255, 114, 87, 215),
+                backgroundColor: Colors.black,
                 initAspectRatio: CropAspectRatioPreset.original,
                 lockAspectRatio: false),
           ]);
@@ -237,7 +237,6 @@ class _PageNavProfileSelectPictureState
                   SizedBox(
                     height: 50.h,
                   ),
-
                   //Tutoring
                 ],
               ),

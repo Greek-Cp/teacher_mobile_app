@@ -7,6 +7,7 @@ import 'package:teacher_mobile_app/res/border/border.dart';
 import 'package:teacher_mobile_app/res/border/divider_global.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
+import 'package:teacher_mobile_app/res/font/font_type.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 
@@ -20,7 +21,6 @@ class DropDownWidget extends StatefulWidget {
   int selectedIndex = 0;
 
   String? initialValueDropDown;
-
   double containerHeight = 50;
   String? labelText;
   List<String>? listData;
@@ -47,7 +47,11 @@ class _DropDownWidgetState extends State<DropDownWidget> {
 
     widget.animationRotateDouble = Tween<double>(begin: 0, end: 1.0)
         .animate(widget.animationRotateIndicatorController);
+    widget.textEditingControllerDropDown.text =
+        widget.initialValueDropDown.toString();
   }
+
+  bool isEmpty = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +69,6 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               }
               double screenHeight = MediaQuery.of(context).size.height;
               double containerHeight = screenHeight * 0.278;
-
               if (widget.containerHeight <= 90) {
                 setState(() {
                   widget.containerHeight += containerHeight;
@@ -86,10 +89,14 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               width: double.infinity,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Colors.black,
+                  color: isEmpty == true
+                      ? ListColor.colorOutlineTextFieldWhenEmpty
+                      : Colors.black,
                   width: 2.0,
                 ),
-                color: ListColor.colorBackgroundTextFieldAll,
+                color: isEmpty == true
+                    ? ListColor.colorValidationTextFieldBackgroundEmpty
+                    : ListColor.colorBackgroundTextFieldAll,
                 borderRadius: BorderRadius.circular(size.roundedCircularGlobal),
               ),
               child: Padding(
@@ -100,10 +107,32 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                   ),
                   child: Stack(
                     children: [
-                      ComponentTextDescription(
-                        widget.initialValueDropDown,
-                        fontSize: size.sizeTextDescriptionGlobal,
-                        fontWeight: FontWeight.normal,
+                      TextFormField(
+                        controller: widget.textEditingControllerDropDown,
+                        validator: (value) {
+                          print("valuee $value");
+                          if (value == widget.initialValueDropDown) {
+                            setState(() {
+                              isEmpty = true;
+                            });
+                            return null;
+                          } else {
+                            setState(() {
+                              isEmpty = false;
+                            });
+                          }
+                          return null;
+                        },
+                        readOnly: true, // Make the field read-only
+                        style: FontType.font_utama(
+                            fontSize: size.sizeTextDescriptionGlobal.sp,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black),
+                        decoration: InputDecoration(
+                          border: InputBorder.none, // Remove the outline
+                          contentPadding: EdgeInsets.zero, // Remove padding
+                          isCollapsed: true, // Collapse the vertical space
+                        ),
                       ),
                       UtilLocalization.checkLocalization(context).toString() ==
                               "US"
@@ -118,6 +147,10 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                                     "assets/icon/ic_drop_down_chose.png",
                                     width: 20.w,
                                     height: 20.h,
+                                    color: isEmpty == true
+                                        ? ListColor
+                                            .colorOutlineTextFieldWhenEmpty
+                                        : Color.fromARGB(255, 114, 87, 216),
                                   ),
                                 ),
                               ),
@@ -131,11 +164,16 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                                   "assets/icon/ic_drop_down_chose.png",
                                   width: 20.w,
                                   height: 20.h,
+                                  color: isEmpty == true
+                                      ? ListColor.colorOutlineTextFieldWhenEmpty
+                                      : Color.fromARGB(255, 114, 87, 216),
                                 ),
                               ),
                             ),
                       Container(
-                        color: ListColor.colorBackgroundTextFieldAll,
+                        color: isEmpty == true
+                            ? ListColor.colorValidationTextFieldBackgroundEmpty
+                            : ListColor.colorBackgroundTextFieldAll,
                         margin: EdgeInsets.only(top: 30),
                         padding: EdgeInsets.only(right: 5, left: 0),
                         child: Scrollbar(
@@ -148,17 +186,16 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                               physics: AlwaysScrollableScrollPhysics(),
                               itemCount: widget.listData!.length,
                               itemBuilder: (context, index) {
-                                return InkWell(
-                                  splashColor: Colors
-                                      .blue, // Change the splash color here
-                                  highlightColor: Colors
-                                      .green, // Change the highlight color here
-
+                                return GestureDetector(
                                   onTap: () {
                                     //select language
                                     setState(() {
-                                      widget.initialValueDropDown =
-                                          widget.listData![index];
+                                      widget.textEditingControllerDropDown
+                                          .text = widget.listData![index];
+                                      // widget.initialValueDropDown =
+                                      //     widget.listData![index];
+                                      print(
+                                          "value${widget.initialValueDropDown}");
                                     });
                                     //EasyLocalization.of(context)
                                     widget.selectedIndex = index;
@@ -167,8 +204,11 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Divider(
-                                        height: 3,
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 20.h),
+                                        child: Divider(
+                                          height: 3,
+                                        ),
                                       ),
                                       Padding(
                                         padding:
@@ -224,7 +264,9 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               child: AnimatedContainer(
                   duration: Duration(milliseconds: 500),
                   margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.h),
-                  color: ListColor.colorBackgroundTextFieldAll,
+                  color: isEmpty == true
+                      ? ListColor.colorValidationTextFieldBackgroundEmpty
+                      : ListColor.colorBackgroundTextFieldAll,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.h),
                     child: ComponentTextDescription(

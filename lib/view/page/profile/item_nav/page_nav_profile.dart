@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
+import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
@@ -97,6 +98,8 @@ class _PageNavProfileState extends State<PageNavProfile> {
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          appBar: AppBarGlobal(),
+          extendBodyBehindAppBar: true,
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -115,14 +118,9 @@ class _PageNavProfileState extends State<PageNavProfile> {
               child: ListView(
                 children: [
                   SizedBox(height: 30),
-                  ButtonBackArrow(
-                    onPressed: () {
-                      Navigator.of(context);
-                    },
-                  ),
+
                   Column(
                     children: [
-                      SizedBox(height: 30),
                       Container(
                         decoration: BoxDecoration(
                             color: ListColor

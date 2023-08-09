@@ -6,10 +6,50 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 
+class ButtonLongForm extends StatelessWidget {
+  String nameButton;
+  String routeName;
+  GlobalKey<FormState> formKey;
+  ButtonLongForm(
+      {required this.nameButton,
+      required this.routeName,
+      required this.formKey});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return ElevatedButton(
+        style: ButtonStyle(
+            minimumSize: MaterialStatePropertyAll(Size.fromHeight(55.h)),
+            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.r),
+                side: BorderSide(
+                    width: size.sizeBorderBlackGlobal, color: Colors.black))),
+            backgroundColor:
+                MaterialStatePropertyAll(Color.fromARGB(255, 63, 254, 202))),
+        onPressed: () => {
+              if (formKey.currentState!.validate())
+                {
+                  formKey.currentState!.save()
+
+                  // Do something with the input
+                }
+            },
+        child: Padding(
+            padding: EdgeInsets.only(
+                left: 30.h, right: 30.h, top: 10.h, bottom: 10.h),
+            child: ComponentTextDescription(
+              tr("$nameButton"),
+              fontSize: size.textButton + 5,
+            )));
+  }
+}
+
 class ButtonLong extends StatelessWidget {
   String nameButton;
   String routeName;
-  ButtonLong({required this.nameButton, required this.routeName});
+  Key? formKey;
+  ButtonLong({required this.nameButton, required this.routeName, this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +110,12 @@ class CardButtonLong extends StatelessWidget {
       child: Container(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.h),
+          padding: EdgeInsets.symmetric(vertical: 10.h),
           child: Center(
             child: ComponentTextDescription(
               tr("$nameButton"),
               teksColor: colorFont,
-              fontSize: size.sizeTextDescriptionGlobal.sp,
+              fontSize: size.sizeTextHeaderGlobal.sp,
               fontWeight: fontWeight,
               textAlign: textAlign,
             ),
