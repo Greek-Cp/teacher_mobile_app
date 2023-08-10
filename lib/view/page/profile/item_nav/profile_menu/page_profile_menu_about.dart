@@ -197,8 +197,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                                                     marginContainer += 30;
                                                   });
                                                 },
-                                                animationRotateIndicatorController:
-                                                    animationControllerDropDownSelectCountry,
+                                               
                                                 textEditingControllerDropDown:
                                                     textEditingControllerSelectCountry,
                                                 initialValueDropDown:

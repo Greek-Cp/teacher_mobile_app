@@ -87,6 +87,9 @@ class _PageProfileMenuAddExperienceState
   int indexTutoringLanguage = 1;
   int limitExpreince = 0;
   int globalContainer = 545;
+  int maxLanguage = 2;
+
+  int widgetDropDown = 0;
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -160,8 +163,6 @@ class _PageProfileMenuAddExperienceState
                                       height: size.marginTopAndBottom.h,
                                     ),
                                     DropDownWidget(
-                                      animationRotateIndicatorController:
-                                          animationControllerTutoringLanguage,
                                       textEditingControllerDropDown:
                                           textEditingControllerSelectCountry,
                                       initialValueDropDown:
@@ -176,8 +177,6 @@ class _PageProfileMenuAddExperienceState
                                       height: 10.h,
                                     ),
                                     DropDownWidget(
-                                      animationRotateIndicatorController:
-                                          animationControllerTutoringLanguage,
                                       textEditingControllerDropDown:
                                           textEditingControllerSelectCountry,
                                       initialValueDropDown:
@@ -226,9 +225,66 @@ class _PageProfileMenuAddExperienceState
                                             listWidget.addAll([
                                               Column(
                                                 children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Expanded(
+                                                          child: Container()),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                   
+                                                          setState(() {
+                                                            marginConfirm -= 60;
+                                                            marginContainer -=
+                                                                60;
+                                                            indexLanguage -= 1;
+                                                            indexTutoringLanguage -=
+                                                                1;
+                                                            limitExpreince -= 1;
+                                                            listWidget
+                                                                .removeAt(0);
+                                                          });
+                                                        },
+                                                        child: Card(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              214,
+                                                              214,
+                                                              214),
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30.r),
+                                                            side: BorderSide(
+                                                              width: size
+                                                                  .sizeBorderBlackGlobal,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        2.h,
+                                                                    horizontal:
+                                                                        15.w),
+                                                            child:
+                                                                ComponentTextDescription(
+                                                              "X",
+                                                              fontSize: size
+                                                                  .sizeTextDescriptionGlobal
+                                                                  .sp,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                   DropDownWidget(
-                                                    animationRotateIndicatorController:
-                                                        animationControllerSelectLanguageList,
                                                     textEditingControllerDropDown:
                                                         textEditingControllerLanguage,
                                                     initialValueDropDown:
@@ -246,8 +302,6 @@ class _PageProfileMenuAddExperienceState
                                                     height: 10.h,
                                                   ),
                                                   DropDownWidget(
-                                                    animationRotateIndicatorController:
-                                                        animationControllerSelectLanguageListTwo,
                                                     textEditingControllerDropDown:
                                                         textEditingControllerTutoring,
                                                     initialValueDropDown: tr(
@@ -265,15 +319,19 @@ class _PageProfileMenuAddExperienceState
                                                 ],
                                               )
                                             ]);
+
+                                            widgetDropDown += 1;
                                           }
                                         });
                                       },
-                                      child: ComponentTextDescription(
-                                          "+ Add another Experience",
-                                          teksColor: const Color.fromARGB(
-                                              255, 17, 68, 109),
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal),
+                                      child: listWidget.length == maxLanguage
+                                          ? Container()
+                                          : ComponentTextDescription(
+                                              "+ Add another Experience",
+                                              teksColor: const Color.fromARGB(
+                                                  255, 17, 68, 109),
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal),
                                     ),
                                     SizedBox(
                                       height: 60.h,

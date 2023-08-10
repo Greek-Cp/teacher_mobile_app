@@ -29,8 +29,10 @@ class _PageProfileMenuChangeUsernameState
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
-
+  List<ModelValidationTextField> listModelValidationUsername =
+      RepositoryValidation().listModelValidationUsername;
   @override
+
   Widget build(BuildContext context) {
     // TODO: implement build
     lang = UtilLocalization.checkLocalization(context).toString();
@@ -103,6 +105,7 @@ class _PageProfileMenuChangeUsernameState
                                       textEditingControllerEmail,
                                   labelText: "username",
                                   hintText: "username",
+                                  listModelValidation: listModelValidationUsername,
                                   requestTypeValidation: "username",
                                 ),
                                 SizedBox(

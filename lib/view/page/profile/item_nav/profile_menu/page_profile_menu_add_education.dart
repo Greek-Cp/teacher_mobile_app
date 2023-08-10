@@ -19,6 +19,7 @@ import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_language.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_login.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_experience.dart';
 
 class PageProfileMenuAddEducation extends StatefulWidget {
   static String? routeName = "/PageProfileMenuAddEducation";
@@ -33,14 +34,11 @@ class _PageProfileMenuAddEducationState
   TextEditingController textEditingControllerFirstName =
       TextEditingController();
   TextEditingController textEditingControllerLastName = TextEditingController();
-  TextEditingController textEditingControllerYear = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
-
   TextEditingController textEditingControllerSelectCountry =
       TextEditingController();
   late AnimationController animationControllerSelectLanguage;
   late AnimationController animationControllerTutoringLanguage;
-  late AnimationController animationControllerYear;
   @override
   void initState() {
     // TODO: implement initState
@@ -57,13 +55,9 @@ class _PageProfileMenuAddEducationState
     // setState(() {
     //   _selectedLanguage = "English";
     // });
-
     animationControllerSelectLanguage = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
-
     animationControllerTutoringLanguage = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
-    animationControllerYear = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
     marginContainer = 400;
     marginConfirm = 370;
@@ -91,8 +85,12 @@ class _PageProfileMenuAddEducationState
   int marginContainer = 0;
   List<Widget> listWidget = [];
   int indexLanguage = 1;
-  int indexTutoringLanguage = 2;
-  int limitEducation = 0;
+  int indexTutoringLanguage = 1;
+  int limitExpreince = 0;
+  int globalContainer = 545;
+  int maxLanguage = 2;
+
+  int widgetDropDown = 0;
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -107,8 +105,8 @@ class _PageProfileMenuAddEducationState
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
+          extendBodyBehindAppBar: true,
           appBar: AppBarGlobal(),
-          extendBodyBehindAppBar: true, //
           body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -157,40 +155,17 @@ class _PageProfileMenuAddEducationState
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     SizedBox(
-                                      height: 30.h,
+                                      height: size.marginTopAndBottom.h,
                                     ),
                                     Center(
                                         child: ComponentTextTittle(
                                             tr("your_education"))),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 30.h,
-                                        ),
-                                      ],
-                                    ),
-                                    DropDownWidget(
-                                      animationRotateIndicatorController:
-                                          animationControllerSelectLanguage,
-                                      textEditingControllerDropDown:
-                                          textEditingControllerYear,
-                                      initialValueDropDown: "education_level",
-                                      containerHeight: 50,
-                                      labelText: tr("education_level") + " 1",
-                                      listData: countryOfResidenceList,
-                                    ),
                                     SizedBox(
-                                      height: 10.h,
+                                      height: size.marginTopAndBottom.h,
                                     ),
                                     DropDownWidget(
-                                      animationRotateIndicatorController:
-                                          animationControllerTutoringLanguage,
                                       textEditingControllerDropDown:
-                                          textEditingControllerLastName,
+                                          textEditingControllerFirstName,
                                       initialValueDropDown:
                                           tr("select_subject"),
                                       containerHeight: 50,
@@ -201,8 +176,20 @@ class _PageProfileMenuAddEducationState
                                       height: 10.h,
                                     ),
                                     DropDownWidget(
-                                      animationRotateIndicatorController:
-                                          animationControllerTutoringLanguage,
+                                      textEditingControllerDropDown:
+                                          textEditingControllerLastName,
+                                      initialValueDropDown:
+                                          tr("select_experienye_in_years"),
+                                      containerHeight: 50,
+                                      labelText:
+                                          tr("select_length_of_this_experi") +
+                                              " 2",
+                                      listData: countryOfResidenceList,
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    DropDownWidget(
                                       textEditingControllerDropDown:
                                           textEditingControllerSelectCountry,
                                       initialValueDropDown: tr("select_year"),
@@ -210,26 +197,24 @@ class _PageProfileMenuAddEducationState
                                       labelText: tr("completion_year") + " 3",
                                       listData: countryOfResidenceList,
                                     ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
                                     DividerGlobal(),
                                     ...listWidget,
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          if (limitEducation == 3) {
+                                          if (limitExpreince == 4) {
                                             Get.snackbar("Notification",
-                                                "Maximal Education Is 4");
+                                                "Maximal Experience Is 5");
                                           } else {
                                             TextEditingController
                                                 textEditingControllerLanguage =
                                                 TextEditingController();
+
                                             TextEditingController
                                                 textEditingControllerTutoring =
                                                 TextEditingController();
                                             TextEditingController
-                                                textEditingControllerYear =
+                                                textEditingControlleYear =
                                                 TextEditingController();
                                             AnimationController
                                                 animationControllerSelectLanguageList =
@@ -245,35 +230,84 @@ class _PageProfileMenuAddEducationState
                                                     duration: Duration(
                                                         milliseconds: 500),
                                                     upperBound: 0.5);
-
-                                            AnimationController
-                                                animationControllerSelectYear =
-                                                AnimationController(
-                                                    vsync: this,
-                                                    duration: Duration(
-                                                        milliseconds: 500),
-                                                    upperBound: 0.5);
-                                            indexLanguage += 2;
-                                            indexTutoringLanguage += 2;
-                                            limitEducation += 1;
+                                            indexLanguage += 1;
                                             marginContainer += 120;
                                             marginConfirm += 120;
+                                            indexTutoringLanguage += 1;
+                                            limitExpreince += 1;
                                             listWidget.addAll([
-                                              SizedBox(
-                                                height: 10.h,
-                                              ),
                                               Column(
                                                 children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Expanded(
+                                                          child: Container()),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            marginContainer -=
+                                                                120;
+                                                            marginConfirm -=
+                                                                120;
+                                                            indexLanguage -= 1;
+                                                            indexTutoringLanguage -=
+                                                                1;
+                                                            limitExpreince -= 1;
+                                                            listWidget
+                                                                .removeAt(0);
+                                                          });
+                                                        },
+                                                        child: Card(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              214,
+                                                              214,
+                                                              214),
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30.r),
+                                                            side: BorderSide(
+                                                              width: size
+                                                                  .sizeBorderBlackGlobal,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        2.h,
+                                                                    horizontal:
+                                                                        15.w),
+                                                            child:
+                                                                ComponentTextDescription(
+                                                              "X",
+                                                              fontSize: size
+                                                                  .sizeTextDescriptionGlobal
+                                                                  .sp,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                   DropDownWidget(
-                                                    animationRotateIndicatorController:
-                                                        animationControllerSelectLanguageList,
                                                     textEditingControllerDropDown:
                                                         textEditingControllerLanguage,
                                                     initialValueDropDown:
-                                                        "education_level",
+                                                        "select_experience",
                                                     containerHeight: 50,
                                                     labelText:
-                                                        tr("education_level"),
+                                                        tr("experience") +
+                                                            " " +
+                                                            indexLanguage
+                                                                .toString(),
                                                     listData:
                                                         countryOfResidenceList,
                                                   ),
@@ -281,14 +315,16 @@ class _PageProfileMenuAddEducationState
                                                     height: 10.h,
                                                   ),
                                                   DropDownWidget(
-                                                    animationRotateIndicatorController:
-                                                        animationControllerSelectLanguageListTwo,
                                                     textEditingControllerDropDown:
                                                         textEditingControllerTutoring,
-                                                    initialValueDropDown:
-                                                        tr("select_subject"),
+                                                    initialValueDropDown: tr(
+                                                        "select_experienye_in_years"),
                                                     containerHeight: 50,
-                                                    labelText: tr("subject"),
+                                                    labelText:
+                                                        tr("select_length_of_this_experi") +
+                                                            " " +
+                                                            indexTutoringLanguage
+                                                                .toString(),
                                                     listData:
                                                         countryOfResidenceList,
                                                   ),
@@ -296,34 +332,34 @@ class _PageProfileMenuAddEducationState
                                                     height: 10.h,
                                                   ),
                                                   DropDownWidget(
-                                                    animationRotateIndicatorController:
-                                                        animationControllerYear,
                                                     textEditingControllerDropDown:
-                                                        textEditingControllerYear,
+                                                        textEditingControlleYear,
                                                     initialValueDropDown:
                                                         tr("select_year"),
                                                     containerHeight: 50,
                                                     labelText:
-                                                        tr("completion_year"),
+                                                        tr("completion_year") +
+                                                            " 3",
                                                     listData:
                                                         countryOfResidenceList,
                                                   ),
-                                                  SizedBox(
-                                                    height: 10.h,
-                                                  ),
-                                                  DividerGlobal(),
+                                                  DividerGlobal()
                                                 ],
                                               )
                                             ]);
+
+                                            widgetDropDown += 1;
                                           }
                                         });
                                       },
-                                      child: ComponentTextDescription(
-                                          "+ Add another Language",
-                                          teksColor: const Color.fromARGB(
-                                              255, 17, 68, 109),
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal),
+                                      child: listWidget.length == maxLanguage
+                                          ? Container()
+                                          : ComponentTextDescription(
+                                              "+ Add another Experience",
+                                              teksColor: const Color.fromARGB(
+                                                  255, 17, 68, 109),
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal),
                                     ),
                                     SizedBox(
                                       height: 60.h,
@@ -340,14 +376,14 @@ class _PageProfileMenuAddEducationState
                             child: ButtonLongForm(
                           nameButton: "Confirm",
                           routeName:
-                              PageProfileMenuAddEducation.routeName.toString(),
+                              PageProfileMenuAddExperience.routeName.toString(),
                           formKey: _formKey,
                         )),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 60.h,
+                    height: 50.h,
                   ),
                 ],
               ),

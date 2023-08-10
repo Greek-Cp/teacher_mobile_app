@@ -15,7 +15,6 @@ import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 
-
 class PageSignUpFillUsername extends StatefulWidget {
   static String? routeName = "/PageSignUpFillUsername";
 
@@ -27,7 +26,8 @@ class _PageSignUpFillUsernameState extends State<PageSignUpFillUsername> {
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
-
+  List<ModelValidationTextField> listModelValidation =
+      RepositoryValidation().listModelValidationUsername;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -96,6 +96,7 @@ class _PageSignUpFillUsernameState extends State<PageSignUpFillUsername> {
                                 TextFieldFormWithValidation(
                                   textEditingControllerEmail:
                                       textEditingControllerEmail,
+                                  listModelValidation: listModelValidation,
                                   labelText: "username",
                                   hintText: "username",
                                   requestTypeValidation: "username",

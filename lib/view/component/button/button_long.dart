@@ -10,10 +10,12 @@ class ButtonLongForm extends StatelessWidget {
   String nameButton;
   String routeName;
   GlobalKey<FormState> formKey;
+  Color? colorButton;
   ButtonLongForm(
       {required this.nameButton,
       required this.routeName,
-      required this.formKey});
+      required this.formKey,
+      this.colorButton});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,9 @@ class ButtonLongForm extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.r),
                 side: BorderSide(
                     width: size.sizeBorderBlackGlobal, color: Colors.black))),
-            backgroundColor:
-                MaterialStatePropertyAll(Color.fromARGB(255, 63, 254, 202))),
+            backgroundColor: MaterialStatePropertyAll(colorButton == null
+                ? Color.fromARGB(255, 63, 254, 202)
+                : colorButton)),
         onPressed: () => {
               if (formKey.currentState!.validate())
                 {

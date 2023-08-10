@@ -141,7 +141,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
     ModelProfileMenu(
         nameMenu: tr("edit_profile"),
         routeNameDirect: "reviews",
-        assetsPath: "assets/icon/profile/ic_pencil.svg"),
+        assetsPath: "assets/icon/ic_pencil.svg"),
   ];
 
   @override
@@ -857,7 +857,7 @@ class CardItemBoxNoFormat extends StatelessWidget {
             width: size.sizeBorderBlackGlobal,
             color: Colors.black,
           ),
-          borderRadius: BorderRadius.circular(size.sizeRoundedGlobal.r),
+          borderRadius: BorderRadius.circular(size.sizeRoundedGlobal),
         ),
         child: Container(
           height: 120.h,

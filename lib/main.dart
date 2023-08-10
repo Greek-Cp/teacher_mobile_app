@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_forgot_password.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_reset_password.dart';
@@ -107,6 +108,15 @@ class MainApp extends StatelessWidget {
         ),
         GetPage(name: pageNavBar.routeName.toString(), page: () => pageNavBar())
       ],
+      theme: _buildTheme(Brightness.light),
+    );
+  }
+
+  ThemeData _buildTheme(brightness) {
+    var baseTheme = ThemeData(brightness: brightness);
+
+    return baseTheme.copyWith(
+      textTheme: GoogleFonts.nunitoTextTheme(baseTheme.textTheme),
     );
   }
 }

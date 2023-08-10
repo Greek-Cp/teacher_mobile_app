@@ -83,6 +83,9 @@ class _PageProfileMenuSelectLanguageState
   List<Widget> listWidget = [];
   int indexLanguage = 1;
   int limitLanguage = 0;
+  int maxLanguage = 2;
+  int widgetDropDown = 0;
+  bool showTextAddWidget = true;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -163,8 +166,6 @@ class _PageProfileMenuSelectLanguageState
                                       height: 30.h,
                                     ),
                                     DropDownWidget(
-                                      animationRotateIndicatorController:
-                                          animationControllerSelectLanguage,
                                       textEditingControllerDropDown:
                                           textEditingControllerSelectCountry,
                                       initialValueDropDown: "select_a_language",
@@ -194,7 +195,7 @@ class _PageProfileMenuSelectLanguageState
                                                 upperBound: 0.5);
 
                                         setState(() {
-                                          if (limitLanguage == 2) {
+                                          if (limitLanguage == maxLanguage) {
                                             Get.snackbar("Notification",
                                                 "You Only Can Add Maximal 3 Language");
                                           } else {
@@ -205,10 +206,67 @@ class _PageProfileMenuSelectLanguageState
                                             listWidget.addAll([
                                               Column(
                                                 children: [
-                                                  DividerGlobal(),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Expanded(
+                                                          child:
+                                                              DividerGlobal()),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          int indxRemoveSelected =
+                                                              widgetDropDown;
+                                                          setState(() {
+                                                            marginConfirm -= 60;
+                                                            marginContainer -=
+                                                                60;
+                                                            indexLanguage -= 1;
+                                                            limitLanguage -= 1;
+                                                            limitLanguage -= 1;
+                                                            listWidget
+                                                                .removeAt(0);
+                                                          });
+                                                        },
+                                                        child: Card(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              214,
+                                                              214,
+                                                              214),
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30.r),
+                                                            side: BorderSide(
+                                                              width: size
+                                                                  .sizeBorderBlackGlobal,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                                    vertical:
+                                                                        2.h,
+                                                                    horizontal:
+                                                                        15.w),
+                                                            child:
+                                                                ComponentTextDescription(
+                                                              "X",
+                                                              fontSize: size
+                                                                  .sizeTextDescriptionGlobal
+                                                                  .sp,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                   DropDownWidget(
-                                                    animationRotateIndicatorController:
-                                                        animationControllerSelectLanguageList,
                                                     textEditingControllerDropDown:
                                                         textEditingControllerTutoring,
                                                     initialValueDropDown:
@@ -225,10 +283,11 @@ class _PageProfileMenuSelectLanguageState
                                                 ],
                                               )
                                             ]);
+                                            widgetDropDown += 1;
                                           }
                                         });
                                       },
-                                      child: limitLanguage == 2
+                                      child: listWidget.length == maxLanguage
                                           ? Container()
                                           : ComponentTextDescription(
                                               "+ Add another Language",

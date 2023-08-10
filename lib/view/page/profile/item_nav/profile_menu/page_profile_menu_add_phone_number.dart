@@ -113,130 +113,133 @@ class _PageProfileMenuAddPhoneNumberState
                               .sizeRoundedGlobal
                               .r), // Sudut melengkung sebesar 30 unit
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizePaddingLeftAndRightPage.h),
-                          child: SingleChildScrollView(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    height: 40.h,
-                                  ),
-                                  DropDownWidgetChooseCountry(
-                                    animationRotateIndicatorController:
-                                        animationControllerDropDownSelectCountry,
-                                    textEditingControllerDropDown:
-                                        textEditingControllerSelectCountry,
-                                    initialValueDropDown: "Country",
-                                    containerHeight: 50,
-                                    labelText: "Choose a Country",
-                                    listData: countryCodes,
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  Center(
-                                    child: CardButtonLong(
-                                        colorButton:
-                                            Color.fromARGB(255, 167, 143, 252),
+                        child: Form(
+                          key: _formKey,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.sizePaddingLeftAndRightPage.h),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      height: 40.h,
+                                    ),
+                                    DropDownWidgetChooseCountry(
+                                      textEditingControllerDropDown:
+                                          textEditingControllerSelectCountry,
+                                      initialValueDropDown: "Country",
+                                      containerHeight: 50,
+                                      labelText: "Choose a Country",
+                                      listData: countryCodes,
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Center(
+                                      child: ButtonLongForm(
                                         nameButton: "Send",
-                                        colorFont: Colors.white,
-                                        fontWeight: FontWeight.normal,
                                         routeName: PageProfileMenuAddPhoneNumber
                                             .routeName
-                                            .toString()),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: 10.h,
+                                            .toString(),
+                                        formKey: _formKey,
+                                        colorButton:
+                                            Color.fromARGB(255, 114, 87, 216),
                                       ),
-                                      ComponentTextDescription("Verification",
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        ComponentTextDescription("Verification",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        ComponentTextDescription(
+                                          "5 Digit Pin has been sent to: number_phone}",
                                           fontSize:
-                                              size.sizeTextDescriptionGlobal),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      ComponentTextDescription(
-                                        "5 Digit Pin has been sent to: number_phone}",
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal,
-                                        textAlign: TextAlign.center,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      OtpTextField(
-                                        numberOfFields: 5,
-                                        fieldWidth: 50.0.w,
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 2.h),
-                                        borderColor: Colors.black,
-                                        //set to true to show as box or false to show as dash
-                                        showFieldAsBox: true,
-                                        //runs when a code is typed in
-                                        onCodeChanged: (String code) {
-                                          //handle validation or checks here
-                                        },
-                                        fillColor: ListColor
-                                            .colorBackgroundTextFieldAll,
-                                        filled: true,
-                                        enabledBorderColor: Colors.black,
-                                        //runs when every textfield is filled
-                                        onSubmit: (String verificationCode) {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertDialog(
-                                                  title:
-                                                      Text("Verification Code"),
-                                                  content: Text(
-                                                      'Code entered is $verificationCode'),
-                                                );
-                                              });
-                                        }, // end onSubmit
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      ComponentTextDescription(
-                                        "minutes:seconds",
-                                        fontSize: size.sizeTextHeaderGlobal - 2,
-                                        teksColor:
-                                            Color.fromARGB(255, 114, 87, 215),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      /*
-                                      30 second
-                                      */
-                                      // ComponentTextDescription(
-                                      //     "Didn't Receive Code ?",
-                                      //     fontSize:
-                                      //         size.sizeTextDescriptionGlobal),
-                                      // ComponentTextDescription(
-                                      //   "Resend Code",
-                                      //   teksColor: ListColor.colorVerified,
-                                      //   fontSize:
-                                      //       size.sizeTextDescriptionGlobal,
-                                      //   textAlign: TextAlign.center,
-                                      //   fontWeight: FontWeight.bold,
-                                      // ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                ]),
+                                              size.sizeTextDescriptionGlobal,
+                                          textAlign: TextAlign.center,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        OtpTextField(
+                                          numberOfFields: 5,
+                                          fieldWidth: 50.0.w,
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 2.h),
+                                          borderColor: Colors.black,
+                                          //set to true to show as box or false to show as dash
+                                          showFieldAsBox: true,
+                                          //runs when a code is typed in
+                                          onCodeChanged: (String code) {
+                                            //handle validation or checks here
+                                          },
+                                          fillColor: ListColor
+                                              .colorBackgroundTextFieldAll,
+                                          filled: true,
+                                          enabledBorderColor: Colors.black,
+                                          //runs when every textfield is filled
+                                          onSubmit: (String verificationCode) {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        "Verification Code"),
+                                                    content: Text(
+                                                        'Code entered is $verificationCode'),
+                                                  );
+                                                });
+                                          }, // end onSubmit
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        ComponentTextDescription(
+                                          "minutes:seconds",
+                                          fontSize:
+                                              size.sizeTextHeaderGlobal - 2,
+                                          teksColor:
+                                              Color.fromARGB(255, 114, 87, 215),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        /*
+                                        30 second
+                                        */
+                                        // ComponentTextDescription(
+                                        //     "Didn't Receive Code ?",
+                                        //     fontSize:
+                                        //         size.sizeTextDescriptionGlobal),
+                                        // ComponentTextDescription(
+                                        //   "Resend Code",
+                                        //   teksColor: ListColor.colorVerified,
+                                        //   fontSize:
+                                        //       size.sizeTextDescriptionGlobal,
+                                        //   textAlign: TextAlign.center,
+                                        //   fontWeight: FontWeight.bold,
+                                        // ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                  ]),
+                            ),
                           ),
                         ),
                       ),

@@ -89,7 +89,7 @@ class _PageProfileMenuAddDescriptionState
   List<Widget> listWidget = [];
   int indexLanguage = 1;
   int indexTutoringLanguage = 2;
-final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -188,10 +188,11 @@ final _formKey = GlobalKey<FormState>();
                         margin: EdgeInsets.only(
                             top: 440.h, left: 20.h, right: 20.h),
                         child: Center(
-                            child: ButtonLong(
+                            child: ButtonLongForm(
                           nameButton: "Confirm",
                           routeName: PageProfileMenuAddDescription.routeName
                               .toString(),
+                          formKey: _formKey,
                         )),
                       ),
                     ],

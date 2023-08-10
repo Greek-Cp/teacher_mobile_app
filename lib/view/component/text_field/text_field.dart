@@ -12,17 +12,46 @@ import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 
 import '../../../res/colors/list_color.dart';
 
+class ModelValidationTextField {
+  String? descriptionValidation;
+  RegExp? regexValidate;
+  bool? warningRule = false;
+  ModelValidationTextField(
+      {this.descriptionValidation, this.regexValidate, this.warningRule});
+}
+
+class RepositoryValidation {
+  List<ModelValidationTextField> listModelValidationUsername = [
+    ModelValidationTextField(
+        descriptionValidation: "- Use characters and number only",
+        regexValidate: RegExp(r'^[a-zA-Z0-9]+$'),
+        warningRule: false),
+    ModelValidationTextField(
+        descriptionValidation: "- Minimum 8 Characters",
+        regexValidate: RegExp(r'^.{8,}$'),
+        warningRule: false),
+    ModelValidationTextField(
+        descriptionValidation: "- This Username is unvailable",
+        warningRule: false),
+    ModelValidationTextField(
+        descriptionValidation: "- You can't change your username",
+        warningRule: false),
+  ];
+}
+
 class TextFieldFormWithValidation extends StatefulWidget {
   TextFieldFormWithValidation(
       {required this.textEditingControllerEmail,
       required this.hintText,
       required this.labelText,
-      required this.requestTypeValidation});
+      required this.requestTypeValidation,
+      required this.listModelValidation});
 
   final TextEditingController textEditingControllerEmail;
   final String labelText;
   final String hintText;
   final String requestTypeValidation;
+  final List<ModelValidationTextField> listModelValidation;
 
   @override
   State<TextFieldFormWithValidation> createState() =>
@@ -44,13 +73,7 @@ class _TextFieldFormWithValidationState
         vsync: this, duration: Duration(milliseconds: 1300));
   }
 
-  bool warningRule1 = false;
-  bool warningRule2 = false;
-  bool warningRule3 = false;
-  bool warningRule4 = false;
-
   @override
-
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -65,31 +88,19 @@ class _TextFieldFormWithValidationState
                   controller: widget.textEditingControllerEmail,
                   onChanged: (value) {
                     if (widget.requestTypeValidation == "username") {
-                      final rule1 = RegExp(r'^[a-zA-Z0-9]+$');
-                      final rule2 = RegExp(r'^.{8,}$');
-                      final rule3 =
-                          "unavailable"; // You can implement your own logic to check availability
-                      final rule4 =
-                          true; // You can implement your own logic to check if username can be changed
-
-                      if (!rule1.hasMatch(value)) {
-                        setState(() {
-                          warningRule1 = true;
-                        });
-                      } else {
-                        setState(() {
-                          warningRule1 = false;
-                        });
-                      }
-
-                      if (!rule2.hasMatch(value)) {
-                        setState(() {
-                          warningRule2 = true;
-                        });
-                      } else {
-                        setState(() {
-                          warningRule2 = false;
-                        });
+                      for (int i = 0;
+                          i < widget.listModelValidation.length;
+                          i++) {
+                        if (widget.listModelValidation[i].regexValidate!
+                            .hasMatch(value)) {
+                          setState(() {
+                            widget.listModelValidation[i].warningRule = true;
+                          });
+                        } else {
+                          setState(() {
+                            widget.listModelValidation[i].warningRule = false;
+                          });
+                        }
                       }
                     }
                   },
@@ -105,19 +116,19 @@ class _TextFieldFormWithValidationState
                             width: 20,
                             height: 20,
                             repeat: false,
-                                                   controller: _controllerLottie);
-                                });
-          
-                                print("Is Email");
-                              } else {
-                                setState(() {
-                                  animationSucces = Lottie.asset(
-                                      "assets/icon/animation_wrong.json",
-                                      width: 30,
-                                      height: 30,
-                                      repeat: false,
-                                      controller: _controllerLottie);
-                                });
+                            controller: _controllerLottie);
+                      });
+
+                      print("Is Email");
+                    } else {
+                      setState(() {
+                        animationSucces = Lottie.asset(
+                            "assets/icon/animation_wrong.json",
+                            width: 30,
+                            height: 30,
+                            repeat: false,
+                            controller: _controllerLottie);
+                      });
 
                       print("Not Email");
                     }
@@ -173,33 +184,19 @@ class _TextFieldFormWithValidationState
         ),
         Padding(
           padding: EdgeInsets.only(left: 15.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ComponentTextDescription(
-                tr("validate_username_1"),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.listModelValidation.length,
+            itemBuilder: (context, index) {
+              return ComponentTextDescription(
+                tr("${widget.listModelValidation[index].descriptionValidation}"),
                 fontSize: size.sizeTextDescriptionGlobal,
-                teksColor: warningRule1 ? Colors.red : Colors.black,
-              ),
-              ComponentTextDescription(
-                tr(
-                  "validate_username_2",
-                ),
-                fontSize: size.sizeTextDescriptionGlobal,
-                teksColor: warningRule2 ? Colors.red : Colors.black,
-              ),
-              ComponentTextDescription(
-                tr("validate_username_3"),
-                fontSize: size.sizeTextDescriptionGlobal,
-                teksColor: warningRule3 ? Colors.red : Colors.black,
-              ),
-              ComponentTextDescription(
-                tr("validate_username_4"),
-                fontSize: size.sizeTextDescriptionGlobal,
-                teksColor: warningRule4 ? Colors.red : Colors.black,
-              ),
-            ],
+                teksColor:
+                    widget.listModelValidation[index].warningRule == false
+                        ? Colors.red
+                        : Colors.black,
+              );
+            },
           ),
         )
       ],
@@ -325,7 +322,7 @@ class TextFieldFormMultiLine extends StatefulWidget {
 }
 
 class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   Widget? animationSucces;
 
   bool _isValidEmail = true;
@@ -336,22 +333,47 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
     super.initState();
     _controllerLottie = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1300));
+    _animationControllerShake = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 100),
+    );
+    _animationShake =
+        Tween(begin: -5.0, end: 5.0).animate(_animationControllerShake)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _animationControllerShake.reverse();
+            }
+          });
   }
 
+  late final AnimationController _animationControllerShake;
+  late final Animation<double> _animationShake;
+  bool? isEmpty = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
           margin: EdgeInsets.only(top: 5.h),
-          child: TextField(
+          child: TextFormField(
             minLines: widget.minLines,
             maxLength: widget.lengthMax,
             controller: widget.textEditingControllerEmail,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                setState(() {
+                  isEmpty = true;
+                  _animationControllerShake.forward();
+                });
+                return null;
+              } else {
+                setState(() {
+                  isEmpty = false;
+                });
+              }
+              return null;
+            },
             onEditingComplete: () {
-              _controllerLottie.reset();
-              _controllerLottie.forward();
-
               if (UtilValidatorData.isEmailValid(
                   widget.textEditingControllerEmail.text.toString())) {
                 setState(() {
@@ -384,7 +406,9 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
             maxLines: null, // Set this to null for multiline support
             decoration: InputDecoration(
               filled: true,
-              fillColor: ListColor.colorBackgroundTextFieldAll,
+              fillColor: isEmpty == true
+                  ? ListColor.colorValidationTextFieldBackgroundEmpty
+                  : ListColor.colorBackgroundTextFieldAll,
               hintText: tr("${widget.hintText}"),
               hintStyle: GoogleFonts.nunito(
                   fontSize: size.sizeTextDescriptionGlobal.sp),
@@ -392,7 +416,9 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(size.roundedCircularGlobal),
                 borderSide: BorderSide(
-                  color: Colors.black, // Change the border color here
+                  color: isEmpty == true
+                      ? ListColor.colorOutlineTextFieldWhenEmpty
+                      : Colors.black, // Change the border color here
                   width: size
                       .sizeBorderBlackGlobal, // Change the border width here
                 ),
@@ -400,7 +426,9 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(size.roundedCircularGlobal),
                 borderSide: BorderSide(
-                  color: Colors.black, // Change the border color here
+                  color: isEmpty == true
+                      ? ListColor.colorOutlineTextFieldWhenEmpty
+                      : Colors.black, // Change the border color here
                   width: size
                       .sizeBorderBlackGlobal, // Change the border width here
                 ),
@@ -413,7 +441,9 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                color: ListColor.colorBackgroundTextFieldAll,
+                color: isEmpty == true
+                    ? ListColor.colorValidationTextFieldBackgroundEmpty
+                    : ListColor.colorBackgroundTextFieldAll,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
                   child: ComponentTextDescription(
@@ -442,9 +472,10 @@ class TextFieldForm extends StatefulWidget {
 }
 
 class _TextFieldFormState extends State<TextFieldForm>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   Widget? animationSucces;
-
+  late final AnimationController _animationControllerShake;
+  late final Animation<double> _animationShake;
   bool _isValidEmail = true;
   late final AnimationController _controllerLottie;
   bool isEmpty = false;
@@ -454,124 +485,149 @@ class _TextFieldFormState extends State<TextFieldForm>
     super.initState();
     _controllerLottie = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1300));
+    _animationControllerShake = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 100),
+    );
+    _animationShake =
+        Tween(begin: -5.0, end: 5.0).animate(_animationControllerShake)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _animationControllerShake.reverse();
+            }
+          });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-            margin: EdgeInsets.only(top: 10),
-            child: TextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  setState(() {
-                    isEmpty = true;
-                  });
+    return AnimatedBuilder(
+      animation: _animationControllerShake,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(
+            10 * _animationControllerShake.value,
+            0.0,
+          ),
+          child: child,
+        );
+      },
+      child: Stack(
+        children: [
+          Container(
+              margin: EdgeInsets.only(top: 10),
+              child: TextFormField(
+                validator: (value) {
+                  print("values $value");
+                  if (value == null || value.isEmpty) {
+                    setState(() {
+                      isEmpty = true;
+                      _animationControllerShake.forward();
+                    });
+                    return null;
+                  } else {
+                    setState(() {
+                      isEmpty = false;
+                    });
+                  }
                   return null;
-                } else {
-                  setState(() {
-                    isEmpty = false;
-                  });
-                }
-                return null;
-              },
-              controller: widget.textEditingControllerEmail,
-              onEditingComplete: () {
-                _controllerLottie.reset();
-                _controllerLottie.forward();
-                if (widget.textEditingControllerEmail.text.toString().isEmpty) {
-                  setState(() {
-                    isEmpty = true;
-                  });
-                } else {
-                  setState(() {
-                    isEmpty = false;
-                  });
-                }
-                if (UtilValidatorData.isEmailValid(
-                    widget.textEditingControllerEmail.text.toString())) {
-                  setState(() {
-                    animationSucces = Lottie.asset(
-                        "assets/icon/animation_succes.json",
-                        width: 20,
-                        height: 20,
-                        repeat: false,
-                        controller: _controllerLottie);
-                  });
+                },
+                controller: widget.textEditingControllerEmail,
+                onEditingComplete: () {
+                  _controllerLottie.reset();
+                  _controllerLottie.forward();
+                  if (widget.textEditingControllerEmail.text
+                      .toString()
+                      .isEmpty) {
+                    setState(() {
+                      isEmpty = true;
+                    });
+                  } else {
+                    setState(() {
+                      isEmpty = false;
+                    });
+                  }
+                  if (UtilValidatorData.isEmailValid(
+                      widget.textEditingControllerEmail.text.toString())) {
+                    setState(() {
+                      animationSucces = Lottie.asset(
+                          "assets/icon/animation_succes.json",
+                          width: 20,
+                          height: 20,
+                          repeat: false,
+                          controller: _controllerLottie);
+                    });
 
-                  print("Is Email");
-                } else {
-                  setState(() {
-                    animationSucces = Lottie.asset(
-                        "assets/icon/animation_wrong.json",
-                        width: 30,
-                        height: 30,
-                        repeat: false,
-                        controller: _controllerLottie);
-                  });
+                    print("Is Email");
+                  } else {
+                    setState(() {
+                      animationSucces = Lottie.asset(
+                          "assets/icon/animation_wrong.json",
+                          width: 30,
+                          height: 30,
+                          repeat: false,
+                          controller: _controllerLottie);
+                    });
 
-                  print("Not Email");
-                }
-              },
-              style: GoogleFonts.nunito(
-                  fontSize: size.sizeTextDescriptionGlobal.sp),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: isEmpty == true
-                    ? ListColor.colorValidationTextFieldBackgroundEmpty
-                    : ListColor.colorBackgroundTextFieldAll,
-                hintText: tr("${widget.hintText}"),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: animationSucces,
-                ),
-                hintStyle: GoogleFonts.nunito(
+                    print("Not Email");
+                  }
+                },
+                style: GoogleFonts.nunito(
                     fontSize: size.sizeTextDescriptionGlobal.sp),
-                contentPadding: EdgeInsets.all(15.h),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(size.roundedCircularGlobal),
-                  borderSide: BorderSide(
-                    color: isEmpty == true
-                        ? ListColor
-                            .colorOutlineTextFieldWhenEmpty  
-                        : Colors.black, // Change the border color here
-                    width: size
-                        .sizeBorderBlackGlobal, // Change the border width here
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: isEmpty == true
+                      ? ListColor.colorValidationTextFieldBackgroundEmpty
+                      : ListColor.colorBackgroundTextFieldAll,
+                  hintText: tr("${widget.hintText}"),
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: animationSucces,
+                  ),
+                  hintStyle: GoogleFonts.nunito(
+                      fontSize: size.sizeTextDescriptionGlobal.sp),
+                  contentPadding: EdgeInsets.all(15.h),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius:
+                        BorderRadius.circular(size.roundedCircularGlobal),
+                    borderSide: BorderSide(
+                      color: isEmpty == true
+                          ? ListColor.colorOutlineTextFieldWhenEmpty
+                          : Colors.black, // Change the border color here
+                      width: size
+                          .sizeBorderBlackGlobal, // Change the border width here
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius:
+                        BorderRadius.circular(size.roundedCircularGlobal),
+                    borderSide: BorderSide(
+                      color: isEmpty == true
+                          ? ListColor.colorOutlineTextFieldWhenEmpty
+                          : Colors.black, // Change the border color here
+                      width: size
+                          .sizeBorderBlackGlobal, // Change the border width here
+                    ),
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(size.roundedCircularGlobal),
-                  borderSide: BorderSide(
-                    color: isEmpty == true
-                        ?ListColor
-                            .colorOutlineTextFieldWhenEmpty  
-                        : Colors.black, // Change the border color here
-                    width: size
-                        .sizeBorderBlackGlobal, // Change the border width here
-                  ),
-                ),
-              ),
-            )),
-        Align(
-            alignment: Alignment.topLeft,
-            child: AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                color: isEmpty == true
-                    ? ListColor.colorValidationTextFieldBackgroundEmpty
-                    : ListColor.colorBackgroundTextFieldAll,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.h),
-                  child: ComponentTextDescription(
-                    tr("${widget.labelText}"),
-                    fontWeight: FontWeight.normal,
-                    fontSize: size.sizeTextDescriptionGlobal,
-                  ),
-                ))),
-      ],
+              )),
+          Align(
+              alignment: Alignment.topLeft,
+              child: AnimatedContainer(
+                  duration: Duration(milliseconds: 500),
+                  margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
+                  color: isEmpty == true
+                      ? ListColor.colorValidationTextFieldBackgroundEmpty
+                      : ListColor.colorBackgroundTextFieldAll,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.h),
+                    child: ComponentTextDescription(
+                      tr("${widget.labelText}"),
+                      fontWeight: FontWeight.normal,
+                      fontSize: size.sizeTextDescriptionGlobal,
+                    ),
+                  ))),
+        ],
+      ),
     );
   }
 }
