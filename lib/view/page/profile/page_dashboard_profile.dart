@@ -172,18 +172,215 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                 child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: size.sizePaddingLeftAndRightPage),
-              child: ListView(
-                children: [
-                  //profile
-                  SizedBox(height: 60),
-                  Stack(
-                    children: [
-                      Container(
-                        margin:
-                            EdgeInsets.only(top: size.marginTopPageGlobal.h),
-                        decoration: BoxDecoration(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    //profile
+                    SizedBox(height: 60),
+                    Stack(
+                      children: [
+                        Container(
+                          margin:
+                              EdgeInsets.only(top: size.marginTopPageGlobal.h),
+                          decoration: BoxDecoration(
+                              color: ListColor
+                                  .backgroundContainerProfileWhite, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                              border: Border.all(
+                                color: Colors
+                                    .black, // Warna garis tepi (outline) hitam
+                                width: 2.0, // Ketebalan garis tepi
+                              ),
+                              borderRadius: BorderRadius.circular(size
+                                  .sizeRoundedGlobal
+                                  .r) // Sudut melengkung sebesar 30 unit
+                              ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.sizePaddingLeftAndRightPage.h),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 60.h,
+                                  ),
+                                  ComponentTextTittle("Full Name"),
+                                  ComponentTextTittle("username@gmail.com"),
+                                  ComponentTextTittle("username"),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Card(
+                                    color: ListColor.backgroundColorVerified,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.r),
+                                        side: BorderSide(
+                                            width: size.sizeBorderBlackGlobal,
+                                            color: Colors.black)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          ComponentTextDescription(
+                                            "Account Status: ",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal,
+                                            teksColor: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          ComponentTextDescription(
+                                            "Verified",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal,
+                                            teksColor: ListColor.colorVerified,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        PageNavProfile()));
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 10, bottom: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  listPrrofileMenu[index]
+                                                      .assetsPath,
+                                                  width: 15.w,
+                                                  height: 15.h,
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                Expanded(
+                                                  child:
+                                                      ComponentTextDescription(
+                                                    listPrrofileMenu[index]
+                                                        .nameMenu,
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                SvgPicture.asset(
+                                                    "assets/icon/profile/ic_arrow_rigth.svg")
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: listPrrofileMenu.length,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  )
+                                ]),
+                          ),
+                        ),
+                        Container(
+                          child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Center(
+                                child: Stack(children: [
+                                  Container(
+                                    width: 90.w,
+                                    height: 90.h,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 216, 216, 216),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Colors.black,
+                                        width: size.sizeBorderBlackGlobal,
+                                      ),
+                                    ),
+                                    child: ClipOval(
+                                      // Replace this with your image source
+
+                                      child: SvgPicture.asset(
+                                        "assets/icon/profile/ic_avatar_profile.svg",
+                                        width: 90, // adjust the size as needed
+                                        height: 90,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 1,
+                                    bottom: 1,
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      PageNavProfileSelectPicture()));
+                                        },
+                                        child: Card(
+                                          color: ListColor.primaryClor,
+                                          shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                  color: Colors.black,
+                                                  width: size
+                                                      .sizeBorderBlackGlobal),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r)),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0.h),
+                                            child: SvgPicture.asset(
+                                              "assets/icon/ic_pencil.svg",
+                                              width: 15.w,
+                                              height: 15.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                              )),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(
+                      height: 50.h,
+                    ),
+
+                    //finance
+                    Stack(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          decoration: BoxDecoration(
                             color: ListColor
-                                .backgroundContainerProfileWhite, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                                .colorBackgroundFinance, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
                             border: Border.all(
                               color: Colors
                                   .black, // Warna garis tepi (outline) hitam
@@ -191,83 +388,60 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                             ),
                             borderRadius: BorderRadius.circular(size
                                 .sizeRoundedGlobal
-                                .r) // Sudut melengkung sebesar 30 unit
-                            ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizePaddingLeftAndRightPage.h),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 60.h,
-                                ),
-                                ComponentTextTittle("Full Name"),
-                                ComponentTextTittle("username@gmail.com"),
-                                ComponentTextTittle("username"),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Card(
-                                  color: ListColor.backgroundColorVerified,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.r),
-                                      side: BorderSide(
-                                          width: size.sizeBorderBlackGlobal,
-                                          color: Colors.black)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
+                                .r), // Sudut melengkung sebesar 30 unit
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.h),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 40.h,
+                                  ),
+                                  Card(
+                                    color: ListColor.primaryClor,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.r),
+                                        side: BorderSide(
+                                            width: size.sizeBorderBlackGlobal,
+                                            color: Colors.black)),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 40.w, vertical: 10.h),
+                                      child: Column(children: [
+                                        ComponentTextDescription("0 EUR",
+                                            fontSize:
+                                                size.sizeTextHeaderGlobal),
                                         ComponentTextDescription(
-                                          "Account Status: ",
+                                          "Balance",
                                           fontSize:
                                               size.sizeTextDescriptionGlobal,
-                                          teksColor: Colors.white,
                                           fontWeight: FontWeight.bold,
                                         ),
-                                        ComponentTextDescription(
-                                          "Verified",
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal,
-                                          teksColor: ListColor.colorVerified,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ],
+                                      ]),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      PageNavProfile()));
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 10, bottom: 10),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               SvgPicture.asset(
-                                                listPrrofileMenu[index]
+                                                listProfileFinance[index]
                                                     .assetsPath,
                                                 width: 15.w,
                                                 height: 15.h,
@@ -277,7 +451,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                               ),
                                               Expanded(
                                                 child: ComponentTextDescription(
-                                                  listPrrofileMenu[index]
+                                                  listProfileFinance[index]
                                                       .nameMenu,
                                                   fontSize: size
                                                       .sizeTextDescriptionGlobal,
@@ -288,546 +462,383 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                                   "assets/icon/profile/ic_arrow_rigth.svg")
                                             ],
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    itemCount: listPrrofileMenu.length,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                )
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Center(
-                              child: Stack(children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 216, 216, 216),
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: size.sizeBorderBlackGlobal,
+                                        );
+                                      },
+                                      itemCount: listProfileFinance.length,
                                     ),
                                   ),
-                                  child: ClipOval(
-                                    // Replace this with your image source
-
-                                    child: SvgPicture.asset(
-                                      "assets/icon/profile/ic_avatar_profile.svg",
-                                      width: 90, // adjust the size as needed
-                                      height: 90,
+                                  SizedBox(
+                                    height: 20.h,
+                                  )
+                                ]),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Center(
+                                  child: ButtonLongHeader(
+                                nameButton: "Finance",
+                                routeName: "",
+                                colorButton: ListColor.backgroundColorVerified,
+                                fontWeight: FontWeight.bold,
+                                colorFont: Colors.white,
+                              ))),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    //Quick HElp
+                    Stack(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          decoration: BoxDecoration(
+                            color: ListColor
+                                .colorBackgroundQuickHelp, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                            border: Border.all(
+                              color: Colors
+                                  .black, // Warna garis tepi (outline) hitam
+                              width: 2.0, // Ketebalan garis tepi
+                            ),
+                            borderRadius: BorderRadius.circular(size
+                                .sizeRoundedGlobal
+                                .r), // Sudut melengkung sebesar 30 unit
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.h),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 40.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize
+                                        .max, // Ensures minimum required space
+                                    children: [
+                                      CardItemBoxNoFormat(
+                                          colorCardItem: ListColor
+                                              .backgroundItemRatingYellow,
+                                          valueCard: "-",
+                                          descriptionCard: "Rating"),
+                                      CardItemBoxNoFormat(
+                                          colorCardItem: ListColor
+                                              .backgroundItemRatingGreen,
+                                          valueCard: "28",
+                                          descriptionCard: "Time(min)"),
+                                      CardItemBoxWithFormat(
+                                          colorCardItem: ListColor
+                                              .backgroundItemRatingCyan,
+                                          valueCard: "0",
+                                          formatData: "EUR",
+                                          descriptionCard: "Earnings"),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              SvgPicture.asset(
+                                                listQuickHelp[index].assetsPath,
+                                                width: 15.w,
+                                                height: 15.h,
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Expanded(
+                                                child: ComponentTextDescription(
+                                                  listQuickHelp[index].nameMenu,
+                                                  fontSize: size
+                                                      .sizeTextDescriptionGlobal,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SvgPicture.asset(
+                                                  "assets/icon/profile/ic_arrow_rigth.svg")
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                      itemCount: listQuickHelp.length,
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  margin:
-                                      EdgeInsets.only(top: 60.h, left: 60.h),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  PageNavProfileSelectPicture()));
-                                    },
-                                    child: Card(
-                                      color: ListColor.primaryClor,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              color: Colors.black,
-                                              width:
-                                                  size.sizeBorderBlackGlobal),
-                                          borderRadius:
-                                              BorderRadius.circular(10.r)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: SvgPicture.asset(
-                                          "assets/icon/ic_pencil.svg",
-                                          width: 15.w,
-                                          height: 15.h,
-                                        ),
-                                      ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  )
+                                ]),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Center(
+                                  child: ButtonLongHeader(
+                                nameButton: "Quick Help",
+                                colorFont: Colors.white,
+                                colorButton:
+                                    ListColor.colorBackgroundQuickHelpHeader,
+                                routeName: "",
+                                fontWeight: FontWeight.bold,
+                              ))),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    //Tutoring
+                    Stack(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          decoration: BoxDecoration(
+                            color: ListColor
+                                .colorBackgroundTutoring, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                            border: Border.all(
+                              color: Colors
+                                  .black, // Warna garis tepi (outline) hitam
+                              width: 2.0, // Ketebalan garis tepi
+                            ),
+                            borderRadius: BorderRadius.circular(size
+                                .sizeRoundedGlobal
+                                .r), // Sudut melengkung sebesar 30 unit
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.h),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 40.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize
+                                        .min, // Ensures minimum required space
+
+                                    children: [
+                                      CardItemBoxNoFormat(
+                                          colorCardItem: ListColor
+                                              .backgroundItemRatingYellow,
+                                          valueCard: "-",
+                                          descriptionCard: "Rating"),
+                                      CardItemBoxNoFormat(
+                                          colorCardItem: ListColor
+                                              .backgroundItemRatingGreen,
+                                          valueCard: "0",
+                                          descriptionCard: "Sessions"),
+                                      CardItemBoxWithFormat(
+                                          colorCardItem: ListColor
+                                              .backgroundItemRatingCyan,
+                                          valueCard: "0",
+                                          formatData: "EUR",
+                                          descriptionCard: "Earned this month"),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              SvgPicture.asset(
+                                                listTutoring[index].assetsPath,
+                                                width: 15.w,
+                                                height: 15.h,
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Expanded(
+                                                child: ComponentTextDescription(
+                                                  listTutoring[index].nameMenu,
+                                                  fontSize: size
+                                                      .sizeTextDescriptionGlobal,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SvgPicture.asset(
+                                                  "assets/icon/profile/ic_arrow_rigth.svg")
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                      itemCount: listTutoring.length,
                                     ),
                                   ),
-                                )
-                              ]),
-                            )),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: 50.h,
-                  ),
-
-                  //finance
-                  Stack(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 20),
-                        decoration: BoxDecoration(
-                          color: ListColor
-                              .colorBackgroundFinance, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
+                                  SizedBox(
+                                    height: 20.h,
+                                  )
+                                ]),
                           ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 40.h,
-                                ),
-                                Card(
-                                  color: ListColor.primaryClor,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.r),
-                                      side: BorderSide(
-                                          width: size.sizeBorderBlackGlobal,
-                                          color: Colors.black)),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 40.w, vertical: 10.h),
-                                    child: Column(children: [
-                                      ComponentTextDescription("0 EUR",
-                                          fontSize: size.sizeTextHeaderGlobal),
-                                      ComponentTextDescription(
-                                        "Balance",
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ]),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            SvgPicture.asset(
-                                              listProfileFinance[index]
-                                                  .assetsPath,
-                                              width: 15.w,
-                                              height: 15.h,
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              child: ComponentTextDescription(
-                                                listProfileFinance[index]
-                                                    .nameMenu,
-                                                fontSize: size
-                                                    .sizeTextDescriptionGlobal,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SvgPicture.asset(
-                                                "assets/icon/profile/ic_arrow_rigth.svg")
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                    itemCount: listProfileFinance.length,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                )
-                              ]),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Center(
+                                  child: ButtonLongHeader(
+                                nameButton: "Tutoring",
+                                colorFont: Colors.white,
+                                colorButton:
+                                    ListColor.colorBackgroundTutoringHeader,
+                                routeName: "",
+                                fontWeight: FontWeight.bold,
+                              ))),
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Center(
-                                child: ButtonLongHeader(
-                              nameButton: "Finance",
-                              routeName: "",
-                              colorButton: ListColor.backgroundColorVerified,
-                              fontWeight: FontWeight.bold,
-                              colorFont: Colors.white,
-                            ))),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 50.h,
-                  ),
-                  //Quick HElp
-                  Stack(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 20),
-                        decoration: BoxDecoration(
-                          color: ListColor
-                              .colorBackgroundQuickHelp, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
+                      ],
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    //Videos
+                    Stack(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          decoration: BoxDecoration(
+                            color: ListColor
+                                .colorBackgroundVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                            border: Border.all(
+                              color: Colors
+                                  .black, // Warna garis tepi (outline) hitam
+                              width: 2.0, // Ketebalan garis tepi
+                            ),
+                            borderRadius: BorderRadius.circular(size
+                                .sizeRoundedGlobal
+                                .r), // Sudut melengkung sebesar 30 unit
                           ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 40.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize
-                                      .max, // Ensures minimum required space
-                                  children: [
-                                    CardItemBoxNoFormat(
-                                        colorCardItem: ListColor
-                                            .backgroundItemRatingYellow,
-                                        valueCard: "-",
-                                        descriptionCard: "Rating"),
-                                    CardItemBoxNoFormat(
-                                        colorCardItem:
-                                            ListColor.backgroundItemRatingGreen,
-                                        valueCard: "28",
-                                        descriptionCard: "Time(min)"),
-                                    CardItemBoxWithFormat(
-                                        colorCardItem:
-                                            ListColor.backgroundItemRatingCyan,
-                                        valueCard: "0",
-                                        formatData: "EUR",
-                                        descriptionCard: "Earnings"),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            SvgPicture.asset(
-                                              listQuickHelp[index].assetsPath,
-                                              width: 15.w,
-                                              height: 15.h,
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              child: ComponentTextDescription(
-                                                listQuickHelp[index].nameMenu,
-                                                fontSize: size
-                                                    .sizeTextDescriptionGlobal,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SvgPicture.asset(
-                                                "assets/icon/profile/ic_arrow_rigth.svg")
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                    itemCount: listQuickHelp.length,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.h),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 40.h,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                )
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Center(
-                                child: ButtonLongHeader(
-                              nameButton: "Quick Help",
-                              colorFont: Colors.white,
-                              colorButton:
-                                  ListColor.colorBackgroundQuickHelpHeader,
-                              routeName: "",
-                              fontWeight: FontWeight.bold,
-                            ))),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 50.h,
-                  ),
-                  //Tutoring
-                  Stack(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 20),
-                        decoration: BoxDecoration(
-                          color: ListColor
-                              .colorBackgroundTutoring, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CardItemBoxNoFormat(
+                                          colorCardItem: ListColor
+                                              .backgroundItemRatingYellow,
+                                          valueCard: "0",
+                                          descriptionCard: "Likes"),
+                                      CardItemBoxNoFormat(
+                                          colorCardItem: ListColor
+                                              .backgroundItemRatingGreen,
+                                          valueCard: "0",
+                                          descriptionCard: "Followers)"),
+                                      CardItemBoxNoFormat(
+                                          colorCardItem: ListColor
+                                              .backgroundItemRatingCyan,
+                                          valueCard: "0",
+                                          descriptionCard: "Views"),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              SvgPicture.asset(
+                                                listVideos[index].assetsPath,
+                                                width: 15.w,
+                                                height: 15.h,
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Expanded(
+                                                child: ComponentTextDescription(
+                                                  listVideos[index].nameMenu,
+                                                  fontSize: size
+                                                      .sizeTextDescriptionGlobal,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SvgPicture.asset(
+                                                  "assets/icon/profile/ic_arrow_rigth.svg")
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                      itemCount: listVideos.length,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  )
+                                ]),
                           ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 40.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize
-                                      .min, // Ensures minimum required space
-
-                                  children: [
-                                    CardItemBoxNoFormat(
-                                        colorCardItem: ListColor
-                                            .backgroundItemRatingYellow,
-                                        valueCard: "-",
-                                        descriptionCard: "Rating"),
-                                    CardItemBoxNoFormat(
-                                        colorCardItem:
-                                            ListColor.backgroundItemRatingGreen,
-                                        valueCard: "0",
-                                        descriptionCard: "Sessions"),
-                                    CardItemBoxWithFormat(
-                                        colorCardItem:
-                                            ListColor.backgroundItemRatingCyan,
-                                        valueCard: "0",
-                                        formatData: "EUR",
-                                        descriptionCard: "Earned this month"),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            SvgPicture.asset(
-                                              listTutoring[index].assetsPath,
-                                              width: 15.w,
-                                              height: 15.h,
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              child: ComponentTextDescription(
-                                                listTutoring[index].nameMenu,
-                                                fontSize: size
-                                                    .sizeTextDescriptionGlobal,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SvgPicture.asset(
-                                                "assets/icon/profile/ic_arrow_rigth.svg")
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                    itemCount: listTutoring.length,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                )
-                              ]),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Center(
+                                  child: ButtonLongHeader(
+                                nameButton: "Videos",
+                                colorFont: Colors.white,
+                                colorButton:
+                                    ListColor.colorBackgroundVideosHeader,
+                                routeName: "",
+                                fontWeight: FontWeight.bold,
+                              ))),
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Center(
-                                child: ButtonLongHeader(
-                              nameButton: "Tutoring",
-                              colorFont: Colors.white,
-                              colorButton:
-                                  ListColor.colorBackgroundTutoringHeader,
-                              routeName: "",
-                              fontWeight: FontWeight.bold,
-                            ))),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  //Videos
-                  Stack(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 20),
-                        decoration: BoxDecoration(
-                          color: ListColor
-                              .colorBackgroundVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
-                          ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 40.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CardItemBoxNoFormat(
-                                        colorCardItem: ListColor
-                                            .backgroundItemRatingYellow,
-                                        valueCard: "0",
-                                        descriptionCard: "Likes"),
-                                    CardItemBoxNoFormat(
-                                        colorCardItem:
-                                            ListColor.backgroundItemRatingGreen,
-                                        valueCard: "0",
-                                        descriptionCard: "Followers)"),
-                                    CardItemBoxNoFormat(
-                                        colorCardItem:
-                                            ListColor.backgroundItemRatingCyan,
-                                        valueCard: "0",
-                                        descriptionCard: "Views"),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            SvgPicture.asset(
-                                              listVideos[index].assetsPath,
-                                              width: 15.w,
-                                              height: 15.h,
-                                            ),
-                                            SizedBox(
-                                              width: 10.w,
-                                            ),
-                                            Expanded(
-                                              child: ComponentTextDescription(
-                                                listVideos[index].nameMenu,
-                                                fontSize: size
-                                                    .sizeTextDescriptionGlobal,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SvgPicture.asset(
-                                                "assets/icon/profile/ic_arrow_rigth.svg")
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                    itemCount: listVideos.length,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                )
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Center(
-                                child: ButtonLongHeader(
-                              nameButton: "Videos",
-                              colorFont: Colors.white,
-                              colorButton:
-                                  ListColor.colorBackgroundVideosHeader,
-                              routeName: "",
-                              fontWeight: FontWeight.bold,
-                            ))),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  )
-                ],
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    )
+                  ],
+                ),
               ),
             )),
           ),

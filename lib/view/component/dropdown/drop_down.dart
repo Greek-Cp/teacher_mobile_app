@@ -201,7 +201,7 @@ class _DropDownWidgetState extends State<DropDownWidget>
                               ? ListColor
                                   .colorValidationTextFieldBackgroundEmpty
                               : ListColor.colorBackgroundTextFieldAll,
-                          margin: EdgeInsets.only(top: 30),
+                          margin: EdgeInsets.only(top: 40),
                           padding: EdgeInsets.only(right: 5, left: 0),
                           child: Scrollbar(
                               thickness: 6,
@@ -213,7 +213,11 @@ class _DropDownWidgetState extends State<DropDownWidget>
                                 physics: AlwaysScrollableScrollPhysics(),
                                 itemCount: widget.listData!.length,
                                 itemBuilder: (context, index) {
-                                  return GestureDetector(
+                                  return InkResponse(
+                                    borderRadius: BorderRadius.circular(30),
+                                    highlightColor:
+                                        Colors.blue.withOpacity(0.4),
+                                    splashColor: Colors.green.withOpacity(0.5),
                                     onTap: () {
                                       //select language
                                       setState(() {
@@ -431,7 +435,7 @@ class _DropDownWidgetChooseCountryState
                     child: Stack(
                       children: [
                         Row(
-                          mainAxisSize: MainAxisSize.max,
+                          mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -514,34 +518,28 @@ class _DropDownWidgetChooseCountryState
                             UtilLocalization.checkLocalization(context)
                                         .toString() ==
                                     "US"
-                                ? Positioned(
-                                    right: 1,
-                                    child: RotationTransition(
-                                      turns: animationRotateIndicatorController,
-                                      child: Image.asset(
-                                        "assets/icon/ic_drop_down_chose.png",
-                                        width: 20.w,
-                                        height: 20.h,
-                                        color: isEmpty == true
-                                            ? ListColor
-                                                .colorOutlineTextFieldWhenEmpty
-                                            : Color.fromARGB(255, 114, 87, 216),
-                                      ),
+                                ? RotationTransition(
+                                    turns: animationRotateIndicatorController,
+                                    child: Image.asset(
+                                      "assets/icon/ic_drop_down_chose.png",
+                                      width: 20.w,
+                                      height: 20.h,
+                                      color: isEmpty == true
+                                          ? ListColor
+                                              .colorOutlineTextFieldWhenEmpty
+                                          : Color.fromARGB(255, 114, 87, 216),
                                     ),
                                   )
-                                : Positioned(
-                                    left: 1,
-                                    child: RotationTransition(
-                                      turns: animationRotateIndicatorController,
-                                      child: Image.asset(
-                                        "assets/icon/ic_drop_down_chose.png",
-                                        width: 20.w,
-                                        height: 20.h,
-                                        color: isEmpty == true
-                                            ? ListColor
-                                                .colorOutlineTextFieldWhenEmpty
-                                            : Color.fromARGB(255, 114, 87, 216),
-                                      ),
+                                : RotationTransition(
+                                    turns: animationRotateIndicatorController,
+                                    child: Image.asset(
+                                      "assets/icon/ic_drop_down_chose.png",
+                                      width: 20.w,
+                                      height: 20.h,
+                                      color: isEmpty == true
+                                          ? ListColor
+                                              .colorOutlineTextFieldWhenEmpty
+                                          : Color.fromARGB(255, 114, 87, 216),
                                     ),
                                   ),
                           ],

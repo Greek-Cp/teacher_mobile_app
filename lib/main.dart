@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_forgot_password.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_reset_password.dart';
@@ -30,6 +34,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await EasyLocalization.ensureInitialized();
+  ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+    // You can customize the error message and appearance here
+    return Center(
+      child: Text(
+        "${errorDetails.exception}",
+        style: TextStyle(fontSize: 18),
+      ),
+    );
+  };
+
   runApp(
     EasyLocalization(
         saveLocale: true,
@@ -46,6 +60,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (Platform.isAndroid) {
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+          systemNavigationBarColor: Color.fromARGB(255, 114, 87, 216),
+          systemNavigationBarIconBrightness: Brightness.light));
+    }
     return GetMaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

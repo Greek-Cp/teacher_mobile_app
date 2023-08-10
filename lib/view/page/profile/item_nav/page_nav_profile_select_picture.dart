@@ -122,7 +122,7 @@ class _PageNavProfileSelectPictureState
                   Stack(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 120),
+                        margin: EdgeInsets.only(top: 90),
                         decoration: BoxDecoration(
                           color: ListColor
                               .backgroundContainerProfileWhite, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -146,27 +146,21 @@ class _PageNavProfileSelectPictureState
                                 SizedBox(
                                   height: 40.h,
                                 ),
-                                Positioned(
-                                  bottom: 1,
-                                  left: 1,
-                                  right: 1,
-                                  child: InkWell(
-                                    onTap: () {
-                                      pickImage();
-                                    },
-                                    child: CardButtonLong(
-                                      nameButton: "select_your_profile_picture",
-                                      routeName: "profile_picture",
-                                      fontWeight: FontWeight.normal,
-                                      colorButton: ListColor.cyanColor,
-                                      colorFont: Colors.black,
-                                      borderShape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                        side: BorderSide(
-                                          width: size.sizeBorderBlackGlobal,
-                                          color: Colors.black,
-                                        ),
+                                InkWell(
+                                  onTap: () {
+                                    pickImage();
+                                  },
+                                  child: CardButtonLong(
+                                    nameButton: "select_your_profile_picture",
+                                    routeName: "profile_picture",
+                                    fontWeight: FontWeight.normal,
+                                    colorButton: ListColor.cyanColor,
+                                    colorFont: Colors.black,
+                                    borderShape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      side: BorderSide(
+                                        width: size.sizeBorderBlackGlobal,
+                                        color: Colors.black,
                                       ),
                                     ),
                                   ),
@@ -176,20 +170,17 @@ class _PageNavProfileSelectPictureState
                                   fontSize: size.sizeTextHeaderGlobal.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return ComponentTextDescription(
-                                      listRequirementPhotoProfile[index]
-                                          .photoRequirements,
-                                      fontSize: size.sizeTextHeaderGlobal.sp,
-                                      fontWeight: FontWeight.bold,
-                                    );
-                                  },
-                                  itemCount: listRequirementPhotoProfile.length,
-                                ),
+                                for (int i = 0;
+                                    i < listRequirementPhotoProfile.length;
+                                    i++)
+                                  ComponentTextDescription(
+                                    listRequirementPhotoProfile[i]
+                                        .photoRequirements,
+                                    fontSize: size.sizeTextHeaderGlobal.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 SizedBox(
-                                  height: 60.h,
+                                  height: 40.h,
                                 ),
                               ]),
                         ),
@@ -197,7 +188,7 @@ class _PageNavProfileSelectPictureState
                       Align(
                         alignment: Alignment.center,
                         child: Card(
-                          margin: EdgeInsets.only(top: 40.h),
+                          margin: EdgeInsets.only(top: 10.h),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(360.r),
                               side: BorderSide(
@@ -215,8 +206,8 @@ class _PageNavProfileSelectPictureState
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 450.h),
-                        padding: EdgeInsets.symmetric(horizontal: 60.h),
+                        margin: EdgeInsets.only(top: 390.h),
+                        padding: EdgeInsets.symmetric(horizontal: 20.h),
                         child: CardButtonLong(
                           nameButton: "set_picture",
                           routeName: "profile_picture",
@@ -237,6 +228,7 @@ class _PageNavProfileSelectPictureState
                   SizedBox(
                     height: 50.h,
                   ),
+
                   //Tutoring
                 ],
               ),

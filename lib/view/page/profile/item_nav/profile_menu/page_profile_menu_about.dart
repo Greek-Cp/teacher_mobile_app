@@ -56,7 +56,8 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     // });
     animationControllerDropDownSelectCountry = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
-    marginContainer = 380;
+    marginContainer = 430;
+    marginConfirm = 400;
   }
 
   final List<String> countryOfResidenceList = [
@@ -78,7 +79,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     // Tambahkan negara-negara lain sesuai kebutuhan Anda
   ];
   int marginContainer = 0;
-  int marginConfirm = 350;
+  int marginConfirm = 0;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -197,7 +198,6 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                                                     marginContainer += 30;
                                                   });
                                                 },
-                                               
                                                 textEditingControllerDropDown:
                                                     textEditingControllerSelectCountry,
                                                 initialValueDropDown:

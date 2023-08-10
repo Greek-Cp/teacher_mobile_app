@@ -113,12 +113,12 @@ class CardButtonLong extends StatelessWidget {
       child: Container(
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.h),
+          padding: EdgeInsets.symmetric(vertical: 15.h),
           child: Center(
             child: ComponentTextDescription(
               tr("$nameButton"),
               teksColor: colorFont,
-              fontSize: size.sizeTextHeaderGlobal.sp,
+              fontSize: size.sizeTextDescriptionGlobal.sp,
               fontWeight: fontWeight,
               textAlign: textAlign,
             ),
