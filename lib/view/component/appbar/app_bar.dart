@@ -9,7 +9,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 26.h, left: 2.h),
+      margin: EdgeInsets.only(top: 26.h, left: 0.h),
       child: AppBar(
         forceMaterialTransparency: true,
         backgroundColor:
