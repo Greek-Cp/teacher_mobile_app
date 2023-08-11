@@ -14,7 +14,6 @@ import 'package:teacher_mobile_app/view/component/button/widget_different_login.
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
-import 'package:teacher_mobile_app/view/page/account_page/page_base.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_forgot_password.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_up.dart';
 import 'package:teacher_mobile_app/view/page/profile/nav/base_nav_account.dart';
@@ -50,7 +49,6 @@ class _PageSignInState extends State<PageSignIn> {
       builder: (context, child) {
         return Scaffold(
           body: Form(
-            key: _formKey,
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -66,7 +64,8 @@ class _PageSignInState extends State<PageSignIn> {
                   child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: size.sizePaddingLeftAndRightPage.h),
-                child: ListView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ButtonBackArrow(
                       onPressed: () {
@@ -131,7 +130,8 @@ class _PageSignInState extends State<PageSignIn> {
                                     },
                                     child: ComponentTextDescription(
                                         tr("forgot_password"),
-                                        fontSize: size.sizeTextHeaderGlobal.sp),
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal),
                                   ),
                                   SizedBox(
                                     height: 40.h,
@@ -140,7 +140,7 @@ class _PageSignInState extends State<PageSignIn> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 290.h),
+                          margin: EdgeInsets.only(top: 300.h),
                           child: Center(
                               child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.h),
@@ -155,24 +155,21 @@ class _PageSignInState extends State<PageSignIn> {
                       ],
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 10,
                     ),
                     ButtonLong(
                         nameButton: "create_account",
                         routeName: PageSignUp.routeName.toString()),
                     SizedBox(
-                      height: 15.h,
+                      height: 15,
                     ),
                     ComponentTextDescription(tr("text_or_login"),
                         textAlign: TextAlign.center,
                         fontSize: size.sizeTextHeaderGlobal),
                     SizedBox(
-                      height: 15.h,
+                      height: 15,
                     ),
                     WidgetDifferentLogin(),
-                    SizedBox(
-                      height: 65.h,
-                    ),
                     Expanded(child: BottomPageIndicator())
                   ],
                 ),
