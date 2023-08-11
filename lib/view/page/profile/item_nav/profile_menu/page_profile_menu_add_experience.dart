@@ -58,8 +58,8 @@ class _PageProfileMenuAddExperienceState
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
     animationControllerTutoringLanguage = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
-    marginConfirm = 310;
-    marginContainer = 340;
+    marginContainer = 430;
+    marginConfirm = 400;
   }
 
   final List<String> countryOfResidenceList = [
@@ -187,7 +187,7 @@ class _PageProfileMenuAddExperienceState
                                               " 2",
                                       listData: countryOfResidenceList,
                                     ),
-                                    DividerGlobal(),
+                                    //DividerGlobal(),
                                     ...listWidget,
                                     GestureDetector(
                                       onTap: () {
@@ -225,15 +225,18 @@ class _PageProfileMenuAddExperienceState
                                             listWidget.addAll([
                                               Column(
                                                 children: [
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
                                                   Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
                                                       Expanded(
-                                                          child: Container()),
+                                                        child: DividerGlobal(),
+                                                      ),
                                                       GestureDetector(
                                                         onTap: () {
-                                                   
                                                           setState(() {
                                                             marginConfirm -= 60;
                                                             marginContainer -=
@@ -315,7 +318,6 @@ class _PageProfileMenuAddExperienceState
                                                     listData:
                                                         countryOfResidenceList,
                                                   ),
-                                                  DividerGlobal()
                                                 ],
                                               )
                                             ]);
@@ -326,12 +328,17 @@ class _PageProfileMenuAddExperienceState
                                       },
                                       child: listWidget.length == maxLanguage
                                           ? Container()
-                                          : ComponentTextDescription(
-                                              "+ Add another Experience",
-                                              teksColor: const Color.fromARGB(
-                                                  255, 17, 68, 109),
-                                              fontSize: size
-                                                  .sizeTextDescriptionGlobal),
+                                          : Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 15.h),
+                                              child: ComponentTextDescription(
+                                                  "+ Add another Experience",
+                                                  teksColor:
+                                                      const Color.fromARGB(
+                                                          255, 17, 68, 109),
+                                                  fontSize: size
+                                                      .sizeTextDescriptionGlobal),
+                                            ),
                                     ),
                                     SizedBox(
                                       height: 60.h,

@@ -97,7 +97,6 @@ class _PageProfileMenuAddPhoneNumberState
                   SizedBox(
                     height: 20.h,
                   ),
-                  
                   Stack(
                     children: [
                       Container(

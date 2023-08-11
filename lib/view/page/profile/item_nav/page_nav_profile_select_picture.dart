@@ -144,7 +144,7 @@ class _PageNavProfileSelectPictureState
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  height: 40.h,
+                                  height: 50.h,
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -153,7 +153,7 @@ class _PageNavProfileSelectPictureState
                                   child: CardButtonLong(
                                     nameButton: "select_your_profile_picture",
                                     routeName: "profile_picture",
-                                    fontWeight: FontWeight.normal,
+                                    fontWeight: FontWeight.bold,
                                     colorButton: ListColor.cyanColor,
                                     colorFont: Colors.black,
                                     borderShape: RoundedRectangleBorder(
@@ -167,7 +167,8 @@ class _PageNavProfileSelectPictureState
                                 ),
                                 ComponentTextDescription(
                                   "Photo Requirements: ",
-                                  fontSize: size.sizeTextHeaderGlobal.sp,
+                                  fontSize:
+                                      size.sizeTextDescriptionGlobal + 5.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 for (int i = 0;
@@ -176,11 +177,11 @@ class _PageNavProfileSelectPictureState
                                   ComponentTextDescription(
                                     listRequirementPhotoProfile[i]
                                         .photoRequirements,
-                                    fontSize: size.sizeTextHeaderGlobal.sp,
+                                    fontSize: size.sizeTextDescriptionGlobal.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 SizedBox(
-                                  height: 40.h,
+                                  height: 20.h,
                                 ),
                               ]),
                         ),
@@ -188,15 +189,15 @@ class _PageNavProfileSelectPictureState
                       Align(
                         alignment: Alignment.center,
                         child: Card(
-                          margin: EdgeInsets.only(top: 10.h),
+                          margin: EdgeInsets.only(top: 30.h),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(360.r),
                               side: BorderSide(
                                   width: size.sizeBorderBlackGlobal,
                                   color: Colors.black)),
                           child: Container(
-                            width: 150.h,
-                            height: 150.h,
+                            width: 120.h,
+                            height: 120.h,
                             child: selectedImage == null
                                 ? Container()
                                 : CircleAvatar(
@@ -206,12 +207,12 @@ class _PageNavProfileSelectPictureState
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 390.h),
+                        margin: EdgeInsets.only(top: 335.h),
                         padding: EdgeInsets.symmetric(horizontal: 20.h),
                         child: CardButtonLong(
                           nameButton: "set_picture",
                           routeName: "profile_picture",
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                           colorButton: ListColor.backgroundItemRatingGreen,
                           colorFont: Colors.black,
                           borderShape: RoundedRectangleBorder(

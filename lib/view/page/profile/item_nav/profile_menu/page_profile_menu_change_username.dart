@@ -32,7 +32,6 @@ class _PageProfileMenuChangeUsernameState
   List<ModelValidationTextField> listModelValidationUsername =
       RepositoryValidation().listModelValidationUsername;
   @override
-
   Widget build(BuildContext context) {
     // TODO: implement build
     lang = UtilLocalization.checkLocalization(context).toString();
@@ -63,8 +62,7 @@ class _PageProfileMenuChangeUsernameState
               padding: EdgeInsets.symmetric(
                 horizontal: size.sizePaddingLeftAndRightPage.h,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
                   SizedBox(
                     height: 20.h,
@@ -105,17 +103,14 @@ class _PageProfileMenuChangeUsernameState
                                       textEditingControllerEmail,
                                   labelText: "username",
                                   hintText: "username",
-                                  listModelValidation: listModelValidationUsername,
+                                  listModelValidation:
+                                      listModelValidationUsername,
                                   requestTypeValidation: "username",
                                 ),
                                 SizedBox(
                                   height: 10.h,
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [],
-                                ),
+                              
                                 SizedBox(
                                   height: 40.h,
                                 ),

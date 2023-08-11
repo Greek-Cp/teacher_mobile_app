@@ -55,8 +55,8 @@ class _PageProfileMenuSelectLanguageState
     // });
     animationControllerSelectLanguage = AnimationController(
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
-    marginConfirm = 310;
-    marginContainer = 340;
+    marginContainer = 430;
+    marginConfirm = 400;
   }
 
   final List<String> countryOfResidenceList = [
@@ -206,6 +206,9 @@ class _PageProfileMenuSelectLanguageState
                                             listWidget.addAll([
                                               Column(
                                                 children: [
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
                                                   Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -305,6 +308,7 @@ class _PageProfileMenuSelectLanguageState
                         ),
                       ),
                       Container(
+                        padding: EdgeInsets.only(bottom: 25.h),
                         margin: EdgeInsets.only(
                             top: marginConfirm.h, left: 20.h, right: 20.h),
                         child: Center(

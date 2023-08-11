@@ -83,7 +83,7 @@ class _TextFieldFormWithValidationState
         Stack(
           children: [
             Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: EdgeInsets.only(top: 10.h),
                 child: TextField(
                   controller: widget.textEditingControllerEmail,
                   onChanged: (value) {
@@ -183,7 +183,7 @@ class _TextFieldFormWithValidationState
           ],
         ),
         Padding(
-          padding: EdgeInsets.only(left: 15.w),
+          padding: EdgeInsets.only(left: 15.w, top: 10.h),
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: widget.listModelValidation.length,

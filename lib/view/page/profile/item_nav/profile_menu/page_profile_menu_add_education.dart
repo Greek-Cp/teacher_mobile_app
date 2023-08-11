@@ -197,7 +197,6 @@ class _PageProfileMenuAddEducationState
                                       labelText: tr("completion_year") + " 3",
                                       listData: countryOfResidenceList,
                                     ),
-                                    DividerGlobal(),
                                     ...listWidget,
                                     GestureDetector(
                                       onTap: () {
@@ -238,12 +237,16 @@ class _PageProfileMenuAddEducationState
                                             listWidget.addAll([
                                               Column(
                                                 children: [
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
                                                   Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
                                                       Expanded(
-                                                          child: Container()),
+                                                          child:
+                                                              DividerGlobal()),
                                                       GestureDetector(
                                                         onTap: () {
                                                           setState(() {
@@ -343,7 +346,6 @@ class _PageProfileMenuAddEducationState
                                                     listData:
                                                         countryOfResidenceList,
                                                   ),
-                                                  DividerGlobal()
                                                 ],
                                               )
                                             ]);
@@ -354,12 +356,17 @@ class _PageProfileMenuAddEducationState
                                       },
                                       child: listWidget.length == maxLanguage
                                           ? Container()
-                                          : ComponentTextDescription(
-                                              "+ Add another Experience",
-                                              teksColor: const Color.fromARGB(
-                                                  255, 17, 68, 109),
-                                              fontSize: size
-                                                  .sizeTextDescriptionGlobal),
+                                          : Padding(
+                                              padding:
+                                                  EdgeInsets.only(top: 10.h),
+                                              child: ComponentTextDescription(
+                                                  "+ Add another Experience",
+                                                  teksColor:
+                                                      const Color.fromARGB(
+                                                          255, 17, 68, 109),
+                                                  fontSize: size
+                                                      .sizeTextDescriptionGlobal),
+                                            ),
                                     ),
                                     SizedBox(
                                       height: 60.h,
