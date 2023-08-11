@@ -10,6 +10,7 @@ import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/button_small.dart';
+import 'package:teacher_mobile_app/view/component/button/jenis_button.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/button/widget_different_login.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
@@ -31,6 +32,8 @@ class _PageProfileMenuChangeUsernameState
   String lang = UtilLocalization.checkLocalization.toString();
   List<ModelValidationTextField> listModelValidationUsername =
       RepositoryValidation().listModelValidationUsername;
+
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -110,7 +113,6 @@ class _PageProfileMenuChangeUsernameState
                                 SizedBox(
                                   height: 10.h,
                                 ),
-                              
                                 SizedBox(
                                   height: 40.h,
                                 ),
@@ -119,12 +121,13 @@ class _PageProfileMenuChangeUsernameState
                       ),
                       Container(
                         margin: EdgeInsets.only(
-                            top: 250.h, left: 20.r, right: 20.r),
+                            top: 240.h, left: 20.r, right: 20.r),
                         child: Center(
-                            child: ButtonLong(
+                            child: ButtonLongForm(
                           nameButton: "Confirm",
                           routeName: PageProfileMenuChangeUsername.routeName
                               .toString(),
+                          formKey: _formKey,
                         )),
                       ),
                     ],

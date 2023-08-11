@@ -1,3 +1,4 @@
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -89,6 +90,23 @@ class _PageNavProfileState extends State<PageNavProfile> {
         assetsPath: "assets/icon/profile/ic_security.svg",
         page: PageProfileMenuAddVideos()),
   ];
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    Navigator.of(context).pop();
+    print("BACK BUTTON!"); // Do some stuff.
+    return true;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,126 +118,135 @@ class _PageNavProfileState extends State<PageNavProfile> {
         return Scaffold(
           appBar: AppBarGlobal(),
           extendBodyBehindAppBar: true,
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF08F4F9), // #08F4F9
-                  Color(0xFFB988FF), // #B988FF
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+          body: WillPopScope(
+            onWillPop: () async {
+              // Perform any cleanup or custom actions here
+              // and then pop the current route
+              Navigator.of(context).pop(true);
+              return true; // Return true to allow the pop
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF08F4F9), // #08F4F9
+                    Color(0xFFB988FF), // #B988FF
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
               ),
-            ),
-            child: SafeArea(
-                child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: size.sizePaddingLeftAndRightPage),
-              child: ListView(
-                children: [
-                  SizedBox(height: 30),
+              child: SafeArea(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.sizePaddingLeftAndRightPage),
+                child: ListView(
+                  children: [
+                    SizedBox(height: 30),
 
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: ListColor
-                                .backgroundContainerProfileWhite, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                            border: Border.all(
-                              color: Colors
-                                  .black, // Warna garis tepi (outline) hitam
-                              width: 2.0, // Ketebalan garis tepi
-                            ),
-                            borderRadius: BorderRadius.circular(size
-                                .sizeRoundedGlobal
-                                .r) // Sudut melengkung sebesar 30 unit
-                            ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizePaddingLeftAndRightPage.h),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 30.h,
-                                ),
-                                ComponentTextTittle("profile"),
-                                SizedBox(
-                                  height: 30.h,
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      listPrrofileMenu[index]
-                                                          .page!));
-                                          // Get.toNamed(listPrrofileMenu[index]
-                                          //     .routeNameDirect);
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                              top: 10.h, bottom: 10.h),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              SvgPicture.asset(
-                                                listPrrofileMenu[index]
-                                                    .assetsPath,
-                                                width: 15.w,
-                                                height: 15.h,
-                                              ),
-                                              SizedBox(
-                                                width: 10.w,
-                                              ),
-                                              Expanded(
-                                                child: ComponentTextDescription(
-                                                  listPrrofileMenu[index]
-                                                      .nameMenu,
-                                                  fontSize: size
-                                                      .sizeTextDescriptionGlobal,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              SvgPicture.asset(
-                                                  "assets/icon/profile/ic_arrow_rigth.svg")
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    itemCount: listPrrofileMenu.length,
+                    Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: ListColor
+                                  .backgroundContainerProfileWhite, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                              border: Border.all(
+                                color: Colors
+                                    .black, // Warna garis tepi (outline) hitam
+                                width: 2.0, // Ketebalan garis tepi
+                              ),
+                              borderRadius: BorderRadius.circular(size
+                                  .sizeRoundedGlobal
+                                  .r) // Sudut melengkung sebesar 30 unit
+                              ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.sizePaddingLeftAndRightPage.h),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 30.h,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                )
-                              ]),
+                                  ComponentTextTittle("profile"),
+                                  SizedBox(
+                                    height: 30.h,
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        listPrrofileMenu[index]
+                                                            .page!));
+                                            // Get.toNamed(listPrrofileMenu[index]
+                                            //     .routeNameDirect);
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 10.h, bottom: 10.h),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  listPrrofileMenu[index]
+                                                      .assetsPath,
+                                                  width: 15.w,
+                                                  height: 15.h,
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                Expanded(
+                                                  child:
+                                                      ComponentTextDescription(
+                                                    listPrrofileMenu[index]
+                                                        .nameMenu,
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                SvgPicture.asset(
+                                                    "assets/icon/profile/ic_arrow_rigth.svg")
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: listPrrofileMenu.length,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  )
+                                ]),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 50.h,
-                  ),
-                  //Tutoring
-                ],
-              ),
-            )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    //Tutoring
+                  ],
+                ),
+              )),
+            ),
           ),
         );
       },

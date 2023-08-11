@@ -14,8 +14,10 @@ import 'package:teacher_mobile_app/view/component/button/widget_different_login.
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
+import 'package:teacher_mobile_app/view/page/account_page/page_base.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_forgot_password.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_up.dart';
+import 'package:teacher_mobile_app/view/page/profile/nav/base_nav_account.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
 class PageSignIn extends StatefulWidget {
@@ -32,6 +34,8 @@ class _PageSignInState extends State<PageSignIn> {
   TextEditingController textEditingControllerPassword = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -45,129 +49,135 @@ class _PageSignInState extends State<PageSignIn> {
     return ScreenUtilInit(
       builder: (context, child) {
         return Scaffold(
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF08F4F9), // #08F4F9
-                  Color(0xFFB988FF), // #B988FF
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+          body: Form(
+            key: _formKey,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF08F4F9), // #08F4F9
+                    Color(0xFFB988FF), // #B988FF
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
               ),
-            ),
-            child: SafeArea(
-                child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: size.sizePaddingLeftAndRightPage.h),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ButtonBackArrow(
-                    onPressed: () {
-                      Navigator.of(context);
-                    },
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
+              child: SafeArea(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: size.sizePaddingLeftAndRightPage.h),
+                child: ListView(
+                  children: [
+                    ButtonBackArrow(
+                      onPressed: () {
+                        Navigator.of(context);
+                      },
+                    ),
+                    Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
                             color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
+                                .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                            border: Border.all(
+                              color: Colors
+                                  .black, // Warna garis tepi (outline) hitam
+                              width: 2.0, // Ketebalan garis tepi
+                            ),
+                            borderRadius: BorderRadius.circular(
+                                30.0.r), // Sudut melengkung sebesar 30 unit
                           ),
-                          borderRadius: BorderRadius.circular(
-                              30.0.r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
-                          child:
-                              Column(mainAxisSize: MainAxisSize.max, children: [
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            ComponentTextTittle(tr("welcome_back")),
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            TextFieldForm(
-                              textEditingControllerEmail:
-                                  textEditingControllerEmail,
-                              labelText: "email_adress",
-                              hintText: "email_address_hint",
-                            ),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            lang == "AR"
-                                ? TextFieldPasswordFormArabic(
-                                    textEditingControllerEmail:
-                                        textEditingControllerPassword,
-                                    labelText: "password",
-                                    hintText: "password_hint",
-                                  )
-                                : TextFieldPasswordForm(
-                                    textEditingControllerEmail:
-                                        textEditingControllerPassword,
-                                    labelText: "password",
-                                    hintText: "password_hint",
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.h),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  SizedBox(
+                                    height: 30.h,
                                   ),
-                            SizedBox(
-                              height: 40.h,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(
-                                    PageForgotPassword.routeName.toString());
-                              },
-                              child: ComponentTextDescription(
-                                  tr("forgot_password"),
-                                  fontSize: size.sizeTextDescriptionGlobal),
-                            ),
-                            SizedBox(
-                              height: 40.h,
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 300.h),
-                        child: Center(
-                            child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.h),
-                          child: GestureDetector(
-                            child: ButtonLong(
-                              nameButton: "login",
-                              routeName: PageDashboardProfile.routeName.toString(),
-                            ),
+                                  ComponentTextTittle(tr("welcome_back")),
+                                  SizedBox(
+                                    height: 30.h,
+                                  ),
+                                  TextFieldForm(
+                                    textEditingControllerEmail:
+                                        textEditingControllerEmail,
+                                    labelText: "email_adress",
+                                    hintText: "email_address_hint",
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  lang == "AR"
+                                      ? TextFieldPasswordFormArabic(
+                                          textEditingControllerEmail:
+                                              textEditingControllerPassword,
+                                          labelText: "password",
+                                          hintText: "password_hint",
+                                        )
+                                      : TextFieldPasswordForm(
+                                          textEditingControllerEmail:
+                                              textEditingControllerPassword,
+                                          labelText: "password",
+                                          hintText: "password_hint",
+                                        ),
+                                  SizedBox(
+                                    height: 40.h,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(PageForgotPassword.routeName
+                                          .toString());
+                                    },
+                                    child: ComponentTextDescription(
+                                        tr("forgot_password"),
+                                        fontSize: size.sizeTextHeaderGlobal.sp),
+                                  ),
+                                  SizedBox(
+                                    height: 40.h,
+                                  ),
+                                ]),
                           ),
-                        )),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ButtonLong(
-                      nameButton: "create_account",
-                      routeName: PageSignUp.routeName.toString()),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  ComponentTextDescription(tr("text_or_login"),
-                      textAlign: TextAlign.center,
-                      fontSize: size.sizeTextHeaderGlobal),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  WidgetDifferentLogin(),
-                  Expanded(child: BottomPageIndicator())
-                ],
-              ),
-            )),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 290.h),
+                          child: Center(
+                              child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.h),
+                            child: GestureDetector(
+                              child: ButtonLong(
+                                nameButton: "login",
+                                routeName: pageNavBar.routeName.toString(),
+                              ),
+                            ),
+                          )),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    ButtonLong(
+                        nameButton: "create_account",
+                        routeName: PageSignUp.routeName.toString()),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    ComponentTextDescription(tr("text_or_login"),
+                        textAlign: TextAlign.center,
+                        fontSize: size.sizeTextHeaderGlobal),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    WidgetDifferentLogin(),
+                    SizedBox(
+                      height: 65.h,
+                    ),
+                    Expanded(child: BottomPageIndicator())
+                  ],
+                ),
+              )),
+            ),
           ),
         );
       },
