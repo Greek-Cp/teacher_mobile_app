@@ -100,112 +100,107 @@ class _PageProfileMenuAddDescriptionState
     } else {
       print("engl");
     }
-    return ScreenUtilInit(
-      builder: (context, child) {
-        return Scaffold(
-          extendBodyBehindAppBar: true, //
-          appBar: AppBarGlobal(),
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF08F4F9), // #08F4F9
-                  Color(0xFFB988FF), // #B988FF
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: size.sizePaddingLeftAndRightPage.h,
-              ),
-              child: ListView(
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        height: 470.h,
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
-                          ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizeFieldText.h),
-                          child: SingleChildScrollView(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  SizedBox(
-                                    height: 30.h,
-                                  ),
-                                  Center(
-                                      child: ComponentTextTittle(
-                                          tr("description"))),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  TextFieldFormMultiLine(
-                                    labelText:
-                                        "Short Description (max 120 character)",
-                                    textEditingControllerEmail:
-                                        textEditingControllerShortDescription,
-                                    hintText: "test",
-                                    minLines: 3,
-                                    lengthMax: 120,
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  TextFieldFormMultiLine(
-                                    labelText:
-                                        "Short Description (max 300 character)",
-                                    textEditingControllerEmail:
-                                        textEditingControllerFullDescription,
-                                    hintText: "test",
-                                    minLines: 8,
-                                    lengthMax: 300,
-                                  )
-                                ]),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: 440.h, left: 20.h, right: 20.h),
-                        child: Center(
-                            child: ButtonLongForm(
-                          nameButton: "Confirm",
-                          routeName: PageProfileMenuAddDescription.routeName
-                              .toString(),
-                          formKey: _formKey,
-                        )),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 60.h,
-                  )
-                ],
-              ),
-            ),
+
+    return Scaffold(
+      extendBodyBehindAppBar: true, //
+      appBar: AppBarGlobal(),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF08F4F9), // #08F4F9
+              Color(0xFFB988FF), // #B988FF
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-        );
-      },
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: size.sizePaddingLeftAndRightPage.h,
+          ),
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 20.h,
+              ),
+              Stack(
+                children: [
+                  Container(
+                    height: 470.h,
+                    decoration: BoxDecoration(
+                      color: Colors
+                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                      border: Border.all(
+                        color: Colors.black, // Warna garis tepi (outline) hitam
+                        width: 2.0, // Ketebalan garis tepi
+                      ),
+                      borderRadius: BorderRadius.circular(size.sizeRoundedGlobal
+                          .r), // Sudut melengkung sebesar 30 unit
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: size.sizeFieldText.h),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              SizedBox(
+                                height: 30.h,
+                              ),
+                              Center(
+                                  child:
+                                      ComponentTextTittle(tr("description"))),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              TextFieldFormMultiLine(
+                                labelText:
+                                    "Short Description (max 120 character)",
+                                textEditingControllerEmail:
+                                    textEditingControllerShortDescription,
+                                hintText: "test",
+                                minLines: 3,
+                                lengthMax: 120,
+                              ),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              TextFieldFormMultiLine(
+                                labelText:
+                                    "Short Description (max 300 character)",
+                                textEditingControllerEmail:
+                                    textEditingControllerFullDescription,
+                                hintText: "test",
+                                minLines: 8,
+                                lengthMax: 300,
+                              )
+                            ]),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin:
+                        EdgeInsets.only(top: 440.h, left: 20.h, right: 20.h),
+                    child: Center(
+                        child: ButtonLongForm(
+                      nameButton: "Confirm",
+                      routeName:
+                          PageProfileMenuAddDescription.routeName.toString(),
+                      formKey: _formKey,
+                    )),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 60.h,
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

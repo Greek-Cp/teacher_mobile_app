@@ -26,7 +26,6 @@ class _PageSignUpState extends State<PageSignUp> {
   TextEditingController textEditingControllerFirstName =
       TextEditingController();
   TextEditingController textEditingControllerLastName = TextEditingController();
-
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
   String? lang;
@@ -40,116 +39,111 @@ class _PageSignUpState extends State<PageSignUp> {
     } else {
       print("engl");
     }
-    return ScreenUtilInit(
-      builder: (context, child) {
-        return Scaffold(
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF08F4F9), // #08F4F9
-                  Color(0xFFB988FF), // #B988FF
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: SafeArea(
-                child: Padding(
-              padding: EdgeInsets.all(size.sizePaddingLeftAndRightPage),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ButtonBackArrow(
-                    onPressed: () {},
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
-                          ),
-                          borderRadius: BorderRadius.circular(
-                              30.0.r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
-                          child:
-                              Column(mainAxisSize: MainAxisSize.max, children: [
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            ComponentTextTittle(tr("create_account")),
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            TextFieldForm(
-                                textEditingControllerEmail:
-                                    textEditingControllerFirstName,
-                                hintText: "first_name",
-                                labelText: "first_name"),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            TextFieldForm(
-                                textEditingControllerEmail:
-                                    textEditingControllerFirstName,
-                                hintText: "last_name",
-                                labelText: "last_name"),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            TextFieldForm(
-                                textEditingControllerEmail:
-                                    textEditingControllerFirstName,
-                                labelText: "email_adress",
-                                hintText: "email_address_hint"),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            lang == "AR"
-                                ? TextFieldPasswordFormArabic(
-                                    textEditingControllerEmail:
-                                        textEditingControllerPassword,
-                                    labelText: "password",
-                                    hintText: "password_hint",
-                                  )
-                                : TextFieldPasswordForm(
-                                    textEditingControllerEmail:
-                                        textEditingControllerPassword,
-                                    labelText: "password",
-                                    hintText: "password_hint",
-                                  ),
-                            SizedBox(
-                              height: 50.h,
-                            ),
-                          ]),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 410.h, bottom: 75.h),
-                        padding: EdgeInsets.symmetric(horizontal: 20.h),
-                        child: Center(
-                            child: ButtonLong(
-                                nameButton: "sign_up",
-                                routeName: PageSignIn.routeName.toString())),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: BottomPageIndicator(),
-                  )
-                ],
-              ),
-            )),
+
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF08F4F9), // #08F4F9
+              Color(0xFFB988FF), // #B988FF
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-        );
-      },
+        ),
+        child: SafeArea(
+            child: Padding(
+          padding: EdgeInsets.all(size.sizePaddingLeftAndRightPage),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ButtonBackArrow(
+                onPressed: () {},
+              ),
+              Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors
+                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                      border: Border.all(
+                        color: Colors.black, // Warna garis tepi (outline) hitam
+                        width: 2.0, // Ketebalan garis tepi
+                      ),
+                      borderRadius: BorderRadius.circular(
+                          30.0.r), // Sudut melengkung sebesar 30 unit
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.h),
+                      child: Column(mainAxisSize: MainAxisSize.max, children: [
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        ComponentTextTittle(tr("create_account")),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        TextFieldForm(
+                            textEditingControllerEmail:
+                                textEditingControllerFirstName,
+                            hintText: "first_name",
+                            labelText: "first_name"),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        TextFieldForm(
+                            textEditingControllerEmail:
+                                textEditingControllerFirstName,
+                            hintText: "last_name",
+                            labelText: "last_name"),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        TextFieldForm(
+                            textEditingControllerEmail:
+                                textEditingControllerFirstName,
+                            labelText: "email_adress",
+                            hintText: "email_address_hint"),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        lang == "AR"
+                            ? TextFieldPasswordFormArabic(
+                                textEditingControllerEmail:
+                                    textEditingControllerPassword,
+                                labelText: "password",
+                                hintText: "password_hint",
+                              )
+                            : TextFieldPasswordForm(
+                                textEditingControllerEmail:
+                                    textEditingControllerPassword,
+                                labelText: "password",
+                                hintText: "password_hint",
+                              ),
+                        SizedBox(
+                          height: 50.h,
+                        ),
+                      ]),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 410.h, bottom: 75.h),
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: Center(
+                        child: ButtonLong(
+                            nameButton: "sign_up",
+                            routeName: PageSignIn.routeName.toString())),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: BottomPageIndicator(),
+              )
+            ],
+          ),
+        )),
+      ),
     );
   }
 }

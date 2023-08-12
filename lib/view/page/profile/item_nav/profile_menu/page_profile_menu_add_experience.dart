@@ -101,275 +101,257 @@ class _PageProfileMenuAddExperienceState
     } else {
       print("engl");
     }
-    return ScreenUtilInit(
-      builder: (context, child) {
-        return Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: AppBarGlobal(),
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF08F4F9), // #08F4F9
-                  Color(0xFFB988FF), // #B988FF
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: size.sizePaddingLeftAndRightPage.h,
-              ),
-              child: ListView(
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        height: marginContainer.h,
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
-                          ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizeFieldText.h),
-                          child: SingleChildScrollView(
-                            child: Form(
-                              key: _formKey,
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    SizedBox(
-                                      height: size.marginTopAndBottom.h,
-                                    ),
-                                    Center(
-                                        child: ComponentTextTittle(
-                                            tr("your_teaching_experiences"))),
-                                    SizedBox(
-                                      height: size.marginTopAndBottom.h,
-                                    ),
-                                    DropDownWidget(
-                                      textEditingControllerDropDown:
-                                          textEditingControllerSelectCountry,
-                                      initialValueDropDown:
-                                          tr("select_experienye_in_years"),
-                                      containerHeight: 50,
-                                      labelText:
-                                          tr("select_length_of_this_experi") +
-                                              " 2",
-                                      listData: countryOfResidenceList,
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    DropDownWidget(
-                                      textEditingControllerDropDown:
-                                          textEditingControllerSelectCountry,
-                                      initialValueDropDown:
-                                          tr("select_experienye_in_years"),
-                                      containerHeight: 50,
-                                      labelText:
-                                          tr("select_length_of_this_experi") +
-                                              " 2",
-                                      listData: countryOfResidenceList,
-                                    ),
-                                    //DividerGlobal(),
-                                    ...listWidget,
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          if (limitExpreince == 4) {
-                                            Get.snackbar("Notification",
-                                                "Maximal Experience Is 5");
-                                          } else {
-                                            TextEditingController
-                                                textEditingControllerLanguage =
-                                                TextEditingController();
 
-                                            TextEditingController
-                                                textEditingControllerTutoring =
-                                                TextEditingController();
-                                            AnimationController
-                                                animationControllerSelectLanguageList =
-                                                AnimationController(
-                                                    vsync: this,
-                                                    duration: Duration(
-                                                        milliseconds: 500),
-                                                    upperBound: 0.5);
-                                            AnimationController
-                                                animationControllerSelectLanguageListTwo =
-                                                AnimationController(
-                                                    vsync: this,
-                                                    duration: Duration(
-                                                        milliseconds: 500),
-                                                    upperBound: 0.5);
-                                            indexLanguage += 1;
-                                            marginConfirm += 60;
-                                            marginContainer += 60;
-                                            indexTutoringLanguage += 1;
-                                            limitExpreince += 1;
-                                            listWidget.addAll([
-                                              Column(
-                                                children: [
-                                                  SizedBox(
-                                                    height: 10.h,
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Expanded(
-                                                        child: DividerGlobal(),
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          setState(() {
-                                                            marginConfirm -= 60;
-                                                            marginContainer -=
-                                                                60;
-                                                            indexLanguage -= 1;
-                                                            indexTutoringLanguage -=
-                                                                1;
-                                                            limitExpreince -= 1;
-                                                            listWidget
-                                                                .removeAt(0);
-                                                          });
-                                                        },
-                                                        child: Card(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              214,
-                                                              214,
-                                                              214),
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        30.r),
-                                                            side: BorderSide(
-                                                              width: size
-                                                                  .sizeBorderBlackGlobal,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                          child: Padding(
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    vertical:
-                                                                        2.h,
-                                                                    horizontal:
-                                                                        15.w),
-                                                            child:
-                                                                ComponentTextDescription(
-                                                              "X",
-                                                              fontSize: size
-                                                                  .sizeTextDescriptionGlobal
-                                                                  .sp,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  DropDownWidget(
-                                                    textEditingControllerDropDown:
-                                                        textEditingControllerLanguage,
-                                                    initialValueDropDown:
-                                                        "select_experience",
-                                                    containerHeight: 50,
-                                                    labelText:
-                                                        tr("experience") +
-                                                            " " +
-                                                            indexLanguage
-                                                                .toString(),
-                                                    listData:
-                                                        countryOfResidenceList,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10.h,
-                                                  ),
-                                                  DropDownWidget(
-                                                    textEditingControllerDropDown:
-                                                        textEditingControllerTutoring,
-                                                    initialValueDropDown: tr(
-                                                        "select_experienye_in_years"),
-                                                    containerHeight: 50,
-                                                    labelText:
-                                                        tr("select_length_of_this_experi") +
-                                                            " " +
-                                                            indexTutoringLanguage
-                                                                .toString(),
-                                                    listData:
-                                                        countryOfResidenceList,
-                                                  ),
-                                                ],
-                                              )
-                                            ]);
-
-                                            widgetDropDown += 1;
-                                          }
-                                        });
-                                      },
-                                      child: listWidget.length == maxLanguage
-                                          ? Container()
-                                          : Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 15.h),
-                                              child: ComponentTextDescription(
-                                                  "+ Add another Experience",
-                                                  teksColor:
-                                                      const Color.fromARGB(
-                                                          255, 17, 68, 109),
-                                                  fontSize: size
-                                                      .sizeTextDescriptionGlobal),
-                                            ),
-                                    ),
-                                    SizedBox(
-                                      height: 60.h,
-                                    )
-                                  ]),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: marginConfirm.h, left: 20.h, right: 20.h),
-                        child: Center(
-                            child: ButtonLongForm(
-                          nameButton: "Confirm",
-                          routeName:
-                              PageProfileMenuAddExperience.routeName.toString(),
-                          formKey: _formKey,
-                        )),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 50.h,
-                  ),
-                ],
-              ),
-            ),
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBarGlobal(),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF08F4F9), // #08F4F9
+              Color(0xFFB988FF), // #B988FF
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-        );
-      },
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: size.sizePaddingLeftAndRightPage.h,
+          ),
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 20.h,
+              ),
+              Stack(
+                children: [
+                  Container(
+                    height: marginContainer.h,
+                    decoration: BoxDecoration(
+                      color: Colors
+                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                      border: Border.all(
+                        color: Colors.black, // Warna garis tepi (outline) hitam
+                        width: 2.0, // Ketebalan garis tepi
+                      ),
+                      borderRadius: BorderRadius.circular(size.sizeRoundedGlobal
+                          .r), // Sudut melengkung sebesar 30 unit
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: size.sizeFieldText.h),
+                      child: SingleChildScrollView(
+                        physics: PageScrollPhysics(),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                SizedBox(
+                                  height: size.marginTopAndBottom.h,
+                                ),
+                                Center(
+                                    child: ComponentTextTittle(
+                                        tr("your_teaching_experiences"))),
+                                SizedBox(
+                                  height: size.marginTopAndBottom.h,
+                                ),
+                                DropDownWidget(
+                                  textEditingControllerDropDown:
+                                      textEditingControllerSelectCountry,
+                                  initialValueDropDown:
+                                      tr("select_experienye_in_years"),
+                                  containerHeight: 50,
+                                  labelText:
+                                      tr("select_length_of_this_experi") + " 2",
+                                  listData: countryOfResidenceList,
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                DropDownWidget(
+                                  textEditingControllerDropDown:
+                                      textEditingControllerSelectCountry,
+                                  initialValueDropDown:
+                                      tr("select_experienye_in_years"),
+                                  containerHeight: 50,
+                                  labelText:
+                                      tr("select_length_of_this_experi") + " 2",
+                                  listData: countryOfResidenceList,
+                                ),
+                                //DividerGlobal(),
+                                ...listWidget,
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (limitExpreince == 4) {
+                                        Get.snackbar("Notification",
+                                            "Maximal Experience Is 5");
+                                      } else {
+                                        TextEditingController
+                                            textEditingControllerLanguage =
+                                            TextEditingController();
+
+                                        TextEditingController
+                                            textEditingControllerTutoring =
+                                            TextEditingController();
+                                        AnimationController
+                                            animationControllerSelectLanguageList =
+                                            AnimationController(
+                                                vsync: this,
+                                                duration:
+                                                    Duration(milliseconds: 500),
+                                                upperBound: 0.5);
+                                        AnimationController
+                                            animationControllerSelectLanguageListTwo =
+                                            AnimationController(
+                                                vsync: this,
+                                                duration:
+                                                    Duration(milliseconds: 500),
+                                                upperBound: 0.5);
+                                        indexLanguage += 1;
+                                        // marginConfirm += 60;
+                                        // marginContainer += 60;
+                                        indexTutoringLanguage += 1;
+                                        limitExpreince += 1;
+                                        listWidget.addAll([
+                                          Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 10.h,
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: DividerGlobal(),
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        // marginConfirm -= 60;
+                                                        // marginContainer -=
+                                                        //     60;
+                                                        indexLanguage -= 1;
+                                                        indexTutoringLanguage -=
+                                                            1;
+                                                        limitExpreince -= 1;
+                                                        listWidget.removeAt(0);
+                                                      });
+                                                    },
+                                                    child: Card(
+                                                      color: Color.fromARGB(
+                                                          255, 214, 214, 214),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(30.r),
+                                                        side: BorderSide(
+                                                          width: size
+                                                              .sizeBorderBlackGlobal,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 2.h,
+                                                                horizontal:
+                                                                    15.w),
+                                                        child:
+                                                            ComponentTextDescription(
+                                                          "X",
+                                                          fontSize: size
+                                                              .sizeTextDescriptionGlobal
+                                                              .sp,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              DropDownWidget(
+                                                textEditingControllerDropDown:
+                                                    textEditingControllerLanguage,
+                                                initialValueDropDown:
+                                                    "select_experience",
+                                                containerHeight: 50,
+                                                labelText: tr("experience") +
+                                                    " " +
+                                                    indexLanguage.toString(),
+                                                listData:
+                                                    countryOfResidenceList,
+                                              ),
+                                              SizedBox(
+                                                height: 10.h,
+                                              ),
+                                              DropDownWidget(
+                                                textEditingControllerDropDown:
+                                                    textEditingControllerTutoring,
+                                                initialValueDropDown: tr(
+                                                    "select_experienye_in_years"),
+                                                containerHeight: 50,
+                                                labelText:
+                                                    tr("select_length_of_this_experi") +
+                                                        " " +
+                                                        indexTutoringLanguage
+                                                            .toString(),
+                                                listData:
+                                                    countryOfResidenceList,
+                                              ),
+                                            ],
+                                          )
+                                        ]);
+
+                                        widgetDropDown += 1;
+                                      }
+                                    });
+                                  },
+                                  child: listWidget.length == maxLanguage
+                                      ? Container()
+                                      : Padding(
+                                          padding: EdgeInsets.only(top: 15.h),
+                                          child: ComponentTextDescription(
+                                              "+ Add another Experience",
+                                              teksColor: const Color.fromARGB(
+                                                  255, 17, 68, 109),
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal),
+                                        ),
+                                ),
+                                SizedBox(
+                                  height: 60.h,
+                                )
+                              ]),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: marginConfirm.h, left: 20.h, right: 20.h),
+                    child: Center(
+                        child: ButtonLongForm(
+                      nameButton: "Confirm",
+                      routeName:
+                          PageProfileMenuAddExperience.routeName.toString(),
+                      formKey: _formKey,
+                    )),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50.h,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

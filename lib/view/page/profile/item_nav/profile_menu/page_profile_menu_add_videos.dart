@@ -100,7 +100,7 @@ Requirements
   List<Widget> listWidget = [];
   int indexLanguage = 1;
   int indexTutoringLanguage = 2;
-final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -111,28 +111,26 @@ final _formKey = GlobalKey<FormState>();
     } else {
       print("engl");
     }
-    return ScreenUtilInit(
-      builder: (context, child) {
-        return Scaffold(
-          appBar: AppBarGlobal(),
-           extendBodyBehindAppBar:
-              true, // 
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF08F4F9), // #08F4F9
-                  Color(0xFFB988FF), // #B988FF
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
+
+    return Scaffold(
+      appBar: AppBarGlobal(),
+      extendBodyBehindAppBar: true, //
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF08F4F9), // #08F4F9
+              Color(0xFFB988FF), // #B988FF
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
             horizontal: size.sizePaddingLeftAndRightPage.h,
-              ),
-              child: ListView(
+          ),
+          child: ListView(
             physics: AlwaysScrollableScrollPhysics(),
             children: [
               SizedBox(
@@ -146,12 +144,10 @@ final _formKey = GlobalKey<FormState>();
                       color: Colors
                           .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
                       border: Border.all(
-                        color: Colors
-                            .black, // Warna garis tepi (outline) hitam
+                        color: Colors.black, // Warna garis tepi (outline) hitam
                         width: 2.0, // Ketebalan garis tepi
                       ),
-                      borderRadius: BorderRadius.circular(size
-                          .sizeRoundedGlobal
+                      borderRadius: BorderRadius.circular(size.sizeRoundedGlobal
                           .r), // Sudut melengkung sebesar 30 unit
                     ),
                     child: Padding(
@@ -171,8 +167,7 @@ final _formKey = GlobalKey<FormState>();
                                       tr("videos_english"))),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
                                     height: 30.h,
@@ -238,8 +233,7 @@ final _formKey = GlobalKey<FormState>();
                                                       .spaceBetween,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
-                                              mainAxisSize:
-                                                  MainAxisSize.max,
+                                              mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Column(
                                                   children: [
@@ -288,8 +282,7 @@ final _formKey = GlobalKey<FormState>();
                                                 .backgroundColorVerified,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        30.r),
+                                                    BorderRadius.circular(30.r),
                                                 side: BorderSide(
                                                     width: size
                                                         .sizeBorderBlackGlobal,
@@ -299,25 +292,22 @@ final _formKey = GlobalKey<FormState>();
                                                   const EdgeInsets.all(8.0),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   ComponentTextDescription(
                                                     "Status: ",
                                                     fontSize: size
                                                         .sizeTextDescriptionGlobal,
                                                     teksColor: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                   ComponentTextDescription(
                                                     "Verified",
                                                     fontSize: size
                                                         .sizeTextDescriptionGlobal,
-                                                    teksColor: ListColor
-                                                        .colorVerified,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    teksColor:
+                                                        ListColor.colorVerified,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ],
                                               ),
@@ -386,8 +376,7 @@ final _formKey = GlobalKey<FormState>();
                                                       .spaceBetween,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
-                                              mainAxisSize:
-                                                  MainAxisSize.max,
+                                              mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Column(
                                                   children: [
@@ -436,8 +425,7 @@ final _formKey = GlobalKey<FormState>();
                                                 .colorBackgroundConfirmToSaveChanges,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        30.r),
+                                                    BorderRadius.circular(30.r),
                                                 side: BorderSide(
                                                     width: size
                                                         .sizeBorderBlackGlobal,
@@ -447,25 +435,22 @@ final _formKey = GlobalKey<FormState>();
                                                   const EdgeInsets.all(8.0),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   ComponentTextDescription(
                                                     "Status: ",
                                                     fontSize: size
                                                         .sizeTextDescriptionGlobal,
                                                     teksColor: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                   ComponentTextDescription(
                                                     "modifications needed",
                                                     fontSize: size
                                                         .sizeTextDescriptionGlobal,
-                                                    teksColor: ListColor
-                                                        .colorVerified,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    teksColor:
+                                                        ListColor.colorVerified,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ],
                                               ),
@@ -532,8 +517,7 @@ final _formKey = GlobalKey<FormState>();
                                                       .spaceBetween,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
-                                              mainAxisSize:
-                                                  MainAxisSize.max,
+                                              mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Column(
                                                   children: [
@@ -582,8 +566,7 @@ final _formKey = GlobalKey<FormState>();
                                                 255, 12, 131, 175),
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        30.r),
+                                                    BorderRadius.circular(30.r),
                                                 side: BorderSide(
                                                     width: size
                                                         .sizeBorderBlackGlobal,
@@ -593,25 +576,22 @@ final _formKey = GlobalKey<FormState>();
                                                   const EdgeInsets.all(8.0),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   ComponentTextDescription(
                                                     "Status: ",
                                                     fontSize: size
                                                         .sizeTextDescriptionGlobal,
                                                     teksColor: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                   ComponentTextDescription(
                                                     "In Review",
                                                     fontSize: size
                                                         .sizeTextDescriptionGlobal,
-                                                    teksColor: ListColor
-                                                        .colorVerified,
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    teksColor:
+                                                        ListColor.colorVerified,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ],
                                               ),
@@ -626,13 +606,12 @@ final _formKey = GlobalKey<FormState>();
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(
-                        top: 520.h, left: 20.h, right: 20.h),
+                    margin:
+                        EdgeInsets.only(top: 520.h, left: 20.h, right: 20.h),
                     child: Center(
                         child: ButtonLong(
                       nameButton: "Confirm",
-                      routeName:
-                          PageProfileMenuAddVideos.routeName.toString(),
+                      routeName: PageProfileMenuAddVideos.routeName.toString(),
                     )),
                   ),
                 ],
@@ -641,11 +620,9 @@ final _formKey = GlobalKey<FormState>();
                 height: 60.h,
               )
             ],
-              ),
-            ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

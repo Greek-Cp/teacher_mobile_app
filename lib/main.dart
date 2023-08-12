@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
@@ -65,70 +66,78 @@ class MainApp extends StatelessWidget {
           systemNavigationBarColor: Color.fromARGB(255, 114, 87, 216),
           systemNavigationBarIconBrightness: Brightness.light));
     }
-    return GetMaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      initialRoute: PageSelectLanguage.routeName.toString(),
-      defaultTransition: Transition.circularReveal,
-      getPages: [
-        GetPage(
-            name: PageSelectLanguage.routeName.toString(),
-            page: () => PageSelectLanguage()),
-        GetPage(
-            name: PageSelectLogin.routeName.toString(),
-            page: () => PageSelectLogin()),
-        GetPage(
-            name: PageSignIn.routeName.toString(), page: () => PageSignIn()),
-        GetPage(
-            name: PageSignUp.routeName.toString(), page: () => PageSignUp()),
-        GetPage(
-            name: PageSignUpFillUsername.routeName.toString(),
-            page: () => PageSignUpFillUsername()),
-        GetPage(
-            name: PageForgotPassword.routeName.toString(),
-            page: () => PageForgotPassword()),
-        GetPage(
-            name: PageResetPassword.routeName.toString(),
-            page: () => PageResetPassword()),
-        GetPage(
-            name: PageDashboardProfile.routeName.toString(),
-            page: () => PageDashboardProfile()),
-        GetPage(
-            name: PageNavProfileSelectPicture.routeName.toString(),
-            page: () => PageNavProfileSelectPicture()),
-        GetPage(
-            name: PageNavProfile.routeName.toString(),
-            page: () => PageNavProfile()),
-        GetPage(
-            name: PageProfileMenuChangeUsername.routeName.toString(),
-            page: () => PageProfileMenuChangeUsername()),
-        GetPage(
-            name: PageProfileMenuAbout.routeName.toString(),
-            page: () => PageProfileMenuAbout()),
-        GetPage(
-            name: PageProfileMenuSelectLanguage.routeName.toString(),
-            page: () => PageProfileMenuSelectLanguage()),
-        GetPage(
-            name: PageProfileMenuAddEducation.routeName.toString(),
-            page: () => PageProfileMenuAddEducation()),
-        GetPage(
-            name: PageProfileMenuAddDescription.routeName.toString(),
-            page: () => PageProfileMenuAddDescription()),
-        GetPage(
-            name: PageProfileMenuAddVideos.routeName.toString(),
-            page: () => PageProfileMenuAddVideos()),
-        GetPage(
-            name: PageProfileMenuAddExperience.routeName.toString(),
-            page: () => PageProfileMenuAddExperience()),
-        GetPage(
-          name: PageProfileMenuAddPhoneNumber.routeName.toString(),
-          page: () => PageProfileMenuAddPhoneNumber(),
-        ),
-        GetPage(name: pageNavBar.routeName.toString(), page: () => pageNavBar())
-      ],
-      theme: _buildTheme(Brightness.light),
+    return ScreenUtilInit(
+      useInheritedMediaQuery: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          debugShowCheckedModeBanner: false,
+          initialRoute: PageSelectLanguage.routeName.toString(),
+          defaultTransition: Transition.circularReveal,
+          getPages: [
+            GetPage(
+                name: PageSelectLanguage.routeName.toString(),
+                page: () => PageSelectLanguage()),
+            GetPage(
+                name: PageSelectLogin.routeName.toString(),
+                page: () => PageSelectLogin()),
+            GetPage(
+                name: PageSignIn.routeName.toString(),
+                page: () => PageSignIn()),
+            GetPage(
+                name: PageSignUp.routeName.toString(),
+                page: () => PageSignUp()),
+            GetPage(
+                name: PageSignUpFillUsername.routeName.toString(),
+                page: () => PageSignUpFillUsername()),
+            GetPage(
+                name: PageForgotPassword.routeName.toString(),
+                page: () => PageForgotPassword()),
+            GetPage(
+                name: PageResetPassword.routeName.toString(),
+                page: () => PageResetPassword()),
+            GetPage(
+                name: PageDashboardProfile.routeName.toString(),
+                page: () => PageDashboardProfile()),
+            GetPage(
+                name: PageNavProfileSelectPicture.routeName.toString(),
+                page: () => PageNavProfileSelectPicture()),
+            GetPage(
+                name: PageNavProfile.routeName.toString(),
+                page: () => PageNavProfile()),
+            GetPage(
+                name: PageProfileMenuChangeUsername.routeName.toString(),
+                page: () => PageProfileMenuChangeUsername()),
+            GetPage(
+                name: PageProfileMenuAbout.routeName.toString(),
+                page: () => PageProfileMenuAbout()),
+            GetPage(
+                name: PageProfileMenuSelectLanguage.routeName.toString(),
+                page: () => PageProfileMenuSelectLanguage()),
+            GetPage(
+                name: PageProfileMenuAddEducation.routeName.toString(),
+                page: () => PageProfileMenuAddEducation()),
+            GetPage(
+                name: PageProfileMenuAddDescription.routeName.toString(),
+                page: () => PageProfileMenuAddDescription()),
+            GetPage(
+                name: PageProfileMenuAddVideos.routeName.toString(),
+                page: () => PageProfileMenuAddVideos()),
+            GetPage(
+                name: PageProfileMenuAddExperience.routeName.toString(),
+                page: () => PageProfileMenuAddExperience()),
+            GetPage(
+              name: PageProfileMenuAddPhoneNumber.routeName.toString(),
+              page: () => PageProfileMenuAddPhoneNumber(),
+            ),
+            GetPage(
+                name: pageNavBar.routeName.toString(), page: () => pageNavBar())
+          ],
+          theme: _buildTheme(Brightness.light),
+        );
+      },
     );
   }
 

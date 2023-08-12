@@ -92,161 +92,151 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     } else {
       print("engl");
     }
-    return ScreenUtilInit(
-      builder: (context, child) {
-        return Scaffold(
-          extendBodyBehindAppBar:
-              true, // Extend the body behind the AppBar to show the blur effect
-          appBar: AppBarGlobal(),
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF08F4F9), // #08F4F9
-                  Color(0xFFB988FF), // #B988FF
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+
+    return Scaffold(
+      extendBodyBehindAppBar:
+          true, // Extend the body behind the AppBar to show the blur effect
+      appBar: AppBarGlobal(),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF08F4F9), // #08F4F9
+              Color(0xFFB988FF), // #B988FF
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: size.sizePaddingLeftAndRightPage.h,
+          ),
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 20.h,
               ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: size.sizePaddingLeftAndRightPage.h,
-              ),
-              child: ListView(
+              Stack(
                 children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        height: marginContainer.h,
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
-                          ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 0),
-                          child: Scrollbar(
-                            thickness: 2.5,
-                            thumbVisibility: true,
-                            trackVisibility: true,
-                            child: SingleChildScrollView(
-                              child: Form(
-                                key: _formKey,
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: size.sizeFieldText.h),
-                                  child: Column(
+                  Container(
+                    height: marginContainer.h,
+                    decoration: BoxDecoration(
+                      color: Colors
+                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                      border: Border.all(
+                        color: Colors.black, // Warna garis tepi (outline) hitam
+                        width: 2.0, // Ketebalan garis tepi
+                      ),
+                      borderRadius: BorderRadius.circular(size.sizeRoundedGlobal
+                          .r), // Sudut melengkung sebesar 30 unit
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 0),
+                      child: Scrollbar(
+                        thickness: 2.5,
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        child: SingleChildScrollView(
+                          child: Form(
+                            key: _formKey,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.sizeFieldText.h),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      height: 30.h,
+                                    ),
+                                    Center(
+                                        child:
+                                            ComponentTextTittle(tr("about"))),
+                                    Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
                                       children: [
                                         SizedBox(
                                           height: 30.h,
                                         ),
-                                        Center(
-                                            child: ComponentTextTittle(
-                                                tr("about"))),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: 30.h,
-                                            ),
-                                            TextFieldForm(
-                                                textEditingControllerEmail:
-                                                    textEditingControllerFirstName,
-                                                hintText: "first_name",
-                                                labelText: "first_name"),
-                                            SizedBox(
-                                              height: 15.h,
-                                            ),
-                                            TextFieldForm(
-                                                textEditingControllerEmail:
-                                                    textEditingControllerLastName,
-                                                hintText: "last_name",
-                                                labelText: "last_name"),
-                                            SizedBox(
-                                              height: 15.h,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  containerHeight += 50;
-                                                });
-                                              },
-                                              child: DropDownWidget(
-                                                voidCallbackDropDownArrowOnTap:
-                                                    () {
-                                                  setState(() {
-                                                    print("Clicked");
-                                                    marginContainer += 30;
-                                                  });
-                                                },
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerSelectCountry,
-                                                initialValueDropDown:
-                                                    "Select a country",
-                                                containerHeight: 50,
-                                                labelText:
-                                                    "Country of residence",
-                                                listData:
-                                                    countryOfResidenceList,
-                                              ),
-                                            ),
-                                            // TextFieldFormPhone(
-                                            //     textEditingControllerEmail:
-                                            //         textEditingControllerLastName,
-                                            //     hintText: "phoneNumber",
-                                            //     labelText: "phone"),
-                                          ],
-                                        ),
+                                        TextFieldForm(
+                                            textEditingControllerEmail:
+                                                textEditingControllerFirstName,
+                                            hintText: "first_name",
+                                            labelText: "first_name"),
                                         SizedBox(
-                                          height: 70.h,
+                                          height: 15.h,
                                         ),
-                                      ]),
-                                ),
-                              ),
+                                        TextFieldForm(
+                                            textEditingControllerEmail:
+                                                textEditingControllerLastName,
+                                            hintText: "last_name",
+                                            labelText: "last_name"),
+                                        SizedBox(
+                                          height: 15.h,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              // containerHeight += 50;
+                                            });
+                                          },
+                                          child: DropDownWidget(
+                                            voidCallbackDropDownArrowOnTap: () {
+                                              setState(() {
+                                                print("Clicked");
+                                                // marginContainer += 30;
+                                              });
+                                            },
+                                            textEditingControllerDropDown:
+                                                textEditingControllerSelectCountry,
+                                            initialValueDropDown:
+                                                "Select a country",
+                                            containerHeight: 50,
+                                            labelText: "Country of residence",
+                                            listData: countryOfResidenceList,
+                                          ),
+                                        ),
+                                        // TextFieldFormPhone(
+                                        //     textEditingControllerEmail:
+                                        //         textEditingControllerLastName,
+                                        //     hintText: "phoneNumber",
+                                        //     labelText: "phone"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 70.h,
+                                    ),
+                                  ]),
                             ),
                           ),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            top: marginConfirm.h, left: 20.h, right: 20.h),
-                        child: Center(
-                            child: ButtonLongForm(
-                          nameButton: "Confirm",
-                          routeName: PageProfileMenuAbout.routeName.toString(),
-                          formKey: _formKey,
-                        )),
-                      ),
-                    ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 40,
-                  )
+                  Container(
+                    margin: EdgeInsets.only(
+                        top: marginConfirm.h, left: 20.h, right: 20.h),
+                    child: Center(
+                        child: ButtonLongForm(
+                      nameButton: "Confirm",
+                      routeName: PageProfileMenuAbout.routeName.toString(),
+                      formKey: _formKey,
+                    )),
+                  ),
                 ],
               ),
-            ),
+              SizedBox(
+                height: 40,
+              )
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

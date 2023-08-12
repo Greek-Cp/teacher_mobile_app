@@ -54,86 +54,78 @@ class _pageNavBarState extends State<pageNavBar> {
     for (var i = 0; i < listIcons.length; i++) {
       _navbarItem.add(BuildIconsModif(listIcons[i], i, namaIcons[i]));
     }
-    return ScreenUtilInit(
-      builder: (context, child) {
-        return WillPopScope(
-          onWillPop: () async {
-            return !await tabNavKeys[_tabController.index]
-                .currentState!
-                .maybePop();
-          },
-          child: CupertinoTabScaffold(
-              tabBar: CupertinoTabBar(
-                activeColor: Colors.white,
-                inactiveColor: Colors.white,
-                backgroundColor: Color.fromARGB(255, 168, 144, 255),
-                items: [
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                          "assets/icon/profile/ic_nav_videos.svg"),
-                      label: "Videos"),
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                          "assets/icon/profile/icon_nav_chat.svg"),
-                      label: "Chat"),
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                          "assets/icon/profile/ic_nav_book.svg"),
-                      label: "Tutoring"),
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                          "assets/icon/profile/ic_nav_quick.svg"),
-                      label: "Q. Help"),
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                          "assets/icon/profile/ic_nav_profile.svg"),
-                      label: "Profile"),
-                ],
-              ),
-              tabBuilder: (context, index) {
-                switch (index) {
-                  case 0:
-                    return CupertinoTabView(
-                      navigatorKey: tabNavKeys[0],
-                      builder: (context) {
-                        return CupertinoPageScaffold(child: Text("Page 1 "));
-                      },
-                    );
-                  case 1:
-                    return CupertinoTabView(
-                      navigatorKey: tabNavKeys[1],
-                      builder: (context) {
-                        return CupertinoPageScaffold(child: Text("Page 2 "));
-                      },
-                    );
-                  case 2:
-                    return CupertinoTabView(
-                      navigatorKey: tabNavKeys[2],
-                      builder: (context) {
-                        return CupertinoPageScaffold(child: Text("Page 3 "));
-                      },
-                    );
-                  case 3:
-                    return CupertinoTabView(
-                      navigatorKey: tabNavKeys[3],
-                      builder: (context) {
-                        return CupertinoPageScaffold(
-                            child: PageDashboardProfile());
-                      },
-                    );
-                  case 4:
-                    return CupertinoTabView(
-                      navigatorKey: tabNavKeys[4],
-                      builder: (context) {
-                        return CupertinoPageScaffold(
-                            child: PageDashboardProfile());
-                      },
-                    );
-                }
-                return Container();
-              }),
-        );
+
+    return WillPopScope(
+      onWillPop: () async {
+        return !await tabNavKeys[_tabController.index].currentState!.maybePop();
       },
+      child: CupertinoTabScaffold(
+          tabBar: CupertinoTabBar(
+            activeColor: Colors.white,
+            inactiveColor: Colors.white,
+            backgroundColor: Color.fromARGB(255, 168, 144, 255),
+            items: [
+              BottomNavigationBarItem(
+                  icon:
+                      SvgPicture.asset("assets/icon/profile/ic_nav_videos.svg"),
+                  label: "Videos"),
+              BottomNavigationBarItem(
+                  icon:
+                      SvgPicture.asset("assets/icon/profile/icon_nav_chat.svg"),
+                  label: "Chat"),
+              BottomNavigationBarItem(
+                  icon: SvgPicture.asset("assets/icon/profile/ic_nav_book.svg"),
+                  label: "Tutoring"),
+              BottomNavigationBarItem(
+                  icon:
+                      SvgPicture.asset("assets/icon/profile/ic_nav_quick.svg"),
+                  label: "Q. Help"),
+              BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                      "assets/icon/profile/ic_nav_profile.svg"),
+                  label: "Profile"),
+            ],
+          ),
+          tabBuilder: (context, index) {
+            switch (index) {
+              case 0:
+                return CupertinoTabView(
+                  navigatorKey: tabNavKeys[0],
+                  builder: (context) {
+                    return CupertinoPageScaffold(child: Text("Page 1 "));
+                  },
+                );
+              case 1:
+                return CupertinoTabView(
+                  navigatorKey: tabNavKeys[1],
+                  builder: (context) {
+                    return CupertinoPageScaffold(child: Text("Page 2 "));
+                  },
+                );
+              case 2:
+                return CupertinoTabView(
+                  navigatorKey: tabNavKeys[2],
+                  builder: (context) {
+                    return CupertinoPageScaffold(child: Text("Page 3 "));
+                  },
+                );
+              case 3:
+                return CupertinoTabView(
+                  navigatorKey: tabNavKeys[3],
+                  builder: (context) {
+                    return CupertinoPageScaffold(child: PageDashboardProfile());
+                  },
+                );
+              case 4:
+                return CupertinoTabView(
+                  navigatorKey: tabNavKeys[4],
+                  builder: (context) {
+                    return CupertinoPageScaffold(child: PageDashboardProfile());
+                  },
+                );
+            }
+            return Container();
+          }),
     );
   }
 
@@ -193,44 +185,39 @@ class CustomCupertinoTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white, // Background color of the tabBar
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 0,
-            blurRadius: 10,
-            offset: Offset(0, -3), // Adjust the shadow offset if needed
+        decoration: BoxDecoration(
+          color: Colors.white, // Background color of the tabBar
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
           ),
-        ],
-      ),
-      child: ScreenUtilInit(
-        builder: (context, child) {
-          return CupertinoTabBar(
-            currentIndex: currentIndex,
-            onTap: onTap,
-            backgroundColor: Colors.transparent,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.search),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.person),
-                label: 'Profile',
-              ),
-            ],
-          );
-        },
-      ),
-    );
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 0,
+              blurRadius: 10,
+              offset: Offset(0, -3), // Adjust the shadow offset if needed
+            ),
+          ],
+        ),
+        child: CupertinoTabBar(
+          currentIndex: currentIndex,
+          onTap: onTap,
+          backgroundColor: Colors.transparent,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.search),
+              label: 'Search',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.person),
+              label: 'Profile',
+            ),
+          ],
+        ));
   }
 }

@@ -38,104 +38,98 @@ class _PageSignUpFillUsernameState extends State<PageSignUpFillUsername> {
     } else {
       print("engl");
     }
-    return ScreenUtilInit(
-      builder: (context, child) {
-        return Scaffold(
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF08F4F9), // #08F4F9
-                  Color(0xFFB988FF), // #B988FF
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF08F4F9), // #08F4F9
+              Color(0xFFB988FF), // #B988FF
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SafeArea(
+            child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: size.sizePaddingLeftAndRightPage.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ButtonBackArrow(
+                onPressed: () {
+                  Navigator.of(context);
+                },
               ),
-            ),
-            child: SafeArea(
-                child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: size.sizePaddingLeftAndRightPage.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Stack(
                 children: [
-                  ButtonBackArrow(
-                    onPressed: () {
-                      Navigator.of(context);
-                    },
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors
-                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
-                          ),
-                          borderRadius: BorderRadius.circular(
-                              30.0.r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
-                          child: Column(
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors
+                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                      border: Border.all(
+                        color: Colors.black, // Warna garis tepi (outline) hitam
+                        width: 2.0, // Ketebalan garis tepi
+                      ),
+                      borderRadius: BorderRadius.circular(
+                          30.0.r), // Sudut melengkung sebesar 30 unit
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.h),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            Center(child: ComponentTextTittle(tr("username"))),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            TextFieldFormWithValidation(
+                              textEditingControllerEmail:
+                                  textEditingControllerEmail,
+                              listModelValidation: listModelValidation,
+                              labelText: "username",
+                              hintText: "username",
+                              requestTypeValidation: "username",
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                SizedBox(
-                                  height: 30.h,
-                                ),
-                                Center(
-                                    child: ComponentTextTittle(tr("username"))),
-                                SizedBox(
-                                  height: 30.h,
-                                ),
-                                TextFieldFormWithValidation(
-                                  textEditingControllerEmail:
-                                      textEditingControllerEmail,
-                                  listModelValidation: listModelValidation,
-                                  labelText: "username",
-                                  hintText: "username",
-                                  requestTypeValidation: "username",
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [],
-                                ),
-                                SizedBox(
-                                  height: 40.h,
-                                ),
-                              ]),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 250.h),
-                        child: Center(
-                            child: ButtonLong(
-                          nameButton: "Confirm",
-                          routeName:
-                              PageSignUpFillUsername.routeName.toString(),
-                        )),
-                      ),
-                    ],
+                              children: [],
+                            ),
+                            SizedBox(
+                              height: 40.h,
+                            ),
+                          ]),
+                    ),
                   ),
-                  SizedBox(
-                    height: 240.h,
+                  Container(
+                    margin: EdgeInsets.only(top: 250.h),
+                    child: Center(
+                        child: ButtonLong(
+                      nameButton: "Confirm",
+                      routeName: PageSignUpFillUsername.routeName.toString(),
+                    )),
                   ),
-                  Expanded(child: BottomPageIndicator())
                 ],
               ),
-            )),
+              SizedBox(
+                height: 240.h,
+              ),
+              Expanded(child: BottomPageIndicator())
+            ],
           ),
-        );
-      },
+        )),
+      ),
     );
   }
 }
