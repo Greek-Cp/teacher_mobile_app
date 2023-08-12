@@ -718,14 +718,22 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                           )),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(
-                                          top: 460.h, left: 20.h, right: 20.h),
-                                      child: Center(
-                                          child: ButtonLongForm(
-                                        nameButton: "Submit Video",
-                                        routeName: "",
-                                        formKey: _formKey,
-                                      )),
+                                      child: Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Center(
+                                            child: Container(
+                                              margin: EdgeInsets.only(
+                                                  top: 450.h,
+                                                  left: 20.h,
+                                                  right: 20.h),
+                                              child: Center(
+                                                  child: ButtonLongForm(
+                                                nameButton: "Submit Video",
+                                                routeName: "",
+                                                formKey: _formKey,
+                                              )),
+                                            ),
+                                          )),
                                     ),
                                   ],
                                 ),

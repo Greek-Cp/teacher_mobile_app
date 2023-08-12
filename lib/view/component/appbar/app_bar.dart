@@ -9,7 +9,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10.h, left: 0.h),
+      margin: EdgeInsets.only(top: 0.h, left: 0.h),
       child: AppBar(
         forceMaterialTransparency: true,
         backgroundColor:
@@ -26,7 +26,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
                     5), // Adjust the sigma values for the desired blur intensity
             child: Container(
               width: double.infinity,
-              height: double.infinity,
+              height: 70.h,
               color: Colors.black
                   .withOpacity(0.07), // Adjust the opacity of the blur effect
             ),
