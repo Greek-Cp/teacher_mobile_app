@@ -260,15 +260,19 @@ class _PageProfileMenuAddExperienceState
                                                       child: Padding(
                                                         padding: EdgeInsets
                                                             .symmetric(
-                                                                vertical: 2.h,
+                                                                vertical: 0.h,
                                                                 horizontal:
                                                                     15.w),
-                                                        child:
-                                                            ComponentTextDescription(
-                                                          "X",
-                                                          fontSize: size
-                                                              .sizeTextDescriptionGlobal
-                                                              .sp,
+                                                        child: Center(
+                                                          child:
+                                                              ComponentTextDescription(
+                                                            '\u00D7',
+                                                            fontSize:
+                                                                size.sizeTextDescriptionGlobal +
+                                                                    5.sp,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),

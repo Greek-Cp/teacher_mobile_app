@@ -122,7 +122,7 @@ class _PageProfileMenuAddDescriptionState
           child: ListView(
             children: [
               SizedBox(
-                height: 20.h,
+                height: 0.h,
               ),
               Stack(
                 children: [

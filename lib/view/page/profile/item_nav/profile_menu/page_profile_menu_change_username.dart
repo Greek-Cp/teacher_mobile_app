@@ -128,55 +128,44 @@ class _PageProfileMenuChangeUsernameState
                     ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 0),
-                      child: Scrollbar(
-                        thickness: 2.5,
-                        thumbVisibility: true,
-                        trackVisibility: true,
-                        child: SingleChildScrollView(
-                          child: Form(
-                            key: _formKey,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: size.sizeFieldText.h),
-                              child: Column(
+                      child: Form(
+                        key: _formKey,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.sizeFieldText.h),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: 30.h,
+                                ),
+                                Center(child: ComponentTextTittle(tr("about"))),
+                                Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    SizedBox(
-                                      height: 30.h,
+                                    TextFieldFormWithValidation(
+                                      textEditingControllerEmail:
+                                          textEditingControllerEmail,
+                                      labelText: "username",
+                                      hintText: "username",
+                                      listModelValidation:
+                                          listModelValidationUsername,
+                                      requestTypeValidation: "username",
                                     ),
-                                    Center(
-                                        child:
-                                            ComponentTextTittle(tr("about"))),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        TextFieldFormWithValidation(
-                                          textEditingControllerEmail:
-                                              textEditingControllerEmail,
-                                          labelText: "username",
-                                          hintText: "username",
-                                          listModelValidation:
-                                              listModelValidationUsername,
-                                          requestTypeValidation: "username",
-                                        ),
-                                        // TextFieldFormPhone(
-                                        //     textEditingControllerEmail:
-                                        //         textEditingControllerLastName,
-                                        //     hintText: "phoneNumber",
-                                        //     labelText: "phone"),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 70.h,
-                                    ),
-                                  ]),
-                            ),
-                          ),
+                                    // TextFieldFormPhone(
+                                    //     textEditingControllerEmail:
+                                    //         textEditingControllerLastName,
+                                    //     hintText: "phoneNumber",
+                                    //     labelText: "phone"),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 40.h,
+                                ),
+                              ]),
                         ),
                       ),
                     ),
