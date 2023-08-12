@@ -59,8 +59,7 @@ class TextFieldFormWithValidation extends StatefulWidget {
 }
 
 class _TextFieldFormWithValidationState
-    extends State<TextFieldFormWithValidation>
-    with SingleTickerProviderStateMixin {
+    extends State<TextFieldFormWithValidation> with TickerProviderStateMixin {
   Widget? animationSucces;
 
   bool _isValidEmail = true;
@@ -647,12 +646,13 @@ class TextFieldPasswordForm extends StatefulWidget {
 }
 
 class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   Widget? animationSucces;
 
   bool passwordHidden = true;
-
-  bool isEmpty = true;
+  late final AnimationController _animationControllerShake;
+  late final Animation<double> _animationShake;
+  bool isEmpty = false;
 
   late final AnimationController _controllerLottie;
   @override
@@ -663,6 +663,17 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
         vsync: this, duration: Duration(milliseconds: 1300));
     animationSucces = Lottie.asset("assets/icon/animation_succes.json",
         width: 20, height: 20, repeat: false, controller: _controllerLottie);
+    _animationControllerShake = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 100),
+    );
+    _animationShake =
+        Tween(begin: -5.0, end: 5.0).animate(_animationControllerShake)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _animationControllerShake.reverse();
+            }
+          });
   }
 
   @override
@@ -671,7 +682,7 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
       children: [
         Container(
             margin: EdgeInsets.only(top: 10),
-            child: TextField(
+            child: TextFormField(
               controller: widget.textEditingControllerEmail,
               onChanged: (value) {
                 if (value.isNotEmpty) {
@@ -683,6 +694,21 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                     isEmpty = true;
                   });
                 }
+              },
+              validator: (value) {
+                print("values $value");
+                if (value == null || value.isEmpty) {
+                  setState(() {
+                    isEmpty = true;
+                    _animationControllerShake.forward();
+                  });
+                  return null;
+                } else {
+                  setState(() {
+                    isEmpty = false;
+                  });
+                }
+                return null;
               },
               onEditingComplete: () {
                 _controllerLottie.reset();
@@ -724,8 +750,7 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      margin:
-                          EdgeInsets.only(left: size.sizeMarginLeftTittle.h),
+                      margin: EdgeInsets.only(right: 0.h),
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -745,9 +770,11 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                       ),
                     ),
                     this.isEmpty
-                        ? Container()
+                        ? Container(
+                            padding: EdgeInsets.only(right: 5.h),
+                          )
                         : Padding(
-                            padding: EdgeInsets.only(right: 10.h),
+                            padding: EdgeInsets.only(right: 5.h),
                             child: animationSucces!)
                   ],
                 ),
@@ -758,7 +785,9 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                   borderRadius:
                       BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
-                    color: Colors.black, // Change the border color here
+                    color: isEmpty == true
+                        ? ListColor.colorOutlineTextFieldWhenEmpty
+                        : Colors.black, // Change the border color here
                     width: size
                         .sizeBorderBlackGlobal, // Change the border width here
                   ),
@@ -767,7 +796,9 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
                   borderRadius:
                       BorderRadius.circular(size.roundedCircularGlobal),
                   borderSide: BorderSide(
-                    color: Colors.black, // Change the border color here
+                    color: isEmpty == true
+                        ? ListColor.colorOutlineTextFieldWhenEmpty
+                        : Colors.black, // Change the border color here
                     width: size
                         .sizeBorderBlackGlobal, // Change the border width here
                   ),
@@ -779,7 +810,9 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
             child: AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                color: Colors.white,
+                color: isEmpty == true
+                    ? ListColor.colorValidationTextFieldBackgroundEmpty
+                    : ListColor.colorBackgroundTextFieldAll,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.h),
                   child: ComponentTextDescription(

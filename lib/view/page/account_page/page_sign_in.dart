@@ -63,16 +63,20 @@ class _PageSignInState extends State<PageSignIn> {
             padding: EdgeInsets.symmetric(
                 horizontal: size.sizePaddingLeftAndRightPage.h),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ButtonBackArrow(
                   onPressed: () {
                     Navigator.of(context);
                   },
                 ),
+                SizedBox(
+                  height: 30.h,
+                ),
                 Stack(
                   children: [
                     Container(
+                      height: 310.h,
                       decoration: BoxDecoration(
                         color: Colors
                             .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -118,7 +122,7 @@ class _PageSignInState extends State<PageSignIn> {
                                   hintText: "password_hint",
                                 ),
                           SizedBox(
-                            height: 40.h,
+                            height: 20.h,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -127,16 +131,17 @@ class _PageSignInState extends State<PageSignIn> {
                             },
                             child: ComponentTextDescription(
                                 tr("forgot_password"),
+                                fontWeight: FontWeight.bold,
                                 fontSize: size.sizeTextDescriptionGlobal),
                           ),
                           SizedBox(
-                            height: 40.h,
+                            height: 10.h,
                           ),
                         ]),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 300.h),
+                      margin: EdgeInsets.only(top: 280.h),
                       child: Center(
                           child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.h),
@@ -157,13 +162,13 @@ class _PageSignInState extends State<PageSignIn> {
                     nameButton: "create_account",
                     routeName: PageSignUp.routeName.toString()),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 ComponentTextDescription(tr("text_or_login"),
                     textAlign: TextAlign.center,
                     fontSize: size.sizeTextHeaderGlobal),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 WidgetDifferentLogin(),
                 Expanded(child: BottomPageIndicator())

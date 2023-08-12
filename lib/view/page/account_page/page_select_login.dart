@@ -57,6 +57,9 @@ class _PageSelectLoginState extends State<PageSelectLogin> {
                   // Atau tambahkan perintah lain yang ingin Anda eksekusi
                 },
               ),
+              SizedBox(
+                height: 30.h,
+              ),
               ImageRounded(
                 "assets/img/img_intersection_2.png",
                 30,
@@ -65,7 +68,7 @@ class _PageSelectLoginState extends State<PageSelectLogin> {
                 borderradius: BorderRadius.circular(20),
               ),
               SizedBox(
-                height: 30.h,
+                height: 65.h,
               ),
               ButtonLong(
                   nameButton: "login",
@@ -77,21 +80,16 @@ class _PageSelectLoginState extends State<PageSelectLogin> {
                   nameButton: "create_account",
                   routeName: PageSignUp.routeName.toString()),
               SizedBox(
-                height: 20.h,
+                height: 10,
               ),
-              ComponentTextDescription(
-                tr("text_or_login"),
-                textAlign: TextAlign.center,
-                fontSize: size.sizeTextHeaderGlobal,
+              ComponentTextDescription(tr("text_or_login"),
+                  textAlign: TextAlign.center,
+                  fontSize: size.sizeTextHeaderGlobal),
+              SizedBox(
+                height: 10,
               ),
               WidgetDifferentLogin(),
-              SizedBox(
-                height: 70.h,
-              ),
-              BottomPageIndicator(),
-              SizedBox(
-                height: 20.h,
-              )
+              Expanded(child: BottomPageIndicator())
             ],
           ),
         )),

@@ -60,7 +60,6 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
       _selectedLanguage = "English";
     });
 
-    generateWidgetLanguage();
   }
 
   late AnimationController animationRotateIndicatorController;
@@ -71,9 +70,7 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
   String? _selectedLanguage = "English";
 
   List<Widget> listWidgetLanguage = [];
-  void generateWidgetLanguage() {
-    for (int i = 0; i < listLanguage.length; i++) {}
-  }
+
 
   int selectedIndex = 0;
   @override
@@ -126,212 +123,8 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                             routeName: PageSelectLogin.routeName.toString(),
                           )),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        if (animationRotateIndicatorController.status ==
-                            AnimationStatus.completed) {
-                          animationRotateIndicatorController.reverse(from: 0.5);
-                        } else {
-                          animationRotateIndicatorController.forward(from: 0.0);
-                        }
-                        double screenHeight =
-                            MediaQuery.of(context).size.height;
-                        double containerHeight = screenHeight * 0.278;
+                    DropDownWidgetLanguage(textEditingControllerDropDown: textEditingControllerChooseLanguage,initialValueDropDown: "English", containerHeight: 50, labelText: 'Select Language', listData: listLanguage,),
 
-                        if (_containerHeight <= 90) {
-                          setState(() {
-                            _containerHeight += containerHeight;
-                          });
-                        } else {
-                          setState(() {
-                            _containerHeight -= containerHeight;
-                          });
-                        }
-                      },
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 400),
-                        margin: EdgeInsets.only(top: 8.h),
-                        height: _containerHeight.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                          color: ListColor.colorDropDown,
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: Padding(
-                            padding: EdgeInsets.only(
-                              top: 8.h,
-                              left: 10.w,
-                              right: 10.w,
-                            ),
-                            child: Stack(
-                              children: [
-                                ComponentTextDescription(
-                                  _selectedLanguage,
-                                  fontSize: size.sizeTextHeaderGlobal,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                UtilLocalization.checkLocalization(context)
-                                            .toString() ==
-                                        "US"
-                                    ? Positioned(
-                                        right: 1,
-                                        child: RotationTransition(
-                                          turns:
-                                              animationRotateIndicatorController,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(top: 5),
-                                            child: Image.asset(
-                                              "assets/icon/ic_drop_down_chose.png",
-                                              width: 20.w,
-                                              height: 20.h,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : Positioned(
-                                        left: 1,
-                                        child: RotationTransition(
-                                          turns:
-                                              animationRotateIndicatorController,
-                                          child: Image.asset(
-                                            "assets/icon/ic_drop_down_chose.png",
-                                            width: 20.w,
-                                            height: 20.h,
-                                          ),
-                                        ),
-                                      ),
-                                Container(
-                                  color: ListColor.backgroundBack,
-                                  margin: EdgeInsets.only(top: 40),
-                                  padding: EdgeInsets.only(right: 5, left: 5),
-                                  child: Scrollbar(
-                                      thickness: 6,
-                                      thumbVisibility: true,
-                                      trackVisibility: true,
-                                      radius: Radius.circular(30),
-                                      child: ListView.builder(
-                                        shrinkWrap: true,
-                                        physics:
-                                            AlwaysScrollableScrollPhysics(),
-                                        itemCount: listLanguage.length,
-                                        itemBuilder: (context, index) {
-                                          return InkWell(
-                                            splashColor: Colors
-                                                .blue, // Change the splash color here
-                                            highlightColor: Colors
-                                                .green, // Change the highlight color here
-
-                                            onTap: () {
-                                              //select language
-                                              print("set lang");
-                                              setState(() {
-                                                _selectedLanguage =
-                                                    listLanguage[index]
-                                                        .nameLanguage;
-                                                EasyLocalization.of(context)!
-                                                    .setLocale(Locale(
-                                                  listLanguage[index]
-                                                      .id
-                                                      .toString(),
-                                                  listLanguage[index]
-                                                      .lang
-                                                      .toString(),
-                                                ));
-                                                Get.updateLocale(Locale(
-                                                  listLanguage[index]
-                                                      .id
-                                                      .toString(),
-                                                  listLanguage[index]
-                                                      .lang
-                                                      .toString(),
-                                                ));
-                                              });
-                                              //EasyLocalization.of(context)
-                                              selectedIndex = index;
-                                            },
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Divider(
-                                                  height: 3,
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      ComponentTextDescription(
-                                                        listLanguage[index]
-                                                            .nameLanguage,
-                                                        fontSize:
-                                                            size.sizeTextDescriptionGlobal +
-                                                                5,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                      SizedBox()
-                                                      // Padding(
-                                                      //   padding: EdgeInsets
-                                                      //       .symmetric(
-                                                      //           vertical: 2.h,
-                                                      //           horizontal:
-                                                      //               10),
-                                                      //   child: Container(
-                                                      //     decoration: BoxDecoration(
-                                                      //         color: selectedIndex ==
-                                                      //                 index
-                                                      //             ? Colors
-                                                      //                 .purple
-                                                      //             : Colors
-                                                      //                 .white,
-                                                      //         borderRadius:
-                                                      //             BorderRadius
-                                                      //                 .circular(
-                                                      //                     5.0),
-                                                      //         border: Border.all(
-                                                      //             color: Colors
-                                                      //                 .black,
-                                                      //             width: size
-                                                      //                 .sizeBorderBlackGlobal)),
-                                                      //     width: 25.w,
-                                                      //     height: 25.h,
-                                                      //   ),
-                                                      // )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      )),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ),
-                    Align(
-                        alignment: Alignment.topLeft,
-                        child: AnimatedContainer(
-                            duration: Duration(milliseconds: 500),
-                            margin: EdgeInsets.only(left: 30),
-                            color: ListColor.colorDropDown,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10.h),
-                              child: ComponentTextDescription(
-                                tr("changeLanguage"),
-                                fontWeight: FontWeight.bold,
-                                fontSize: size.sizeTextDescriptionGlobal,
-                              ),
-                            ))),
                   ]),
                   SizedBox(
                     height: 35.h,

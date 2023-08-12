@@ -23,6 +23,8 @@ class ListColor {
   static const colorBackgroundFinance = Color.fromARGB(255, 198, 252, 225);
   static const colorBackgroundQuickHelpHeader =
       Color.fromARGB(255, 172, 60, 232);
+  static const colorBackgroundDropDownListLanguage= Color.fromARGB(255,140,201,255);
+  static const colorBackgrondDropDownLanguage = Color.fromARGB(255,54,240,255);
   static const colorBackgroundQuickHelp = Color.fromARGB(255, 235, 198, 252);
   static const backgroundItemRatingYellow = Color.fromARGB(255, 249, 204, 108);
   static const backgroundItemRatingGreen = Color.fromARGB(255, 146, 253, 167);

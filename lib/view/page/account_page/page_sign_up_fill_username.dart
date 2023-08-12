@@ -123,7 +123,7 @@ class _PageSignUpFillUsernameState extends State<PageSignUpFillUsername> {
                 ],
               ),
               SizedBox(
-                height: 240.h,
+                height: 290.h,
               ),
               Expanded(child: BottomPageIndicator())
             ],

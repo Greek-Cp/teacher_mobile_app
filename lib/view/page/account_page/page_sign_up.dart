@@ -64,6 +64,7 @@ class _PageSignUpState extends State<PageSignUp> {
               Stack(
                 children: [
                   Container(
+                    height: 435.h,
                     decoration: BoxDecoration(
                       color: Colors
                           .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
