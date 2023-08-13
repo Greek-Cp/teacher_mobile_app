@@ -276,14 +276,14 @@ class _PageProfileMenuAddEducationState
                                                                 horizontal:
                                                                     15.w),
                                                         child:
-                                                          ComponentTextDescription(
-                                                            '\u00D7',
-                                                            fontSize:
-                                                                size.sizeTextDescriptionGlobal +
-                                                                    5.sp,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
+                                                            ComponentTextDescription(
+                                                          '\u00D7',
+                                                          fontSize:
+                                                              size.sizeTextDescriptionGlobal +
+                                                                  5.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
                                                     ),
                                                   )

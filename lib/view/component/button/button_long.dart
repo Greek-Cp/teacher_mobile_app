@@ -11,11 +11,14 @@ class ButtonLongForm extends StatelessWidget {
   String routeName;
   GlobalKey<FormState> formKey;
   Color? colorButton;
+  VoidCallback? onClickButton;
+
   ButtonLongForm(
       {required this.nameButton,
       required this.routeName,
       required this.formKey,
-      this.colorButton});
+      this.colorButton,
+      this.onClickButton});
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +36,9 @@ class ButtonLongForm extends StatelessWidget {
         onPressed: () => {
               if (formKey.currentState!.validate())
                 {
-                  formKey.currentState!.save()
-
+                  formKey.currentState!.save(),
                   // Do something with the input
+                  onClickButton!()
                 }
             },
         child: Padding(

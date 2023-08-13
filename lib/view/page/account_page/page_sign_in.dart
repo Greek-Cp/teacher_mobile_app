@@ -150,6 +150,9 @@ class _PageSignInState extends State<PageSignIn> {
                           child: ButtonLongForm(
                             formKey: _formKey,
                             nameButton: "login",
+                            onClickButton: () {
+                              Get.toNamed(pageNavBar.routeName.toString());
+                            },
                             routeName: pageNavBar.routeName.toString(),
                           ),
                         ),

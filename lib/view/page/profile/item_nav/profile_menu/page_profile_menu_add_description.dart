@@ -115,89 +115,95 @@ class _PageProfileMenuAddDescriptionState
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.sizePaddingLeftAndRightPage.h,
-          ),
-          child: ListView(
-            children: [
-              SizedBox(
-                height: 0.h,
-              ),
-              Stack(
-                children: [
-                  Container(
-                    height: 470.h,
-                    decoration: BoxDecoration(
-                      color: Colors
-                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                      border: Border.all(
-                        color: Colors.black, // Warna garis tepi (outline) hitam
-                        width: 2.0, // Ketebalan garis tepi
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: size.sizePaddingLeftAndRightPage.h,
+            ),
+            child: ListView(
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                SizedBox(
+                  height: 0.h,
+                ),
+                Stack(
+                  children: [
+                    Container(
+                      height: 470.h,
+                      decoration: BoxDecoration(
+                        color: Colors
+                            .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                        border: Border.all(
+                          color:
+                              Colors.black, // Warna garis tepi (outline) hitam
+                          width: 2.0, // Ketebalan garis tepi
+                        ),
+                        borderRadius: BorderRadius.circular(size
+                            .sizeRoundedGlobal
+                            .r), // Sudut melengkung sebesar 30 unit
                       ),
-                      borderRadius: BorderRadius.circular(size.sizeRoundedGlobal
-                          .r), // Sudut melengkung sebesar 30 unit
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: size.sizeFieldText.h),
-                      child: SingleChildScrollView(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              SizedBox(
-                                height: 30.h,
-                              ),
-                              Center(
-                                  child:
-                                      ComponentTextTittle(tr("description"))),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              TextFieldFormMultiLine(
-                                labelText:
-                                    "Short Description (max 120 character)",
-                                textEditingControllerEmail:
-                                    textEditingControllerShortDescription,
-                                hintText: "test",
-                                minLines: 3,
-                                lengthMax: 120,
-                              ),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              TextFieldFormMultiLine(
-                                labelText:
-                                    "Short Description (max 300 character)",
-                                textEditingControllerEmail:
-                                    textEditingControllerFullDescription,
-                                hintText: "test",
-                                minLines: 8,
-                                lengthMax: 300,
-                              )
-                            ]),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.sizeFieldText.h),
+                        child: SingleChildScrollView(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                SizedBox(
+                                  height: 30.h,
+                                ),
+                                Center(
+                                    child:
+                                        ComponentTextTittle(tr("description"))),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                TextFieldFormMultiLine(
+                                  labelText:
+                                      "Short Description (max 120 character)",
+                                  textEditingControllerEmail:
+                                      textEditingControllerShortDescription,
+                                  hintText: "test",
+                                  minLines: 3,
+                                  lengthMax: 120,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                TextFieldFormMultiLine(
+                                  labelText:
+                                      "Short Description (max 300 character)",
+                                  textEditingControllerEmail:
+                                      textEditingControllerFullDescription,
+                                  hintText: "test",
+                                  minLines: 8,
+                                  lengthMax: 300,
+                                )
+                              ]),
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin:
-                        EdgeInsets.only(top: 440.h, left: 20.h, right: 20.h),
-                    child: Center(
-                        child: ButtonLongForm(
-                      nameButton: "Confirm",
-                      routeName:
-                          PageProfileMenuAddDescription.routeName.toString(),
-                      formKey: _formKey,
-                    )),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 60.h,
-              )
-            ],
+                    Container(
+                      margin:
+                          EdgeInsets.only(top: 440.h, left: 20.h, right: 20.h),
+                      child: Center(
+                          child: ButtonLongForm(
+                        nameButton: "Confirm",
+                        routeName:
+                            PageProfileMenuAddDescription.routeName.toString(),
+                        formKey: _formKey,
+                      )),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 60.h,
+                )
+              ],
+            ),
           ),
         ),
       ),
