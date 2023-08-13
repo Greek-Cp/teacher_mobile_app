@@ -29,6 +29,8 @@ class _PageSignUpState extends State<PageSignUp> {
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
   String? lang;
+
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -54,94 +56,105 @@ class _PageSignUpState extends State<PageSignUp> {
         ),
         child: SafeArea(
             child: Padding(
-          padding: EdgeInsets.all(size.sizePaddingLeftAndRightPage),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ButtonBackArrow(
-                onPressed: () {},
-              ),
-              Stack(
-                children: [
-                  Container(
-                    height: 435.h,
-                    decoration: BoxDecoration(
-                      color: Colors
-                          .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                      border: Border.all(
-                        color: Colors.black, // Warna garis tepi (outline) hitam
-                        width: 2.0, // Ketebalan garis tepi
+          padding: EdgeInsets.only(
+              left: size.sizePaddingLeftAndRightPage.h,
+              right: size.sizePaddingLeftAndRightPage.h),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ButtonBackArrow(
+                  onPressed: () {},
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                Stack(
+                  children: [
+                    Container(
+                      height: 455.h,
+                      decoration: BoxDecoration(
+                        color: Colors
+                            .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                        border: Border.all(
+                          color:
+                              Colors.black, // Warna garis tepi (outline) hitam
+                          width: 2.0, // Ketebalan garis tepi
+                        ),
+                        borderRadius: BorderRadius.circular(
+                            30.0.r), // Sudut melengkung sebesar 30 unit
                       ),
-                      borderRadius: BorderRadius.circular(
-                          30.0.r), // Sudut melengkung sebesar 30 unit
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.h),
+                        child:
+                            Column(mainAxisSize: MainAxisSize.max, children: [
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          ComponentTextTittle(tr("create_account")),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          TextFieldForm(
+                              textEditingControllerEmail:
+                                  textEditingControllerFirstName,
+                              hintText: "first_name",
+                              labelText: "first_name"),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          TextFieldForm(
+                              textEditingControllerEmail:
+                                  textEditingControllerFirstName,
+                              hintText: "last_name",
+                              labelText: "last_name"),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          TextFieldForm(
+                              textEditingControllerEmail:
+                                  textEditingControllerFirstName,
+                              labelText: "email_adress",
+                              hintText: "email_address_hint"),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          lang == "AR"
+                              ? TextFieldPasswordFormArabic(
+                                  textEditingControllerEmail:
+                                      textEditingControllerPassword,
+                                  labelText: "password",
+                                  hintText: "password_hint",
+                                )
+                              : TextFieldPasswordForm(
+                                  textEditingControllerEmail:
+                                      textEditingControllerPassword,
+                                  labelText: "password",
+                                  hintText: "password_hint",
+                                ),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                        ]),
+                      ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.h),
-                      child: Column(mainAxisSize: MainAxisSize.max, children: [
-                        SizedBox(
-                          height: 30.h,
-                        ),
-                        ComponentTextTittle(tr("create_account")),
-                        SizedBox(
-                          height: 30.h,
-                        ),
-                        TextFieldForm(
-                            textEditingControllerEmail:
-                                textEditingControllerFirstName,
-                            hintText: "first_name",
-                            labelText: "first_name"),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        TextFieldForm(
-                            textEditingControllerEmail:
-                                textEditingControllerFirstName,
-                            hintText: "last_name",
-                            labelText: "last_name"),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        TextFieldForm(
-                            textEditingControllerEmail:
-                                textEditingControllerFirstName,
-                            labelText: "email_adress",
-                            hintText: "email_address_hint"),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        lang == "AR"
-                            ? TextFieldPasswordFormArabic(
-                                textEditingControllerEmail:
-                                    textEditingControllerPassword,
-                                labelText: "password",
-                                hintText: "password_hint",
-                              )
-                            : TextFieldPasswordForm(
-                                textEditingControllerEmail:
-                                    textEditingControllerPassword,
-                                labelText: "password",
-                                hintText: "password_hint",
-                              ),
-                        SizedBox(
-                          height: 50.h,
-                        ),
-                      ]),
+                    Container(
+                      margin: EdgeInsets.only(top: 430.h, bottom: 75.h),
+                      padding: EdgeInsets.symmetric(horizontal: 20.h),
+                      child: Center(
+                          child: ButtonLongForm(
+                              formKey: _formKey,
+                              nameButton: "sign_up",
+                              routeName: PageSignIn.routeName.toString())),
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 410.h, bottom: 75.h),
-                    padding: EdgeInsets.symmetric(horizontal: 20.h),
-                    child: Center(
-                        child: ButtonLong(
-                            nameButton: "sign_up",
-                            routeName: PageSignIn.routeName.toString())),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: BottomPageIndicator(),
-              )
-            ],
+                  ],
+                ),
+                Expanded(
+                  child: BottomPageIndicator(),
+                )
+              ],
+            ),
           ),
         )),
       ),

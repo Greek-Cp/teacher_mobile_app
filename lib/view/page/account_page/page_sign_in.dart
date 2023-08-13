@@ -47,6 +47,7 @@ class _PageSignInState extends State<PageSignIn> {
     }
     return Scaffold(
       body: Form(
+        key: _formKey,
         child: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -146,7 +147,8 @@ class _PageSignInState extends State<PageSignIn> {
                           child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.h),
                         child: GestureDetector(
-                          child: ButtonLong(
+                          child: ButtonLongForm(
+                            formKey: _formKey,
                             nameButton: "login",
                             routeName: pageNavBar.routeName.toString(),
                           ),

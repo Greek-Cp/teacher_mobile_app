@@ -678,150 +678,164 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-            margin: EdgeInsets.only(top: 10),
-            child: TextFormField(
-              controller: widget.textEditingControllerEmail,
-              onChanged: (value) {
-                if (value.isNotEmpty) {
-                  setState(() {
-                    isEmpty = false;
-                  });
-                } else {
-                  setState(() {
-                    isEmpty = true;
-                  });
-                }
-              },
-              validator: (value) {
-                print("values $value");
-                if (value == null || value.isEmpty) {
-                  setState(() {
-                    isEmpty = true;
-                    _animationControllerShake.forward();
-                  });
+    return AnimatedBuilder(
+      animation: _animationControllerShake,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(
+            10 * _animationControllerShake.value,
+            0.0,
+          ),
+          child: child,
+        );
+      },
+      child: Stack(
+        children: [
+          Container(
+              margin: EdgeInsets.only(top: 10),
+              child: TextFormField(
+                controller: widget.textEditingControllerEmail,
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      isEmpty = false;
+                    });
+                  } else {
+                    setState(() {
+                      isEmpty = true;
+                    });
+                  }
+                },
+                validator: (value) {
+                  print("values $value");
+                  if (value == null || value.isEmpty) {
+                    setState(() {
+                      isEmpty = true;
+                      _animationControllerShake.forward();
+                    });
+                    return null;
+                  } else {
+                    setState(() {
+                      isEmpty = false;
+                    });
+                  }
                   return null;
-                } else {
-                  setState(() {
-                    isEmpty = false;
-                  });
-                }
-                return null;
-              },
-              onEditingComplete: () {
-                _controllerLottie.reset();
-                _controllerLottie.forward();
+                },
+                onEditingComplete: () {
+                  _controllerLottie.reset();
+                  _controllerLottie.forward();
 
-                if (UtilValidatorData.isPasswordValid(
-                    widget.textEditingControllerEmail.text.toString())) {
-                  setState(() {
-                    animationSucces = Lottie.asset(
-                        "assets/icon/animation_succes.json",
-                        width: 30,
-                        height: 30,
-                        repeat: false,
-                        controller: _controllerLottie);
-                  });
+                  if (UtilValidatorData.isPasswordValid(
+                      widget.textEditingControllerEmail.text.toString())) {
+                    setState(() {
+                      animationSucces = Lottie.asset(
+                          "assets/icon/animation_succes.json",
+                          width: 30,
+                          height: 30,
+                          repeat: false,
+                          controller: _controllerLottie);
+                    });
 
-                  print("Is Email");
-                } else {
-                  setState(() {
-                    animationSucces = Lottie.asset(
-                        "assets/icon/animation_wrong.json",
-                        width: 30,
-                        height: 30,
-                        repeat: false,
-                        controller: _controllerLottie);
-                  });
+                    print("Is Email");
+                  } else {
+                    setState(() {
+                      animationSucces = Lottie.asset(
+                          "assets/icon/animation_wrong.json",
+                          width: 30,
+                          height: 30,
+                          repeat: false,
+                          controller: _controllerLottie);
+                    });
 
-                  print("Not Email");
-                }
-              },
-              obscureText: passwordHidden,
-              style: GoogleFonts.nunito(
-                  fontSize: size.sizeTextDescriptionGlobal.sp),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: ListColor.colorBackgroundTextFieldAll,
-                hintText: tr("${widget.hintText}"),
-                suffixIcon: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 0.h),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (passwordHidden == true) {
-                              passwordHidden = false;
-                            } else {
-                              passwordHidden = true;
-                            }
-                          });
-                        },
-                        child: Icon(
-                          passwordHidden
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          color: Colors.black,
+                    print("Not Email");
+                  }
+                },
+                obscureText: passwordHidden,
+                style: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: isEmpty == true
+                      ? ListColor.colorValidationTextFieldBackgroundEmpty
+                      : ListColor.colorBackgroundTextFieldAll,
+                  hintText: tr("${widget.hintText}"),
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 0.h),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (passwordHidden == true) {
+                                passwordHidden = false;
+                              } else {
+                                passwordHidden = true;
+                              }
+                            });
+                          },
+                          child: Icon(
+                            passwordHidden
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
+                      this.isEmpty
+                          ? Container(
+                              padding: EdgeInsets.only(right: 5.h),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.only(right: 5.h),
+                              child: animationSucces!)
+                    ],
+                  ),
+                  hintStyle: GoogleFonts.nunito(
+                      fontSize: size.sizeTextDescriptionGlobal.sp),
+                  contentPadding: EdgeInsets.all(15.h),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius:
+                        BorderRadius.circular(size.roundedCircularGlobal),
+                    borderSide: BorderSide(
+                      color: isEmpty == true
+                          ? ListColor.colorOutlineTextFieldWhenEmpty
+                          : Colors.black, // Change the border color here
+                      width: size
+                          .sizeBorderBlackGlobal, // Change the border width here
                     ),
-                    this.isEmpty
-                        ? Container(
-                            padding: EdgeInsets.only(right: 5.h),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.only(right: 5.h),
-                            child: animationSucces!)
-                  ],
-                ),
-                hintStyle: GoogleFonts.nunito(
-                    fontSize: size.sizeTextDescriptionGlobal.sp),
-                contentPadding: EdgeInsets.all(15.h),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(size.roundedCircularGlobal),
-                  borderSide: BorderSide(
-                    color: isEmpty == true
-                        ? ListColor.colorOutlineTextFieldWhenEmpty
-                        : Colors.black, // Change the border color here
-                    width: size
-                        .sizeBorderBlackGlobal, // Change the border width here
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius:
+                        BorderRadius.circular(size.roundedCircularGlobal),
+                    borderSide: BorderSide(
+                      color: isEmpty == true
+                          ? ListColor.colorOutlineTextFieldWhenEmpty
+                          : Colors.black, // Change the border color here
+                      width: size
+                          .sizeBorderBlackGlobal, // Change the border width here
+                    ),
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(size.roundedCircularGlobal),
-                  borderSide: BorderSide(
-                    color: isEmpty == true
-                        ? ListColor.colorOutlineTextFieldWhenEmpty
-                        : Colors.black, // Change the border color here
-                    width: size
-                        .sizeBorderBlackGlobal, // Change the border width here
-                  ),
-                ),
-              ),
-            )),
-        Align(
-            alignment: Alignment.topLeft,
-            child: AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                color: isEmpty == true
-                    ? ListColor.colorValidationTextFieldBackgroundEmpty
-                    : ListColor.colorBackgroundTextFieldAll,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.h),
-                  child: ComponentTextDescription(
-                    tr("${widget.labelText}"),
-                    fontWeight: FontWeight.normal,
-                    fontSize: size.sizeTextDescriptionGlobal,
-                  ),
-                ))),
-      ],
+              )),
+          Align(
+              alignment: Alignment.topLeft,
+              child: AnimatedContainer(
+                  duration: Duration(milliseconds: 500),
+                  margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
+                  color: isEmpty == true
+                      ? ListColor.colorValidationTextFieldBackgroundEmpty
+                      : ListColor.colorBackgroundTextFieldAll,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.h),
+                    child: ComponentTextDescription(
+                      tr("${widget.labelText}"),
+                      fontWeight: FontWeight.normal,
+                      fontSize: size.sizeTextDescriptionGlobal,
+                    ),
+                  ))),
+        ],
+      ),
     );
   }
 }
