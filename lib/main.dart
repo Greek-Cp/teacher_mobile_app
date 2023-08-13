@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:teacher_mobile_app/models/account/ModelAccount.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_forgot_password.dart';
@@ -28,6 +29,7 @@ import 'package:teacher_mobile_app/view/page/profile/nav/base_nav_account.dart';
 
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
+import 'controller/account_user_controller.dart';
 import 'view/page/profile/item_nav/profile_menu/page_profile_menu_add_phone_number.dart';
 import 'view/page/profile/item_nav/profile_menu/page_profile_menu_change_username.dart';
 
@@ -57,8 +59,9 @@ void main() async {
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
 
+  final controllerAccountUser = Get.put(AccountUserController());
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {

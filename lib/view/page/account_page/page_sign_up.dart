@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/controller/auth_controller.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
@@ -31,6 +32,8 @@ class _PageSignUpState extends State<PageSignUp> {
   String? lang;
 
   final _formKey = GlobalKey<FormState>();
+  final controllerAccountUser = Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -106,7 +109,7 @@ class _PageSignUpState extends State<PageSignUp> {
                           ),
                           TextFieldForm(
                               textEditingControllerEmail:
-                                  textEditingControllerFirstName,
+                                  textEditingControllerLastName,
                               hintText: "last_name",
                               labelText: "last_name"),
                           SizedBox(
@@ -114,7 +117,7 @@ class _PageSignUpState extends State<PageSignUp> {
                           ),
                           TextFieldForm(
                               textEditingControllerEmail:
-                                  textEditingControllerFirstName,
+                                  textEditingControllerEmail,
                               labelText: "email_adress",
                               hintText: "email_address_hint"),
                           SizedBox(
@@ -146,13 +149,23 @@ class _PageSignUpState extends State<PageSignUp> {
                           child: ButtonLongForm(
                               formKey: _formKey,
                               nameButton: "sign_up",
+                              onClickButton: () {
+                                controllerAccountUser.register(
+                                    textEditingControllerFirstName.text,
+                                    textEditingControllerLastName.text,
+                                    textEditingControllerEmail.text,
+                                    textEditingControllerPassword.text);
+                              },
                               routeName: PageSignIn.routeName.toString())),
                     ),
                   ],
                 ),
                 Expanded(
                   child: BottomPageIndicator(),
-                )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),

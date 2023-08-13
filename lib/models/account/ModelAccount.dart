@@ -1,6 +1,136 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+class RepositoryAccount {
+  List<AccountUser>? listAccountUser;
+  static const String _keyListAccount = 'list_account';
+  RepositoryAccount({this.listAccountUser});
+
+  factory RepositoryAccount.fromJson(Map<String, dynamic> json) {
+    final dynamic accountsJson = json['list_account'];
+    if (accountsJson is List) {
+      final listAccountUser = accountsJson
+          .map((accountJson) => AccountUser.fromJson(accountJson))
+          .toList();
+      return RepositoryAccount(listAccountUser: listAccountUser);
+    }
+    return RepositoryAccount(listAccountUser: null);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'list_account':
+          listAccountUser?.map((account) => account.toJson()).toList(),
+    };
+  }
+
+  Future<void> saveListAccountToSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    final accountsJson = toJson();
+    await prefs.setString(_keyListAccount, json.encode(accountsJson));
+  }
+
+  Future<void> loadListAccountFromSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    final accountsJson = prefs.getString(_keyListAccount);
+    if (accountsJson != null) {
+      final Map<String, dynamic> accountsMap = json.decode(accountsJson);
+      final repositoryAccount = RepositoryAccount.fromJson(accountsMap);
+      listAccountUser = repositoryAccount.listAccountUser;
+
+      print("load size list ${listAccountUser!.length}");
+    }
+  }
+
+  Future<void> addAccount(AccountUser account) async {
+    loadListAccountFromSharedPreferences();
+    listAccountUser ??= [];
+    listAccountUser!.add(account);
+    print("load add size list ${listAccountUser!.length}");
+    print("after add size list ${listAccountUser!.length}");
+    await saveListAccountToSharedPreferences();
+  }
+}
+
+class AccountUser {
+  String FirstName;
+  String LastName;
+  String Email;
+  String Password;
+  ModelProfileUser detailUser;
+  AccountUser(
+      {required this.FirstName,
+      required this.LastName,
+      required this.Email,
+      required this.Password,
+      required this.detailUser});
+
+  factory AccountUser.fromJson(Map<String, dynamic> json) {
+    return AccountUser(
+        FirstName: json['FirstName'],
+        LastName: json['LastName'],
+        Email: json['Email'],
+        Password: json['Password'],
+        detailUser: json['detailUser']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'FirstName': FirstName,
+      'LastName': LastName,
+      'Email': Email,
+      'Password': Password,
+      'detailUser': detailUser
+    };
+  }
+}
+
+class ModelProfileUser {
+  String? idUser;
+  String? Username;
+  ModelAboutUser? about;
+  ModelPhoneUser? phoneNumber;
+  ModelLanguageTeach? languageTeachSelectedByUser;
+  ModelTeachingExperiences? experiencesUser;
+  ModelEducationUser? educationUser;
+  ModelDescriptionUser? descriptionUser;
+
+  ModelProfileUser({
+    this.idUser,
+    this.Username,
+    this.about,
+    this.phoneNumber,
+    this.languageTeachSelectedByUser,
+    this.experiencesUser,
+    this.educationUser,
+    this.descriptionUser,
+  });
+  factory ModelProfileUser.fromJson(Map<String, dynamic> json) =>
+      ModelProfileUser(
+        idUser: json['idUser'],
+        Username: json['Username'],
+        about: ModelAboutUser.fromJson(json['about']),
+        phoneNumber: ModelPhoneUser.fromJson(json['phoneNumber']),
+        languageTeachSelectedByUser:
+            ModelLanguageTeach.fromJson(json['languageTeachSelectedByUser']),
+        experiencesUser:
+            ModelTeachingExperiences.fromJson(json['experiencesUser']),
+        educationUser: ModelEducationUser.fromJson(json['educationUser']),
+        descriptionUser: ModelDescriptionUser.fromJson(json['descriptionUser']),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'idUser': idUser,
+        'Username': Username,
+        'about': about!.toJson(),
+        'phoneNumber': phoneNumber!.toJson(),
+        'languageTeachSelectedByUser': languageTeachSelectedByUser!.toJson(),
+        'experiencesUser': experiencesUser!.toJson(),
+        'educationUser': educationUser!.toJson(),
+        'descriptionUser': descriptionUser!.toJson(),
+      };
+}
+
 class ModelAboutUser {
   String FirstName;
   String LastName;
@@ -57,7 +187,8 @@ class ModelLanguageTeach {
   });
 
   factory ModelLanguageTeach.fromJson(Map<String, dynamic> json) =>
-      ModelLanguageTeach(languageTeachSelect: List<String>.from(json['languageTeachSelect']));
+      ModelLanguageTeach(
+          languageTeachSelect: List<String>.from(json['languageTeachSelect']));
 
   Map<String, dynamic> toJson() => {
         'languageTeachSelect': languageTeachSelect,
@@ -145,8 +276,7 @@ class ModelEducationUser {
       );
 
   Map<String, dynamic> toJson() => {
-        'ListEducationUser':
-            ListEducationUser.map((e) => e.toJson()).toList(),
+        'ListEducationUser': ListEducationUser.map((e) => e.toJson()).toList(),
       };
 }
 
@@ -203,52 +333,6 @@ class VideoAddedUser {
 
   Map<String, dynamic> toJson() => {
         'listVideoAdded': listVideoAdded.map((e) => e.toJson()).toList(),
-      };
-}
-
-class ModelProfileUser {
-  String idUser;
-  String Username;
-  ModelAboutUser about;
-  ModelPhoneUser phoneNumber;
-  ModelLanguageTeach languageTeachSelectedByUser;
-  ModelTeachingExperiences experiencesUser;
-  ModelEducationUser educationUser;
-  ModelDescriptionUser descriptionUser;
-
-  ModelProfileUser({
-    required this.idUser,
-    required this.Username,
-    required this.about,
-    required this.phoneNumber,
-    required this.languageTeachSelectedByUser,
-    required this.experiencesUser,
-    required this.educationUser,
-    required this.descriptionUser,
-  });
-
-  factory ModelProfileUser.fromJson(Map<String, dynamic> json) =>
-      ModelProfileUser(
-        idUser: json['idUser'],
-        Username: json['Username'],
-        about: ModelAboutUser.fromJson(json['about']),
-        phoneNumber: ModelPhoneUser.fromJson(json['phoneNumber']),
-        languageTeachSelectedByUser:
-            ModelLanguageTeach.fromJson(json['languageTeachSelectedByUser']),
-        experiencesUser: ModelTeachingExperiences.fromJson(json['experiencesUser']),
-        educationUser: ModelEducationUser.fromJson(json['educationUser']),
-        descriptionUser: ModelDescriptionUser.fromJson(json['descriptionUser']),
-      );
-
-  Map<String, dynamic> toJson() => {
-        'idUser': idUser,
-        'Username': Username,
-        'about': about.toJson(),
-        'phoneNumber': phoneNumber.toJson(),
-        'languageTeachSelectedByUser': languageTeachSelectedByUser.toJson(),
-        'experiencesUser': experiencesUser.toJson(),
-        'educationUser': educationUser.toJson(),
-        'descriptionUser': descriptionUser.toJson(),
       };
 }
 

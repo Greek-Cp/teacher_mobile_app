@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/controller/account_user_controller.dart';
+import 'package:teacher_mobile_app/controller/auth_controller.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
@@ -32,7 +34,7 @@ class _PageSignInState extends State<PageSignIn> {
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
-
+  final controllerAuth = Get.put(AccountUserController());
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -150,7 +152,21 @@ class _PageSignInState extends State<PageSignIn> {
                           child: ButtonLongForm(
                             formKey: _formKey,
                             nameButton: "login",
-                            onClickButton: () {
+                            onClickButton: () async {
+                              final loginResult =
+                                  await controllerAuth.loginAccount(
+                                      textEditingControllerEmail.text,
+                                      textEditingControllerPassword.text);
+
+                              if (loginResult['statusLogin'] == true) {
+                                // Login berhasil, lakukan navigasi atau tindakan lain
+                                print('Login berhasil');
+                                final user = loginResult['user'];
+                                print('Informasi pengguna: $user');
+                              } else {
+                                // Login gagal, berikan umpan balik kepada pengguna
+                                print('Login gagal');
+                              }
                               Get.toNamed(pageNavBar.routeName.toString());
                             },
                             routeName: pageNavBar.routeName.toString(),
