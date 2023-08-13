@@ -53,17 +53,17 @@ class RepositoryAccount {
 }
 
 class AccountUser {
-  String FirstName;
-  String LastName;
-  String Email;
-  String Password;
-  ModelProfileUser detailUser;
+  String? FirstName;
+  String? LastName;
+  String? Email;
+  String? Password;
+  ModelProfileUser? detailUser;
   AccountUser(
-      {required this.FirstName,
-      required this.LastName,
-      required this.Email,
-      required this.Password,
-      required this.detailUser});
+      {this.FirstName,
+      this.LastName,
+      this.Email,
+      this.Password,
+      this.detailUser});
 
   factory AccountUser.fromJson(Map<String, dynamic> json) {
     return AccountUser(

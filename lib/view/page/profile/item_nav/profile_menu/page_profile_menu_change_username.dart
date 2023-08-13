@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/controller/account_user_controller.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
@@ -29,7 +30,6 @@ class PageProfileMenuChangeUsername extends StatefulWidget {
 class _PageProfileMenuChangeUsernameState
     extends State<PageProfileMenuChangeUsername> {
   TextEditingController textEditingControllerEmail = TextEditingController();
-  TextEditingController textEditingControllerPassword = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
   List<ModelValidationTextField> listModelValidationUsername =
       RepositoryValidation().listModelValidationUsername;
@@ -50,9 +50,10 @@ class _PageProfileMenuChangeUsernameState
     // setState(() {
     //   _selectedLanguage = "English";
     // });
-
     marginContainer = 260;
     marginConfirm = 235;
+    textEditingControllerEmail.text =
+        accountController.obsAccountUser.value.detailUser!.Username.toString();
   }
 
   final List<String> countryOfResidenceList = [
@@ -76,7 +77,7 @@ class _PageProfileMenuChangeUsernameState
   int marginContainer = 0;
   int marginConfirm = 0;
   final _formKey = GlobalKey<FormState>();
-
+  AccountUserController accountController = Get.find<AccountUserController>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -141,7 +142,9 @@ class _PageProfileMenuChangeUsernameState
                                 SizedBox(
                                   height: 30.h,
                                 ),
-                                Center(child: ComponentTextTittle(tr("about"))),
+                                Center(
+                                    child: ComponentTextTittle(
+                                        tr("Change Username"))),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,6 +181,24 @@ class _PageProfileMenuChangeUsernameState
                       nameButton: "Confirm",
                       routeName: PageProfileMenuAbout.routeName.toString(),
                       formKey: _formKey,
+                      onClickButton: () {
+                        if (textEditingControllerEmail.text
+                            .toString()
+                            .isNotEmpty) {
+                          accountController
+                                  .obsAccountUser.value.detailUser!.Username =
+                              textEditingControllerEmail.text.toString();
+                          Get.snackbar("Success", "Change Username Succes");
+                          // showDialog(
+                          //     context: context,
+                          //     builder: (BuildContext context) {
+                          //       return DialogWrong();
+                          //     });
+                        } else {
+                          Get.snackbar("Failed",
+                              "Change Username Failed, the data is empty");
+                        }
+                      },
                     )),
                   ),
                 ],
@@ -187,6 +208,43 @@ class _PageProfileMenuChangeUsernameState
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class DialogWrong extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(size.sizeRoundedGlobal.r),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: Container(
+        height: 300.h,
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(size.roundedCircularGlobal),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
+            ]),
+        child: Column(
+          children: [
+            LottieBuilder.asset(
+              "assets/lottie/animation_wrong.json",
+              repeat: false,
+              width: 150.h,
+              height: 150.h,
+            ),
+            ComponentTextDescription("Please Fill The Username !",
+                fontSize: size.sizeTextDescriptionGlobal.sp)
+          ],
         ),
       ),
     );

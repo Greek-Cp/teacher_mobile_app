@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/controller/account_user_controller.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/res/localization/locale.dart';
@@ -45,6 +46,8 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
   String? lang;
+  AccountUserController accountController = Get.find<AccountUserController>();
+
   List<ModelProfileMenu> listPrrofileMenu = [
     ModelProfileMenu(
         nameMenu: tr("profile"),
@@ -203,9 +206,18 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                               SizedBox(
                                 height: 60.h,
                               ),
-                              ComponentTextTittle("Full Name"),
-                              ComponentTextTittle("username@gmail.com"),
-                              ComponentTextTittle("username"),
+                              Obx(
+                                () => ComponentTextTittle(
+                                    "${accountController.obsAccountUser.value.FirstName}"),
+                              ),
+                              Obx(
+                                () => ComponentTextTittle(
+                                    "${accountController.obsAccountUser.value.Email}"),
+                              ),
+                              Obx(
+                                () => ComponentTextTittle(
+                                    "${accountController.obsAccountUser.value.detailUser!.Username}"),
+                              ),
                               SizedBox(
                                 height: 10.h,
                               ),

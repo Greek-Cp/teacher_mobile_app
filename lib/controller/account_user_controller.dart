@@ -6,7 +6,7 @@ class AccountUserController extends GetxController {
   final repository = RepositoryAccount();
 
   // final RxList<AccountUser> accountList = <AccountUser>[].obs;
-
+  Rx<AccountUser> obsAccountUser = AccountUser().obs;
   Future<void> addAccount(AccountUser account) async {
     await repository.addAccount(account);
   }
@@ -17,8 +17,8 @@ class AccountUserController extends GetxController {
     final user = repository.listAccountUser!.firstWhere(
       (element) => element.Email == email && element.Password == password,
     );
-
     if (user != null) {
+      obsAccountUser.value = user;
       return {
         'statusLogin': true,
         'user': user,

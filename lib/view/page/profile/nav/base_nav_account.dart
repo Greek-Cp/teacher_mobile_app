@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:teacher_mobile_app/controller/account_user_controller.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile.dart';
 import 'package:teacher_mobile_app/view/component/appbar/custom_bottom_tab_bar.dart';
@@ -44,6 +46,7 @@ class _pageNavBarState extends State<pageNavBar> {
   ];
   List<String> namaIcons = ["Videos", "Chat", "Tutoring", "Quick", "Profile"];
   final CupertinoTabController _tabController = CupertinoTabController();
+  final accountController = Get.put(AccountUserController());
 
   final List<GlobalKey<NavigatorState>> tabNavKeys =
       List.generate(5, (_) => GlobalKey<NavigatorState>());
