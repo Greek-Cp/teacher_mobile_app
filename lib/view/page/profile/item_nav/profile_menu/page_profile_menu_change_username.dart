@@ -54,6 +54,7 @@ class _PageProfileMenuChangeUsernameState
     marginConfirm = 235;
     textEditingControllerEmail.text =
         accountController.obsAccountUser.value.detailUser!.Username.toString();
+    
   }
 
   final List<String> countryOfResidenceList = [

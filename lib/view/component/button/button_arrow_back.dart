@@ -44,7 +44,7 @@ class ConfirmToSaveChanges extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Padding(
-      padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+      padding: EdgeInsets.only(top: 1.h, bottom: 5.h),
       child: Card(
         color: ListColor.colorBackgroundConfirmToSaveChanges,
         child: Padding(

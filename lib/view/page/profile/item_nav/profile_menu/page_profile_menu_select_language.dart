@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/controller/account_user_controller.dart';
+import 'package:teacher_mobile_app/models/account/ModelAccount.dart';
 import 'package:teacher_mobile_app/res/border/divider_global.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
@@ -31,13 +32,11 @@ class PageProfileMenuSelectLanguage extends StatefulWidget {
 
 class _PageProfileMenuSelectLanguageState
     extends State<PageProfileMenuSelectLanguage> with TickerProviderStateMixin {
-  TextEditingController textEditingControllerFirstName =
-      TextEditingController();
-  TextEditingController textEditingControllerLastName = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
   TextEditingController textEditingControllerSelectCountry =
       TextEditingController();
   late AnimationController animationControllerSelectLanguage;
+  List<TextEditingController> listTextEditingController = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -58,17 +57,107 @@ class _PageProfileMenuSelectLanguageState
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
     marginContainer = 430;
     marginConfirm = 400;
-    String lang_1 = controllerAccount.obsAccountUser.value.detailUser
-            ?.languageTeachSelectedByUser?.languageTeachSelect[0] ??
-        "";
-    String lang_2 = controllerAccount.obsAccountUser.value.detailUser
-            ?.languageTeachSelectedByUser?.languageTeachSelect[1] ??
-        "";
-    String lang_3 = controllerAccount.obsAccountUser.value.detailUser
-            ?.languageTeachSelectedByUser?.languageTeachSelect[2] ??
-        "";
+    listTextEditingController.add(textEditingControllerSelectCountry);
+    if (controllerAccount
+            .obsAccountUser.value.detailUser?.languageTeachSelectedByUser !=
+        null) {
+      print(
+          " data ${controllerAccount.obsAccountUser.value.detailUser?.languageTeachSelectedByUser!.languageTeachSelect[0]} size data ${controllerAccount.obsAccountUser.value.detailUser?.languageTeachSelectedByUser!.languageTeachSelect.length}");
 
-    print("${lang_1} ${lang_2} ${lang_3} data");
+      print("tidak kosong ${listTextEditingController.length}");
+      // for (int i = 0;
+      //     i <
+      //         controllerAccount.obsAccountUser.value.detailUser!
+      //             .languageTeachSelectedByUser!.languageTeachSelect.length;
+      //     i++) {
+      //   TextEditingController textEditingControllerTutoring =
+      //       TextEditingController();
+      //   AnimationController animationControllerSelectLanguageList =
+      //       AnimationController(
+      //           vsync: this,
+      //           duration: Duration(milliseconds: 500),
+      //           upperBound: 0.5);
+      //   listTextEditingController.add(textEditingControllerTutoring);
+      //   setState(() {
+      //     if (limitLanguage == maxLanguage) {
+      //       Get.snackbar("Notification", "You Only Can Add Maximal 3 Language");
+      //     } else {
+      //       indexLanguage += 1;
+      //       limitLanguage += 1;
+      //       // marginConfirm += 60;
+      //       // marginContainer += 60;
+      //       listWidget.addAll([
+      //         Column(
+      //           children: [
+      //             SizedBox(
+      //               height: 10.h,
+      //             ),
+      //             Row(
+      //               mainAxisSize: MainAxisSize.max,
+      //               children: [
+      //                 Expanded(child: DividerGlobal()),
+      //                 GestureDetector(
+      //                   onTap: () {
+      //                     int indxRemoveSelected = widgetDropDown;
+      //                     setState(() {
+      //                       // marginConfirm -= 60;
+      //                       // marginContainer -=
+      //                       //     60;
+      //                       indexLanguage -= 1;
+      //                       limitLanguage -= 1;
+      //                       limitLanguage -= 1;
+      //                       listWidget.removeAt(0);
+      //                     });
+      //                   },
+      //                   child: Card(
+      //                     color: Color.fromARGB(255, 214, 214, 214),
+      //                     shape: RoundedRectangleBorder(
+      //                       borderRadius: BorderRadius.circular(30.r),
+      //                       side: BorderSide(
+      //                         width: size.sizeBorderBlackGlobal,
+      //                         color: Colors.black,
+      //                       ),
+      //                     ),
+      //                     child: Padding(
+      //                       padding: EdgeInsets.symmetric(
+      //                           vertical: 2.h, horizontal: 15.w),
+      //                       child: ComponentTextDescription(
+      //                         '\u00D7',
+      //                         fontSize: size.sizeTextDescriptionGlobal + 5.sp,
+      //                         fontWeight: FontWeight.bold,
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 )
+      //               ],
+      //             ),
+      //             DropDownWidget(
+      //               textEditingControllerDropDown:
+      //                   textEditingControllerTutoring,
+      //               initialValueDropDown: controllerAccount
+      //                   .obsAccountUser
+      //                   .value
+      //                   .detailUser!
+      //                   .languageTeachSelectedByUser!
+      //                   .languageTeachSelect[i],
+      //               containerHeight: 50,
+      //               labelText: tr("tutoring_language") +
+      //                   " " +
+      //                   indexLanguage.toString(),
+      //               listData: countryOfResidenceList,
+      //             ),
+      //           ],
+      //         )
+      //       ]);
+      //       widgetDropDown += 1;
+      //     }
+      //   });
+      // }
+    } else {
+      print("kosong");
+    }
+
+    //print("${lang_1} ${lang_2} ${lang_3} data");
   }
 
   final List<String> countryOfResidenceList = [
@@ -110,7 +199,6 @@ class _PageProfileMenuSelectLanguageState
     } else {
       print("engl");
     }
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBarGlobal(),
@@ -191,13 +279,11 @@ class _PageProfileMenuSelectLanguageState
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    TextEditingController
-                                        textEditingControllerLanguage =
-                                        TextEditingController();
-
+                                    print("add language");
                                     TextEditingController
                                         textEditingControllerTutoring =
                                         TextEditingController();
+
                                     AnimationController
                                         animationControllerSelectLanguageList =
                                         AnimationController(
@@ -211,6 +297,10 @@ class _PageProfileMenuSelectLanguageState
                                         Get.snackbar("Notification",
                                             "You Only Can Add Maximal 3 Language");
                                       } else {
+                                        listTextEditingController
+                                            .add(textEditingControllerTutoring);
+                                        print(
+                                            "List text editing size ${listTextEditingController.length}");
                                         indexLanguage += 1;
                                         limitLanguage += 1;
                                         // marginConfirm += 60;
@@ -237,6 +327,8 @@ class _PageProfileMenuSelectLanguageState
                                                         indexLanguage -= 1;
                                                         limitLanguage -= 1;
                                                         limitLanguage -= 1;
+                                                        listTextEditingController
+                                                            .removeAt(1);
                                                         listWidget.removeAt(0);
                                                       });
                                                     },
@@ -322,6 +414,24 @@ class _PageProfileMenuSelectLanguageState
                       routeName:
                           PageProfileMenuSelectLanguage.routeName.toString(),
                       formKey: _formKey,
+                      onClickButton: () {
+                        List<String> listLanguage = [];
+                        for (int i = 0;
+                            i < listTextEditingController.length;
+                            i++) {
+                          print("test ${listTextEditingController[i].text}");
+                          listLanguage.add(listTextEditingController[i].text);
+                        }
+                        print(
+                            " data ${controllerAccount.obsAccountUser.value.detailUser?.languageTeachSelectedByUser!.languageTeachSelect[0]} size data ${controllerAccount.obsAccountUser.value.detailUser?.languageTeachSelectedByUser!.languageTeachSelect.length}");
+
+                        ModelLanguageTeach modelLanguageTeach =
+                            ModelLanguageTeach(
+                                languageTeachSelect: listLanguage);
+                        print("list lang ${listLanguage.length}");
+                        controllerAccount.obsAccountUser.value.detailUser!
+                            .languageTeachSelectedByUser = modelLanguageTeach;
+                      },
                     )),
                   ),
                 ],
