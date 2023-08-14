@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
+import 'package:teacher_mobile_app/controller/account_user_controller.dart';
 import 'package:teacher_mobile_app/res/border/divider_global.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
@@ -57,6 +58,17 @@ class _PageProfileMenuSelectLanguageState
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
     marginContainer = 430;
     marginConfirm = 400;
+    String lang_1 = controllerAccount.obsAccountUser.value.detailUser
+            ?.languageTeachSelectedByUser?.languageTeachSelect[0] ??
+        "";
+    String lang_2 = controllerAccount.obsAccountUser.value.detailUser
+            ?.languageTeachSelectedByUser?.languageTeachSelect[1] ??
+        "";
+    String lang_3 = controllerAccount.obsAccountUser.value.detailUser
+            ?.languageTeachSelectedByUser?.languageTeachSelect[2] ??
+        "";
+
+    print("${lang_1} ${lang_2} ${lang_3} data");
   }
 
   final List<String> countryOfResidenceList = [
@@ -77,6 +89,8 @@ class _PageProfileMenuSelectLanguageState
     "Italy",
     // Tambahkan negara-negara lain sesuai kebutuhan Anda
   ];
+  AccountUserController controllerAccount = Get.find<AccountUserController>();
+
   double marginConfirm = 0;
   double marginContainer = 0;
   final _formKey = GlobalKey<FormState>();
