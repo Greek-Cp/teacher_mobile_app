@@ -57,7 +57,6 @@ class _PageProfileMenuSelectLanguageState
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
     marginContainer = 430;
     marginConfirm = 400;
-    listTextEditingController.add(textEditingControllerSelectCountry);
     if (controllerAccount
             .obsAccountUser.value.detailUser?.languageTeachSelectedByUser !=
         null) {
@@ -155,6 +154,10 @@ class _PageProfileMenuSelectLanguageState
       // }
     } else {
       print("kosong");
+
+      setState(() {
+        listTextEditingController.add(textEditingControllerSelectCountry);
+      });
     }
 
     //print("${lang_1} ${lang_2} ${lang_3} data");
@@ -326,7 +329,7 @@ class _PageProfileMenuSelectLanguageState
                                                         //     60;
                                                         indexLanguage -= 1;
                                                         limitLanguage -= 1;
-                                                        limitLanguage -= 1;
+                                                        // limitLanguage -= 1;
                                                         listTextEditingController
                                                             .removeAt(1);
                                                         listWidget.removeAt(0);
@@ -380,7 +383,7 @@ class _PageProfileMenuSelectLanguageState
                                                 listData:
                                                     countryOfResidenceList,
                                               ),
-                                            ],
+                                            ], 
                                           )
                                         ]);
                                         widgetDropDown += 1;

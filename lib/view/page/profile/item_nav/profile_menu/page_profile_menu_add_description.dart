@@ -181,7 +181,10 @@ class _PageProfileMenuAddDescriptionState
                                   hintText: "test",
                                   minLines: 8,
                                   lengthMax: 300,
-                                )
+                                ),
+                                SizedBox(
+                                  height: 40.h,
+                                ),
                               ]),
                         ),
                       ),

@@ -21,12 +21,12 @@ class ButtonBackArrow extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Card(
           color: ListColor.backgroundBack,
-          shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  width: size.sizeBorderBlackGlobal, color: Colors.black),
-              borderRadius: BorderRadius.circular(30.r)),
+          shape: CircleBorder(
+            side: BorderSide(
+                width: size.sizeBorderBlackGlobal, color: Colors.black),
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(13.0),
+            padding: EdgeInsets.all(15.0.h),
             child: SvgPicture.asset(
               "assets/icon/ic_back.svg",
               width: 13.w,
@@ -44,11 +44,11 @@ class ConfirmToSaveChanges extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Padding(
-      padding: EdgeInsets.only(top: 1.h, bottom: 5.h),
+      padding: EdgeInsets.only(top: 2.h, bottom: 5.h),
       child: Card(
         color: ListColor.colorBackgroundConfirmToSaveChanges,
         child: Padding(
-          padding: EdgeInsets.only(top: 3.h, bottom: 3.h, left: 10, right: 10),
+          padding: EdgeInsets.only(top: 6.h, bottom: 6.h, left: 10, right: 10),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -57,8 +57,7 @@ class ConfirmToSaveChanges extends StatelessWidget {
                 fontSize: size.sizeTextDescriptionGlobal,
               ),
               Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.r)),
+                shape: CircleBorder(),
                 color: Color.fromARGB(255, 201, 148, 4),
                 child: LottieBuilder.asset(
                   "assets/icon/animation_confirm_to_save_changes.json",

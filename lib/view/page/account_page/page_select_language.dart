@@ -59,7 +59,6 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
     setState(() {
       _selectedLanguage = "English";
     });
-
   }
 
   late AnimationController animationRotateIndicatorController;
@@ -70,7 +69,6 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
   String? _selectedLanguage = "English";
 
   List<Widget> listWidgetLanguage = [];
-
 
   int selectedIndex = 0;
   @override
@@ -123,8 +121,14 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
                             routeName: PageSelectLogin.routeName.toString(),
                           )),
                     ),
-                    DropDownWidgetLanguage(textEditingControllerDropDown: textEditingControllerChooseLanguage,initialValueDropDown: "English", containerHeight: 50, labelText: 'Select Language', listData: listLanguage,),
-
+                    DropDownWidgetLanguage(
+                      textEditingControllerDropDown:
+                          textEditingControllerChooseLanguage,
+                      initialValueDropDown: "English",
+                      containerHeight: 50,
+                      labelText: 'Select Language',
+                      listData: listLanguage,
+                    ),
                   ]),
                   SizedBox(
                     height: 35.h,
@@ -133,7 +137,7 @@ class _PageSelectLanguageState extends State<PageSelectLanguage>
               ),
               BottomPageIndicator(),
               SizedBox(
-                height: 0.h,
+                height: 10.h,
               )
             ],
           ),

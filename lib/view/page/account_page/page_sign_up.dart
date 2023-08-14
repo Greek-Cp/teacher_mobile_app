@@ -143,28 +143,30 @@ class _PageSignUpState extends State<PageSignUp> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 430.h, bottom: 75.h),
+                      margin: EdgeInsets.only(top: 430.h, bottom: 0.h),
                       padding: EdgeInsets.symmetric(horizontal: 20.h),
                       child: Center(
                           child: ButtonLongForm(
                               formKey: _formKey,
                               nameButton: "sign_up",
                               onClickButton: () {
+                                Get.snackbar("Success", "Register Succes");
                                 controllerAccountUser.register(
                                     textEditingControllerFirstName.text,
                                     textEditingControllerLastName.text,
                                     textEditingControllerEmail.text,
                                     textEditingControllerPassword.text);
+                                Navigator.of(context).pop();
                               },
                               routeName: PageSignIn.routeName.toString())),
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 25.h,
+                ),
                 Expanded(
                   child: BottomPageIndicator(),
-                ),
-                SizedBox(
-                  height: 10,
                 ),
               ],
             ),

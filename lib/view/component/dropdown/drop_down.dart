@@ -130,7 +130,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                 ),
                 child: Padding(
                     padding: EdgeInsets.only(
-                      top: 15.h,
+                      top: 10.h,
                       left: 15.w,
                       right: 10.w,
                     ),
@@ -155,7 +155,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                           },
                           readOnly: true, // Make the field read-only
                           style: FontType.font_utama(
-                              fontSize: size.sizeTextDescriptionGlobal.sp,
+                              fontSize: size.sizeTextDescriptionGlobal + 5.sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black),
                           decoration: InputDecoration(
@@ -172,7 +172,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                 child: RotationTransition(
                                   turns: animationRotateIndicatorController,
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 0),
+                                    padding: EdgeInsets.only(top: 5),
                                     child: Image.asset(
                                       "assets/icon/ic_drop_down_chose.png",
                                       width: 20.w,
@@ -189,14 +189,17 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                 left: 1,
                                 child: RotationTransition(
                                   turns: animationRotateIndicatorController,
-                                  child: Image.asset(
-                                    "assets/icon/ic_drop_down_chose.png",
-                                    width: 20.w,
-                                    height: 20.h,
-                                    color: isEmpty == true
-                                        ? ListColor
-                                            .colorOutlineTextFieldWhenEmpty
-                                        : Color.fromARGB(255, 114, 87, 216),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 5),
+                                    child: Image.asset(
+                                      "assets/icon/ic_drop_down_chose.png",
+                                      width: 20.w,
+                                      height: 20.h,
+                                      color: isEmpty == true
+                                          ? ListColor
+                                              .colorOutlineTextFieldWhenEmpty
+                                          : Color.fromARGB(255, 114, 87, 216),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -204,7 +207,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                           color: isEmpty == true
                               ? ListColor
                                   .colorValidationTextFieldBackgroundEmpty
-                              : ListColor.colorBackgroundDropDownListLanguage,
+                              : Color.fromARGB(255, 54, 240, 255),
                           margin: EdgeInsets.only(top: 40),
                           padding: EdgeInsets.only(right: 5, left: 0),
                           child: Scrollbar(

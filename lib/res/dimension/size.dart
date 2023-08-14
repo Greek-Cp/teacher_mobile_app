@@ -14,7 +14,7 @@ class size {
   static double sizeTextDescriptionGlobal = sizeTextHeaderGlobal - 10;
 
   static double sizeBorderBlackGlobal = 2.0;
-  static double sizeRoundedGlobal = 10;
+  static double sizeRoundedGlobal = 20;
   static double sizeMarginLeftTittle = 20.0;
   static double marginTopAndBottom = 30.0;
 
