@@ -26,7 +26,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
                     5), // Adjust the sigma values for the desired blur intensity
             child: Container(
               width: double.infinity,
-              height: 90.h,
+              height: double.infinity,
               color: Colors.black
                   .withOpacity(0.07), // Adjust the opacity of the blur effect
             ),
@@ -57,5 +57,5 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(90.h);
+  Size get preferredSize => Size.fromHeight(70.h);
 }

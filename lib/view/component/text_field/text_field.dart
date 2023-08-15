@@ -358,12 +358,14 @@ class TextFieldFormMultiLine extends StatefulWidget {
       required this.hintText,
       required this.labelText,
       required this.lengthMax,
-      required this.minLines});
+      required this.minLines,
+      required this.minCharacterHint});
   final TextEditingController textEditingControllerEmail;
   final String labelText;
   final String hintText;
   int lengthMax;
   int minLines;
+  int minCharacterHint;
   @override
   State<TextFieldFormMultiLine> createState() => _TextFieldFormMultiLineState();
 }
@@ -422,7 +424,9 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               controller: widget.textEditingControllerEmail,
               textInputAction: TextInputAction.done,
               validator: (value) {
-                if (value == null || value.isEmpty) {
+                if (value == null ||
+                    value.isEmpty ||
+                    value.length < widget.minCharacterHint) {
                   setState(() {
                     isEmpty = true;
                     _animationControllerShake.forward();
@@ -521,6 +525,17 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                       fontSize: size.sizeTextDescriptionGlobal - 3,
                     ),
                   ))),
+          Positioned(
+            bottom: 1,
+            child: Padding(
+              padding: EdgeInsets.only(left: 10.h),
+              child: ComponentTextDescription(
+                  "(min ${widget.minCharacterHint})",
+                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                  fontWeight: FontWeight.bold,
+                  teksColor: Colors.red),
+            ),
+          ),
         ],
       ),
     );
@@ -585,6 +600,7 @@ class _TextFieldFormState extends State<TextFieldForm>
         children: [
           Container(
               margin: EdgeInsets.only(top: 10),
+              height: 50.h,
               child: TextFormField(
                 validator: (value) {
                   print("values $value");

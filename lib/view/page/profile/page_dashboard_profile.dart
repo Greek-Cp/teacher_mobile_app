@@ -178,7 +178,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
             child: Column(
               children: [
                 //profile
-                SizedBox(height: 60),
+                SizedBox(height: 50.h),
                 Stack(
                   children: [
                     Container(
@@ -375,7 +375,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                 Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 25.h),
                       decoration: BoxDecoration(
                         color: ListColor
                             .colorBackgroundFinance, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -490,7 +490,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                 Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 25.h),
                       decoration: BoxDecoration(
                         color: ListColor
                             .colorBackgroundQuickHelp, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -606,7 +606,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                 Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 25.h),
                       decoration: BoxDecoration(
                         color: ListColor
                             .colorBackgroundTutoring, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -723,7 +723,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                 Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 25.h),
                       decoration: BoxDecoration(
                         color: ListColor
                             .colorBackgroundVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat

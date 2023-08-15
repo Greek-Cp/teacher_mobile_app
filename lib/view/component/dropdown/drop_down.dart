@@ -423,6 +423,7 @@ class _DropDownWidgetState extends State<DropDownWidget>
                 }
                 double screenHeight = MediaQuery.of(context).size.height;
                 double containerHeight = screenHeight * 0.278;
+
                 if (widget.containerHeight <= 90) {
                   setState(() {
                     widget.containerHeight += containerHeight;
@@ -555,6 +556,19 @@ class _DropDownWidgetState extends State<DropDownWidget>
                                             .text = widget.listData![index];
                                         // widget.initialValueDropDown =
                                         //     widget.listData![index];
+                                        setState(() {
+                                          double screenHeight =
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height;
+                                          double containerHeight =
+                                              screenHeight * 0.278;
+
+                                          animationRotateIndicatorController
+                                              .forward(from: 0.0);
+                                          widget.containerHeight -=
+                                              containerHeight;
+                                        });
                                         print(
                                             "value${widget.initialValueDropDown}");
                                       });
@@ -734,7 +748,6 @@ class _DropDownWidgetChooseCountryState
                   });
                 } else {
                   setState(() {
-                    animationRotateIndicatorController.forward(from: 0.0);
                     widget.containerHeight -= containerHeight;
                   });
                 }
@@ -905,15 +918,15 @@ class _DropDownWidgetChooseCountryState
                                             .listData![index].unicode_country;
                                         widget.codeCountryValueDropDown =
                                             widget.listData![index].numberCode;
-                                        double screenHeight =
-                                            MediaQuery.of(context).size.height;
-                                        double containerHeight =
-                                            screenHeight * 0.278;
-                                        animationRotateIndicatorController
-                                            .forward(from: 0.0);
-                                        widget.containerHeight -=
-                                            containerHeight;
                                       });
+                                      double screenHeight =
+                                          MediaQuery.of(context).size.height;
+                                      double containerHeight =
+                                          screenHeight * 0.278;
+
+                                      animationRotateIndicatorController
+                                          .forward(from: 0.0);
+                                      widget.containerHeight -= containerHeight;
                                       //EasyLocalization.of(context)
                                       widget.selectedIndex = index;
                                     },

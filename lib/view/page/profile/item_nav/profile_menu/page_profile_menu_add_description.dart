@@ -125,7 +125,7 @@ class _PageProfileMenuAddDescriptionState
               physics: NeverScrollableScrollPhysics(),
               children: [
                 SizedBox(
-                  height: 0.h,
+                  height: 20.h,
                 ),
                 Stack(
                   children: [
@@ -169,11 +169,13 @@ class _PageProfileMenuAddDescriptionState
                                   hintText: "test",
                                   minLines: 3,
                                   lengthMax: 120,
+                                  minCharacterHint: 30,
                                 ),
                                 SizedBox(
                                   height: 20.h,
                                 ),
                                 TextFieldFormMultiLine(
+                                  minCharacterHint: 60,
                                   labelText:
                                       "Short Description (max 300 character)",
                                   textEditingControllerEmail:

@@ -116,7 +116,7 @@ class _pageNavBarState extends State<pageNavBar> {
                 return CupertinoTabView(
                   navigatorKey: tabNavKeys[3],
                   builder: (context) {
-                    return CupertinoPageScaffold(child: PageDashboardProfile());
+                    return CupertinoPageScaffold(child: Text("Page 3 "));
                   },
                 );
               case 4:

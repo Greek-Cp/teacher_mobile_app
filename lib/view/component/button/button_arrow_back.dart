@@ -31,6 +31,7 @@ class ButtonBackArrow extends StatelessWidget {
               "assets/icon/ic_back.svg",
               width: 13.w,
               height: 13.h,
+              fit: BoxFit.cover,
             ),
           ),
         ),
@@ -47,14 +48,17 @@ class ConfirmToSaveChanges extends StatelessWidget {
       padding: EdgeInsets.only(top: 2.h, bottom: 5.h),
       child: Card(
         color: ListColor.colorBackgroundConfirmToSaveChanges,
-        child: Padding(
-          padding: EdgeInsets.only(top: 6.h, bottom: 6.h, left: 10, right: 10),
+        child: Container(
+          height: 50.h,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
+              SizedBox(
+                width: 10.h,
+              ),
               ComponentTextDescription(
                 "confirm_to_save_changes",
-                fontSize: size.sizeTextDescriptionGlobal,
+                fontSize: size.sizeTextDescriptionGlobal.sp,
               ),
               Card(
                 shape: CircleBorder(),

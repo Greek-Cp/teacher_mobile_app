@@ -14,7 +14,7 @@ class size {
   static double sizeTextDescriptionGlobal = sizeTextHeaderGlobal - 10;
 
   static double sizeBorderBlackGlobal = 2.0;
-  static double sizeRoundedGlobal = 20;
+  static double sizeRoundedGlobal = 15;
   static double sizeMarginLeftTittle = 20.0;
   static double marginTopAndBottom = 30.0;
 
@@ -24,4 +24,5 @@ class size {
       EdgeInsets.symmetric(horizontal: 25.0);
 
   static double sizeThicknessDivider = 2.0;
+  static double sizeHeightTextField = 50;
 }

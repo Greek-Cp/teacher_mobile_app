@@ -567,6 +567,8 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                                   Column(
                                                     children: [
                                                       Card(
+                                                        color: ListColor
+                                                            .colorBackgroundVideoContainer,
                                                         shape: BorderApp.border,
                                                         child: Container(
                                                           width: 110.w,
@@ -574,7 +576,22 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                                           child:
                                                               selectedImage ==
                                                                       null
-                                                                  ? Container()
+                                                                  ? Container(
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            ComponentTextDescription(
+                                                                          "Tap to select a video",
+                                                                          fontSize: size
+                                                                              .sizeTextDescriptionGlobal
+                                                                              .sp,
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                    )
                                                                   : Stack(
                                                                       children: [
                                                                         ClipRRect(
@@ -624,6 +641,8 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                                   Column(
                                                     children: [
                                                       Card(
+                                                        color: ListColor
+                                                            .colorBackgroundVideoContainer,
                                                         shape: BorderApp.border,
                                                         child: Container(
                                                           width: 110.w,
@@ -631,7 +650,22 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                                           child:
                                                               selectedImage ==
                                                                       null
-                                                                  ? Container()
+                                                                  ? Container(
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            ComponentTextDescription(
+                                                                          "Tap to select an image",
+                                                                          fontSize: size
+                                                                              .sizeTextDescriptionGlobal
+                                                                              .sp,
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                    )
                                                                   : ClipRRect(
                                                                       borderRadius:
                                                                           BorderRadius.circular(

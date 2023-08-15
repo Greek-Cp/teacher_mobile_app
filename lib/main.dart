@@ -71,6 +71,7 @@ class MainApp extends StatelessWidget {
     }
     return ScreenUtilInit(
       useInheritedMediaQuery: true,
+      minTextAdapt: true,
       builder: (context, child) {
         return GetMaterialApp(
           localizationsDelegates: context.localizationDelegates,

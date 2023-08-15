@@ -101,7 +101,7 @@ class _PageProfileMenuChangeUsernameState
               Color(0xFFB988FF), // #B988FF
             ],
             begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            end: Alignment.bottomCenter,  
           ),
         ),
         child: Padding(
