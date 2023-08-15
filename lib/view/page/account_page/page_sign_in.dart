@@ -34,7 +34,7 @@ class _PageSignInState extends State<PageSignIn> {
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
   String lang = UtilLocalization.checkLocalization.toString();
-  final controllerAuth = Get.put(AccountUserController());
+  // final controllerAuth = Get.put(AccountUserController());
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -153,20 +153,20 @@ class _PageSignInState extends State<PageSignIn> {
                             formKey: _formKey,
                             nameButton: "login",
                             onClickButton: () async {
-                              final loginResult =
-                                  await controllerAuth.loginAccount(
-                                      textEditingControllerEmail.text,
-                                      textEditingControllerPassword.text);
+                              // final loginResult =
+                              //     await controllerAuth.loginAccount(
+                              //         textEditingControllerEmail.text,
+                              //         textEditingControllerPassword.text);
 
-                              if (loginResult['statusLogin'] == true) {
-                                // Login berhasil, lakukan navigasi atau tindakan lain
-                                print('Login berhasil');
-                                final user = loginResult['user'];
-                                print('Informasi pengguna: $user');
-                              } else {
-                                // Login gagal, berikan umpan balik kepada pengguna
-                                print('Login gagal');
-                              }
+                              // if (loginResult['statusLogin'] == true) {
+                              //   // Login berhasil, lakukan navigasi atau tindakan lain
+                              //   print('Login berhasil');
+                              //   final user = loginResult['user'];
+                              //   print('Informasi pengguna: $user');
+                              // } else {
+                              //   // Login gagal, berikan umpan balik kepada pengguna
+                              //   print('Login gagal');
+                              // }
                               Get.toNamed(pageNavBar.routeName.toString());
                             },
                             routeName: pageNavBar.routeName.toString(),

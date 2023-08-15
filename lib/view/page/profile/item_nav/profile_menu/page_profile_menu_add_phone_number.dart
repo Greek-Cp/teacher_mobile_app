@@ -72,191 +72,195 @@ class _PageProfileMenuAddPhoneNumberState
     } else {
       print("engl");
     }
-
-    return Scaffold(
-      extendBodyBehindAppBar: true, //
-      appBar: AppBarGlobal(),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF08F4F9), // #08F4F9
-              Color(0xFFB988FF), // #B988FF
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.sizePaddingLeftAndRightPage.h,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 140.h,
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      height: 440.h,
-                      decoration: BoxDecoration(
-                        color: Colors
-                            .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                        border: Border.all(
-                          color:
-                              Colors.black, // Warna garis tepi (outline) hitam
-                          width: 2.0, // Ketebalan garis tepi
+    return ScreenUtilInit(
+      builder: (context, child) {
+        return Scaffold(
+          extendBodyBehindAppBar: true, //
+          appBar: AppBarGlobal(),
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF08F4F9), // #08F4F9
+                  Color(0xFFB988FF), // #B988FF
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: size.sizePaddingLeftAndRightPage.h,
+              ),
+              child: ListView(
+                children: [
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Stack(
+                    children: [
+                      Container(
+                        height: 450.h,
+                        decoration: BoxDecoration(
+                          color: Colors
+                              .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                          border: Border.all(
+                            color: Colors
+                                .black, // Warna garis tepi (outline) hitam
+                            width: 2.0, // Ketebalan garis tepi
+                          ),
+                          borderRadius: BorderRadius.circular(size
+                              .sizeRoundedGlobal
+                              .r), // Sudut melengkung sebesar 30 unit
                         ),
-                        borderRadius: BorderRadius.circular(size
-                            .sizeRoundedGlobal
-                            .r), // Sudut melengkung sebesar 30 unit
-                      ),
-                      child: Form(
-                        key: _formKey,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizePaddingLeftAndRightPage.h),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                SizedBox(
-                                  height: 40.h,
-                                ),
-                                DropDownWidgetChooseCountry(
-                                  textEditingControllerDropDown:
-                                      textEditingControllerSelectCountry,
-                                  initialValueDropDown: "Country",
-                                  containerHeight: 50,
-                                  labelText: "Choose a Country",
-                                  listData: countryCodes,
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                                Center(
-                                  child: ButtonLongForm(
-                                    nameButton: "Send",
-                                    routeName: PageProfileMenuAddPhoneNumber
-                                        .routeName
-                                        .toString(),
-                                    formKey: _formKey,
-                                    colorButton:
-                                        Color.fromARGB(255, 114, 87, 216),
-                                  ),
-                                ),
-                                Column(
+                        child: Form(
+                          key: _formKey,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.sizePaddingLeftAndRightPage.h),
+                            child: SingleChildScrollView(
+                              child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     SizedBox(
-                                      height: 10.h,
+                                      height: 40.h,
                                     ),
-                                    ComponentTextDescription("Verification",
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    ComponentTextDescription(
-                                      "5 Digit Pin has been sent to: number_phone}",
-                                      fontSize: size.sizeTextDescriptionGlobal,
-                                      textAlign: TextAlign.center,
-                                      fontWeight: FontWeight.bold,
+                                    DropDownWidgetChooseCountry(
+                                      textEditingControllerDropDown:
+                                          textEditingControllerSelectCountry,
+                                      initialValueDropDown: "Country",
+                                      containerHeight: 50,
+                                      labelText: "Choose a Country",
+                                      listData: countryCodes,
                                     ),
                                     SizedBox(
                                       height: 10.h,
                                     ),
-                                    OtpTextField(
-                                      numberOfFields: 5,
-                                      fieldWidth: 50.0.w,
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 2.h),
-                                      borderColor: Colors.black,
-                                      //set to true to show as box or false to show as dash
-                                      showFieldAsBox: true,
-                                      //runs when a code is typed in
-                                      onCodeChanged: (String code) {
-                                        //handle validation or checks here
-                                      },
-                                      fillColor:
-                                          ListColor.colorBackgroundTextFieldAll,
-                                      filled: true,
-                                      enabledBorderColor: Colors.black,
-                                      //runs when every textfield is filled
-                                      onSubmit: (String verificationCode) {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                title:
-                                                    Text("Verification Code"),
-                                                content: Text(
-                                                    'Code entered is $verificationCode'),
-                                              );
-                                            });
-                                      }, // end onSubmit
+                                    Center(
+                                      child: ButtonLongForm(
+                                        nameButton: "Send",
+                                        routeName: PageProfileMenuAddPhoneNumber
+                                            .routeName
+                                            .toString(),
+                                        formKey: _formKey,
+                                        colorButton:
+                                            Color.fromARGB(255, 114, 87, 216),
+                                      ),
                                     ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    ComponentTextDescription(
-                                      "minutes:seconds",
-                                      fontSize: size.sizeTextHeaderGlobal - 2,
-                                      teksColor:
-                                          Color.fromARGB(255, 114, 87, 215),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    /*
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        ComponentTextDescription("Verification",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        ComponentTextDescription(
+                                          "5 Digit Pin has been sent to: number_phone}",
+                                          fontSize:
+                                              size.sizeTextDescriptionGlobal,
+                                          textAlign: TextAlign.center,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        OtpTextField(
+                                          numberOfFields: 5,
+                                          fieldWidth: 50.0.w,
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 2.h),
+                                          borderColor: Colors.black,
+                                          //set to true to show as box or false to show as dash
+                                          showFieldAsBox: true,
+                                          //runs when a code is typed in
+                                          onCodeChanged: (String code) {
+                                            //handle validation or checks here
+                                          },
+                                          fillColor: ListColor
+                                              .colorBackgroundTextFieldAll,
+                                          filled: true,
+                                          enabledBorderColor: Colors.black,
+                                          //runs when every textfield is filled
+                                          onSubmit: (String verificationCode) {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        "Verification Code"),
+                                                    content: Text(
+                                                        'Code entered is $verificationCode'),
+                                                  );
+                                                });
+                                          }, // end onSubmit
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        ComponentTextDescription(
+                                          "minutes:seconds",
+                                          fontSize:
+                                              size.sizeTextHeaderGlobal - 2,
+                                          teksColor:
+                                              Color.fromARGB(255, 114, 87, 215),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                        /*
                                         30 second
                                         */
-                                    // ComponentTextDescription(
-                                    //     "Didn't Receive Code ?",
-                                    //     fontSize:
-                                    //         size.sizeTextDescriptionGlobal),
-                                    // ComponentTextDescription(
-                                    //   "Resend Code",
-                                    //   teksColor: ListColor.colorVerified,
-                                    //   fontSize:
-                                    //       size.sizeTextDescriptionGlobal,
-                                    //   textAlign: TextAlign.center,
-                                    //   fontWeight: FontWeight.bold,
-                                    // ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10.h,
-                                ),
-                              ]),
+                                        // ComponentTextDescription(
+                                        //     "Didn't Receive Code ?",
+                                        //     fontSize:
+                                        //         size.sizeTextDescriptionGlobal),
+                                        // ComponentTextDescription(
+                                        //   "Resend Code",
+                                        //   teksColor: ListColor.colorVerified,
+                                        //   fontSize:
+                                        //       size.sizeTextDescriptionGlobal,
+                                        //   textAlign: TextAlign.center,
+                                        //   fontWeight: FontWeight.bold,
+                                        // ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                  ]),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin:
-                          EdgeInsets.only(top: 410.h, left: 20.r, right: 20.r),
-                      child: Center(
-                          child: ButtonLong(
-                        nameButton: "Confirm",
-                        routeName:
-                            PageProfileMenuAddPhoneNumber.routeName.toString(),
-                      )),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 40.h,
-                ),
-              ],
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: 420.h, left: 20.r, right: 20.r),
+                        child: Center(
+                            child: ButtonLong(
+                          nameButton: "Confirm",
+                          routeName: PageProfileMenuAddPhoneNumber.routeName
+                              .toString(),
+                        )),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

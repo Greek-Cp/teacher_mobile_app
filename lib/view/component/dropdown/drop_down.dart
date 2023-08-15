@@ -734,6 +734,7 @@ class _DropDownWidgetChooseCountryState
                   });
                 } else {
                   setState(() {
+                    animationRotateIndicatorController.forward(from: 0.0);
                     widget.containerHeight -= containerHeight;
                   });
                 }
@@ -904,6 +905,14 @@ class _DropDownWidgetChooseCountryState
                                             .listData![index].unicode_country;
                                         widget.codeCountryValueDropDown =
                                             widget.listData![index].numberCode;
+                                        double screenHeight =
+                                            MediaQuery.of(context).size.height;
+                                        double containerHeight =
+                                            screenHeight * 0.278;
+                                        animationRotateIndicatorController
+                                            .forward(from: 0.0);
+                                        widget.containerHeight -=
+                                            containerHeight;
                                       });
                                       //EasyLocalization.of(context)
                                       widget.selectedIndex = index;

@@ -46,7 +46,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
   String? lang;
-  AccountUserController accountController = Get.find<AccountUserController>();
+  //AccountUserController accountController = Get.find<AccountUserController>();
 
   List<ModelProfileMenu> listPrrofileMenu = [
     ModelProfileMenu(
@@ -206,18 +206,9 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                               SizedBox(
                                 height: 60.h,
                               ),
-                              Obx(
-                                () => ComponentTextTittle(
-                                    "${accountController.obsAccountUser.value.FirstName}"),
-                              ),
-                              Obx(
-                                () => ComponentTextTittle(
-                                    "${accountController.obsAccountUser.value.Email}"),
-                              ),
-                              Obx(
-                                () => ComponentTextTittle(
-                                    "${accountController.obsAccountUser.value.detailUser!.Username}"),
-                              ),
+                              ComponentTextTittle("FirstName"),
+                              ComponentTextTittle("email@gmail.com"),
+                              ComponentTextTittle("username"),
                               SizedBox(
                                 height: 10.h,
                               ),

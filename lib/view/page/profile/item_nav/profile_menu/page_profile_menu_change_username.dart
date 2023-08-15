@@ -52,9 +52,8 @@ class _PageProfileMenuChangeUsernameState
     // });
     marginContainer = 260;
     marginConfirm = 235;
-    textEditingControllerEmail.text =
-        accountController.obsAccountUser.value.detailUser!.Username.toString();
-    
+    // textEditingControllerEmail.text =
+    //     accountController.obsAccountUser.value.detailUser!.Username.toString();
   }
 
   final List<String> countryOfResidenceList = [
@@ -78,7 +77,7 @@ class _PageProfileMenuChangeUsernameState
   int marginContainer = 0;
   int marginConfirm = 0;
   final _formKey = GlobalKey<FormState>();
-  AccountUserController accountController = Get.find<AccountUserController>();
+  //AccountUserController accountController = Get.find<AccountUserController>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -186,9 +185,9 @@ class _PageProfileMenuChangeUsernameState
                         if (textEditingControllerEmail.text
                             .toString()
                             .isNotEmpty) {
-                          accountController
-                                  .obsAccountUser.value.detailUser!.Username =
-                              textEditingControllerEmail.text.toString();
+                          // accountController
+                          //         .obsAccountUser.value.detailUser!.Username =
+                          //     textEditingControllerEmail.text.toString();
                           Get.snackbar("Success", "Change Username Succes");
                           // showDialog(
                           //     context: context,
