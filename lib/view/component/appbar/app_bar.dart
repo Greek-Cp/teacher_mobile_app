@@ -57,7 +57,9 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-                left: size.sizePaddingLeftAndRightPage.h, top: 10.h),
+              left: size.sizePaddingLeftAndRightPage.h,
+              top: 10.h,
+            ),
             decoration: BoxDecoration(
                 border: Border.all(
                     color: Colors.black, width: size.sizeBorderBlackGlobal.h),
@@ -67,11 +69,15 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  width: 10.h,
+                  width: 20.h,
                 ),
                 ComponentTextDescription(
                   tr("confirm_to_save_changes"),
                   fontSize: size.sizeTextDescriptionGlobal.sp,
+                  textAlign: TextAlign.right,
+                ),
+                SizedBox(
+                  width: 20.h,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -84,7 +90,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 10.h,
+                  width: 20.h,
                 ),
               ],
             ),
