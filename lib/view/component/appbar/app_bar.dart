@@ -44,7 +44,9 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
             },
             child: Container(
               margin: EdgeInsets.only(
-                  left: size.sizePaddingLeftAndRightPage.h, top: 10.h),
+                  left: size.sizePaddingLeftAndRightPage.h,
+                  top: 10.h,
+                  right: size.sizePaddingLeftAndRightPage.h),
               child: Image.asset(
                 "assets/icon/ic_back.png",
                 width: 55.w,
@@ -60,6 +62,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
               left: size.sizePaddingLeftAndRightPage.h,
               top: 10.h,
             ),
+            height: 100.h,
             decoration: BoxDecoration(
                 border: Border.all(
                     color: Colors.black, width: size.sizeBorderBlackGlobal.h),
@@ -77,7 +80,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
                   textAlign: TextAlign.right,
                 ),
                 SizedBox(
-                  width: 20.h,
+                  width: 10.h,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -90,7 +93,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 20.h,
+                  width: 10.h,
                 ),
               ],
             ),

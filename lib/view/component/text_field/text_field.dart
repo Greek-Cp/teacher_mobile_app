@@ -397,8 +397,28 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
           });
   }
 
+  late int _defaultMin = widget.minCharacterHint;
+  late int _currentMin = widget.minCharacterHint;
   late final AnimationController _animationControllerShake;
   late final Animation<double> _animationShake;
+  void _updateMinValue() {
+    setState(() {
+      int textLength = widget.textEditingControllerEmail.text.length;
+      _currentMin = _defaultMin - textLength;
+      if (_currentMin < 0) {
+        _currentMin = 0;
+      }
+    });
+  }
+
+  void _increaseMinValue() {
+    setState(() {
+      int textLength = widget.textEditingControllerEmail.text.length;
+      _defaultMin += textLength;
+      _currentMin = _defaultMin;
+    });
+  }
+
   bool? isEmpty = false;
   @override
   Widget build(BuildContext context) {
@@ -439,12 +459,18 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                 }
                 return null;
               },
+              onChanged: (value) {
+                setState(() {
+                  _updateMinValue();
+                });
+              },
 
               onFieldSubmitted: (term) {
                 _focusNode!.unfocus();
               },
 
               onEditingComplete: () {
+                _increaseMinValue();
                 if (UtilValidatorData.isEmailValid(
                     widget.textEditingControllerEmail.text.toString())) {
                   setState(() {
@@ -525,17 +551,19 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                       fontSize: size.sizeTextDescriptionGlobal - 3,
                     ),
                   ))),
-          Positioned(
-            bottom: 1,
-            child: Padding(
-              padding: EdgeInsets.only(left: 10.h),
-              child: ComponentTextDescription(
-                  "(min ${widget.minCharacterHint})",
-                  fontSize: size.sizeTextDescriptionGlobal.sp,
-                  fontWeight: FontWeight.bold,
-                  teksColor: Colors.red),
-            ),
-          ),
+          _currentMin == 0
+              ? Container()
+              : Positioned(
+                  bottom: 1,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.h),
+                    child: ComponentTextDescription(
+                        "Min (${tr((_currentMin).toString())})",
+                        fontSize: size.sizeTextDescriptionGlobal.sp,
+                        fontWeight: FontWeight.normal,
+                        teksColor: Colors.red),
+                  ),
+                ),
         ],
       ),
     );

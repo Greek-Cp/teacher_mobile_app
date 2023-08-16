@@ -195,9 +195,9 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                                             textEditingControllerDropDown:
                                                 textEditingControllerSelectCountry,
                                             initialValueDropDown:
-                                                "Select a country",
+                                                "select_a_country",
                                             containerHeight: 50,
-                                            labelText: "Country of residence",
+                                            labelText: "country_of_residence",
                                             listData: countryOfResidenceList,
                                           ),
                                         ),
@@ -223,7 +223,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                         top: marginConfirm.h, left: 20.h, right: 20.h),
                     child: Center(
                         child: ButtonLongForm(
-                      nameButton: "Confirm",
+                      nameButton: "confirm",
                       routeName: PageProfileMenuAbout.routeName.toString(),
                       formKey: _formKey,
                     )),

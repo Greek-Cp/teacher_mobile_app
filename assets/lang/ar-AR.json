@@ -41,5 +41,16 @@
   "my_videos": "فيديوهاتي",
   "upload_video": "رفع فيديو",
   "edit_profile": "تعديل الملف الشخصي",
-  "confirm_to_save_changes" : "أكد لحفظ التغييرات"
+  "confirm_to_save_changes": "أكد لحفظ التغييرات",
+  "languages_you_can_use_to_teach_math": "اللغة التي يمكنك استخدامها لتدريس الرياضيات",
+  "you_will_need_to_provide_a_video_presentation_in_each_selected_languages": "ستحتاج إلى تقديم عرض فيديو في كل من اللغات المختارة",
+  "select_a_language": "اختر لغة",
+  "select_length_of_this_experi": "اختر مدة هذه التجربة",
+  "subject": "الموضوع",
+  "completion_year": "سنة الانتهاء",
+  "select_year": "اختر سنة",
+  "select_subject": "اختر موضوع",
+  "select_a_country": "اختر دولة",
+  "country_of_residence": "بلد الإقامة",
+  "confirm": "تأكيد"
 }
