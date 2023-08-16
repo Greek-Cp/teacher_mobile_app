@@ -130,10 +130,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                 ),
                 child: Padding(
                     padding: EdgeInsets.only(
-                      top: 10.h,
-                      left: 15.w,
-                      right: 10.w,
-                    ),
+                        top: 15.h, left: 15.w, right: 10.w, bottom: 7.h),
                     child: Stack(
                       children: [
                         TextFormField(
@@ -172,7 +169,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                 child: RotationTransition(
                                   turns: animationRotateIndicatorController,
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 5),
+                                    padding: EdgeInsets.only(top: 0.h),
                                     child: Image.asset(
                                       "assets/icon/ic_drop_down_chose.png",
                                       width: 20.w,
@@ -190,7 +187,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                 child: RotationTransition(
                                   turns: animationRotateIndicatorController,
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 5),
+                                    padding: EdgeInsets.only(top: 0),
                                     child: Image.asset(
                                       "assets/icon/ic_drop_down_chose.png",
                                       width: 20.w,
@@ -460,6 +457,7 @@ class _DropDownWidgetState extends State<DropDownWidget>
                       top: 15.h,
                       left: 15.w,
                       right: 10.w,
+                      bottom: 7.h,
                     ),
                     child: Stack(
                       children: [

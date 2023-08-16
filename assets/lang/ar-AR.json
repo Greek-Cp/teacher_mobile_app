@@ -40,5 +40,6 @@
   "reviews": "التقييمات",
   "my_videos": "فيديوهاتي",
   "upload_video": "رفع فيديو",
-  "edit_profile": "تعديل الملف الشخصي"
+  "edit_profile": "تعديل الملف الشخصي",
+  "confirm_to_save_changes" : "أكد لحفظ التغييرات"
 }
