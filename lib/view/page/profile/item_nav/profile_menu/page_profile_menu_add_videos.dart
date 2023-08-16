@@ -294,21 +294,6 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                               SizedBox(
                                                 height: 20.h,
                                               ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  pickVideoIntro();
-                                                },
-                                                child: Center(
-                                                  child:
-                                                      ComponentTextDescription(
-                                                    "Tap to Upload",
-                                                    fontSize:
-                                                        size.sizeTextDescriptionGlobal +
-                                                            5.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
                                               Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -317,105 +302,17 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                                     CrossAxisAlignment.center,
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
-                                                  Column(
-                                                    children: [
-                                                      Card(
-                                                        shape: BorderApp.border,
-                                                        child: Container(
-                                                          width: 110.w,
-                                                          height: 150.h,
-                                                          child:
-                                                              selectedVideoIntro ==
-                                                                      null
-                                                                  ? Container()
-                                                                  : Stack(
-                                                                      children: [
-                                                                        ClipRRect(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(30.r),
-                                                                          child:
-                                                                              FutureBuilder<Uint8List?>(
-                                                                            future:
-                                                                                generateThumbnail(selectedVideoIntro!.path),
-                                                                            builder:
-                                                                                (context, snapshot) {
-                                                                              if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
-                                                                                return Image.memory(
-                                                                                  fit: BoxFit.cover,
-                                                                                  width: double.infinity,
-                                                                                  height: double.infinity,
-                                                                                  snapshot.data!,
-                                                                                );
-                                                                              } else {
-                                                                                return CircularProgressIndicator();
-                                                                              }
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                        Align(
-                                                                          alignment:
-                                                                              Alignment.center,
-                                                                          child:
-                                                                              Icon(
-                                                                            Icons.play_circle_fill,
-                                                                            size:
-                                                                                40,
-                                                                            color:
-                                                                                Colors.white,
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                        ),
-                                                      ),
-                                                      ComponentTextDescription(
-                                                          "Video",
-                                                          fontSize: size
-                                                              .sizeTextDescriptionGlobal)
-                                                    ],
+                                                  CardVideo(
+                                                    hintText:
+                                                        "Tap to select a video",
+                                                    pickImage: false,
+                                                    labelVideo: "Video",
                                                   ),
-                                                  Column(
-                                                    children: [
-                                                      Card(
-                                                        shape: BorderApp.border,
-                                                        child: Container(
-                                                          width: 110.w,
-                                                          height: 150.h,
-                                                          child:
-                                                              selectedImage ==
-                                                                      null
-                                                                  ? Container()
-                                                                  : ClipRRect(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              30.r),
-                                                                      child: FutureBuilder<
-                                                                          Uint8List?>(
-                                                                        future:
-                                                                            generateThumbnail(selectedImage!.path),
-                                                                        builder:
-                                                                            (context,
-                                                                                snapshot) {
-                                                                          if (snapshot.connectionState == ConnectionState.done &&
-                                                                              snapshot.hasData) {
-                                                                            return Image.memory(
-                                                                              fit: BoxFit.cover,
-                                                                              snapshot.data!,
-                                                                            );
-                                                                          } else {
-                                                                            return CircularProgressIndicator();
-                                                                          }
-                                                                        },
-                                                                      ),
-                                                                    ),
-                                                        ),
-                                                      ),
-                                                      ComponentTextDescription(
-                                                          "Thumbnail",
-                                                          fontSize: size
-                                                              .sizeTextDescriptionGlobal)
-                                                    ],
-                                                  )
+                                                  CardVideo(
+                                                      hintText:
+                                                          "Tap to select a image",
+                                                      pickImage: true,
+                                                      labelVideo: "Image"),
                                                 ],
                                               ),
                                               SizedBox(
@@ -540,21 +437,6 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                                 ),
                                               SizedBox(
                                                 height: 20.h,
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  pickVIdeo();
-                                                },
-                                                child: Center(
-                                                  child:
-                                                      ComponentTextDescription(
-                                                    "Tap to Upload",
-                                                    fontSize:
-                                                        size.sizeTextDescriptionGlobal +
-                                                            5.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
                                               ),
                                               Row(
                                                 mainAxisAlignment:
@@ -684,7 +566,7 @@ class CardVideo extends StatefulWidget {
   File? selectedImage;
   final String labelVideo;
 
-  bool pickImage;
+  final bool pickImage;
   @override
   State<CardVideo> createState() => _CardVideoState();
 }
@@ -723,6 +605,7 @@ class _CardVideoState extends State<CardVideo> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    print("pick Image bool ${widget.pickImage}");
     return Column(
       children: [
         Card(
@@ -733,7 +616,7 @@ class _CardVideoState extends State<CardVideo> {
             height: 150.h,
             child: widget.selectedImage == null
                 ? GestureDetector(
-                    onTap: pickImage == false ? pickVIdeo : pickImage,
+                    onTap: widget.pickImage == false ? pickVIdeo : pickImage,
                     child: Container(
                       child: Center(
                         child: ComponentTextDescription(
@@ -749,7 +632,7 @@ class _CardVideoState extends State<CardVideo> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(30.r),
-                        child: pickImage == false
+                        child: widget.pickImage == false
                             ? FutureBuilder<Uint8List?>(
                                 future: generateThumbnail(
                                     widget.selectedImage!.path),
@@ -777,7 +660,7 @@ class _CardVideoState extends State<CardVideo> {
                       ),
                       Align(
                         alignment: Alignment.center,
-                        child: widget.selectedImage == null
+                        child: widget.pickImage == false
                             ? Icon(
                                 Icons.play_circle_fill,
                                 size: 40,
@@ -785,7 +668,7 @@ class _CardVideoState extends State<CardVideo> {
                               )
                             : Icon(
                                 Icons.play_circle_fill,
-                                size: 40,
+                                size: 0,
                                 color: Colors.white,
                               ),
                       ),

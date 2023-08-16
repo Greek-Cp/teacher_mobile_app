@@ -331,7 +331,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                 right: 1,
                                 bottom: 1,
                                 child: Container(
-                                  padding: EdgeInsets.only(left: 20),
+                                  padding: EdgeInsets.only(left: 25.h),
                                   child: GestureDetector(
                                     onTap: () {
                                       Navigator.push(

@@ -167,12 +167,15 @@ class _PageProfileMenuSelectLanguageState
                                 Center(
                                     child: ComponentTextDescription(
                                   tr("languages_you_can_use_to_teach_math"),
-                                  fontSize: size.sizeTextDescriptionGlobal,
+                                  fontSize: size.sizeTextHeaderGlobal.sp,
+                                  textAlign: TextAlign.center,
                                 )),
                                 Center(
                                     child: ComponentTextDescription(
                                   tr("you_will_need_to_provide_a_video_presentation_in_each_selected_languages"),
-                                  fontSize: size.sizeTextHeaderGlobal,
+                                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                                  textAlign: TextAlign.center,
+                                  fontWeight: FontWeight.bold,
                                 )),
                                 SizedBox(
                                   height: 30.h,

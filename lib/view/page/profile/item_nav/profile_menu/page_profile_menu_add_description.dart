@@ -163,10 +163,10 @@ class _PageProfileMenuAddDescriptionState
                                 ),
                                 TextFieldFormMultiLine(
                                   labelText:
-                                      "Short Description (max 120 character)",
+                                      "Short Description (max 120 char.)",
                                   textEditingControllerEmail:
                                       textEditingControllerShortDescription,
-                                  hintText: "test",
+                                  hintText: "Fill your short description",
                                   minLines: 3,
                                   lengthMax: 120,
                                   minCharacterHint: 30,
@@ -176,11 +176,10 @@ class _PageProfileMenuAddDescriptionState
                                 ),
                                 TextFieldFormMultiLine(
                                   minCharacterHint: 60,
-                                  labelText:
-                                      "Short Description (max 300 character)",
+                                  labelText: "Long Description (max 300 char.)",
                                   textEditingControllerEmail:
                                       textEditingControllerFullDescription,
-                                  hintText: "test",
+                                  hintText: "Fill your long description",
                                   minLines: 8,
                                   lengthMax: 300,
                                 ),
