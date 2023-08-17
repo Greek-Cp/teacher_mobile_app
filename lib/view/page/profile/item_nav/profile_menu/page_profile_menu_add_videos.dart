@@ -161,7 +161,6 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
   int indexLanguage = 1;
   int indexTutoringLanguage = 2;
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -523,10 +522,7 @@ class RowVideo extends StatefulWidget {
 }
 
 class _RowVideoState extends State<RowVideo> {
-  String? pathVideo1;
-
-  String? pathImage1;
-
+  String? videoPath;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -537,60 +533,41 @@ class _RowVideoState extends State<RowVideo> {
       children: [
         CardVideo(
           hintText: "Tap to select a video",
-          pickImage: false,
           labelVideo: "Video",
-          getImage: (p0) {
+          getVideoPath: (pathVideo) {
             setState(() {
-              pathVideo1 = p0;
+              videoPath = pathVideo;
             });
           },
         ),
-        CardVideo(
+        CardImageThumbnail(
           hintText: "Tap to select a image",
           pickImage: true,
-          videoPath: this.pathVideo1,
           labelVideo: "Image",
-          getImage: (p0) {},
+          videoPath: videoPath,
         ),
       ],
     );
   }
 }
 
-class CardVideo extends StatefulWidget {
+class CardImageThumbnail extends StatefulWidget {
   final String hintText;
-  final Function(String) getImage;
-  CardVideo(
+  CardImageThumbnail(
       {required this.hintText,
       required this.pickImage,
       required this.labelVideo,
-      required this.getImage,
       this.videoPath});
   File? selectedImage;
-  String? videoPath;
   final String labelVideo;
+  String? videoPath;
 
   final bool pickImage;
   @override
-  State<CardVideo> createState() => _CardVideoState();
+  State<CardImageThumbnail> createState() => _CardImageThumbnailState();
 }
 
-class _CardVideoState extends State<CardVideo> {
-  Future<void> pickVIdeo() async {
-    final ImagePicker _picker = ImagePicker();
-    // Pick an image from the gallery
-    XFile? video = await _picker.pickVideo(source: ImageSource.gallery);
-
-    if (video != null) {
-      setState(() {
-        widget.selectedImage = File(video.path);
-      });
-    } else {
-      // User canceled the selection
-      print('No image selected');
-    }
-  }
-
+class _CardImageThumbnailState extends State<CardImageThumbnail> {
   Future<void> pickImage() async {
     final ImagePicker _picker = ImagePicker();
     // Pick an image from the gallery
@@ -612,107 +589,73 @@ class _CardVideoState extends State<CardVideo> {
     print("pick Image bool ${widget.pickImage}");
     return Column(
       children: [
-        Stack(
-          children: [
-            Card(
-              color: ListColor.colorBackgroundVideoContainer,
-              shape: BorderApp.border,
-              child: Container(
-                width: 110.w,
-                height: 150.h,
-                child: widget.selectedImage == null
-                    ? GestureDetector(
-                        onTap:
-                            widget.pickImage == false ? pickVIdeo : pickImage,
-                        child: Container(
-                          child: Center(
-                            child: ComponentTextDescription(
-                              "${widget.hintText}",
-                              fontSize: size.sizeTextDescriptionGlobal.sp,
-                              textAlign: TextAlign.center,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      )
-                    : Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(30.r),
-                            child: widget.pickImage == false ||
-                                    widget.videoPath != null
-                                ? FutureBuilder<Uint8List?>(
-                                    future:
-                                        generateThumbnail(widget.videoPath!),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                              ConnectionState.done &&
-                                          snapshot.hasData) {
-                                        return Image.memory(
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          snapshot.data!,
-                                        );
-                                      } else {
-                                        return CircularProgressIndicator();
-                                      }
-                                    },
-                                  )
-                                : Image.file(
-                                    widget.selectedImage!,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                  ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: widget.pickImage == false
-                                ? Icon(
-                                    Icons.play_circle_fill,
-                                    size: 40,
-                                    color: Colors.white,
-                                  )
-                                : Icon(
-                                    Icons.play_circle_fill,
-                                    size: 0,
-                                    color: Colors.white,
-                                  ),
-                          ),
-                        ],
-                      ),
-              ),
-            ),
-            widget.selectedImage == null
-                ? Container()
-                : Positioned(
-                    right: 1,
+        Card(
+          color: ListColor.colorBackgroundVideoContainer,
+          shape: BorderApp.border,
+          child: Container(
+            width: 110.w,
+            height: 150.h,
+            child: widget.selectedImage == null
+                ? GestureDetector(
+                    onTap: pickImage,
                     child: Container(
-                      child: Card(
-                        color: Color.fromARGB(255, 214, 214, 214),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.r),
-                          side: BorderSide(
-                            width: size.sizeBorderBlackGlobal,
-                            color: Colors.black,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 0.h, horizontal: 10.w),
-                          child: Center(
-                            child: ComponentTextDescription(
-                              '\u00D7',
-                              fontSize: size.sizeTextDescriptionGlobal + 5.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                      child: Center(
+                        child: ComponentTextDescription(
+                          "${widget.hintText}",
+                          fontSize: size.sizeTextDescriptionGlobal.sp,
+                          textAlign: TextAlign.center,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
+                  )
+                : Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(30.r),
+                        child: widget.videoPath != null
+                            ? FutureBuilder<Uint8List?>(
+                                future: generateThumbnail(
+                                    widget.videoPath.toString()),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                          ConnectionState.done &&
+                                      snapshot.hasData) {
+                                    return Image.memory(
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      snapshot.data!,
+                                    );
+                                  } else {
+                                    return CircularProgressIndicator();
+                                  }
+                                },
+                              )
+                            : Image.file(
+                                widget.selectedImage!,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                height: double.infinity,
+                              ),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: widget.pickImage == false
+                            ? Icon(
+                                Icons.play_circle_fill,
+                                size: 40,
+                                color: Colors.white,
+                              )
+                            : Icon(
+                                Icons.play_circle_fill,
+                                size: 0,
+                                color: Colors.white,
+                              ),
+                      ),
+                    ],
                   ),
-          ],
+          ),
         ),
         ComponentTextDescription("${widget.labelVideo}",
             fontSize: size.sizeTextDescriptionGlobal)
@@ -721,6 +664,114 @@ class _CardVideoState extends State<CardVideo> {
   }
 
   Future<Uint8List?> generateThumbnail(String videoPath) async {
+    final thumbnailBytes = await VideoThumbnail.thumbnailData(
+      video: videoPath,
+      imageFormat: ImageFormat.JPEG,
+      quality: 85,
+    );
+    return thumbnailBytes;
+  }
+}
+
+class CardVideo extends StatefulWidget {
+  final String hintText;
+  CardVideo(
+      {required this.hintText,
+      required this.labelVideo,
+      required this.getVideoPath});
+  File? selectedImage;
+  final String labelVideo;
+  final Function(String pathVideo) getVideoPath;
+
+  @override
+  State<CardVideo> createState() => _CardVideoState();
+}
+
+class _CardVideoState extends State<CardVideo> {
+  Future<void> pickVIdeo() async {
+    final ImagePicker _picker = ImagePicker();
+    // Pick an image from the gallery
+    XFile? video = await _picker.pickVideo(source: ImageSource.gallery);
+
+    if (video != null) {
+      setState(() {
+        widget.selectedImage = File(video.path);
+        print("Video path ${video.path}");
+        widget.getVideoPath(video.path);
+      });
+    } else {
+      // User canceled the selection
+      print('No image selected');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+
+    return Column(
+      children: [
+        Card(
+          color: ListColor.colorBackgroundVideoContainer,
+          shape: BorderApp.border,
+          child: Container(
+            width: 110.w,
+            height: 150.h,
+            child: widget.selectedImage == null
+                ? GestureDetector(
+                    onTap: pickVIdeo,
+                    child: Container(
+                      child: Center(
+                        child: ComponentTextDescription(
+                          "${widget.hintText}",
+                          fontSize: size.sizeTextDescriptionGlobal.sp,
+                          textAlign: TextAlign.center,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  )
+                : Stack(
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(30.r),
+                          child: FutureBuilder<Uint8List?>(
+                            future:
+                                generateThumbnail(widget.selectedImage!.path),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                      ConnectionState.done &&
+                                  snapshot.hasData) {
+                                return Image.memory(
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  snapshot.data!,
+                                );
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            },
+                          )),
+                      Align(
+                          alignment: Alignment.center,
+                          child: Icon(
+                            Icons.play_circle_fill,
+                            size: 40,
+                            color: Colors.white,
+                          )),
+                    ],
+                  ),
+          ),
+        ),
+        ComponentTextDescription("${widget.labelVideo}",
+            fontSize: size.sizeTextDescriptionGlobal)
+      ],
+    );
+  }
+
+  Future<Uint8List?> generateThumbnail(String videoPath) async {
+    print("gen video path ${videoPath}");
     final thumbnailBytes = await VideoThumbnail.thumbnailData(
       video: videoPath,
       imageFormat: ImageFormat.JPEG,
