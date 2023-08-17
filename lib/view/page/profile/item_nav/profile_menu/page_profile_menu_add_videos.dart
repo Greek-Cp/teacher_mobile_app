@@ -161,6 +161,7 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
   int indexLanguage = 1;
   int indexTutoringLanguage = 2;
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -294,27 +295,7 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                               SizedBox(
                                                 height: 20.h,
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  CardVideo(
-                                                    hintText:
-                                                        "Tap to select a video",
-                                                    pickImage: false,
-                                                    labelVideo: "Video",
-                                                  ),
-                                                  CardVideo(
-                                                      hintText:
-                                                          "Tap to select a image",
-                                                      pickImage: true,
-                                                      labelVideo: "Image"),
-                                                ],
-                                              ),
+                                              RowVideo(),
                                               SizedBox(
                                                 height: 40.h,
                                               )
@@ -438,27 +419,7 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                               SizedBox(
                                                 height: 20.h,
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  CardVideo(
-                                                    hintText:
-                                                        "Tap to select a video",
-                                                    pickImage: false,
-                                                    labelVideo: "Video",
-                                                  ),
-                                                  CardVideo(
-                                                      hintText:
-                                                          "Tap to select a image",
-                                                      pickImage: true,
-                                                      labelVideo: "Image"),
-                                                ],
-                                              ),
+                                              RowVideo(),
                                               SizedBox(
                                                 height: 40.h,
                                               )
@@ -556,14 +517,57 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
   }
 }
 
+class RowVideo extends StatefulWidget {
+  @override
+  State<RowVideo> createState() => _RowVideoState();
+}
+
+class _RowVideoState extends State<RowVideo> {
+  String? pathVideo1;
+
+  String? pathImage1;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        CardVideo(
+          hintText: "Tap to select a video",
+          pickImage: false,
+          labelVideo: "Video",
+          getImage: (p0) {
+            setState(() {
+              pathVideo1 = p0;
+            });
+          },
+        ),
+        CardVideo(
+          hintText: "Tap to select a image",
+          pickImage: true,
+          videoPath: this.pathVideo1,
+          labelVideo: "Image",
+          getImage: (p0) {},
+        ),
+      ],
+    );
+  }
+}
+
 class CardVideo extends StatefulWidget {
   final String hintText;
-  CardVideo({
-    required this.hintText,
-    required this.pickImage,
-    required this.labelVideo,
-  });
+  final Function(String) getImage;
+  CardVideo(
+      {required this.hintText,
+      required this.pickImage,
+      required this.labelVideo,
+      required this.getImage,
+      this.videoPath});
   File? selectedImage;
+  String? videoPath;
   final String labelVideo;
 
   final bool pickImage;
@@ -608,73 +612,107 @@ class _CardVideoState extends State<CardVideo> {
     print("pick Image bool ${widget.pickImage}");
     return Column(
       children: [
-        Card(
-          color: ListColor.colorBackgroundVideoContainer,
-          shape: BorderApp.border,
-          child: Container(
-            width: 110.w,
-            height: 150.h,
-            child: widget.selectedImage == null
-                ? GestureDetector(
-                    onTap: widget.pickImage == false ? pickVIdeo : pickImage,
+        Stack(
+          children: [
+            Card(
+              color: ListColor.colorBackgroundVideoContainer,
+              shape: BorderApp.border,
+              child: Container(
+                width: 110.w,
+                height: 150.h,
+                child: widget.selectedImage == null
+                    ? GestureDetector(
+                        onTap:
+                            widget.pickImage == false ? pickVIdeo : pickImage,
+                        child: Container(
+                          child: Center(
+                            child: ComponentTextDescription(
+                              "${widget.hintText}",
+                              fontSize: size.sizeTextDescriptionGlobal.sp,
+                              textAlign: TextAlign.center,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(30.r),
+                            child: widget.pickImage == false ||
+                                    widget.videoPath != null
+                                ? FutureBuilder<Uint8List?>(
+                                    future:
+                                        generateThumbnail(widget.videoPath!),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                              ConnectionState.done &&
+                                          snapshot.hasData) {
+                                        return Image.memory(
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          snapshot.data!,
+                                        );
+                                      } else {
+                                        return CircularProgressIndicator();
+                                      }
+                                    },
+                                  )
+                                : Image.file(
+                                    widget.selectedImage!,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                  ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: widget.pickImage == false
+                                ? Icon(
+                                    Icons.play_circle_fill,
+                                    size: 40,
+                                    color: Colors.white,
+                                  )
+                                : Icon(
+                                    Icons.play_circle_fill,
+                                    size: 0,
+                                    color: Colors.white,
+                                  ),
+                          ),
+                        ],
+                      ),
+              ),
+            ),
+            widget.selectedImage == null
+                ? Container()
+                : Positioned(
+                    right: 1,
                     child: Container(
-                      child: Center(
-                        child: ComponentTextDescription(
-                          "${widget.hintText}",
-                          fontSize: size.sizeTextDescriptionGlobal.sp,
-                          textAlign: TextAlign.center,
-                          fontWeight: FontWeight.bold,
+                      child: Card(
+                        color: Color.fromARGB(255, 214, 214, 214),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          side: BorderSide(
+                            width: size.sizeBorderBlackGlobal,
+                            color: Colors.black,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 0.h, horizontal: 10.w),
+                          child: Center(
+                            child: ComponentTextDescription(
+                              '\u00D7',
+                              fontSize: size.sizeTextDescriptionGlobal + 5.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  )
-                : Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(30.r),
-                        child: widget.pickImage == false
-                            ? FutureBuilder<Uint8List?>(
-                                future: generateThumbnail(
-                                    widget.selectedImage!.path),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                          ConnectionState.done &&
-                                      snapshot.hasData) {
-                                    return Image.memory(
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      snapshot.data!,
-                                    );
-                                  } else {
-                                    return CircularProgressIndicator();
-                                  }
-                                },
-                              )
-                            : Image.file(
-                                widget.selectedImage!,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: double.infinity,
-                              ),
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: widget.pickImage == false
-                            ? Icon(
-                                Icons.play_circle_fill,
-                                size: 40,
-                                color: Colors.white,
-                              )
-                            : Icon(
-                                Icons.play_circle_fill,
-                                size: 0,
-                                color: Colors.white,
-                              ),
-                      ),
-                    ],
                   ),
-          ),
+          ],
         ),
         ComponentTextDescription("${widget.labelVideo}",
             fontSize: size.sizeTextDescriptionGlobal)
