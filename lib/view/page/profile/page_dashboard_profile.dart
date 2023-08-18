@@ -301,63 +301,72 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                             ]),
                       ),
                     ),
-                    Container(
-                      child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Center(
-                            child: Stack(children: [
-                              Container(
-                                width: 90.w,
-                                height: 90.h,
-                                decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 216, 216, 216),
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: size.sizeBorderBlackGlobal,
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        width: 110.w,
+                        height: 100.h,
+                        child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Center(
+                              child: Stack(children: [
+                                Container(
+                                  width: 90.w,
+                                  height: 90.h,
+                                  decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 216, 216, 216),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.black,
+                                      width: size.sizeBorderBlackGlobal,
+                                    ),
                                   ),
-                                ),
-                                child: ClipOval(
-                                  // Replace this with your image source
+                                  child: ClipOval(
+                                    // Replace this with your image source
 
-                                  child: SvgPicture.asset(
-                                    "assets/icon/profile/ic_avatar_profile.svg",
-                                    width: 90, // adjust the size as needed
-                                    height: 90,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 45.w, top: 40.h),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                PageNavProfileSelectPicture()));
-                                  },
-                                  child: Card(
-                                    color: ListColor.primaryClor,
-                                    shape: RoundedRectangleBorder(
-                                        side: BorderSide(
-                                            color: Colors.black,
-                                            width: size.sizeBorderBlackGlobal),
-                                        borderRadius:
-                                            BorderRadius.circular(10.r)),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0.h),
-                                      child: SvgPicture.asset(
-                                        "assets/icon/ic_pencil.svg",
-                                        width: 15.w,
-                                        height: 15.h,
-                                      ),
+                                    child: SvgPicture.asset(
+                                      "assets/icon/profile/ic_avatar_profile.svg",
+                                      width: 90, // adjust the size as needed
+                                      height: 90,
                                     ),
                                   ),
                                 ),
-                              )
-                            ]),
-                          )),
+                                Container(
+                                  width: 40.w,
+                                  height: 40.h,
+                                  margin:
+                                      EdgeInsets.only(left: 60.w, top: 45.h),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  PageNavProfileSelectPicture()));
+                                    },
+                                    child: Card(
+                                      color: ListColor.primaryClor,
+                                      shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                              color: Colors.black,
+                                              width:
+                                                  size.sizeBorderBlackGlobal),
+                                          borderRadius:
+                                              BorderRadius.circular(10.r)),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0.h),
+                                        child: SvgPicture.asset(
+                                          "assets/icon/ic_pencil.svg",
+                                          width: 15.w,
+                                          height: 15.h,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ]),
+                            )),
+                      ),
                     ),
                   ],
                 ),
