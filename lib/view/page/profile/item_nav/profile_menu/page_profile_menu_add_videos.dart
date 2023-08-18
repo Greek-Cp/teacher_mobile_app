@@ -697,7 +697,8 @@ class _CardVideoState extends State<CardVideo> {
       setState(() {
         widget.selectedImage = File(video.path);
         print("Video path ${video.path}");
-        widget.getVideoPath(video.path);
+        //     widget.getVideoPath(video.path);
+        
       });
     } else {
       // User canceled the selection
