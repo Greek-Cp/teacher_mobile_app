@@ -89,6 +89,7 @@ class _PageProfileMenuAddEducationState
   int limitExpreince = 0;
   int globalContainer = 545;
   int maxLanguage = 2;
+  ScrollController _scrollController = ScrollController();
 
   int widgetDropDown = 0;
   final _formKey = GlobalKey<FormState>();
@@ -144,6 +145,7 @@ class _PageProfileMenuAddEducationState
                       padding: EdgeInsets.symmetric(
                           horizontal: size.sizeFieldText.h),
                       child: SingleChildScrollView(
+                        controller: _scrollController,
                         physics: PageScrollPhysics(),
                         child: Form(
                           key: _formKey,
@@ -248,6 +250,15 @@ class _PageProfileMenuAddEducationState
                                                         //     120;
                                                         // marginConfirm -=
                                                         //     120;
+                                                        _scrollController
+                                                            .animateTo(
+                                                          0.0, // Scroll to the top
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  500), // Duration of the animation
+                                                          curve: Curves
+                                                              .easeInOut, // Animation curve
+                                                        );
                                                         indexLanguage -= 1;
                                                         indexTutoringLanguage -=
                                                             1;

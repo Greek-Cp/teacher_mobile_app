@@ -327,35 +327,30 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                right: 1,
-                                bottom: 1,
-                                child: Container(
-                                  padding: EdgeInsets.only(left: 25.h),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  PageNavProfileSelectPicture()));
-                                    },
-                                    child: Card(
-                                      color: ListColor.primaryClor,
-                                      shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              color: Colors.black,
-                                              width:
-                                                  size.sizeBorderBlackGlobal),
-                                          borderRadius:
-                                              BorderRadius.circular(10.r)),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0.h),
-                                        child: SvgPicture.asset(
-                                          "assets/icon/ic_pencil.svg",
-                                          width: 15.w,
-                                          height: 15.h,
-                                        ),
+                              Container(
+                                padding: EdgeInsets.only(left: 45.w, top: 40.h),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                PageNavProfileSelectPicture()));
+                                  },
+                                  child: Card(
+                                    color: ListColor.primaryClor,
+                                    shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            color: Colors.black,
+                                            width: size.sizeBorderBlackGlobal),
+                                        borderRadius:
+                                            BorderRadius.circular(10.r)),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0.h),
+                                      child: SvgPicture.asset(
+                                        "assets/icon/ic_pencil.svg",
+                                        width: 15.w,
+                                        height: 15.h,
                                       ),
                                     ),
                                   ),

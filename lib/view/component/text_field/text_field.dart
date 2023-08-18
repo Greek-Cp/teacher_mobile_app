@@ -108,6 +108,9 @@ class _TextFieldFormWithValidationState
               Container(
                   margin: EdgeInsets.only(top: 10.h),
                   child: TextFormField(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+                    ],
                     controller: widget.textEditingControllerEmail,
                     onChanged: (value) {
                       if (widget.requestTypeValidation == "username") {
@@ -630,6 +633,9 @@ class _TextFieldFormState extends State<TextFieldForm>
               margin: EdgeInsets.only(top: 10),
               height: 50.h,
               child: TextFormField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+                ],
                 validator: (value) {
                   print("values $value");
                   if (value == null || value.isEmpty) {
@@ -809,6 +815,9 @@ class _TextFieldPasswordFormState extends State<TextFieldPasswordForm>
           Container(
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+                ],
                 controller: widget.textEditingControllerEmail,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
@@ -997,6 +1006,9 @@ class _TextFieldPasswordFormArabicState
         Container(
             margin: EdgeInsets.only(top: 10),
             child: TextField(
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+              ],
               controller: widget.textEditingControllerEmail,
               onChanged: (value) {
                 if (value.isNotEmpty) {

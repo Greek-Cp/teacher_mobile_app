@@ -596,136 +596,210 @@ class _CardVideoState extends State<CardVideo> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Column(
+        Stack(
           children: [
-            Card(
-              color: ListColor.colorBackgroundVideoContainer,
-              shape: BorderApp.border,
-              child: Container(
-                width: 110.w,
-                height: 150.h,
-                child: widget.selectedImage == null
-                    ? GestureDetector(
-                        onTap: pickVIdeo,
-                        child: Container(
+            Column(
+              children: [
+                Card(
+                  color: ListColor.colorBackgroundVideoContainer,
+                  shape: BorderApp.border,
+                  child: Container(
+                    width: 110.w,
+                    height: 150.h,
+                    child: widget.selectedImage == null
+                        ? GestureDetector(
+                            onTap: pickVIdeo,
+                            child: Container(
+                              child: Center(
+                                child: ComponentTextDescription(
+                                  "${widget.hintText}",
+                                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                                  textAlign: TextAlign.center,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Stack(
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(30.r),
+                                  child: FutureBuilder<Uint8List?>(
+                                    future: generateThumbnail(
+                                        widget.selectedImage!.path),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                              ConnectionState.done &&
+                                          snapshot.hasData) {
+                                        return Image.memory(
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          snapshot.data!,
+                                        );
+                                      } else {
+                                        return CircularProgressIndicator();
+                                      }
+                                    },
+                                  )),
+                              Align(
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    Icons.play_circle_fill,
+                                    size: 40,
+                                    color: Colors.white,
+                                  )),
+                            ],
+                          ),
+                  ),
+                ),
+                ComponentTextDescription("${widget.labelVideo}",
+                    fontSize: size.sizeTextDescriptionGlobal),
+              ],
+            ),
+            widget.selectedImage != null
+                ? Positioned(
+                    right: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          widget.selectedImage = null;
+                        });
+                      },
+                      child: Card(
+                        color: Color.fromARGB(255, 214, 214, 214),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          side: BorderSide(
+                            width: size.sizeBorderBlackGlobal,
+                            color: Colors.black,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 5.h, horizontal: 15.w),
                           child: Center(
                             child: ComponentTextDescription(
-                              "${widget.hintText}",
-                              fontSize: size.sizeTextDescriptionGlobal.sp,
-                              textAlign: TextAlign.center,
+                              '\u00D7',
+                              fontSize: size.sizeTextDescriptionGlobal + 5.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      )
-                    : Stack(
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(30.r),
-                              child: FutureBuilder<Uint8List?>(
-                                future: generateThumbnail(
-                                    widget.selectedImage!.path),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                          ConnectionState.done &&
-                                      snapshot.hasData) {
-                                    return Image.memory(
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      snapshot.data!,
-                                    );
-                                  } else {
-                                    return CircularProgressIndicator();
-                                  }
-                                },
-                              )),
-                          Align(
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.play_circle_fill,
-                                size: 40,
-                                color: Colors.white,
-                              )),
-                        ],
                       ),
-              ),
-            ),
-            ComponentTextDescription("${widget.labelVideo}",
-                fontSize: size.sizeTextDescriptionGlobal)
+                    ),
+                  )
+                : Positioned(right: 1, child: Container()),
           ],
         ),
-        Column(
+        Stack(
           children: [
-            Card(
-              color: ListColor.colorBackgroundVideoContainer,
-              shape: BorderApp.border,
-              child: Container(
-                width: 110.w,
-                height: 150.h,
-                child: widget.selectedImageThumbnail == null
-                    ? GestureDetector(
-                        onTap: pickImage,
-                        child: Container(
+            Column(
+              children: [
+                Card(
+                  color: ListColor.colorBackgroundVideoContainer,
+                  shape: BorderApp.border,
+                  child: Container(
+                    width: 110.w,
+                    height: 150.h,
+                    child: widget.selectedImageThumbnail == null
+                        ? GestureDetector(
+                            onTap: pickImage,
+                            child: Container(
+                              child: Center(
+                                child: ComponentTextDescription(
+                                  "${widget.hintText}",
+                                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                                  textAlign: TextAlign.center,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Stack(
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(30.r),
+                                  child: FutureBuilder<Uint8List?>(
+                                    future: generateThumbnail(
+                                        widget.selectedImageThumbnail!.path),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                              ConnectionState.done &&
+                                          snapshot.hasData) {
+                                        return Image.memory(
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          snapshot.data!,
+                                        );
+                                      } else {
+                                        return Image.file(
+                                          widget.selectedImageThumbnail!,
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                        );
+                                      }
+                                    },
+                                  )),
+                              Align(
+                                  alignment: Alignment.center,
+                                  child: GestureDetector(
+                                    onTap: pickImage,
+                                    child: Container(
+                                      child: Center(
+                                        child: ComponentTextDescription(
+                                          "${widget.hintText}",
+                                          fontSize:
+                                              size.sizeTextDescriptionGlobal.sp,
+                                          textAlign: TextAlign.center,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  )),
+                            ],
+                          ),
+                  ),
+                ),
+                ComponentTextDescription("${widget.labelVideo}",
+                    fontSize: size.sizeTextDescriptionGlobal)
+              ],
+            ),
+            widget.selectedImage != null
+                ? Positioned(
+                    right: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          widget.selectedImageThumbnail = null;
+                        });
+                      },
+                      child: Card(
+                        color: Color.fromARGB(255, 214, 214, 214),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          side: BorderSide(
+                            width: size.sizeBorderBlackGlobal,
+                            color: Colors.black,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 5.h, horizontal: 15.w),
                           child: Center(
                             child: ComponentTextDescription(
-                              "${widget.hintText}",
-                              fontSize: size.sizeTextDescriptionGlobal.sp,
-                              textAlign: TextAlign.center,
+                              '\u00D7',
+                              fontSize: size.sizeTextDescriptionGlobal + 5.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      )
-                    : Stack(
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(30.r),
-                              child: FutureBuilder<Uint8List?>(
-                                future: generateThumbnail(
-                                    widget.selectedImageThumbnail!.path),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                          ConnectionState.done &&
-                                      snapshot.hasData) {
-                                    return Image.memory(
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      snapshot.data!,
-                                    );
-                                  } else {
-                                    return Image.file(
-                                      widget.selectedImageThumbnail!,
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                    );
-                                  }
-                                },
-                              )),
-                          Align(
-                              alignment: Alignment.center,
-                              child: GestureDetector(
-                                onTap: pickImage,
-                                child: Container(
-                                  child: Center(
-                                    child: ComponentTextDescription(
-                                      "${widget.hintText}",
-                                      fontSize:
-                                          size.sizeTextDescriptionGlobal.sp,
-                                      textAlign: TextAlign.center,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              )),
-                        ],
                       ),
-              ),
-            ),
-            ComponentTextDescription("${widget.labelVideo}",
-                fontSize: size.sizeTextDescriptionGlobal)
+                    ),
+                  )
+                : Positioned(right: 1, child: Container()),
           ],
         )
       ],

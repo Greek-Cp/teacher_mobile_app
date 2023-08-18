@@ -38,6 +38,8 @@ class _PageProfileMenuAddExperienceState
       TextEditingController();
   late AnimationController animationControllerSelectLanguage;
   late AnimationController animationControllerTutoringLanguage;
+  ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -121,6 +123,7 @@ class _PageProfileMenuAddExperienceState
             horizontal: size.sizePaddingLeftAndRightPage.h,
           ),
           child: ListView(
+            controller: _scrollController,
             children: [
               SizedBox(
                 height: 20.h,
