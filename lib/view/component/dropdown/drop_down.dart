@@ -268,6 +268,8 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
                                               ComponentTextDescription(
                                                 widget.listData![index]
@@ -283,7 +285,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                               //       vertical: 2.h,
                                               //       horizontal: 10.h),
                                               //   child: Container(
-                                              //     decoration: BoxDecoration(
+                                              //     decora tion: BoxDecoration(
                                               //         color:
                                               //             widget.selectedIndex ==
                                               //                     index
