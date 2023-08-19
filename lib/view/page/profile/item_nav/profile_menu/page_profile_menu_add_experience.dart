@@ -146,7 +146,6 @@ class _PageProfileMenuAddExperienceState
                       padding: EdgeInsets.symmetric(
                           horizontal: size.sizeFieldText.h),
                       child: SingleChildScrollView(
-                        physics: PageScrollPhysics(),
                         child: Form(
                           key: _formKey,
                           child: Column(

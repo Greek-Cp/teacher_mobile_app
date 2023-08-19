@@ -130,7 +130,11 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                 ),
                 child: Padding(
                     padding: EdgeInsets.only(
-                        top: 10.h, left: 15.w, right: 10.w, bottom: 7.h),
+                      top: 12.h,
+                      left: 15.w,
+                      right: 10.w,
+                      bottom: 7.h,
+                    ),
                     child: Stack(
                       children: [
                         TextFormField(
@@ -152,7 +156,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                           },
                           readOnly: true, // Make the field read-only
                           style: FontType.font_utama(
-                              fontSize: size.sizeTextDescriptionGlobal + 5.sp,
+                              fontSize: size.sizeTextDescriptionGlobal + 2.sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black),
                           decoration: InputDecoration(

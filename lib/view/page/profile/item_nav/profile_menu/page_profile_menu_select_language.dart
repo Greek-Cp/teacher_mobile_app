@@ -153,7 +153,6 @@ class _PageProfileMenuSelectLanguageState
                         horizontal: size.sizePaddingLeftAndRightPage.h,
                       ),
                       child: SingleChildScrollView(
-                        physics: PageScrollPhysics(),
                         child: Form(
                           key: _formKey,
                           child: Column(

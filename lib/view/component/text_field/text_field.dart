@@ -400,6 +400,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
           });
   }
 
+  bool _shouldIncreaseMinOnEnter = true;
   late int _defaultMin = widget.minCharacterHint;
   late int _currentMin = widget.minCharacterHint;
   late final AnimationController _animationControllerShake;
@@ -414,12 +415,15 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
     });
   }
 
-  void _increaseMinValue() {
-    setState(() {
-      int textLength = widget.textEditingControllerEmail.text.length;
-      _defaultMin += textLength;
-      _currentMin = _defaultMin;
-    });
+  void _increaseMinValueOnEnter() {
+    if (_shouldIncreaseMinOnEnter) {
+      setState(() {
+        int textLength = widget.textEditingControllerEmail.text.length;
+        _defaultMin += textLength;
+        _currentMin = _defaultMin;
+      });
+      _shouldIncreaseMinOnEnter = false;
+    }
   }
 
   bool? isEmpty = false;
@@ -465,6 +469,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               onChanged: (value) {
                 setState(() {
                   _updateMinValue();
+                  _shouldIncreaseMinOnEnter = true;
                 });
               },
 
@@ -473,7 +478,6 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               },
 
               onEditingComplete: () {
-                _increaseMinValue();
                 if (UtilValidatorData.isEmailValid(
                     widget.textEditingControllerEmail.text.toString())) {
                   setState(() {

@@ -146,7 +146,6 @@ class _PageProfileMenuAddEducationState
                           horizontal: size.sizeFieldText.h),
                       child: SingleChildScrollView(
                         controller: _scrollController,
-                        physics: PageScrollPhysics(),
                         child: Form(
                           key: _formKey,
                           child: Column(
