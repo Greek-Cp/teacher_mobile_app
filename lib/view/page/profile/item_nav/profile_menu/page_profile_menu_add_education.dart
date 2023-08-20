@@ -300,34 +300,56 @@ class _PageProfileMenuAddEducationState
                                                 ],
                                               ),
                                               DropDownWidget(
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerLanguage,
-                                                initialValueDropDown:
-                                                    "select_experience",
-                                                containerHeight: 50,
-                                                labelText: tr("experience") +
-                                                    " " +
-                                                    indexLanguage.toString(),
-                                                listData:
-                                                    countryOfResidenceList,
-                                              ),
+                                                  textEditingControllerDropDown:
+                                                      textEditingControllerLanguage,
+                                                  initialValueDropDown:
+                                                      "select_experience",
+                                                  containerHeight: 50,
+                                                  labelText: tr("experience") +
+                                                      " " +
+                                                      indexLanguage.toString(),
+                                                  listData:
+                                                      countryOfResidenceList,
+                                                  voidCallbackDropDownArrowOnTap:
+                                                      () {
+                                                    print("scroll up");
+                                                    _scrollController.animateTo(
+                                                      _scrollController.position
+                                                          .maxScrollExtent,
+                                                      duration: Duration(
+                                                          milliseconds:
+                                                              500), // Adjust the duration as needed
+                                                      curve: Curves.easeOut,
+                                                    );
+                                                  }),
                                               SizedBox(
                                                 height: 10.h,
                                               ),
                                               DropDownWidget(
-                                                textEditingControllerDropDown:
-                                                    textEditingControllerTutoring,
-                                                initialValueDropDown: tr(
-                                                    "select_experienye_in_years"),
-                                                containerHeight: 50,
-                                                labelText:
-                                                    tr("select_length_of_this_experi") +
-                                                        " " +
-                                                        indexTutoringLanguage
-                                                            .toString(),
-                                                listData:
-                                                    countryOfResidenceList,
-                                              ),
+                                                  textEditingControllerDropDown:
+                                                      textEditingControllerTutoring,
+                                                  initialValueDropDown: tr(
+                                                      "select_experienye_in_years"),
+                                                  containerHeight: 50,
+                                                  labelText:
+                                                      tr("select_length_of_this_experi") +
+                                                          " " +
+                                                          indexTutoringLanguage
+                                                              .toString(),
+                                                  listData:
+                                                      countryOfResidenceList,
+                                                  voidCallbackDropDownArrowOnTap:
+                                                      () {
+                                                    print("scroll up");
+                                                    _scrollController.animateTo(
+                                                      _scrollController.position
+                                                          .maxScrollExtent,
+                                                      duration: Duration(
+                                                          milliseconds:
+                                                              500), // Adjust the duration as needed
+                                                      curve: Curves.easeOut,
+                                                    );
+                                                  }),
                                               SizedBox(
                                                 height: 10.h,
                                               ),
@@ -342,6 +364,18 @@ class _PageProfileMenuAddEducationState
                                                         " 3",
                                                 listData:
                                                     countryOfResidenceList,
+                                                voidCallbackDropDownArrowOnTap:
+                                                    () {
+                                                  print("scroll up");
+                                                  _scrollController.animateTo(
+                                                    _scrollController.position
+                                                        .maxScrollExtent,
+                                                    duration: Duration(
+                                                        milliseconds:
+                                                            500), // Adjust the duration as needed
+                                                    curve: Curves.easeOut,
+                                                  );
+                                                },
                                               ),
                                             ],
                                           )
