@@ -156,7 +156,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                           },
                           readOnly: true, // Make the field read-only
                           style: FontType.font_utama(
-                              fontSize: size.sizeTextDescriptionGlobal + 6.sp,
+                              fontSize: size.sizeTextDescriptionGlobal.sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black),
                           decoration: InputDecoration(
