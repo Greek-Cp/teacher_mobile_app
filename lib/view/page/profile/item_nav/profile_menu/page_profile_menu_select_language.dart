@@ -90,6 +90,7 @@ class _PageProfileMenuSelectLanguageState
     // Tambahkan negara-negara lain sesuai kebutuhan Anda
   ];
   AccountUserController controllerAccount = Get.find<AccountUserController>();
+  ScrollController _scrollController = ScrollController();
 
   double marginConfirm = 0;
   double marginContainer = 0;
@@ -153,6 +154,7 @@ class _PageProfileMenuSelectLanguageState
                         horizontal: size.sizePaddingLeftAndRightPage.h,
                       ),
                       child: SingleChildScrollView(
+                        controller: _scrollController,
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -289,6 +291,18 @@ class _PageProfileMenuSelectLanguageState
                                                             .toString(),
                                                 listData:
                                                     countryOfResidenceList,
+                                                voidCallbackDropDownArrowOnTap:
+                                                    () {
+                                                  print("scroll up");
+                                                  _scrollController.animateTo(
+                                                    _scrollController.position
+                                                        .maxScrollExtent,
+                                                    duration: Duration(
+                                                        milliseconds:
+                                                            500), // Adjust the duration as needed
+                                                    curve: Curves.easeOut,
+                                                  );
+                                                },
                                               ),
                                             ],
                                           )
