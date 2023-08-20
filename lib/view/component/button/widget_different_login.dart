@@ -13,10 +13,10 @@ class WidgetDifferentLogin extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Card(
-          shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  color: Colors.black, width: size.sizeBorderBlackGlobal),
-              borderRadius: BorderRadius.circular(30.r)),
+          shape: CircleBorder(
+            side: BorderSide(
+                color: Colors.black, width: size.sizeBorderBlackGlobal),
+          ),
           child: Padding(
             padding: EdgeInsets.all(18.0.h),
             child: Image.asset(
@@ -27,10 +27,10 @@ class WidgetDifferentLogin extends StatelessWidget {
           ),
         ),
         Card(
-          shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  color: Colors.black, width: size.sizeBorderBlackGlobal),
-              borderRadius: BorderRadius.circular(30.r)),
+          shape: CircleBorder(
+            side: BorderSide(
+                color: Colors.black, width: size.sizeBorderBlackGlobal),
+          ),
           child: Padding(
             padding: EdgeInsets.all(18.0.h),
             child: Image.asset(
@@ -41,10 +41,10 @@ class WidgetDifferentLogin extends StatelessWidget {
           ),
         ),
         Card(
-          shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  color: Colors.black, width: size.sizeBorderBlackGlobal),
-              borderRadius: BorderRadius.circular(30.r)),
+          shape: CircleBorder(
+            side: BorderSide(
+                color: Colors.black, width: size.sizeBorderBlackGlobal),
+          ),
           child: Padding(
             padding: EdgeInsets.all(18.0.h),
             child: Image.asset(
