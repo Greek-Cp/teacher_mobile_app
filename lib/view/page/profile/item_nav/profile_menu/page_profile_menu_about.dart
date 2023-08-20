@@ -182,16 +182,10 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                                         GestureDetector(
                                           onTap: () {
                                             setState(() {
-                                              // containerHeight += 50;
+                                              // containerHeight += 50;x
                                             });
                                           },
                                           child: DropDownWidget(
-                                            voidCallbackDropDownArrowOnTap: () {
-                                              setState(() {
-                                                print("Clicked");
-                                                // marginContainer += 30;
-                                              });
-                                            },
                                             textEditingControllerDropDown:
                                                 textEditingControllerSelectCountry,
                                             initialValueDropDown:
