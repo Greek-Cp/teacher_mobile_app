@@ -247,6 +247,7 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                 Stack(
                                   children: [
                                     Container(
+                                      height: 500.h,
                                       margin: EdgeInsets.only(top: 30.h),
                                       decoration: BoxDecoration(
                                         color: Colors
@@ -347,6 +348,16 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                               ),
                                             ),
                                           )),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          top: 505.h, left: 20.h, right: 20.h),
+                                      child: Center(
+                                          child: ButtonLongForm(
+                                        nameButton: "Submit Video",
+                                        routeName: "",
+                                        formKey: _formKey,
+                                      )),
                                     ),
                                   ],
                                 ),
