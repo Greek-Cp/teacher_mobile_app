@@ -123,7 +123,6 @@ class _PageProfileMenuAddExperienceState
             horizontal: size.sizePaddingLeftAndRightPage.h,
           ),
           child: ListView(
-            controller: _scrollController,
             children: [
               SizedBox(
                 height: 20.h,
@@ -146,6 +145,7 @@ class _PageProfileMenuAddExperienceState
                       padding: EdgeInsets.symmetric(
                           horizontal: size.sizeFieldText.h),
                       child: SingleChildScrollView(
+                        controller: _scrollController,
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -292,6 +292,18 @@ class _PageProfileMenuAddExperienceState
                                                     indexLanguage.toString(),
                                                 listData:
                                                     countryOfResidenceList,
+                                                voidCallbackDropDownArrowOnTap:
+                                                    () {
+                                                  print("scroll up");
+                                                  _scrollController.animateTo(
+                                                    _scrollController.position
+                                                        .maxScrollExtent,
+                                                    duration: Duration(
+                                                        milliseconds:
+                                                            500), // Adjust the duration as needed
+                                                    curve: Curves.easeOut,
+                                                  );
+                                                },
                                               ),
                                               SizedBox(
                                                 height: 10.h,
@@ -309,6 +321,18 @@ class _PageProfileMenuAddExperienceState
                                                             .toString(),
                                                 listData:
                                                     countryOfResidenceList,
+                                                voidCallbackDropDownArrowOnTap:
+                                                    () {
+                                                  print("scroll up");
+                                                  _scrollController.animateTo(
+                                                    _scrollController.position
+                                                        .maxScrollExtent,
+                                                    duration: Duration(
+                                                        milliseconds:
+                                                            500), // Adjust the duration as needed
+                                                    curve: Curves.easeOut,
+                                                  );
+                                                },
                                               ),
                                             ],
                                           )
