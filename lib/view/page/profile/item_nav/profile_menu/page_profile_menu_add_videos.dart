@@ -193,7 +193,7 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
             child: Column(
               children: [
                 SizedBox(
-                  height: 150.h,
+                  height: 100.h,
                 ),
                 Stack(
                   children: [
@@ -264,42 +264,36 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10.h),
-                                        child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: 40.h,
-                                              ),
-                                              ComponentTextDescription(
-                                                "Requirements: ",
-                                                fontSize:
-                                                    size.sizeTextDescriptionGlobal +
-                                                        5.sp,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              for (int i = 0;
-                                                  i <
-                                                      listRequirementPhotoProfile
-                                                          .length;
-                                                  i++)
-                                                ComponentTextDescription(
-                                                  tr("${listRequirementPhotoProfile[i].photoRequirements}"),
-                                                  fontSize: size
-                                                      .sizeTextDescriptionGlobal,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              SizedBox(
-                                                height: 20.h,
-                                              ),
-                                              RowVideo(),
-                                              SizedBox(
-                                                height: 40.h,
-                                              )
-                                            ]),
+                                        child: ListView(children: [
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          ComponentTextDescription(
+                                            "Requirements: ",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal +
+                                                    5.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          for (int i = 0;
+                                              i <
+                                                  listRequirementPhotoProfile
+                                                      .length;
+                                              i++)
+                                            ComponentTextDescription(
+                                              tr("${listRequirementPhotoProfile[i].photoRequirements}"),
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          RowVideo(),
+                                          SizedBox(
+                                            height: 40.h,
+                                          )
+                                        ]),
                                       ),
                                     ),
                                     Container(
@@ -351,7 +345,7 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                     ),
                                     Container(
                                       margin: EdgeInsets.only(
-                                          top: 505.h, left: 20.h, right: 20.h),
+                                          top: 500.h, left: 20.h, right: 20.h),
                                       child: Center(
                                           child: ButtonLongForm(
                                         nameButton: "Submit Video",
@@ -398,42 +392,36 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10.h),
-                                        child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: 40.h,
-                                              ),
-                                              ComponentTextDescription(
-                                                "Requirements: ",
-                                                fontSize:
-                                                    size.sizeTextDescriptionGlobal +
-                                                        5.sp,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              for (int i = 0;
-                                                  i <
-                                                      listRequirementPhotoProfile
-                                                          .length;
-                                                  i++)
-                                                ComponentTextDescription(
-                                                  tr("${listRequirementTutoring[i].photoRequirements}"),
-                                                  fontSize: size
-                                                      .sizeTextDescriptionGlobal,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              SizedBox(
-                                                height: 20.h,
-                                              ),
-                                              RowVideo(),
-                                              SizedBox(
-                                                height: 40.h,
-                                              )
-                                            ]),
+                                        child: ListView(children: [
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          ComponentTextDescription(
+                                            "Requirements: ",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal +
+                                                    5.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          for (int i = 0;
+                                              i <
+                                                  listRequirementPhotoProfile
+                                                      .length;
+                                              i++)
+                                            ComponentTextDescription(
+                                              tr("${listRequirementTutoring[i].photoRequirements}"),
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          SizedBox(
+                                            height: 20.h,
+                                          ),
+                                          RowVideo(),
+                                          SizedBox(
+                                            height: 40.h,
+                                          )
+                                        ]),
                                       ),
                                     ),
                                     Container(
@@ -615,18 +603,26 @@ class _CardVideoState extends State<CardVideo> {
                   color: ListColor.colorBackgroundVideoContainer,
                   shape: BorderApp.border,
                   child: Container(
-                    width: 110.w,
-                    height: 150.h,
+                    width: MediaQuery.of(context).size.width *
+                        0.3, // 30% of the screen width
+                    height: MediaQuery.of(context).size.width *
+                        0.3 *
+                        194.7 /
+                        110, // Maintaining the 6:19 aspect ratio
+
                     child: widget.selectedImage == null
                         ? GestureDetector(
                             onTap: pickVIdeo,
                             child: Container(
                               child: Center(
-                                child: ComponentTextDescription(
-                                  "${widget.hintText}",
-                                  fontSize: size.sizeTextDescriptionGlobal.sp,
-                                  textAlign: TextAlign.center,
-                                  fontWeight: FontWeight.bold,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ComponentTextDescription(
+                                    "${widget.hintText}",
+                                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                                    textAlign: TextAlign.center,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -634,7 +630,7 @@ class _CardVideoState extends State<CardVideo> {
                         : Stack(
                             children: [
                               ClipRRect(
-                                  borderRadius: BorderRadius.circular(30.r),
+                                  borderRadius: BorderRadius.circular(20.r),
                                   child: FutureBuilder<Uint8List?>(
                                     future: generateThumbnail(
                                         widget.selectedImage!.path),
@@ -711,18 +707,26 @@ class _CardVideoState extends State<CardVideo> {
                   color: ListColor.colorBackgroundVideoContainer,
                   shape: BorderApp.border,
                   child: Container(
-                    width: 110.w,
-                    height: 150.h,
+                    width: MediaQuery.of(context).size.width *
+                        0.3, // 30% of the screen width
+                    height: MediaQuery.of(context).size.width *
+                        0.3 *
+                        194.7 /
+                        110, // Maintaining the 6:19 aspect ratio
+
                     child: widget.selectedImageThumbnail == null
                         ? GestureDetector(
                             onTap: pickImage,
                             child: Container(
                               child: Center(
-                                child: ComponentTextDescription(
-                                  "${widget.hintText}",
-                                  fontSize: size.sizeTextDescriptionGlobal.sp,
-                                  textAlign: TextAlign.center,
-                                  fontWeight: FontWeight.bold,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ComponentTextDescription(
+                                    "Tap to select a thumbnail",
+                                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                                    textAlign: TextAlign.center,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -730,7 +734,7 @@ class _CardVideoState extends State<CardVideo> {
                         : Stack(
                             children: [
                               ClipRRect(
-                                  borderRadius: BorderRadius.circular(30.r),
+                                  borderRadius: BorderRadius.circular(20.r),
                                   child: FutureBuilder<Uint8List?>(
                                     future: generateThumbnail(
                                         widget.selectedImageThumbnail!.path),
@@ -774,7 +778,7 @@ class _CardVideoState extends State<CardVideo> {
                           ),
                   ),
                 ),
-                ComponentTextDescription("${widget.labelVideo}",
+                ComponentTextDescription("Thumbnail",
                     fontSize: size.sizeTextDescriptionGlobal)
               ],
             ),
