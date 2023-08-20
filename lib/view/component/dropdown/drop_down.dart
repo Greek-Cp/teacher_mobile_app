@@ -130,7 +130,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                 ),
                 child: Padding(
                     padding: EdgeInsets.only(
-                      top: 12.h,
+                      top: 15.h,
                       left: 15.w,
                       right: 10.w,
                       bottom: 7.h,
@@ -156,7 +156,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                           },
                           readOnly: true, // Make the field read-only
                           style: FontType.font_utama(
-                              fontSize: size.sizeTextDescriptionGlobal + 2.sp,
+                              fontSize: size.sizeTextDescriptionGlobal + 6.sp,
                               fontWeight: FontWeight.normal,
                               color: Colors.black),
                           decoration: InputDecoration(
@@ -173,7 +173,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                 child: RotationTransition(
                                   turns: animationRotateIndicatorController,
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 0.h),
+                                    padding: EdgeInsets.only(top: 0),
                                     child: Image.asset(
                                       "assets/icon/ic_drop_down_chose.png",
                                       width: 20.w,
@@ -190,17 +190,14 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                 left: 1,
                                 child: RotationTransition(
                                   turns: animationRotateIndicatorController,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 0),
-                                    child: Image.asset(
-                                      "assets/icon/ic_drop_down_chose.png",
-                                      width: 20.w,
-                                      height: 20.h,
-                                      color: isEmpty == true
-                                          ? ListColor
-                                              .colorOutlineTextFieldWhenEmpty
-                                          : Color.fromARGB(255, 114, 87, 216),
-                                    ),
+                                  child: Image.asset(
+                                    "assets/icon/ic_drop_down_chose.png",
+                                    width: 20.w,
+                                    height: 20.h,
+                                    color: isEmpty == true
+                                        ? ListColor
+                                            .colorOutlineTextFieldWhenEmpty
+                                        : Color.fromARGB(255, 114, 87, 216),
                                   ),
                                 ),
                               ),
@@ -276,7 +273,8 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                                     .nameLanguage
                                                     .toString(),
                                                 fontSize: size
-                                                    .sizeTextDescriptionGlobal,
+                                                    .sizeTextDescriptionGlobal
+                                                    .sp,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                               SizedBox(),
@@ -430,9 +428,10 @@ class _DropDownWidgetState extends State<DropDownWidget>
                 if (widget.containerHeight <= 90) {
                   setState(() {
                     widget.containerHeight += containerHeight;
-                    // if (widget.voidCallbackDropDownArrowOnTap != null) {
-                    //   widget.voidCallbackDropDownArrowOnTap!();
-                    // }
+                    if (widget.voidCallbackDropDownArrowOnTap != null) {
+                      Future.delayed(Duration(milliseconds: 440),
+                          () => {widget.voidCallbackDropDownArrowOnTap!()});
+                    }
                   });
                 } else {
                   setState(() {
