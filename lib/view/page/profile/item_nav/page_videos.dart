@@ -2,10 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
+import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
+
+import 'page_nav_profile_select_picture.dart';
 
 class PageVideos extends StatefulWidget {
   static String? routeName = "/PageNavVideos";
@@ -46,17 +50,18 @@ class _PageVideosState extends State<PageVideos> {
   }
 
   final List<String> keywords = [
-    'Keyword 1',
-    'Keyword 2',
-    'Keyword 3',
-    'Keyword 4',
-    'Keyword 5',
-    'Keyword 6',
-    'Keyword 7',
-    'Keyword 8',
-    'Keyword 9',
-    'Keyword 10',
+    'Kinematics',
+    'Newton\'s Laws',
+    'Thermodynamics',
+    'Quantum Mechanics',
+    'Relativity',
+    'Electricity and Magnetism',
+    'Particle Physics',
+    'Astrophysics',
+    'Optics',
+    'Nuclear Physics',
   ];
+
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -81,47 +86,58 @@ class _PageVideosState extends State<PageVideos> {
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 pinned: true,
-                expandedHeight: 350.h,
-                toolbarHeight: kToolbarHeight + 30.h,
+                expandedHeight: 310.h,
+                toolbarHeight: kToolbarHeight * 1.4.h,
                 flexibleSpace: FlexibleSpaceBar(
+                  titlePadding: EdgeInsets.zero,
                   collapseMode: CollapseMode.parallax,
+                  centerTitle: false,
                   title: _isShrink
                       ? BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 11.0, sigmaY: 11.0),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 0, right: 12),
+                            padding: EdgeInsets.only(
+                                left: 0, right: 0.w, top: 10.h, bottom: 10.h),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8, right: 8),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Text(
-                                        "Flipkart",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        "flipkart.com",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                SizedBox(
+                                  width: 10.w,
                                 ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Container(
-                                    color: Colors.red,
-                                    height: 30,
-                                    width: 30,
-                                  ),
+                                Container(
+                                  height: 60.h,
+                                  width: 60.w,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width: size.sizeBorderBlackGlobal.w),
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
                                 ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ComponentTextDescription(
+                                      "@FirstName",
+                                      fontSize: size.sizeTextHeaderGlobal.sp,
+                                      teksColor: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    ComponentTextDescription(
+                                      "Welcome",
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal.sp,
+                                      teksColor: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                                Expanded(child: Container())
                               ],
                             ),
                           ),
@@ -215,9 +231,11 @@ class _PageVideosState extends State<PageVideos> {
                                 child: Container(
                                   height: 100.h,
                                   decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
+                                      border: Border.all(
+                                          color: Colors.black,
+                                          width: size.sizeBorderBlackGlobal.w),
+                                      color: Colors.white,
+                                      shape: BoxShape.circle),
                                 ),
                               ),
                             ),
@@ -358,7 +376,7 @@ class _PageVideosState extends State<PageVideos> {
                           margin: EdgeInsets.only(
                               left: size.sizePaddingLeftAndRightPage.w),
                           child: ComponentTextDescription(
-                            "My Videos (-)",
+                            "Trending",
                             fontSize: size.sizeTextHeaderGlobal.sp,
                             teksColor: ListColor.colorFontPageNav,
                             fontWeight: FontWeight.bold,
@@ -462,11 +480,14 @@ class _PageVideosState extends State<PageVideos> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 30.h,
+                      ),
                       Container(
                         margin: EdgeInsets.only(
                             left: size.sizePaddingLeftAndRightPage.w),
                         child: ComponentTextDescription(
-                          "My Videos (-)",
+                          "Trending Search",
                           fontSize: size.sizeTextHeaderGlobal.sp,
                           teksColor: ListColor.colorFontPageNav,
                           fontWeight: FontWeight.bold,
@@ -492,14 +513,162 @@ class _PageVideosState extends State<PageVideos> {
                             );
                           }).toList(),
                         ),
-                      )
+                      ),
+                      CardButtonLong(
+                          nameButton: "Show More",
+                          routeName: "",
+                          colorButton: ListColor.colorPurple,
+                          fontWeight: FontWeight.bold,
+                          colorFont: Colors.black)
                     ],
                   ),
                 ),
               ),
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: size.sizePaddingLeftAndRightPage.w,
+                    top: 30.h,
+                    left: size.sizePaddingLeftAndRightPage.w,
+                  ),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.black,
+                          width: size.sizeBorderBlackGlobal),
+                      color: ListColor.colorBackgroundVideosList,
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CardItemPageVideos(
+                            colorCardItem: ListColor.backgroundItemRatingGreen,
+                            valueCard: "For You",
+                            descriptionCard: "",
+                            colorFont: Colors.black,
+                          ),
+                          CardItemPageVideos(
+                            colorCardItem: ListColor.backgroundItemRatingCyan,
+                            valueCard: "Following",
+                            descriptionCard: "",
+                            colorFont: Colors.black,
+                          )
+                        ]),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  margin: EdgeInsets.only(
+                      top: 20.h,
+                      left: size.sizePaddingLeftAndRightPage.h,
+                      right: size.sizePaddingLeftAndRightPage.h),
+                  child: Stack(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 25.h),
+                        decoration: BoxDecoration(
+                          color: ListColor
+                              .colorCardPageVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                          border: Border.all(
+                            color: Colors
+                                .black, // Warna garis tepi (outline) hitam
+                            width: 2.0, // Ketebalan garis tepi
+                          ),
+                          borderRadius: BorderRadius.circular(size
+                              .sizeRoundedGlobal
+                              .r), // Sudut melengkung sebesar 30 unit
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.h),
+                          child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 40.h,
+                                ),
+                                WidgetFollowing(),
+                                WidgetFollowing(),
+                                WidgetFollowing(),
+                                WidgetFollowing(),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                )
+                              ]),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Center(
+                                child: ButtonLongHeader(
+                              nameButton: "Following",
+                              colorFont: Colors.white,
+                              colorButton: ListColor.colorHeaderCard,
+                              routeName: "",
+                              fontWeight: FontWeight.bold,
+                            ))),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 30.h,
+                ),
+              )
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class WidgetFollowing extends StatelessWidget {
+  const WidgetFollowing({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max, // Ensures minimum required space
+        children: [
+          Container(
+            height: 60.h,
+            width: 60.w,
+            decoration:
+                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          Expanded(
+            child: ComponentTextDescription("Username",
+                teksColor: Colors.white,
+                fontSize: size.sizeTextDescriptionGlobal.sp),
+          ),
+          Card(
+            color: ListColor.colorButtonUnfollow,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+              child: ComponentTextDescription("Unfollow",
+                  fontSize: size.sizeTextDescriptionGlobal.sp),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -509,11 +678,13 @@ class CardItemPageVideos extends StatelessWidget {
   Color? colorCardItem;
   String? valueCard;
   String? descriptionCard;
+  Color? colorFont;
   CardItemPageVideos(
       {super.key,
       required this.colorCardItem,
       required this.valueCard,
-      required this.descriptionCard});
+      required this.descriptionCard,
+      this.colorFont});
 
   @override
   Widget build(BuildContext context) {
@@ -538,13 +709,15 @@ class CardItemPageVideos extends StatelessWidget {
                 "${valueCard}",
                 fontWeight: FontWeight.bold,
                 fontSize: size.sizeTextHeaderGlobal - 2.sp,
-                teksColor: ListColor.colorFontPageNav,
+                teksColor:
+                    colorFont == null ? ListColor.colorFontPageNav : colorFont!,
               ),
               ComponentTextDescription(
                 "$descriptionCard",
                 fontWeight: FontWeight.bold,
                 fontSize: size.sizeTextDescriptionGlobal - 5.sp,
-                teksColor: ListColor.colorFontPageNav,
+                teksColor:
+                    colorFont == null ? ListColor.colorFontPageNav : colorFont!,
                 textAlign: TextAlign.center,
               ),
             ],
