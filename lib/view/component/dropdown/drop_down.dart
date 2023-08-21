@@ -130,7 +130,7 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                 ),
                 child: Padding(
                     padding: EdgeInsets.only(
-                      top: 15.h,
+                      top: 17.h,
                       left: 15.w,
                       right: 10.w,
                       bottom: 7.h,
@@ -176,8 +176,8 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                     padding: EdgeInsets.only(top: 0),
                                     child: Image.asset(
                                       "assets/icon/ic_drop_down_chose.png",
-                                      width: 20.w,
-                                      height: 20.h,
+                                      width: 18.w,
+                                      height: 18.h,
                                       color: isEmpty == true
                                           ? ListColor
                                               .colorOutlineTextFieldWhenEmpty
@@ -192,8 +192,8 @@ class _DropDownWidgetLanguageState extends State<DropDownWidgetLanguage>
                                   turns: animationRotateIndicatorController,
                                   child: Image.asset(
                                     "assets/icon/ic_drop_down_chose.png",
-                                    width: 20.w,
-                                    height: 20.h,
+                                    width: 18.w,
+                                    height: 18.h,
                                     color: isEmpty == true
                                         ? ListColor
                                             .colorOutlineTextFieldWhenEmpty
