@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
+import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
 class PageVideos extends StatefulWidget {
   static String? routeName = "/PageNavVideos";
@@ -50,49 +54,54 @@ class _PageVideosState extends State<PageVideos> {
         controller: _scrollController,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
+            TranslucentSliverAppBar(),
             SliverAppBar(
               elevation: 0,
               backgroundColor: Colors.blueGrey,
               pinned: true,
-              expandedHeight: 275.h,
+              expandedHeight: 350.h,
               toolbarHeight: kToolbarHeight + 30.h,
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
                 title: _isShrink
-                    ? Padding(
-                        padding: const EdgeInsets.only(left: 0, right: 12),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8, right: 8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    "Flipkart",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                    ? BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 36.0, sigmaY: 36.0),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 0, right: 12),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, right: 8),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text(
+                                      "Flipkart",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "flipkart.com",
-                                    style: TextStyle(
-                                      fontSize: 12,
+                                    Text(
+                                      "flipkart.com",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: Container(
-                                color: Colors.red,
-                                height: 30,
-                                width: 30,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Container(
+                                  color: Colors.red,
+                                  height: 30,
+                                  width: 30,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       )
                     : null,
@@ -103,29 +112,76 @@ class _PageVideosState extends State<PageVideos> {
                       Stack(
                         children: [
                           Container(
-                            margin: EdgeInsets.only(top: 60.h),
+                            margin: EdgeInsets.only(
+                                top: 60.h,
+                                left: size.sizePaddingLeftAndRightPage.w,
+                                right: size.sizePaddingLeftAndRightPage.w),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.sizePaddingLeftAndRightPage.w),
                             width: double.infinity.w,
-                            color: Colors.yellow,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.black,
+                                    width: size.sizeBorderBlackGlobal),
+                                color: ListColor.colorContainerBase,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: 20.h,
+                                  height: 40.h,
                                 ),
-                                ComponentTextDescription("@FirstName",
-                                    fontSize:
-                                        size.sizeTextDescriptionGlobal.sp),
-                                const SizedBox(
-                                  height: 8,
+                                ComponentTextDescription(
+                                  "@FirstName",
+                                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                                  teksColor: ListColor.colorFontPageNav,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                const Text(
-                                  "flipkart.com",
+                                SizedBox(
+                                  height: 10.h,
                                 ),
-                                const SizedBox(
-                                  height: 5,
+                                ComponentTextDescription(
+                                  "Math teacher by day, tutor by night, contact me if you need any help!",
+                                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                                  teksColor: ListColor.colorFontPageNav,
+                                  fontWeight: FontWeight.normal,
+                                  textAlign: TextAlign.center,
                                 ),
-                                const Text(
-                                  "Info about the company",
+                                SizedBox(
+                                  height: 10.h,
                                 ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+
+                                  mainAxisSize: MainAxisSize
+                                      .max, // Ensures minimum required space
+                                  children: [
+                                    CardItemPageVideos(
+                                        colorCardItem:
+                                            ListColor.colorBackgoundItemCard,
+                                        valueCard: "-",
+                                        descriptionCard: "Views"),
+                                    CardItemPageVideos(
+                                        colorCardItem:
+                                            ListColor.colorBackgoundItemCard,
+                                        valueCard: "-",
+                                        descriptionCard: "Reaction)"),
+                                    CardItemPageVideos(
+                                        colorCardItem:
+                                            ListColor.colorBackgoundItemCard,
+                                        valueCard: "-",
+                                        descriptionCard: "Quick Help"),
+                                    CardItemPageVideos(
+                                        colorCardItem:
+                                            ListColor.colorBackgoundItemCard,
+                                        valueCard: "-",
+                                        descriptionCard: "Tutoring Sessions"),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                )
                               ],
                             ),
                           ),
@@ -137,7 +193,7 @@ class _PageVideosState extends State<PageVideos> {
                                 height: 100.h,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Colors.red,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
@@ -168,5 +224,117 @@ class _PageVideosState extends State<PageVideos> {
         ),
       ),
     );
+  }
+}
+
+class CardItemPageVideos extends StatelessWidget {
+  Color? colorCardItem;
+  String? valueCard;
+  String? descriptionCard;
+  CardItemPageVideos(
+      {super.key,
+      required this.colorCardItem,
+      required this.valueCard,
+      required this.descriptionCard});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Card(
+        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        color: colorCardItem,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            width: size.sizeBorderBlackGlobal,
+          ),
+          borderRadius: BorderRadius.circular(size.sizeRoundedGlobal),
+        ),
+        child: Container(
+          height: 70.h,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ComponentTextDescription(
+                "${valueCard}",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextHeaderGlobal - 2.sp,
+                teksColor: ListColor.colorFontPageNav,
+              ),
+              ComponentTextDescription(
+                "$descriptionCard",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+                teksColor: ListColor.colorFontPageNav,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class TranslucentSliverAppBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SliverPersistentHeader(
+        floating: true,
+        pinned: true,
+        delegate: _TranslucentSliverAppBarDelegate(
+            MediaQuery.of(context).padding,
+        )
+    );
+  }
+}
+
+class _TranslucentSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+
+  /// This is required to calculate the height of the bar
+  final EdgeInsets safeAreaPadding;
+
+  _TranslucentSliverAppBarDelegate(this.safeAreaPadding);
+
+  @override
+  double get minExtent => safeAreaPadding.top;
+
+  @override
+  double get maxExtent => minExtent + kToolbarHeight;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return ClipRect(child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+      child: Opacity(
+          opacity: 0.93,
+          child: Container(
+              // Don't wrap this in any SafeArea widgets, use padding instead
+              padding: EdgeInsets.only(top: safeAreaPadding.top),
+              height: maxExtent,
+              color: Colors.white,
+              // Use Stack and Positioned to create the toolbar slide up effect when scrolled up
+              child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                      bottom: 0, left: 0, right: 0,
+                      child: AppBar(
+                          primary: false,
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          title: Text("Translucent App Bar"),
+                      ),
+                    )
+                  ],
+              )
+          )
+      )
+    ));
+  }
+
+  @override
+  bool shouldRebuild(_TranslucentSliverAppBarDelegate old) {
+    return maxExtent != old.maxExtent || minExtent != old.minExtent ||
+        safeAreaPadding != old.safeAreaPadding;
   }
 }
