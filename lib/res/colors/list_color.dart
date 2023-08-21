@@ -48,4 +48,21 @@ class ListColor {
       Color.fromARGB(255, 247, 0, 180);
   static const colorBackgroundVideoContainer =
       Color.fromARGB(255, 255, 219, 219);
+
+//page color for videos page nav
+
+  //color for card
+  static const colorContainerBase = Color.fromARGB(255, 84, 42, 152);
+  //color for font
+  static const colorFontPageNav = Color.fromARGB(255, 187, 207, 239);
+  //backround color item card list
+  static const colorBackgoundItem = Color.fromARGB(255, 60, 13, 100);
+
+  //background color my videos , trending card layout
+  static const colorBackgroundVideosList = Color.fromARGB(255, 57, 78, 172);
+  //bakround color chip purpler
+  static const colorBackgroundChipPurple = Color.fromARGB(255, 132, 22, 201);
+
+  //background color placeholder grey when image not showed
+  static const colorPlaceHolderVideo = Color.fromARGB(255, 175, 193, 255);
 }
