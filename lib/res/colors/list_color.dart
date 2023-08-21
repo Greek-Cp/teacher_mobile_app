@@ -56,7 +56,7 @@ class ListColor {
   //color for font
   static const colorFontPageNav = Color.fromARGB(255, 187, 207, 239);
   //backround color item card list
-  static const colorBackgoundItem = Color.fromARGB(255, 60, 13, 100);
+  static const colorBackgoundItemCard = Color.fromARGB(255, 60, 13, 100);
 
   //background color my videos , trending card layout
   static const colorBackgroundVideosList = Color.fromARGB(255, 57, 78, 172);
