@@ -65,4 +65,8 @@ class ListColor {
 
   //background color placeholder grey when image not showed
   static const colorPlaceHolderVideo = Color.fromARGB(255, 175, 193, 255);
+
+  static const colorHeaderCard = Color.fromARGB(255, 60, 22, 121);
+  static const colorCardPageVideo = Color.fromARGB(255, 84, 42, 152);
+  static const colorButtonUnfollow = Color.fromARGB(255, 255, 123, 159);
 }
