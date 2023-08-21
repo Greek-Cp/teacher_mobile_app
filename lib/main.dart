@@ -19,6 +19,7 @@ import 'package:teacher_mobile_app/view/page/account_page/page_sign_up.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_up_fill_username.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/page_nav_profile_select_picture.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/page_videos.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_about.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_description.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_education.dart';
@@ -78,7 +79,7 @@ class MainApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           debugShowCheckedModeBanner: false,
-          initialRoute: PageSelectLanguage.routeName.toString(),
+          initialRoute: PageVideos.routeName.toString(),
           defaultTransition: Transition.circularReveal,
           getPages: [
             GetPage(
@@ -138,6 +139,10 @@ class MainApp extends StatelessWidget {
             ),
             GetPage(
                 name: pageNavBar.routeName.toString(), page: () => pageNavBar())
+            //videos,
+            ,
+            GetPage(
+                name: PageVideos.routeName.toString(), page: () => PageVideos())
           ],
           theme: _buildTheme(Brightness.light),
         );
