@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart'
     hide CupertinoTabScaffold, CupertinoTabBar, CupertinoTabController;
 import 'package:teacher_mobile_app/view/component/appbar/custom_tab_scaffold.dart';
 import 'package:teacher_mobile_app/view/component/appbar/custom_bottom_tab_bar.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/page_videos.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
 class pageNavBar extends StatefulWidget {
@@ -95,7 +96,7 @@ class _pageNavBarState extends State<pageNavBar> {
                 return CupertinoTabView(
                   navigatorKey: tabNavKeys[0],
                   builder: (context) {
-                    return CupertinoPageScaffold(child: Text("Page 1 "));
+                    return CupertinoPageScaffold(child: PageVideos());
                   },
                 );
               case 1:
