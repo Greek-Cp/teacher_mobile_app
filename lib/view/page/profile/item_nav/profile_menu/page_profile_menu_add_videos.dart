@@ -191,6 +191,8 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
           ),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 SizedBox(
                   height: 100.h,
@@ -218,7 +220,6 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                             horizontal: size.sizeFieldText.h),
                         child: SingleChildScrollView(
                           child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -264,36 +265,41 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10.h),
-                                        child: ListView(children: [
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          ComponentTextDescription(
-                                            "Requirements: ",
-                                            fontSize:
-                                                size.sizeTextDescriptionGlobal +
-                                                    5.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          for (int i = 0;
-                                              i <
-                                                  listRequirementPhotoProfile
-                                                      .length;
-                                              i++)
-                                            ComponentTextDescription(
-                                              tr("${listRequirementPhotoProfile[i].photoRequirements}"),
-                                              fontSize: size
-                                                  .sizeTextDescriptionGlobal,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          SizedBox(
-                                            height: 20.h,
-                                          ),
-                                          RowVideo(),
-                                          SizedBox(
-                                            height: 40.h,
-                                          )
-                                        ]),
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 50.h,
+                                                ),
+                                                ComponentTextDescription(
+                                                  "Requirements: ",
+                                                  fontSize:
+                                                      size.sizeTextDescriptionGlobal +
+                                                          5.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                for (int i = 0;
+                                                    i <
+                                                        listRequirementPhotoProfile
+                                                            .length;
+                                                    i++)
+                                                  ComponentTextDescription(
+                                                    tr("${listRequirementPhotoProfile[i].photoRequirements}"),
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                SizedBox(
+                                                  height: 20.h,
+                                                ),
+                                                RowVideo(),
+                                                SizedBox(
+                                                  height: 40.h,
+                                                )
+                                              ]),
+                                        ),
                                       ),
                                     ),
                                     Container(
@@ -392,36 +398,41 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10.h),
-                                        child: ListView(children: [
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
-                                          ComponentTextDescription(
-                                            "Requirements: ",
-                                            fontSize:
-                                                size.sizeTextDescriptionGlobal +
-                                                    5.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          for (int i = 0;
-                                              i <
-                                                  listRequirementPhotoProfile
-                                                      .length;
-                                              i++)
-                                            ComponentTextDescription(
-                                              tr("${listRequirementTutoring[i].photoRequirements}"),
-                                              fontSize: size
-                                                  .sizeTextDescriptionGlobal,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          SizedBox(
-                                            height: 20.h,
-                                          ),
-                                          RowVideo(),
-                                          SizedBox(
-                                            height: 40.h,
-                                          )
-                                        ]),
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 40.h,
+                                                ),
+                                                ComponentTextDescription(
+                                                  "Requirements: ",
+                                                  fontSize:
+                                                      size.sizeTextDescriptionGlobal +
+                                                          5.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                for (int i = 0;
+                                                    i <
+                                                        listRequirementPhotoProfile
+                                                            .length;
+                                                    i++)
+                                                  ComponentTextDescription(
+                                                    tr("${listRequirementTutoring[i].photoRequirements}"),
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                SizedBox(
+                                                  height: 20.h,
+                                                ),
+                                                RowVideo(),
+                                                SizedBox(
+                                                  height: 40.h,
+                                                )
+                                              ]),
+                                        ),
                                       ),
                                     ),
                                     Container(
@@ -599,65 +610,68 @@ class _CardVideoState extends State<CardVideo> {
           children: [
             Column(
               children: [
-                Card(
-                  color: ListColor.colorBackgroundVideoContainer,
-                  shape: BorderApp.border,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width *
-                        0.3, // 30% of the screen width
-                    height: MediaQuery.of(context).size.width *
-                        0.3 *
-                        194.7 /
-                        110, // Maintaining the 6:19 aspect ratio
-
-                    child: widget.selectedImage == null
-                        ? GestureDetector(
-                            onTap: pickVIdeo,
-                            child: Container(
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ComponentTextDescription(
-                                    "${widget.hintText}",
-                                    fontSize: size.sizeTextDescriptionGlobal.sp,
-                                    textAlign: TextAlign.center,
-                                    fontWeight: FontWeight.bold,
+                Container(
+                  width: MediaQuery.of(context).size.width *
+                      0.3, // 30% of the screen width
+                  height: MediaQuery.of(context).size.width *
+                      0.3 *
+                      194.7 /
+                      110, // Maintaining the 6:19 aspect ratio
+                  margin: EdgeInsets.only(top: 10.h),
+                  child: Card(
+                    color: ListColor.colorBackgroundVideoContainer,
+                    shape: BorderApp.border,
+                    child: Container(
+                      child: widget.selectedImage == null
+                          ? GestureDetector(
+                              onTap: pickVIdeo,
+                              child: Container(
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ComponentTextDescription(
+                                      "${widget.hintText}",
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal.sp,
+                                      textAlign: TextAlign.center,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
+                            )
+                          : Stack(
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    child: FutureBuilder<Uint8List?>(
+                                      future: generateThumbnail(
+                                          widget.selectedImage!.path),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                                ConnectionState.done &&
+                                            snapshot.hasData) {
+                                          return Image.memory(
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            snapshot.data!,
+                                          );
+                                        } else {
+                                          return CircularProgressIndicator();
+                                        }
+                                      },
+                                    )),
+                                Align(
+                                    alignment: Alignment.center,
+                                    child: Icon(
+                                      Icons.play_circle_fill,
+                                      size: 40,
+                                      color: Colors.white,
+                                    )),
+                              ],
                             ),
-                          )
-                        : Stack(
-                            children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  child: FutureBuilder<Uint8List?>(
-                                    future: generateThumbnail(
-                                        widget.selectedImage!.path),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                              ConnectionState.done &&
-                                          snapshot.hasData) {
-                                        return Image.memory(
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          snapshot.data!,
-                                        );
-                                      } else {
-                                        return CircularProgressIndicator();
-                                      }
-                                    },
-                                  )),
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    Icons.play_circle_fill,
-                                    size: 40,
-                                    color: Colors.white,
-                                  )),
-                            ],
-                          ),
+                    ),
                   ),
                 ),
                 ComponentTextDescription("${widget.labelVideo}",
@@ -675,8 +689,7 @@ class _CardVideoState extends State<CardVideo> {
                       },
                       child: Card(
                         color: Color.fromARGB(255, 214, 214, 214),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.r),
+                        shape: CircleBorder(
                           side: BorderSide(
                             width: size.sizeBorderBlackGlobal,
                             color: Colors.black,
@@ -688,7 +701,7 @@ class _CardVideoState extends State<CardVideo> {
                           child: Center(
                             child: ComponentTextDescription(
                               '\u00D7',
-                              fontSize: size.sizeTextDescriptionGlobal + 5.sp,
+                              fontSize: size.sizeTextDescriptionGlobal + 15.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -703,111 +716,116 @@ class _CardVideoState extends State<CardVideo> {
           children: [
             Column(
               children: [
-                Card(
-                  color: ListColor.colorBackgroundVideoContainer,
-                  shape: BorderApp.border,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width *
-                        0.3, // 30% of the screen width
-                    height: MediaQuery.of(context).size.width *
-                        0.3 *
-                        194.7 /
-                        110, // Maintaining the 6:19 aspect ratio
-
-                    child: widget.selectedImageThumbnail == null
-                        ? GestureDetector(
-                            onTap: pickImage,
-                            child: Container(
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ComponentTextDescription(
-                                    "Tap to select a thumbnail",
-                                    fontSize: size.sizeTextDescriptionGlobal.sp,
-                                    textAlign: TextAlign.center,
-                                    fontWeight: FontWeight.bold,
+                Container(
+                  width: MediaQuery.of(context).size.width *
+                      0.3, // 30% of the screen width
+                  height: MediaQuery.of(context).size.width *
+                      0.3 *
+                      194.7 /
+                      110, // Maintaining the 6:19 aspect ratio
+                  margin: EdgeInsets.only(top: 10.h),
+                  child: Card(
+                    color: ListColor.colorBackgroundVideoContainer,
+                    shape: BorderApp.border,
+                    child: Container(
+                      child: widget.selectedImageThumbnail == null
+                          ? GestureDetector(
+                              onTap: pickImage,
+                              child: Container(
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ComponentTextDescription(
+                                      "Tap to select a thumbnail",
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal.sp,
+                                      textAlign: TextAlign.center,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          )
-                        : Stack(
-                            children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                  child: FutureBuilder<Uint8List?>(
-                                    future: generateThumbnail(
-                                        widget.selectedImageThumbnail!.path),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                              ConnectionState.done &&
-                                          snapshot.hasData) {
-                                        return Image.memory(
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          snapshot.data!,
-                                        );
-                                      } else {
-                                        return Image.file(
-                                          widget.selectedImageThumbnail!,
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                        );
-                                      }
-                                    },
-                                  )),
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: GestureDetector(
-                                    onTap: pickImage,
-                                    child: Container(
-                                      child: Center(
-                                        child: ComponentTextDescription(
-                                          "${widget.hintText}",
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal.sp,
-                                          textAlign: TextAlign.center,
-                                          fontWeight: FontWeight.bold,
+                            )
+                          : Stack(
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    child: FutureBuilder<Uint8List?>(
+                                      future: generateThumbnail(
+                                          widget.selectedImageThumbnail!.path),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                                ConnectionState.done &&
+                                            snapshot.hasData) {
+                                          return Image.memory(
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            snapshot.data!,
+                                          );
+                                        } else {
+                                          return Image.file(
+                                            widget.selectedImageThumbnail!,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                          );
+                                        }
+                                      },
+                                    )),
+                                Align(
+                                    alignment: Alignment.center,
+                                    child: GestureDetector(
+                                      onTap: pickImage,
+                                      child: Container(
+                                        child: Center(
+                                          child: ComponentTextDescription(
+                                            "${widget.hintText}",
+                                            fontSize: size
+                                                .sizeTextDescriptionGlobal.sp,
+                                            textAlign: TextAlign.center,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )),
-                            ],
-                          ),
+                                    )),
+                              ],
+                            ),
+                    ),
                   ),
                 ),
                 ComponentTextDescription("Thumbnail",
                     fontSize: size.sizeTextDescriptionGlobal)
               ],
             ),
-            widget.selectedImage != null
+            widget.selectedImageThumbnail != null
                 ? Positioned(
                     right: 1,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          widget.selectedImageThumbnail = null;
-                        });
-                      },
-                      child: Card(
-                        color: Color.fromARGB(255, 214, 214, 214),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.r),
-                          side: BorderSide(
-                            width: size.sizeBorderBlackGlobal,
-                            color: Colors.black,
+                    child: Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.selectedImageThumbnail = null;
+                          });
+                        },
+                        child: Card(
+                          color: Color.fromARGB(255, 214, 214, 214),
+                          shape: CircleBorder(
+                            side: BorderSide(
+                              width: size.sizeBorderBlackGlobal,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 5.h, horizontal: 15.w),
-                          child: Center(
-                            child: ComponentTextDescription(
-                              '\u00D7',
-                              fontSize: size.sizeTextDescriptionGlobal + 5.sp,
-                              fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5.h, horizontal: 15.w),
+                            child: Center(
+                              child: ComponentTextDescription(
+                                '\u00D7',
+                                fontSize:
+                                    size.sizeTextDescriptionGlobal + 15.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
