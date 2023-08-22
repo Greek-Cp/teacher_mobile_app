@@ -87,7 +87,7 @@ class _PageVideosState extends State<PageVideos> {
                 backgroundColor: Colors.transparent,
                 pinned: true,
                 expandedHeight: 310.h,
-                toolbarHeight: kToolbarHeight * 1.4.h,
+                toolbarHeight: kToolbarHeight * 1.5.h,
                 flexibleSpace: FlexibleSpaceBar(
                   titlePadding: EdgeInsets.zero,
                   collapseMode: CollapseMode.parallax,
