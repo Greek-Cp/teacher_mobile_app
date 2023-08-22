@@ -72,7 +72,7 @@ class _PageVideosState extends State<PageVideos> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 103, 1, 159), // #08F4F9
+              Color.fromARGB(255, 36, 6, 76), // #08F4F9
               Color.fromARGB(255, 103, 1, 159), // #B988FF
             ],
             begin: Alignment.topCenter,
@@ -316,7 +316,7 @@ class _PageVideosState extends State<PageVideos> {
                           margin: EdgeInsets.only(
                               left: size.sizePaddingLeftAndRightPage.w,
                               top: size.sizePaddingLeftAndRightPage.h,
-                              bottom: size.sizePaddingLeftAndRightPage.h),
+                              bottom: size.sizePaddingLeftAndRightPage - 5.h),
                           child: Padding(
                             padding: EdgeInsets.all(8.0.h),
                             child: Row(
@@ -339,7 +339,7 @@ class _PageVideosState extends State<PageVideos> {
                                   color: ListColor.colorFontPageNav,
                                 ),
                                 SizedBox(
-                                  width: 15.w,
+                                  width: 10.w,
                                 ),
                               ],
                             ),
@@ -360,28 +360,61 @@ class _PageVideosState extends State<PageVideos> {
                                 child: Center(
                                     child: Align(
                                   alignment: Alignment.bottomLeft,
-                                  child: Card(
-                                      color: Color.fromARGB(255, 20, 20, 20),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(
-                                            Icons.play_arrow,
-                                            color: Color.fromARGB(
-                                                255, 133, 146, 193),
+                                  child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              left: 5.w, bottom: 5.h),
+                                          decoration: BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 20, 20, 20),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                Icons.play_arrow_outlined,
+                                                color: Color.fromARGB(
+                                                    255, 133, 146, 193),
+                                              ),
+                                              ComponentTextDescription(
+                                                "4564",
+                                                fontSize: size
+                                                    .sizeTextDescriptionGlobal,
+                                                teksColor: Color.fromARGB(
+                                                    255, 133, 146, 193),
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              )
+                                            ],
                                           ),
-                                          ComponentTextDescription(
-                                            "4564",
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              left: 5.w, bottom: 5.h),
+                                          decoration: BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 20, 20, 20),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: ComponentTextDescription(
+                                            "👍",
                                             fontSize:
                                                 size.sizeTextDescriptionGlobal,
                                             teksColor: Color.fromARGB(
                                                 255, 133, 146, 193),
                                           ),
-                                          SizedBox(
-                                            width: 10.w,
-                                          )
-                                        ],
-                                      )),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 )),
                               ),
                             );
