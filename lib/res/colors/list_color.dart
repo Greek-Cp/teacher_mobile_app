@@ -52,22 +52,22 @@ class ListColor {
 //page color for videos page nav
 
   //color for card
-  static const colorContainerBase = Color.fromARGB(255, 84, 42, 152);
+  static const colorContainerBase = Color.fromARGB(255, 35, 5, 72);
   //color for font
   static const colorFontPageNav = Color.fromARGB(255, 187, 207, 239);
   //backround color item card list
   static const colorBackgoundItemCard = Color.fromARGB(255, 60, 13, 100);
 
   //background color my videos , trending card layout
-  static const colorBackgroundVideosList = Color.fromARGB(255, 57, 78, 172);
+  static const colorBackgroundVideosList = Color.fromARGB(255, 59, 18, 92);
   //bakround color chip purpler
   static const colorBackgroundChipPurple = Color.fromARGB(255, 132, 22, 201);
 
   //background color placeholder grey when image not showed
-  static const colorPlaceHolderVideo = Color.fromARGB(255, 175, 193, 255);
+  static const colorPlaceHolderVideo = Color.fromARGB(255, 34, 34, 34);
   static const colorBackgroundScrollBar = Color.fromARGB(255, 135, 106, 183);
   static const colorHeaderCard = Color.fromARGB(255, 60, 22, 121);
-  static const colorCardPageVideo = Color.fromARGB(255, 84, 42, 152);
+  static const colorCardPageVideo = Color.fromARGB(255, 35, 5, 72);
   static const colorButtonUnfollow = Color.fromARGB(255, 255, 123, 159);
   //color backround header app
   static const colorBackgroundCardNewVideo = Color.fromARGB(255, 12, 116, 155);
