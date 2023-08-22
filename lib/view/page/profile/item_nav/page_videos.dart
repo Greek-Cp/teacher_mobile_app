@@ -62,6 +62,7 @@ class _PageVideosState extends State<PageVideos> {
     'Nuclear Physics',
   ];
 
+  bool showFollowing = true;
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -98,47 +99,52 @@ class _PageVideosState extends State<PageVideos> {
                           child: Padding(
                             padding: EdgeInsets.only(
                                 left: 0, right: 0.w, top: 10.h, bottom: 10.h),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Container(
-                                  height: 60.h,
-                                  width: 60.w,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.black,
-                                          width: size.sizeBorderBlackGlobal.w),
-                                      color: Colors.white,
-                                      shape: BoxShape.circle),
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ComponentTextDescription(
-                                      "@FirstName",
-                                      fontSize: size.sizeTextHeaderGlobal.sp,
-                                      teksColor: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    ComponentTextDescription(
-                                      "Welcome",
-                                      fontSize:
-                                          size.sizeTextDescriptionGlobal.sp,
-                                      teksColor: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ],
-                                ),
-                                Expanded(child: Container())
-                              ],
+                            child: SafeArea(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  Container(
+                                    height: 60.h,
+                                    width: 60.w,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.black,
+                                            width:
+                                                size.sizeBorderBlackGlobal.w),
+                                        color: Colors.white,
+                                        shape: BoxShape.circle),
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ComponentTextDescription(
+                                        "@FirstName",
+                                        fontSize: size.sizeTextHeaderGlobal.sp,
+                                        teksColor: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      ComponentTextDescription(
+                                        "Welcome",
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal.sp,
+                                        teksColor: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ],
+                                  ),
+                                  Expanded(child: Container())
+                                ],
+                              ),
                             ),
                           ),
                         )
@@ -267,7 +273,9 @@ class _PageVideosState extends State<PageVideos> {
                       children: [
                         Container(
                           margin: EdgeInsets.only(
-                              left: size.sizePaddingLeftAndRightPage.w),
+                              left: size.sizePaddingLeftAndRightPage.w,
+                              top: size.sizePaddingLeftAndRightPage.h,
+                              bottom: size.sizePaddingLeftAndRightPage.h),
                           child: ComponentTextDescription(
                             "My Videos (-)",
                             fontSize: size.sizeTextHeaderGlobal.sp,
@@ -287,7 +295,7 @@ class _PageVideosState extends State<PageVideos> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 width: 100.w,
-                                height: 150.h,
+                                height: 130.h,
                                 child: Center(
                                     child: index == 0
                                         ? Column(
@@ -374,7 +382,9 @@ class _PageVideosState extends State<PageVideos> {
                       children: [
                         Container(
                           margin: EdgeInsets.only(
-                              left: size.sizePaddingLeftAndRightPage.w),
+                              left: size.sizePaddingLeftAndRightPage.w,
+                              top: size.sizePaddingLeftAndRightPage.h,
+                              bottom: size.sizePaddingLeftAndRightPage.h),
                           child: ComponentTextDescription(
                             "Trending",
                             fontSize: size.sizeTextHeaderGlobal.sp,
@@ -394,7 +404,7 @@ class _PageVideosState extends State<PageVideos> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 width: 100.w,
-                                height: 150.h,
+                                height: 130.h,
                                 child: Center(
                                     child: index == 0
                                         ? Column(
@@ -481,7 +491,7 @@ class _PageVideosState extends State<PageVideos> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 30.h,
+                        height: 10.h,
                       ),
                       Container(
                         margin: EdgeInsets.only(
@@ -496,8 +506,8 @@ class _PageVideosState extends State<PageVideos> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Wrap(
-                          spacing: 8.0,
-                          runSpacing: 8.0,
+                          spacing: 4.0.w,
+                          runSpacing: 4.0.h,
                           children: keywords.map((keyword) {
                             return Chip(
                               label: Text(
@@ -514,12 +524,20 @@ class _PageVideosState extends State<PageVideos> {
                           }).toList(),
                         ),
                       ),
-                      CardButtonLong(
-                          nameButton: "Show More",
-                          routeName: "",
-                          colorButton: ListColor.colorPurple,
-                          fontWeight: FontWeight.bold,
-                          colorFont: Colors.black)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CardButtonLong(
+                            nameButton: "Show More",
+                            routeName: "",
+                            colorButton: ListColor.colorPurple,
+                            fontWeight: FontWeight.bold,
+                            borderShape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.black,
+                                    width: size.sizeBorderBlackGlobal.w),
+                                borderRadius: BorderRadius.circular(10.r)),
+                            colorFont: Colors.black),
+                      )
                     ],
                   ),
                 ),
@@ -541,85 +559,255 @@ class _PageVideosState extends State<PageVideos> {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          CardItemPageVideos(
-                            colorCardItem: ListColor.backgroundItemRatingGreen,
-                            valueCard: "For You",
-                            descriptionCard: "",
-                            colorFont: Colors.black,
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                showFollowing = false;
+                              });
+                            },
+                            child: Expanded(
+                              child: Card(
+                                  color: ListColor.backgroundItemRatingGreen,
+                                  shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          color: Colors.black,
+                                          width: size.sizeBorderBlackGlobal.w),
+                                      borderRadius:
+                                          BorderRadius.circular(10.r)),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(30.0.h),
+                                    child: Center(
+                                      child: ComponentTextDescription(
+                                        "For You",
+                                        fontWeight: FontWeight.bold,
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal.sp,
+                                      ),
+                                    ),
+                                  )),
+                            ),
                           ),
-                          CardItemPageVideos(
-                            colorCardItem: ListColor.backgroundItemRatingCyan,
-                            valueCard: "Following",
-                            descriptionCard: "",
-                            colorFont: Colors.black,
-                          )
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                showFollowing = true;
+                              });
+                            },
+                            child: Expanded(
+                              child: Card(
+                                  color: ListColor.backgroundItemRatingCyan,
+                                  shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          color: Colors.black,
+                                          width: size.sizeBorderBlackGlobal.w),
+                                      borderRadius:
+                                          BorderRadius.circular(10.r)),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(30.0.h),
+                                    child: Center(
+                                      child: ComponentTextDescription(
+                                        "Following",
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                          ),
                         ]),
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Container(
-                  margin: EdgeInsets.only(
-                      top: 20.h,
-                      left: size.sizePaddingLeftAndRightPage.h,
-                      right: size.sizePaddingLeftAndRightPage.h),
-                  child: Stack(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 25.h),
-                        decoration: BoxDecoration(
-                          color: ListColor
-                              .colorCardPageVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
-                          ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
-                          child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 40.h,
+              showFollowing == true
+                  ? SliverToBoxAdapter(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                            top: 20.h,
+                            left: size.sizePaddingLeftAndRightPage.h,
+                            right: size.sizePaddingLeftAndRightPage.h),
+                        child: Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 25.h),
+                              decoration: BoxDecoration(
+                                color: ListColor
+                                    .colorCardPageVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                                border: Border.all(
+                                  color: Colors
+                                      .black, // Warna garis tepi (outline) hitam
+                                  width: 2.0, // Ketebalan garis tepi
                                 ),
-                                WidgetFollowing(),
-                                WidgetFollowing(),
-                                WidgetFollowing(),
-                                WidgetFollowing(),
-                                SizedBox(
-                                  height: 20.h,
+                                borderRadius: BorderRadius.circular(size
+                                    .sizeRoundedGlobal
+                                    .r), // Sudut melengkung sebesar 30 unit
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        size.sizePaddingLeftAndRightPage.w,
+                                    vertical:
+                                        size.sizePaddingLeftAndRightPage.h),
+                                child: Container(
+                                  height: 300.h,
+                                  child: RawScrollbar(
+                                    thumbColor: ListColor.colorHeaderCard,
+                                    thickness: 10,
+                                    trackColor:
+                                        ListColor.colorBackgroundScrollBar,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.r)),
+                                    trackVisibility: true,
+                                    thumbVisibility: true,
+                                    padding: EdgeInsets.only(left: 0.w),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 40.h,
+                                            ),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            SizedBox(
+                                              height: 20.h,
+                                            )
+                                          ]),
+                                    ),
+                                  ),
                                 ),
-                                SizedBox(
-                                  height: 20.h,
-                                )
-                              ]),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 20.w),
+                              child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Center(
+                                      child: ButtonLongHeader(
+                                    nameButton: "For You",
+                                    colorFont: Colors.white,
+                                    colorButton: ListColor.colorHeaderCard,
+                                    routeName: "",
+                                    fontWeight: FontWeight.bold,
+                                  ))),
+                            ),
+                          ],
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Center(
-                                child: ButtonLongHeader(
-                              nameButton: "Following",
-                              colorFont: Colors.white,
-                              colorButton: ListColor.colorHeaderCard,
-                              routeName: "",
-                              fontWeight: FontWeight.bold,
-                            ))),
+                    )
+                  : SliverToBoxAdapter(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                            top: 20.h,
+                            left: size.sizePaddingLeftAndRightPage.h,
+                            right: size.sizePaddingLeftAndRightPage.h),
+                        child: Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 25.h),
+                              decoration: BoxDecoration(
+                                color: ListColor
+                                    .colorCardPageVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                                border: Border.all(
+                                  color: Colors
+                                      .black, // Warna garis tepi (outline) hitam
+                                  width: 2.0, // Ketebalan garis tepi
+                                ),
+                                borderRadius: BorderRadius.circular(size
+                                    .sizeRoundedGlobal
+                                    .r), // Sudut melengkung sebesar 30 unit
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        size.sizePaddingLeftAndRightPage.w,
+                                    vertical:
+                                        size.sizePaddingLeftAndRightPage.h),
+                                child: Container(
+                                  height: 300.h,
+                                  child: RawScrollbar(
+                                    thumbColor: ListColor.colorHeaderCard,
+                                    thickness: 10,
+                                    trackColor:
+                                        ListColor.colorBackgroundScrollBar,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.r)),
+                                    trackVisibility: true,
+                                    thumbVisibility: true,
+                                    padding: EdgeInsets.only(left: 0.w),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 40.h,
+                                            ),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            WidgetFollowing(),
+                                            SizedBox(
+                                              height: 20.h,
+                                            ),
+                                            SizedBox(
+                                              height: 20.h,
+                                            )
+                                          ]),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 20.w),
+                              child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Center(
+                                      child: ButtonLongHeader(
+                                    nameButton: "Following",
+                                    colorFont: Colors.white,
+                                    colorButton: ListColor.colorHeaderCard,
+                                    routeName: "",
+                                    fontWeight: FontWeight.bold,
+                                  ))),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 30.h,
@@ -641,7 +829,8 @@ class WidgetFollowing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(
+          right: 20.w, left: size.sizePaddingLeftAndRightPage.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max, // Ensures minimum required space
@@ -699,7 +888,7 @@ class CardItemPageVideos extends StatelessWidget {
           borderRadius: BorderRadius.circular(size.sizeRoundedGlobal),
         ),
         child: Container(
-          height: 70.h,
+          height: 50.h,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
