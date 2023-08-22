@@ -63,8 +63,8 @@ class _PageProfileAddVideoCategoryState
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 14, 152, 184), // #08F4F9
-              Color.fromARGB(255, 101, 1, 155), // #B988FF
+              Color.fromARGB(255, 103, 1, 159), // #08F4F9
+              Color.fromARGB(255, 103, 1, 159), // #B988FF
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -196,7 +196,7 @@ class CardItemPageProfileAddVideoCategory extends StatelessWidget {
 
 class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   @override
-  double get minExtent => kToolbarHeight * 1.5;
+  double get minExtent => kToolbarHeight;
 
   @override
   double get maxExtent => 110.0;
@@ -207,65 +207,95 @@ class MySliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     bool _isShrink = shrinkOffset > 0;
 
     return Padding(
-      padding: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ButtonBackArrow(
-            onPressed: () {},
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 1.0),
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "new_video",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 16.0,
+        padding: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
+        child: ClipRect(
+            child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                child: Opacity(
+                  opacity: 0.93,
+                  child: SafeArea(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Column(
+                            children: [
+                              ButtonBackArrow(
+                                onPressed: () {},
+                              ),
+                              Text(
+                                " ",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 14.0,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.black, width: 1.0),
+                                    color:
+                                        ListColor.colorBackgroundCardNewVideo,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(5.0.h),
+                                    child: ComponentTextDescription(
+                                      "new_video",
+                                      fontSize: size.sizeTextHeaderGlobal,
+                                      fontWeight: FontWeight.bold,
+                                      textAlign: TextAlign.center,
+                                      teksColor: ListColor.colorFontPageNav,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Column(
+                            children: [
+                              Transform.rotate(
+                                angle: 180 * (3.141592653589793238 / 180),
+                                child: ButtonBackArrow(
+                                  onPressed: () {},
+                                ),
+                              ),
+                              Text(
+                                "Next",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 14.0,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 15.0,
-                ),
-                Transform.rotate(
-                  angle: 180 * (3.141592653589793238 / 180),
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {},
-                  ),
-                ),
-                Text(
-                  "Next",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 14.0,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+                ))));
   }
 
   @override
