@@ -294,8 +294,12 @@ class _PageVideosState extends State<PageVideos> {
                                         : ListColor.colorPlaceHolderVideo,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
-                                width: 100.w,
-                                height: 130.h,
+                                width: MediaQuery.of(context).size.width *
+                                    0.3, // 30% of the screen width
+                                height: MediaQuery.of(context).size.width *
+                                    0.3 *
+                                    194.7 /
+                                    110,  
                                 child: Center(
                                     child: index == 0
                                         ? Column(
@@ -403,8 +407,12 @@ class _PageVideosState extends State<PageVideos> {
                                         : ListColor.colorPlaceHolderVideo,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
-                                width: 100.w,
-                                height: 130.h,
+                                width: MediaQuery.of(context).size.width *
+                                    0.3, // 30% of the screen width
+                                height: MediaQuery.of(context).size.width *
+                                    0.3 *
+                                    194.7 /
+                                    110,
                                 child: Center(
                                     child: index == 0
                                         ? Column(
