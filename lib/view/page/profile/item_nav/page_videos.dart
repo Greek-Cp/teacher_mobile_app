@@ -72,8 +72,8 @@ class _PageVideosState extends State<PageVideos> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 14, 152, 184), // #08F4F9
-              Color.fromARGB(255, 101, 1, 155), // #B988FF
+              Color.fromARGB(255, 103, 1, 159), // #08F4F9
+              Color.fromARGB(255, 103, 1, 159), // #B988FF
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -309,15 +309,40 @@ class _PageVideosState extends State<PageVideos> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.1),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.r))),
                           margin: EdgeInsets.only(
                               left: size.sizePaddingLeftAndRightPage.w,
                               top: size.sizePaddingLeftAndRightPage.h,
                               bottom: size.sizePaddingLeftAndRightPage.h),
-                          child: ComponentTextDescription(
-                            "My Videos (-)",
-                            fontSize: size.sizeTextHeaderGlobal.sp,
-                            teksColor: ListColor.colorFontPageNav,
-                            fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0.h),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                ComponentTextDescription(
+                                  "Trending",
+                                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                                  teksColor: ListColor.colorFontPageNav,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                                Icon(
+                                  Icons.show_chart,
+                                  size: 20.h,
+                                  color: ListColor.colorFontPageNav,
+                                ),
+                                SizedBox(
+                                  width: 15.w,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Row(
@@ -326,77 +351,38 @@ class _PageVideosState extends State<PageVideos> {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: index == 0
-                                        ? Color.fromARGB(255, 175, 255, 243)
-                                        : ListColor.colorPlaceHolderVideo,
+                                    color: ListColor.colorPlaceHolderVideo,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 width: MediaQuery.of(context).size.width *
                                     0.3, // 30% of the screen width
-                                height: MediaQuery.of(context).size.width *
-                                    0.3 *
-                                    194.7 /
-                                    110,
+                                height: MediaQuery.of(context).size.width * 0.4,
                                 child: Center(
-                                    child: index == 0
-                                        ? Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              ComponentTextDescription(
-                                                  "New Video",
-                                                  teksColor: ListColor
-                                                      .colorBackgroundVideosList,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                      size.sizeTextDescriptionGlobal +
-                                                          0.sp),
-                                              Card(
-                                                color: ListColor
-                                                    .colorBackgroundVideosList,
-                                                shape: CircleBorder(),
-                                                child: Padding(
-                                                  padding:
-                                                      EdgeInsets.all(10.0.h),
-                                                  child: ComponentTextDescription(
-                                                      "+",
-                                                      teksColor: Color.fromARGB(
-                                                          255, 175, 255, 243),
-                                                      fontSize:
-                                                          size.sizeTextHeaderGlobal +
-                                                              4.sp),
-                                                ),
-                                              )
-                                            ],
+                                    child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Card(
+                                      color: Color.fromARGB(255, 20, 20, 20),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            Icons.play_arrow,
+                                            color: Color.fromARGB(
+                                                255, 133, 146, 193),
+                                          ),
+                                          ComponentTextDescription(
+                                            "4564",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal,
+                                            teksColor: Color.fromARGB(
+                                                255, 133, 146, 193),
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
                                           )
-                                        : Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Card(
-                                                color: Color.fromARGB(
-                                                    255, 157, 175, 237),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.play_arrow,
-                                                      color: Color.fromARGB(
-                                                          255, 133, 146, 193),
-                                                    ),
-                                                    ComponentTextDescription(
-                                                      "4564",
-                                                      fontSize: size
-                                                          .sizeTextDescriptionGlobal
-                                                          .sp,
-                                                      teksColor: Color.fromARGB(
-                                                          255, 133, 146, 193),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10.w,
-                                                    )
-                                                  ],
-                                                )),
-                                          )),
+                                        ],
+                                      )),
+                                )),
                               ),
                             );
                           }),
@@ -439,9 +425,7 @@ class _PageVideosState extends State<PageVideos> {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: index == 0
-                                        ? Color.fromARGB(255, 175, 255, 243)
-                                        : ListColor.colorPlaceHolderVideo,
+                                    color: ListColor.colorPlaceHolderVideo,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 width: MediaQuery.of(context).size.width *
@@ -451,69 +435,31 @@ class _PageVideosState extends State<PageVideos> {
                                     194.7 /
                                     110,
                                 child: Center(
-                                    child: index == 0
-                                        ? GestureDetector(
-                                            onTap: () {},
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                ComponentTextDescription(
-                                                    "New Video",
-                                                    teksColor: ListColor
-                                                        .colorBackgroundVideosList,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        size.sizeTextDescriptionGlobal +
-                                                            0.sp),
-                                                Card(
-                                                  color: ListColor
-                                                      .colorBackgroundVideosList,
-                                                  shape: CircleBorder(),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(10.0.h),
-                                                    child: ComponentTextDescription(
-                                                        "+",
-                                                        teksColor:
-                                                            Color.fromARGB(255,
-                                                                175, 255, 243),
-                                                        fontSize:
-                                                            size.sizeTextHeaderGlobal +
-                                                                4.sp),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
+                                    child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Card(
+                                      color: Color.fromARGB(255, 157, 175, 237),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            Icons.play_arrow,
+                                            color: Color.fromARGB(
+                                                255, 133, 146, 193),
+                                          ),
+                                          ComponentTextDescription(
+                                            "4564",
+                                            fontSize: size
+                                                .sizeTextDescriptionGlobal.sp,
+                                            teksColor: Color.fromARGB(
+                                                255, 133, 146, 193),
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
                                           )
-                                        : Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Card(
-                                                color: Color.fromARGB(
-                                                    255, 157, 175, 237),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.play_arrow,
-                                                      color: Color.fromARGB(
-                                                          255, 133, 146, 193),
-                                                    ),
-                                                    ComponentTextDescription(
-                                                      "4564",
-                                                      fontSize: size
-                                                          .sizeTextDescriptionGlobal
-                                                          .sp,
-                                                      teksColor: Color.fromARGB(
-                                                          255, 133, 146, 193),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10.w,
-                                                    )
-                                                  ],
-                                                )),
-                                          )),
+                                        ],
+                                      )),
+                                )),
                               ),
                             );
                           }),
