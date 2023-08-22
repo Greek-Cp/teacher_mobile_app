@@ -142,7 +142,25 @@ class _PageVideosState extends State<PageVideos> {
                                       ),
                                     ],
                                   ),
-                                  Expanded(child: Container())
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.topRight,
+                                      child: Container(
+                                        width: 40.w,
+                                        height: 40.h,
+                                        margin: EdgeInsets.only(right: 10.h),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color:
+                                                Colors.white.withOpacity(0.5)),
+                                        child: Icon(
+                                          Icons.search_outlined,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
@@ -153,6 +171,9 @@ class _PageVideosState extends State<PageVideos> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        SizedBox(
+                          height: 30.h,
+                        ),
                         Stack(
                           children: [
                             Container(
@@ -245,6 +266,22 @@ class _PageVideosState extends State<PageVideos> {
                                 ),
                               ),
                             ),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: Container(
+                                width: 40.w,
+                                height: 40.h,
+                                margin: EdgeInsets.only(right: 10.h),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white.withOpacity(0.5)),
+                                child: Icon(
+                                  Icons.search_outlined,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -299,7 +336,7 @@ class _PageVideosState extends State<PageVideos> {
                                 height: MediaQuery.of(context).size.width *
                                     0.3 *
                                     194.7 /
-                                    110,  
+                                    110,
                                 child: Center(
                                     child: index == 0
                                         ? Column(
@@ -415,35 +452,39 @@ class _PageVideosState extends State<PageVideos> {
                                     110,
                                 child: Center(
                                     child: index == 0
-                                        ? Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              ComponentTextDescription(
-                                                  "New Video",
-                                                  teksColor: ListColor
+                                        ? GestureDetector(
+                                            onTap: () {},
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                ComponentTextDescription(
+                                                    "New Video",
+                                                    teksColor: ListColor
+                                                        .colorBackgroundVideosList,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        size.sizeTextDescriptionGlobal +
+                                                            0.sp),
+                                                Card(
+                                                  color: ListColor
                                                       .colorBackgroundVideosList,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                      size.sizeTextDescriptionGlobal +
-                                                          0.sp),
-                                              Card(
-                                                color: ListColor
-                                                    .colorBackgroundVideosList,
-                                                shape: CircleBorder(),
-                                                child: Padding(
-                                                  padding:
-                                                      EdgeInsets.all(10.0.h),
-                                                  child: ComponentTextDescription(
-                                                      "+",
-                                                      teksColor: Color.fromARGB(
-                                                          255, 175, 255, 243),
-                                                      fontSize:
-                                                          size.sizeTextHeaderGlobal +
-                                                              4.sp),
-                                                ),
-                                              )
-                                            ],
+                                                  shape: CircleBorder(),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(10.0.h),
+                                                    child: ComponentTextDescription(
+                                                        "+",
+                                                        teksColor:
+                                                            Color.fromARGB(255,
+                                                                175, 255, 243),
+                                                        fontSize:
+                                                            size.sizeTextHeaderGlobal +
+                                                                4.sp),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           )
                                         : Align(
                                             alignment: Alignment.bottomLeft,
@@ -518,9 +559,9 @@ class _PageVideosState extends State<PageVideos> {
                           runSpacing: 4.0.h,
                           children: keywords.map((keyword) {
                             return Chip(
-                              label: Text(
+                              label: ComponentTextDescription(
                                 keyword,
-                                style: TextStyle(color: Colors.white),
+                                fontSize: size.sizeTextDescriptionGlobal.sp,
                               ),
                               backgroundColor:
                                   ListColor.colorBackgroundChipPurple,
@@ -542,7 +583,7 @@ class _PageVideosState extends State<PageVideos> {
                             borderShape: RoundedRectangleBorder(
                                 side: BorderSide(
                                     color: Colors.black,
-                                    width: size.sizeBorderBlackGlobal.w),
+                                    width: size.sizeBorderBlackGlobal),
                                 borderRadius: BorderRadius.circular(10.r)),
                             colorFont: Colors.black),
                       )
@@ -575,26 +616,25 @@ class _PageVideosState extends State<PageVideos> {
                                 showFollowing = false;
                               });
                             },
-                            child: Expanded(
-                              child: Card(
-                                  color: ListColor.backgroundItemRatingGreen,
-                                  shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          color: Colors.black,
-                                          width: size.sizeBorderBlackGlobal.w),
-                                      borderRadius:
-                                          BorderRadius.circular(10.r)),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(30.0.h),
-                                    child: Center(
-                                      child: ComponentTextDescription(
-                                        "For You",
-                                        fontWeight: FontWeight.bold,
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal.sp,
-                                      ),
-                                    ),
-                                  )),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ListColor.backgroundItemRatingGreen,
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: size.sizeBorderBlackGlobal,
+                                ),
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(30.0.h),
+                                child: Center(
+                                  child: ComponentTextDescription(
+                                    "For You",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                           GestureDetector(
@@ -603,26 +643,25 @@ class _PageVideosState extends State<PageVideos> {
                                 showFollowing = true;
                               });
                             },
-                            child: Expanded(
-                              child: Card(
-                                  color: ListColor.backgroundItemRatingCyan,
-                                  shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          color: Colors.black,
-                                          width: size.sizeBorderBlackGlobal.w),
-                                      borderRadius:
-                                          BorderRadius.circular(10.r)),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(30.0.h),
-                                    child: Center(
-                                      child: ComponentTextDescription(
-                                        "Following",
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal.sp,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  )),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ListColor.backgroundItemRatingCyan,
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: size.sizeBorderBlackGlobal,
+                                ),
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(30.0.h),
+                                child: Center(
+                                  child: ComponentTextDescription(
+                                    "Following",
+                                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ]),
@@ -896,7 +935,8 @@ class CardItemPageVideos extends StatelessWidget {
           borderRadius: BorderRadius.circular(size.sizeRoundedGlobal),
         ),
         child: Container(
-          height: 50.h,
+          height: 60.h,
+          width: 100.w,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
