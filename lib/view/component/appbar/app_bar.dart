@@ -107,6 +107,117 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(70.h);
 }
 
+class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
+  bool _showWidget;
+  double opacity;
+  AppBarMainVideo(this._showWidget, this.opacity);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 0.h, left: 0.h),
+      child: AppBar(
+        forceMaterialTransparency: true,
+        backgroundColor:
+            Colors.transparent, // Make the AppBar background transparent
+        elevation: 0, // Remove shadow under the AppBar
+        flexibleSpace: ClipRect(
+          // Clip the background to avoid blur overflow
+          child: BackdropFilter(
+            // Add blur effect to the background
+
+            filter: ImageFilter.blur(
+                sigmaX: 5,
+                sigmaY:
+                    5), // Adjust the sigma values for the desired blur intensity
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.black
+                  .withOpacity(0.07), // Adjust the opacity of the blur effect
+            ),
+          ),
+        ),
+        actions: [
+          SizedBox(
+            width: size.sizePaddingLeftAndRightPage.h,
+          ),
+          AnimatedOpacity(
+            duration: Duration(milliseconds: 300),
+            opacity: _showWidget ? 1.0 : 0.0,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Container(
+                padding: EdgeInsets.all(30.w),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.black,
+                        width: size.sizeBorderBlackGlobal.w),
+                    color: Colors.white,
+                    shape: BoxShape.circle),
+              ),
+            ),
+          ),
+          Expanded(
+            child: AnimatedOpacity(
+              duration: Duration(milliseconds: 300),
+              opacity: _showWidget ? 1.0 : 0.0,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.black,
+                        width: size.sizeBorderBlackGlobal.h),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 203, 71, 242), // #08F4F9
+                        Color.fromARGB(255, 103, 1, 159), // #B988FF
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(30.r)),
+                child: Center(
+                  child: ComponentTextDescription(
+                    tr("Hey Firstname"),
+                    teksColor: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          AnimatedOpacity(
+            duration: Duration(milliseconds: 300),
+            opacity: _showWidget ? 1.0 : 0.0,
+            child: Container(
+              padding: EdgeInsets.only(right: 10.h, left: 10.h),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle, color: Colors.white.withOpacity(0.5)),
+              child: Icon(
+                Icons.search_outlined,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: size.sizePaddingLeftAndRightPage.h,
+          ),
+        ],
+        leading: Container(),
+        // Other properties of the AppBar if needed
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(70.h);
+}
+
 class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
