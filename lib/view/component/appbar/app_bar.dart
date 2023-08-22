@@ -106,3 +106,102 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(70.h);
 }
+
+class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 0.h, left: 0.h),
+      child: AppBar(
+        forceMaterialTransparency: true,
+        backgroundColor:
+            Colors.transparent, // Make the AppBar background transparent
+        elevation: 0, // Remove shadow under the AppBar
+        flexibleSpace: ClipRect(
+          // Clip the background to avoid blur overflow
+          child: BackdropFilter(
+            // Add blur effect to the background
+
+            filter: ImageFilter.blur(
+                sigmaX: 5,
+                sigmaY:
+                    5), // Adjust the sigma values for the desired blur intensity
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.black
+                  .withOpacity(0.07), // Adjust the opacity of the blur effect
+            ),
+          ),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Column(
+              children: [
+                ButtonBackArrow(
+                  onPressed: () {},
+                ),
+                ComponentTextDescription(
+                  "Next",
+                  fontWeight: FontWeight.bold,
+                  textAlign: TextAlign.center,
+                  teksColor: Colors.black,
+                  fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Colors.black, width: size.sizeBorderBlackGlobal),
+                  color: ListColor.colorBackgroundCardNewVideo,
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Padding(
+                padding: EdgeInsets.all(8.0.h),
+                child: ComponentTextDescription(
+                  "new_video",
+                  fontWeight: FontWeight.bold,
+                  textAlign: TextAlign.center,
+                  teksColor: ListColor.colorFontPageNav,
+                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Column(
+              children: [
+                Transform.rotate(
+                  angle: 180 * (3.141592653589793238 / 180),
+                  child: ButtonBackArrow(
+                    onPressed: () {},
+                  ),
+                ),
+                ComponentTextDescription(
+                  "Next",
+                  fontWeight: FontWeight.bold,
+                  textAlign: TextAlign.center,
+                  teksColor: Colors.black,
+                  fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                ),
+              ],
+            ),
+          ),
+        ],
+        leading: Container(),
+        // Other properties of the AppBar if needed
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(90.h);
+}
