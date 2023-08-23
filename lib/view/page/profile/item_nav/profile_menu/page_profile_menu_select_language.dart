@@ -109,7 +109,7 @@ class _PageProfileMenuSelectLanguageState
     if (lang == "AR") {
       print("arab");
     } else {
-      print("engl");
+      print("englis");
     }
 
     return Scaffold(
