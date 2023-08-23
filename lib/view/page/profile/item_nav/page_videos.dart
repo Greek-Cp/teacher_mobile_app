@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
+import 'package:teacher_mobile_app/res/font/font_type.dart';
 import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
@@ -95,7 +96,8 @@ class _PageVideosState extends State<PageVideos> {
                               left: size.sizePaddingLeftAndRightPage.w,
                               right: size.sizePaddingLeftAndRightPage.w),
                           padding: EdgeInsets.symmetric(
-                              horizontal: size.sizePaddingLeftAndRightPage.w),
+                              horizontal:
+                                  size.sizePaddingLeftAndRightPage - 5.w),
                           width: double.infinity.w,
                           decoration: BoxDecoration(
                               border: Border.all(
@@ -125,80 +127,66 @@ class _PageVideosState extends State<PageVideos> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        ComponentTextDescription(
-                                          "Cassablanca",
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal -
-                                                  3.sp,
-                                          teksColor: Color.fromARGB(
-                                              255, 255, 126, 195),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        ComponentTextDescription(
-                                          "Morroco",
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal -
-                                                  3.sp,
-                                          teksColor: Color.fromARGB(
-                                              255, 255, 126, 195),
-                                          fontWeight: FontWeight.bold,
+                                        Text(
+                                          "Cassablanca\nMorroco",
+                                          style: FontType.font_utama(
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal -
+                                                    2.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromARGB(
+                                                255, 255, 126, 195),
+                                            height: 0.7
+                                                .h, // Adjust this value as needed
+                                          ),
+                                          textAlign: TextAlign.start,
                                         ),
                                       ],
                                     ),
                                     Expanded(child: Container()),
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ComponentTextDescription(
-                                          "English",
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal -
-                                                  3.sp,
-                                          teksColor: Color.fromARGB(
-                                              255, 255, 126, 195),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        ComponentTextDescription(
-                                          "French",
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal -
-                                                  3.sp,
-                                          teksColor: Color.fromARGB(
-                                              255, 255, 126, 195),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        ComponentTextDescription(
-                                          "Arabic",
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal -
-                                                  3.sp,
-                                          teksColor: Color.fromARGB(
-                                              255, 255, 126, 195),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ],
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "English\nFrench\nGerman",
+                                            style: FontType.font_utama(
+                                              fontSize:
+                                                  size.sizeTextDescriptionGlobal -
+                                                      2.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color.fromARGB(
+                                                  255, 255, 126, 195),
+                                              height: 0.7
+                                                  .h, // Adjust this value as needed
+                                            ),
+                                            textAlign: TextAlign.end,
+                                          ),
+                                        ]),
+                                    SizedBox(width: 3.w),
+                                    SvgPicture.asset(
+                                      "assets/icon/profile/ic_world_wide.svg",
+                                      width: 20.w,
+                                      height: 20.h,
+                                      color: Color.fromARGB(255, 255, 126, 195),
                                     ),
-                                    Icon(Icons.maps_home_work_rounded,
-                                        color:
-                                            Color.fromARGB(255, 255, 126, 195)),
                                   ]),
                               SizedBox(
-                                height: 40.h,
+                                height: 20.h,
                               ),
                               ComponentTextDescription(
-                                "@FirstName",
-                                fontSize: size.sizeTextDescriptionGlobal.sp,
-                                teksColor: Colors.white,
+                                "@Username",
+                                fontSize: size.sizeTextDescriptionGlobal - 1.sp,
+                                teksColor: Color.fromARGB(255, 227, 203, 254),
                                 fontWeight: FontWeight.bold,
                               ),
                               SizedBox(
-                                height: 10.h,
+                                height: 0.h,
                               ),
                               ComponentTextDescription(
                                 "Firstname Lastname",
-                                fontSize: size.sizeTextDescriptionGlobal.sp,
-                                teksColor: Colors.white,
+                                fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                                teksColor: Color.fromARGB(255, 227, 203, 254),
                                 fontWeight: FontWeight.normal,
                                 textAlign: TextAlign.center,
                               ),
@@ -217,11 +205,13 @@ class _PageVideosState extends State<PageVideos> {
                                         teksColor: Colors.black,
                                         fontSize:
                                             size.sizeTextDescriptionGlobal -
-                                                4.sp,
+                                                5.sp,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       backgroundColor:
                                           Color.fromARGB(255, 255, 165, 165),
                                     ),
+                                    SizedBox(width: 3.w),
                                     Chip(
                                       side: BorderSide(
                                           color: Colors.black,
@@ -231,11 +221,13 @@ class _PageVideosState extends State<PageVideos> {
                                         teksColor: Colors.black,
                                         fontSize:
                                             size.sizeTextDescriptionGlobal -
-                                                4.sp,
+                                                5.sp,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       backgroundColor:
                                           Color.fromARGB(255, 139, 190, 252),
                                     ),
+                                    SizedBox(width: 3.w),
                                     Chip(
                                       side: BorderSide(
                                           color: Colors.black,
@@ -245,13 +237,14 @@ class _PageVideosState extends State<PageVideos> {
                                         teksColor: Colors.black,
                                         fontSize:
                                             size.sizeTextDescriptionGlobal -
-                                                4.sp,
+                                                5.sp,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       backgroundColor:
                                           Color.fromARGB(255, 175, 255, 209),
                                     )
                                   ]),
-                              SizedBox(height: 10.h),
+                              SizedBox(height: 5.h),
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -264,11 +257,13 @@ class _PageVideosState extends State<PageVideos> {
                                         teksColor: Colors.white,
                                         fontSize:
                                             size.sizeTextDescriptionGlobal -
-                                                4.sp,
+                                                5.sp,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       backgroundColor:
                                           Color.fromARGB(255, 162, 97, 219),
                                     ),
+                                    SizedBox(width: 3.w),
                                     Chip(
                                       side: BorderSide(
                                           color: Colors.black,
@@ -278,11 +273,13 @@ class _PageVideosState extends State<PageVideos> {
                                         teksColor: Colors.white,
                                         fontSize:
                                             size.sizeTextDescriptionGlobal -
-                                                4.sp,
+                                                5.sp,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       backgroundColor:
                                           Color.fromARGB(255, 162, 97, 219),
                                     ),
+                                    SizedBox(width: 3.w),
                                     Chip(
                                       side: BorderSide(
                                           color: Colors.black,
@@ -292,7 +289,8 @@ class _PageVideosState extends State<PageVideos> {
                                         teksColor: Colors.white,
                                         fontSize:
                                             size.sizeTextDescriptionGlobal -
-                                                4.sp,
+                                                5.sp,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       backgroundColor:
                                           Color.fromARGB(255, 162, 97, 219),
@@ -304,7 +302,7 @@ class _PageVideosState extends State<PageVideos> {
                               ComponentTextDescription(
                                 "Math teacher by day, tutor by night, contact me if you need any help!",
                                 fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                                teksColor: Colors.white,
+                                teksColor: Color.fromARGB(255, 227, 203, 254),
                                 fontWeight: FontWeight.normal,
                                 textAlign: TextAlign.center,
                               ),
@@ -337,7 +335,8 @@ class _PageVideosState extends State<PageVideos> {
                                       colorCardItem:
                                           ListColor.colorBackgoundItemCard,
                                       valueCard: "-",
-                                      descriptionCard: "Tutoring Sessions"),
+                                      descriptionCard:
+                                          "Tutoring SessionsTutoring Sessions"),
                                 ],
                               ),
                               SizedBox(
@@ -358,22 +357,6 @@ class _PageVideosState extends State<PageVideos> {
                                       width: size.sizeBorderBlackGlobal.w),
                                   color: Color.fromARGB(255, 29, 94, 134),
                                   shape: BoxShape.circle),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            width: 40.w,
-                            height: 40.h,
-                            margin: EdgeInsets.only(right: 10.h),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white.withOpacity(0.5)),
-                            child: Icon(
-                              Icons.search_outlined,
-                              color: Colors.white,
-                              size: 30,
                             ),
                           ),
                         ),
@@ -730,12 +713,14 @@ class _PageVideosState extends State<PageVideos> {
                                   SizedBox(width: 5.w),
                                   ComponentTextDescription(
                                     "My Video",
-                                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                                    fontSize:
+                                        size.sizeTextDescriptionGlobal - 3.sp,
                                     fontWeight: FontWeight.bold,
                                     teksColor: myCourseSelected
                                         ? Color.fromARGB(255, 118, 87, 159)
                                         : Colors.white,
                                   ),
+                                  SizedBox(width: 20.w),
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 10.w,
@@ -754,10 +739,10 @@ class _PageVideosState extends State<PageVideos> {
                                       ),
                                     ),
                                     child: ComponentTextDescription(
-                                      "8",
+                                      "338",
                                       fontWeight: FontWeight.bold,
                                       fontSize:
-                                          size.sizeTextDescriptionGlobal.sp,
+                                          size.sizeTextDescriptionGlobal - 3.sp,
                                     ),
                                   ),
                                 ],
@@ -831,6 +816,73 @@ class _PageVideosState extends State<PageVideos> {
                 child: SizedBox(
               height: 40.h,
             )),
+            // SliverGrid(
+            //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: 3,
+            //     // Number of columns
+            //     childAspectRatio: 2 / 3,
+            //   ),
+            //   delegate: SliverChildBuilderDelegate(
+            //     (BuildContext context, int index) {
+            //       return index == 0
+            //           ? Container(
+            //               color: Color.fromARGB(255, 237, 175, 255),
+            //               child: Column(
+            //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //                 children: [
+            //                   ComponentTextDescription("New Course",
+            //                       teksColor: Color.fromARGB(255, 26, 80, 167),
+            //                       fontWeight: FontWeight.bold,
+            //                       fontSize:
+            //                           size.sizeTextDescriptionGlobal + 0.sp),
+            //                   Card(
+            //                     color: Color.fromARGB(255, 26, 80, 167),
+            //                     shape: CircleBorder(),
+            //                     child: Padding(
+            //                       padding: EdgeInsets.all(10.0.h),
+            //                       child: ComponentTextDescription("+",
+            //                           teksColor:
+            //                               Color.fromARGB(255, 175, 255, 243),
+            //                           fontSize:
+            //                               size.sizeTextHeaderGlobal + 4.sp),
+            //                     ),
+            //                   )
+            //                 ],
+            //               ))
+            //           : Container(
+            //               decoration: BoxDecoration(
+            //                   gradient: LinearGradient(
+            //                     colors: [
+            //                       Color.fromARGB(255, 47, 61, 111), // #08F4F9
+            //                       Color.fromARGB(255, 11, 14, 26), // #B988FF
+            //                     ],
+            //                     begin: Alignment.topCenter,
+            //                     end: Alignment.bottomCenter,
+            //                   ),
+            //                   borderRadius:
+            //                       BorderRadius.all(Radius.circular(5.r))),
+            //               width: MediaQuery.of(context).size.width *
+            //                   0.3, // 30% of the screen width
+            //               height: MediaQuery.of(context).size.width * 0.8,
+            //               child: Center(
+            //                   child: Align(
+            //                       alignment: Alignment.bottomLeft,
+            //                       child: Row(
+            //                         children: [
+            //                           Container(height: 30.h),
+            //                           Column(children: [
+            //                             ComponentTextDescription(
+            //                                 "Course Name over 4 lines with overflow …..",
+            //                                 fontSize: size
+            //                                     .sizeTextDescriptionGlobal.sp)
+            //                           ])
+            //                         ],
+            //                       ))),
+            //             );
+            //     },
+            //     childCount: 20, // Number of items in the GridView
+            //   ),
+            // ),
             SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
@@ -963,7 +1015,7 @@ class WidgetFollowing extends StatelessWidget {
           ),
           Expanded(
             child: ComponentTextDescription("Username",
-                teksColor: Colors.white,
+                teksColor: Color.fromARGB(255, 227, 203, 254),
                 fontSize: size.sizeTextDescriptionGlobal.sp),
           ),
           Card(
@@ -985,49 +1037,47 @@ class CardItemPageVideos extends StatelessWidget {
   String? valueCard;
   String? descriptionCard;
   Color? colorFont;
-  CardItemPageVideos(
-      {super.key,
-      required this.colorCardItem,
-      required this.valueCard,
-      required this.descriptionCard,
-      this.colorFont});
+
+  CardItemPageVideos({
+    Key? key,
+    required this.colorCardItem,
+    required this.valueCard,
+    required this.descriptionCard,
+    this.colorFont,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Card(
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        margin: EdgeInsets.symmetric(horizontal: 10),
         color: colorCardItem,
         shape: RoundedRectangleBorder(
-          side: BorderSide(
-            width: size.sizeBorderBlackGlobal,
-          ),
           borderRadius: BorderRadius.circular(size.sizeRoundedGlobal),
         ),
-        child: Container(
-          height: 60.h,
-          width: 100.w,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ComponentTextDescription(
-                "${valueCard}",
-                fontWeight: FontWeight.bold,
-                fontSize: size.sizeTextHeaderGlobal - 2.sp,
-                teksColor:
-                    colorFont == null ? ListColor.colorFontPageNav : colorFont!,
-              ),
-              ComponentTextDescription(
-                "$descriptionCard",
-                fontWeight: FontWeight.bold,
-                fontSize: size.sizeTextDescriptionGlobal - 5.sp,
-                teksColor:
-                    colorFont == null ? ListColor.colorFontPageNav : colorFont!,
-                textAlign: TextAlign.center,
-              ),
-            ],
+        child: AspectRatio(
+          aspectRatio: 2.7 / 3, // Adjust the aspect ratio as needed
+          child: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ComponentTextDescription(
+                  "${valueCard}",
+                  fontWeight: FontWeight.bold,
+                  fontSize: size.sizeTextHeaderGlobal - 2.sp,
+                  teksColor: colorFont ?? ListColor.colorFontPageNav,
+                ),
+                ComponentTextDescription(
+                  "$descriptionCard",
+                  fontWeight: FontWeight.bold,
+                  fontSize: size.sizeTextDescriptionGlobal - 6.sp,
+                  teksColor: colorFont ?? ListColor.colorFontPageNav,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
         ),
       ),
