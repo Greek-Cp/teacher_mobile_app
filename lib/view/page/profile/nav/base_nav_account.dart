@@ -46,9 +46,16 @@ class _pageNavBarState extends State<pageNavBar> {
     Icons.person_2_outlined
   ];
   List<String> namaIcons = ["Videos", "Chat", "Tutoring", "Quick", "Profile"];
+  List<Color> listColorBottomNavBar = [
+    Color.fromARGB(255, 47, 7, 96),
+    Color.fromARGB(255, 168, 144, 255),
+    Color.fromARGB(255, 168, 144, 255),
+    Color.fromARGB(255, 168, 144, 255),
+    Color.fromARGB(255, 168, 144, 255)
+  ];
   final CupertinoTabController _tabController = CupertinoTabController();
   final accountController = Get.put(AccountUserController());
-
+  int indexNav = 0;
   final List<GlobalKey<NavigatorState>> tabNavKeys =
       List.generate(5, (_) => GlobalKey<NavigatorState>());
   @override
@@ -65,9 +72,15 @@ class _pageNavBarState extends State<pageNavBar> {
       },
       child: CupertinoTabScaffold(
           tabBar: CupertinoTabBar(
+            onTap: (value) {
+              print("value ${value}");
+              setState(() {
+                indexNav = value;
+              });
+            },
             activeColor: Colors.white,
             inactiveColor: Colors.white,
-            backgroundColor: Color.fromARGB(255, 168, 144, 255),
+            backgroundColor: listColorBottomNavBar[indexNav],
             items: [
               BottomNavigationBarItem(
                   icon:
