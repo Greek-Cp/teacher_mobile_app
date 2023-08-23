@@ -184,7 +184,7 @@ class CupertinoTabBar extends StatelessWidget implements PreferredSizeWidget {
     Widget result = Container(
       height: height + bottomPadding + 20,
       decoration: BoxDecoration(
-          color: Color.fromARGB(255, 168, 144, 253),
+          color: backgroundColor,
           border: Border.all(color: Colors.black, width: 2.0),
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), topLeft: Radius.circular(20))),
