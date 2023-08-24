@@ -196,7 +196,8 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
             child: Container(
               padding: EdgeInsets.only(right: 10.h, left: 10.h),
               decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.white.withOpacity(0.5)),
+                  shape: BoxShape.circle,
+                  color: Color.fromARGB(255, 139, 139, 139).withOpacity(0.3)),
               child: Icon(
                 Icons.search_outlined,
                 color: Colors.white,
