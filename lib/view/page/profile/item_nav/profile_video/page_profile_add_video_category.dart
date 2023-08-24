@@ -316,6 +316,7 @@ class TranslucentSliverAppBar extends StatelessWidget {
   }
 }
 
+
 class _TranslucentSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   /// This is required to calculate the height of the bar
   final EdgeInsets safeAreaPadding;
