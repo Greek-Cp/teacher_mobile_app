@@ -180,7 +180,7 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
                     borderRadius: BorderRadius.circular(30.r)),
                 child: Center(
                   child: ComponentTextDescription(
-                    tr("Hey Firstname"),
+                    "Hey Firstname",
                     teksColor: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: size.sizeTextDescriptionGlobal.sp,
