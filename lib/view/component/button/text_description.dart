@@ -62,7 +62,7 @@ class ComponentTextDescription extends StatelessWidget {
       textAlign = TextAlign.center,
       Color teksColor = Colors.black}) {
     return Text(
-      tr("$textDesc"),
+      "$textDesc",
       style: FontType.font_utama(
           fontSize: fontSize.sp, fontWeight: fontWeight, color: teksColor),
       textAlign: textAlign,
