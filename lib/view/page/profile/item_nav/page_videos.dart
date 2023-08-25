@@ -337,8 +337,7 @@ class _PageVideosState extends State<PageVideos> {
                                       colorCardItem:
                                           ListColor.colorBackgoundItemCard,
                                       valueCard: "-",
-                                      descriptionCard:
-                                          "Tutoring SessionsTutoring Sessions"),
+                                      descriptionCard: "Tutoring Sessions"),
                                 ],
                               ),
                               SizedBox(
@@ -372,316 +371,18 @@ class _PageVideosState extends State<PageVideos> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Container(
-                margin: EdgeInsets.only(top: 20.h),
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            left: size.sizePaddingLeftAndRightPage.w),
-                        padding: EdgeInsets.only(bottom: 20.sp),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black,
-                                width: size.sizeBorderBlackGlobal),
-                            color: ListColor.colorBackgroundVideosList,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 60.h,
-                            ),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: List.generate(5, (index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(8.0.h),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color:
-                                              ListColor.colorPlaceHolderVideo,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.3, // 30% of the screen width
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.4,
-                                      child: Center(
-                                          child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Stack(
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Container(
-                                                margin: EdgeInsets.only(
-                                                    left: 5.w, bottom: 5.h),
-                                                decoration: BoxDecoration(
-                                                    color: Color.fromARGB(
-                                                        255, 20, 20, 20),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10))),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.play_arrow_outlined,
-                                                      color: Color.fromARGB(
-                                                          255, 133, 146, 193),
-                                                    ),
-                                                    ComponentTextDescription(
-                                                      "4564",
-                                                      fontSize: size
-                                                          .sizeTextDescriptionGlobal,
-                                                      teksColor: Color.fromARGB(
-                                                          255, 133, 146, 193),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10.w,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child: ComponentTextDescription(
-                                                "👍",
-                                                fontSize: size
-                                                    .sizeTextDescriptionGlobal
-                                                    .sp,
-                                                teksColor: Color.fromARGB(
-                                                    255, 133, 146, 193),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )),
-                                    ),
-                                  );
-                                }),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.r))),
-                      margin: EdgeInsets.only(
-                          left: size.sizePaddingLeftAndRightPage + 20.w,
-                          top: size.sizePaddingLeftAndRightPage.h,
-                          bottom: size.sizePaddingLeftAndRightPage - 5.h),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0.h),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            ComponentTextDescription(
-                              "Trending",
-                              fontSize: size.sizeTextDescriptionGlobal.sp,
-                              teksColor: ListColor.colorFontPageNav,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Icon(
-                              Icons.show_chart,
-                              size: 20.h,
-                              color: ListColor.colorFontPageNav,
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            ListVideoHorizontal(
+              headerText: "Trending",
+              unicodeIcon: Icons.show_chart,
             ),
-            SliverToBoxAdapter(
-              child: Container(
-                margin: EdgeInsets.only(top: 20.h),
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            left: size.sizePaddingLeftAndRightPage.w),
-                        padding: EdgeInsets.only(bottom: 20.sp),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black,
-                                width: size.sizeBorderBlackGlobal),
-                            color: Color.fromARGB(255, 11, 18, 70),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 60.h,
-                            ),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: List.generate(5, (index) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(8.0.h),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color:
-                                              ListColor.colorPlaceHolderVideo,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.3, // 30% of the screen width
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.4,
-                                      child: Center(
-                                          child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Stack(
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Container(
-                                                margin: EdgeInsets.only(
-                                                    left: 5.w, bottom: 5.h),
-                                                decoration: BoxDecoration(
-                                                    color: Color.fromARGB(
-                                                        255, 20, 20, 20),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10))),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.play_arrow_outlined,
-                                                      color: Color.fromARGB(
-                                                          255, 133, 146, 193),
-                                                    ),
-                                                    ComponentTextDescription(
-                                                      "4564",
-                                                      fontSize: size
-                                                          .sizeTextDescriptionGlobal,
-                                                      teksColor: Color.fromARGB(
-                                                          255, 133, 146, 193),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10.w,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child: Container(
-                                                padding: EdgeInsets.all(5.h),
-                                                margin: EdgeInsets.only(
-                                                    left: 5.w,
-                                                    bottom: 5.h,
-                                                    right: 5.h,
-                                                    top: 5.h),
-                                                decoration: BoxDecoration(
-                                                    color: Color.fromARGB(
-                                                        255, 20, 20, 20),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10))),
-                                                child: ComponentTextDescription(
-                                                  "👍",
-                                                  fontSize: size
-                                                      .sizeTextDescriptionGlobal
-                                                      .sp,
-                                                  teksColor: Color.fromARGB(
-                                                      255, 133, 146, 193),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )),
-                                    ),
-                                  );
-                                }),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.r))),
-                      margin: EdgeInsets.only(
-                          left: size.sizePaddingLeftAndRightPage + 20.w,
-                          top: size.sizePaddingLeftAndRightPage.h,
-                          bottom: size.sizePaddingLeftAndRightPage - 5.h),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0.h),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            ComponentTextDescription(
-                              "New Videos",
-                              fontSize: size.sizeTextDescriptionGlobal.sp,
-                              teksColor: ListColor.colorFontPageNav,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Icon(
-                              Icons.local_fire_department_sharp,
-                              size: 20.h,
-                              color: ListColor.colorFontPageNav,
-                            ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            ListVideoHorizontal(
+                colorBackroundList: Color.fromARGB(255, 11, 18, 70),
+                headerText: "New Videos",
+                unicodeIcon: Icons.local_fire_department_sharp),
             SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.only(
+                    top: 10.h,
                     left: size.sizePaddingLeftAndRightPage - 2.h,
                     right: size.sizePaddingLeftAndRightPage - 2.h),
                 child: Card(
@@ -1068,6 +769,163 @@ class _PageVideosState extends State<PageVideos> {
   }
 
   final List<String> itemNames = ['student', 'views', 'videos', 'quizzes'];
+}
+
+class ListVideoHorizontal extends StatelessWidget {
+  Color? colorBackroundList;
+  Color? colorBackgroundItemListCard;
+  String? headerText;
+  IconData? unicodeIcon;
+  ListVideoHorizontal(
+      {this.colorBackroundList,
+      this.colorBackgroundItemListCard,
+      this.headerText,
+      this.unicodeIcon});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: EdgeInsets.only(top: 20.h),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                margin:
+                    EdgeInsets.only(left: size.sizePaddingLeftAndRightPage.w),
+                padding: EdgeInsets.only(bottom: 10.h),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.black, width: size.sizeBorderBlackGlobal),
+                    color: this.colorBackroundList == null
+                        ? ListColor.colorBackgroundVideosList
+                        : colorBackroundList,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 60.h,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 7.w),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(5, (index) {
+                            return Container(
+                              padding: EdgeInsets.all(8.0.h),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: ListColor.colorPlaceHolderVideo,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                width: MediaQuery.of(context).size.width *
+                                    0.3, // 30% of the screen width
+                                height: MediaQuery.of(context).size.width * 0.4,
+                                child: Center(
+                                    child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Container(
+                                          margin: EdgeInsets.only(
+                                              left: 5.w, bottom: 5.h),
+                                          decoration: BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 20, 20, 20),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                Icons.play_arrow_outlined,
+                                                color: Color.fromARGB(
+                                                    255, 133, 146, 193),
+                                              ),
+                                              ComponentTextDescription(
+                                                "4564",
+                                                fontSize: size
+                                                    .sizeTextDescriptionGlobal,
+                                                teksColor: Color.fromARGB(
+                                                    255, 133, 146, 193),
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                        child: ComponentTextDescription(
+                                          "👍",
+                                          fontSize:
+                                              size.sizeTextDescriptionGlobal.sp,
+                                          teksColor: Color.fromARGB(
+                                              255, 133, 146, 193),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.1),
+                  borderRadius: BorderRadius.all(Radius.circular(10.r))),
+              margin: EdgeInsets.only(
+                  left: size.sizePaddingLeftAndRightPage + 20.w,
+                  top: size.sizePaddingLeftAndRightPage + 2.5.h,
+                  bottom: size.sizePaddingLeftAndRightPage - 5.h),
+              child: Padding(
+                padding: EdgeInsets.all(8.0.h),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    ComponentTextDescription(
+                      "${headerText}",
+                      fontSize: size.sizeTextDescriptionGlobal.sp,
+                      teksColor: ListColor.colorFontPageNav,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(
+                      width: 2.w,
+                    ),
+                    Icon(
+                      unicodeIcon,
+                      size: 20.h,
+                      color: ListColor.colorFontPageNav,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class WidgetCardCourseItem extends StatelessWidget {
