@@ -80,7 +80,7 @@ class MainApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           debugShowCheckedModeBanner: false,
-          initialRoute: PageSelectLanguage.routeName.toString(),
+          initialRoute: PageProfileAddVideoCategory.routeName.toString(),
           defaultTransition: Transition.circularReveal,
           getPages: [
             GetPage(
