@@ -42,12 +42,12 @@ class ComponentTextDescription extends StatelessWidget {
   Color teksColor = Colors.black;
   double fontSize;
   FontWeight? fontWeight;
-
+  int? maxLines;
   ComponentTextDescription(this.textContent,
       {this.textAlign = TextAlign.start,
       this.teksColor = Colors.black,
       required this.fontSize,
-      this.fontWeight = FontWeight.normal});
+      this.fontWeight = FontWeight.normal,this.maxLines});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -66,6 +66,8 @@ class ComponentTextDescription extends StatelessWidget {
       style: FontType.font_utama(
           fontSize: fontSize.sp, fontWeight: fontWeight, color: teksColor),
       textAlign: textAlign,
+      overflow: TextOverflow.ellipsis,
+      maxLines: maxLines,
     );
   }
 }
