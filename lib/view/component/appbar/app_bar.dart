@@ -242,6 +242,8 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor:
             Colors.transparent, // Make the AppBar background transparent
         elevation: 0, // Remove shadow under the AppBar
+
+        toolbarHeight: 100.h,
         flexibleSpace: ClipRect(
           // Clip the background to avoid blur overflow
           child: BackdropFilter(
@@ -269,31 +271,27 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
                 ButtonBackArrow(
                   onPressed: () {},
                 ),
-                ComponentTextDescription(
-                  "Next",
-                  fontWeight: FontWeight.bold,
-                  textAlign: TextAlign.center,
-                  teksColor: Colors.black,
-                  fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                ),
+                Container()
               ],
             ),
           ),
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      color: Colors.black, width: size.sizeBorderBlackGlobal),
-                  color: ListColor.colorBackgroundCardNewVideo,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: Padding(
-                padding: EdgeInsets.all(8.0.h),
-                child: ComponentTextDescription(
-                  "new_video",
-                  fontWeight: FontWeight.bold,
-                  textAlign: TextAlign.center,
-                  teksColor: ListColor.colorFontPageNav,
-                  fontSize: size.sizeTextDescriptionGlobal.sp,
+              margin: EdgeInsets.only(bottom: 20.h),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.black, width: size.sizeBorderBlackGlobal),
+                    color: ListColor.colorBackgroundCardNewVideo,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Center(
+                  child: ComponentTextDescription(
+                    "new_video",
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
+                    teksColor: ListColor.colorFontPageNav,
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                  ),
                 ),
               ),
             ),
@@ -302,22 +300,24 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
             onTap: () {
               Navigator.of(context).pop();
             },
-            child: Column(
-              children: [
-                Transform.rotate(
-                  angle: 180 * (3.141592653589793238 / 180),
-                  child: ButtonBackArrow(
-                    onPressed: () {},
+            child: Container(
+              child: Column(
+                children: [
+                  Transform.rotate(
+                    angle: 180 * (3.141592653589793238 / 180),
+                    child: ButtonBackArrow(
+                      onPressed: () {},
+                    ),
                   ),
-                ),
-                ComponentTextDescription(
-                  "Next",
-                  fontWeight: FontWeight.bold,
-                  textAlign: TextAlign.center,
-                  teksColor: Colors.black,
-                  fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                ),
-              ],
+                  ComponentTextDescription(
+                    "Next",
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
+                    teksColor: Colors.white,
+                    fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -328,5 +328,5 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(90.h);
+  Size get preferredSize => Size.fromHeight(70.h);
 }
