@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
@@ -62,7 +64,11 @@ class _PageVideosState extends State<PageVideos> {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
-
+if (Platform.isAndroid) {
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+          systemNavigationBarColor: Color.fromARGB(255, 38, 6, 77),
+          systemNavigationBarIconBrightness: Brightness.light));
+    }
     return Scaffold(
       appBar: AppBarMainVideo(_showWidget, _opacity),
       extendBodyBehindAppBar: true,
@@ -529,7 +535,7 @@ class _PageVideosState extends State<PageVideos> {
                         padding: EdgeInsets.zero,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 3.4 / 3,
+                          childAspectRatio: 3.5  /  3,
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return index == 0
@@ -600,7 +606,8 @@ class _PageVideosState extends State<PageVideos> {
                                             ),
                                           ),
                                           height: double.infinity,
-                                          width: 70.w,
+                                          width: MediaQuery.of(context).size.width *
+                                      0.25,
                                         ),
                                         SizedBox(
                                           width: 5.w,
@@ -953,27 +960,31 @@ class WidgetCardCourseItem extends StatelessWidget {
                 ? size.sizeTextDescriptionGlobal - 9
                 : size.sizeTextDescriptionGlobal - 5;
 
-            return Container(
-              height: 30.h,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ComponentTextDescription(
-                    "3.4k",
-                    fontWeight: FontWeight.bold,
-                    fontSize: fontSizeHeader.sp,
-                    teksColor: ListColor.colorFontPageNav,
-                  ),
-                  ComponentTextDescription(
-                    "Student",
-                    fontWeight: FontWeight.bold,
-                    fontSize: fontSizeDescription.sp,
-                    teksColor: ListColor.colorFontPageNav,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+            return AspectRatio(
+    aspectRatio: 2.7 / 3, // Adjust the aspect ratio as needed
+      
+              child: Container(
+                height: 30.h,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ComponentTextDescription(
+                      "3.4k",
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSizeHeader.sp,
+                      teksColor: ListColor.colorFontPageNav,
+                    ),
+                    ComponentTextDescription(
+                      "Student",
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSizeDescription.sp,
+                      teksColor: ListColor.colorFontPageNav,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             );
           },
