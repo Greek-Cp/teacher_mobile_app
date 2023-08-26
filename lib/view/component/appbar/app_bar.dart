@@ -54,10 +54,8 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-
           Container(
-            margin: EdgeInsets.only(
-                top: 10.h, right: 30.h),
+            margin: EdgeInsets.only(top: 10.h, right: 30.h),
             height: 100.h,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -67,13 +65,11 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-              
                 ComponentTextDescription(
                   tr("confirm_to_save_changes"),
                   fontSize: size.sizeTextDescriptionGlobal.sp,
                   textAlign: TextAlign.right,
                 ),
-
                 Container(
                   decoration: BoxDecoration(
                       color: Color.fromARGB(255, 201, 148, 4),
@@ -84,7 +80,6 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
                     height: 25.h,
                   ),
                 ),
-
               ],
             ),
           ),
@@ -131,35 +126,45 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
         ),
         actions: [
           SizedBox(
-            width: size.sizePaddingLeftAndRightPage.h,
+            width: size.sizePaddingLeftAndRightPage.w,
           ),
-          _showWidget ? AnimatedOpacity(
-            duration: Duration(milliseconds: 300),
-            opacity: _showWidget ? 1.0 : 0.0,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                padding: EdgeInsets.all(30.w),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Colors.greenAccent,
-                        width: size.sizeBorderBlackGlobal.w),
-                    color: Colors.white,
-                    shape: BoxShape.circle),
-              ),
-            ),
-          ) : ComponentTextDescription("Hello Yanuar 👋", fontSize: size.sizeTextHeaderGlobal.sp,
-          fontWeight: FontWeight.bold,
-          teksColor: Colors.white,),
-          
+          _showWidget
+              ? AnimatedOpacity(
+                  duration: Duration(milliseconds: 300),
+                  opacity: _showWidget ? 1.0 : 0.0,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      width: 60.h,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.greenAccent,
+                              width: size.sizeBorderBlackGlobal.w),
+                          color: Colors.white,
+                          shape: BoxShape.circle),
+                    ),
+                  ),
+                )
+              : AnimatedOpacity(
+                  opacity: _showWidget ? 0.0 : 1.0,
+                  duration: Duration(milliseconds: 300),
+                  child: ComponentTextDescription(
+                    "Hello Yanuar 👋",
+                    fontSize: size.sizeTextHeaderGlobal.sp,
+                    fontWeight: FontWeight.bold,
+                    teksColor: Colors.white,
+                  ),
+                ),
+          SizedBox(
+            width: size.sizePaddingLeftAndRightPage.w,
+          ),
           Expanded(
             child: AnimatedOpacity(
               duration: Duration(milliseconds: 300),
               opacity: _showWidget ? 1.0 : 0.0,
               child: Container(
-               
                 decoration: BoxDecoration(
                     border: Border.all(
                         color: Colors.black,
@@ -174,25 +179,29 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     borderRadius: BorderRadius.circular(30.r)),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ComponentTextDescription(
                       "@Username",
                       teksColor: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: size.sizeTextDescriptionGlobal - 1.sp,
+                      fontSize: size.sizeTextDescriptionGlobal - 1,
                       textAlign: TextAlign.left,
                     ),
                     ComponentTextDescription(
                       "Firstname Lastname",
                       teksColor: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                      fontSize: size.sizeTextDescriptionGlobal - 2,
                       textAlign: TextAlign.left,
                     ),
                   ],
                 ),
               ),
             ),
+          ),
+          SizedBox(
+            width: size.sizePaddingLeftAndRightPage.w,
           ),
           AnimatedOpacity(
             duration: Duration(milliseconds: 300),
