@@ -71,4 +71,7 @@ class ListColor {
   static const colorButtonUnfollow = Color.fromARGB(255, 255, 123, 159);
   //color backround header app
   static const colorBackgroundCardNewVideo = Color.fromARGB(255, 12, 116, 155);
+  static const colorCardBaseNewVideo = Color.fromARGB(255, 118, 54, 191);
+  static const colorCardHeaderVideo = Color.fromARGB(255, 84, 42, 152);
+  static const colorDisabledButtonVideo = Color.fromARGB(255, 180, 186, 185);
 }
