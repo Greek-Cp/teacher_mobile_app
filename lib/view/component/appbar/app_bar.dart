@@ -40,24 +40,29 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Column(
-              children: [
-                ButtonBackArrow(
-                  onPressed: () {},
-                ),
-                Container()
-              ],
+          Container(
+            margin: EdgeInsets.only(left: 10.w),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Column(
+                children: [
+                  ButtonBackArrow(
+                    onPressed: () {},
+                  ),
+                  Container()
+                ],
+              ),
             ),
           ),
           Expanded(
               child: Container(
                   height: 100.h,
                   margin: EdgeInsets.only(
-                      bottom: 20.h, right: size.sizePaddingLeftAndRightPage.h),
+                      bottom: 20.h,
+                      left: 0.h,
+                      right: size.sizePaddingLeftAndRightPage.h),
                   decoration: BoxDecoration(
                       border: Border.all(
                           color: Colors.black,
@@ -65,7 +70,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
                       color: ListColor.colorBackgroundConfirmToSaveChanges,
                       borderRadius: BorderRadius.circular(30.r)),
                   child: Row(
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ComponentTextDescription(
@@ -137,9 +142,9 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
                       width: 60.h,
                       decoration: BoxDecoration(
                           border: Border.all(
-                              color: Colors.greenAccent,
-                              width: size.sizeBorderBlackGlobal.w),
-                          color: Colors.white,
+                              color: Color.fromARGB(255, 117, 251, 103),
+                              width: size.sizeBorderBlackGlobal + 3.w),
+                          color: Color.fromARGB(255, 48, 93, 131),
                           shape: BoxShape.circle),
                     ),
                   ),
@@ -170,8 +175,8 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
                               width: size.sizeBorderBlackGlobal.h),
                           gradient: LinearGradient(
                             colors: [
-                              Color.fromARGB(255, 203, 71, 242), // #08F4F9
-                              Color.fromARGB(255, 103, 1, 159), // #B988FF
+                              Color.fromARGB(255, 119, 51, 248), // #08F4F9
+                              Color.fromARGB(255, 129, 23, 149), // #B988FF
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
@@ -190,7 +195,6 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
                           ComponentTextDescription(
                             "Firstname Lastname",
                             teksColor: Colors.white,
-                            fontWeight: FontWeight.bold,
                             fontSize: size.sizeTextDescriptionGlobal - 2,
                             textAlign: TextAlign.left,
                           ),
