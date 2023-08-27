@@ -65,7 +65,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
                       color: ListColor.colorBackgroundConfirmToSaveChanges,
                       borderRadius: BorderRadius.circular(30.r)),
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ComponentTextDescription(
