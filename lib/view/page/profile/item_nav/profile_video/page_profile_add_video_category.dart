@@ -176,6 +176,7 @@ class _PageProfileAddVideoCategoryState
                                         textEditingControllerSelectCountry,
                                     initialValueDropDown: "Select a Country",
                                     containerHeight: 50,
+                                    containerListHeight: 150,
                                     labelText: "Target Country",
                                     listData: [
                                       "Select a Country",
@@ -190,6 +191,7 @@ class _PageProfileAddVideoCategoryState
                                         textEditingControllerMainLanguage,
                                     initialValueDropDown: "Select a Language",
                                     containerHeight: 50,
+                                    containerListHeight: 150,
                                     labelText: "Main Language",
                                     listData: [
                                       "Select a Language",
@@ -209,6 +211,7 @@ class _PageProfileAddVideoCategoryState
                                     initialValueDropDown: "Select a Grade",
                                     containerHeight: 50,
                                     labelText: "Grades",
+                                    containerListHeight: 150,
                                     listData: [
                                       "Select a Grade",
                                       "Grade 1",
@@ -224,6 +227,7 @@ class _PageProfileAddVideoCategoryState
                                         textEditingControllerSubject,
                                     initialValueDropDown: "Select a Subject",
                                     containerHeight: 50,
+                                    containerListHeight: 150,
                                     labelText: "Subject",
                                     listData: [
                                       "Select a Subject",
@@ -241,6 +245,7 @@ class _PageProfileAddVideoCategoryState
                                     initialValueDropDown:
                                         "Select an ability level",
                                     containerHeight: 50,
+                                    containerListHeight: 150,
                                     labelText: "Topics",
                                     listData: [
                                       "Select an ability level",
@@ -258,12 +263,13 @@ class _PageProfileAddVideoCategoryState
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(bottom: 25.h),
+                      padding: EdgeInsets.only(
+                          bottom: 25.h, left: 20.w, right: 20.w),
                       margin:
-                          EdgeInsets.only(top: 490.h, left: 20.h, right: 20.h),
+                          EdgeInsets.only(top: 495.h, left: 20.h, right: 20.h),
                       child: Center(
                           child: ButtonLongForm(
-                        nameButton: "Confirm",
+                        nameButton: "Next",
                         routeName:
                             PageProfileMenuSelectLanguage.routeName.toString(),
                         formKey: _formKey,
