@@ -130,115 +130,101 @@ class _PageVideosState extends State<PageVideos> {
                                   BorderRadius.all(Radius.circular(20))),
                           child: Column(
                             children: [
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      height: 40.h,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 5.h),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 40.h,
+                                        margin: EdgeInsets.only(bottom: 5.h),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Icon(
+                                          Icons.location_pin,
+                                          color: Color.fromARGB(
+                                              255, 255, 126, 195),
+                                        ),
                                       ),
-                                      child: Icon(
-                                        Icons.location_pin,
-                                        color:
-                                            Color.fromARGB(255, 255, 126, 195),
+                                      Container(
+                                        width: 50.w,
+                                        margin: EdgeInsets.only(bottom: 5.h),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Cassablanca",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: FontType.font_utama(
+                                                fontSize:
+                                                    size.sizeTextDescriptionGlobal -
+                                                        4.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    255, 255, 126, 195),
+                                                // Adjust this value as needed
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              "Morroco",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: FontType.font_utama(
+                                                fontSize:
+                                                    size.sizeTextDescriptionGlobal -
+                                                        4.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    255, 255, 126, 195),
+                                                // Adjust this value as needed
+                                              ),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      width: 50.w,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Cassablanca",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: FontType.font_utama(
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      4.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 255, 126, 195),
-                                              // Adjust this value as needed
+                                      Expanded(child: Container()),
+                                      Container(
+                                        width: 50.w,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              "English\nFrench\nGerman",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: FontType.font_utama(
+                                                height: 0.7.h,
+                                                fontSize:
+                                                    size.sizeTextDescriptionGlobal -
+                                                        5.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    255, 255, 126, 195),
+                                              ),
+                                              textAlign: TextAlign.start,
                                             ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                          Text(
-                                            "Morroco",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: FontType.font_utama(
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      4.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 255, 126, 195),
-                                              // Adjust this value as needed
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Expanded(child: Container()),
-                                    Container(
-                                      width: 50.w,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "English",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: FontType.font_utama(
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      4.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 255, 126, 195),
-                                            ),
-                                            textAlign: TextAlign.end,
-                                          ),
-                                          Text(
-                                            "French",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: FontType.font_utama(
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      4.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 255, 126, 195),
-                                            ),
-                                            textAlign: TextAlign.end,
-                                          ),
-                                          Text(
-                                            "German",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: FontType.font_utama(
-                                              fontSize:
-                                                  size.sizeTextDescriptionGlobal -
-                                                      4.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 255, 126, 195),
-                                            ),
-                                            textAlign: TextAlign.end,
-                                          ),
-                                        ],
+                                      SizedBox(width: 3.w),
+                                      Container(
+                                        margin: EdgeInsets.only(bottom: 4.h),
+                                        child: SvgPicture.asset(
+                                          "assets/icon/profile/ic_world_wide.svg",
+                                          width: 20.w,
+                                          height: 20.h,
+                                          color: Color.fromARGB(
+                                              255, 255, 126, 195),
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(width: 3.w),
-                                    SvgPicture.asset(
-                                      "assets/icon/profile/ic_world_wide.svg",
-                                      width: 20.w,
-                                      height: 20.h,
-                                      color: Color.fromARGB(255, 255, 126, 195),
-                                    ),
-                                  ]),
+                                    ]),
+                              ),
                               SizedBox(
                                 height: 20.h,
                               ),
@@ -263,7 +249,7 @@ class _PageVideosState extends State<PageVideos> {
                                 textAlign: TextAlign.center,
                               ),
                               SizedBox(
-                                height: 10.h,
+                                height: 20.h,
                               ),
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -305,7 +291,7 @@ class _PageVideosState extends State<PageVideos> {
                                     ),
                                   ]),
                               SizedBox(
-                                height: 10.h,
+                                height: 8.h,
                               ),
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -347,17 +333,18 @@ class _PageVideosState extends State<PageVideos> {
                                     ),
                                   ]),
                               SizedBox(
-                                height: 10.h,
+                                height: 20.h,
                               ),
                               ComponentTextDescription(
-                                "Math teacher by day, tutor by night, contact me if you need any help!",
+                                "Math teacher by day, tutor by night, contact me if you need any helpsadkmsadkaskdasdasdkasmaksamkdksadmakdkmasdakdasadsakodaodksaoß",
                                 fontSize: size.sizeTextDescriptionGlobal - 2.sp,
                                 teksColor: Color.fromARGB(255, 227, 203, 254),
                                 fontWeight: FontWeight.normal,
                                 textAlign: TextAlign.center,
+                                maxLines: 2,
                               ),
                               SizedBox(
-                                height: 10.h,
+                                height: 20.h,
                               ),
                               Row(
                                 mainAxisAlignment:
@@ -427,6 +414,7 @@ class _PageVideosState extends State<PageVideos> {
                 colorBackroundList: Color.fromARGB(255, 11, 18, 70),
                 headerText: "New Videos",
                 unicodeIcon: Icons.local_fire_department_sharp),
+            SliverToBoxAdapter(child: SizedBox(height: 20.h)),
             SliverToBoxAdapter(
               child: Stack(
                 children: [
@@ -434,7 +422,7 @@ class _PageVideosState extends State<PageVideos> {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                         height: 25.h,
-                        margin: EdgeInsets.only(top: 25.h),
+                        margin: EdgeInsets.only(top: 22.h),
                         color: ListColor.colorContainerBase),
                   ),
                   Card(
@@ -898,7 +886,8 @@ class ListVideoHorizontal extends StatelessWidget {
                         child: Row(
                           children: List.generate(5, (index) {
                             return Container(
-                              padding: EdgeInsets.all(8.0.h),
+                              padding: EdgeInsets.only(
+                                  left: 8.h, right: 8.h, bottom: 4.h),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: ListColor.colorPlaceHolderVideo,
@@ -1028,7 +1017,7 @@ class WidgetCardCourseItem extends StatelessWidget {
       child: Card(
         color: ListColor.colorBackgoundItemCard,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(size.sizeRoundedGlobal),
+          borderRadius: BorderRadius.circular(size.sizeRoundedGlobal - 4.r),
         ),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
