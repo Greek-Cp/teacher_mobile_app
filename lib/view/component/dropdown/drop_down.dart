@@ -346,20 +346,21 @@ class DropDownWidget extends StatefulWidget {
 
   String? initialValueDropDown;
   double containerHeight = 50;
+  double? containerListHeight = 150;
   String? labelText;
   List<String>? listData;
   VoidCallback? voidCallbackDropDownArrowOnTap;
   Color? colorBackgroundDropDown;
   Color? colorBackgroundItemDropDown;
 
-  DropDownWidget({
-    this.voidCallbackDropDownArrowOnTap,
-    required this.textEditingControllerDropDown,
-    required this.initialValueDropDown,
-    required this.containerHeight,
-    required this.labelText,
-    required this.listData,
-  });
+  DropDownWidget(
+      {this.voidCallbackDropDownArrowOnTap,
+      required this.textEditingControllerDropDown,
+      required this.initialValueDropDown,
+      required this.containerHeight,
+      required this.labelText,
+      required this.listData,
+      this.containerListHeight});
   @override
   State<DropDownWidget> createState() => _DropDownWidgetState();
 }
@@ -423,7 +424,9 @@ class _DropDownWidgetState extends State<DropDownWidget>
                   animationRotateIndicatorController.forward(from: 0.0);
                 }
                 double screenHeight = MediaQuery.of(context).size.height;
-                double containerHeight = screenHeight * 0.278;
+                double containerHeight = widget.containerListHeight != null
+                    ? widget.containerListHeight!
+                    : screenHeight * 0.278;
 
                 if (widget.containerHeight <= 90) {
                   setState(() {
@@ -564,8 +567,11 @@ class _DropDownWidgetState extends State<DropDownWidget>
                                               MediaQuery.of(context)
                                                   .size
                                                   .height;
+
                                           double containerHeight =
-                                              screenHeight * 0.278;
+                                              widget.containerListHeight != null
+                                                  ? widget.containerListHeight!
+                                                  : screenHeight * 0.278;
 
                                           animationRotateIndicatorController
                                               .forward(from: 0.0);
