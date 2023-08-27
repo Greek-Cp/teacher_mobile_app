@@ -101,6 +101,12 @@ class _PageProfileAddVideoCategoryState
   int maxLanguage = 2;
   int widgetDropDown = 0;
   bool showTextAddWidget = true;
+  TextEditingController textEditingControllerMainLanguage =
+      TextEditingController();
+  TextEditingController textEditingControllerGrades = TextEditingController();
+  TextEditingController textEditingControllerSubject = TextEditingController();
+  TextEditingController textEditingControllerTopics = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -130,11 +136,14 @@ class _PageProfileAddVideoCategoryState
                 child: Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: size.sizeMarginLeftTittle.w),
+                      height: 505.h,
+                      margin: EdgeInsets.only(
+                          left: size.sizePaddingLeftAndRightPage.w,
+                          right: size.sizePaddingLeftAndRightPage.w,
+                          top: 20.h),
                       decoration: BoxDecoration(
-                        color: Colors
-                            .transparent, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                        color: ListColor
+                            .colorCardBaseNewVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
                         border: Border.all(
                           color:
                               Colors.black, // Warna garis tepi (outline) hitam
@@ -160,33 +169,89 @@ class _PageProfileAddVideoCategoryState
                                   SizedBox(
                                     height: 30.h,
                                   ),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("languages_you_can_use_to_teach_math"),
-                                    fontSize: size.sizeTextHeaderGlobal.sp,
-                                    textAlign: TextAlign.center,
-                                  )),
-                                  Center(
-                                      child: ComponentTextDescription(
-                                    tr("you_will_need_to_provide_a_video_presentation_in_each_selected_languages"),
-                                    fontSize: size.sizeTextDescriptionGlobal.sp,
-                                    textAlign: TextAlign.center,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                                  SizedBox(
-                                    height: 30.h,
-                                  ),
+                                  SizedBox(height: 30.h),
+
                                   DropDownWidget(
                                     textEditingControllerDropDown:
                                         textEditingControllerSelectCountry,
-                                    initialValueDropDown: "select_a_language",
+                                    initialValueDropDown: "Select a Country",
                                     containerHeight: 50,
-                                    labelText: tr("language") + " 1",
-                                    listData: countryOfResidenceList,
+                                    labelText: "Target Country",
+                                    listData: [
+                                      "Select a Country",
+                                      "Country 1",
+                                      "Country 2",
+                                      "Country 3",
+                                    ],
                                   ),
+                                  SizedBox(height: 20.h),
+                                  DropDownWidget(
+                                    textEditingControllerDropDown:
+                                        textEditingControllerMainLanguage,
+                                    initialValueDropDown: "Select a Language",
+                                    containerHeight: 50,
+                                    labelText: "Main Language",
+                                    listData: [
+                                      "Select a Language",
+                                      "English",
+                                      "Spanish",
+                                      "French",
+                                      "German",
+                                    ],
+                                  ),
+
                                   SizedBox(
-                                    height: 60.h,
-                                  )
+                                      height: 20
+                                          .h), // Add more DropDownWidget instances for other labels
+                                  DropDownWidget(
+                                    textEditingControllerDropDown:
+                                        textEditingControllerGrades,
+                                    initialValueDropDown: "Select a Grade",
+                                    containerHeight: 50,
+                                    labelText: "Grades",
+                                    listData: [
+                                      "Select a Grade",
+                                      "Grade 1",
+                                      "Grade 2",
+                                      "Grade 3",
+                                      // Add more grade options
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 20.h),
+                                  DropDownWidget(
+                                    textEditingControllerDropDown:
+                                        textEditingControllerSubject,
+                                    initialValueDropDown: "Select a Subject",
+                                    containerHeight: 50,
+                                    labelText: "Subject",
+                                    listData: [
+                                      "Select a Subject",
+                                      "Subject 1",
+                                      "Subject 2",
+                                      "Subject 3",
+                                      // Add more subject options
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 20.h),
+                                  DropDownWidget(
+                                    textEditingControllerDropDown:
+                                        textEditingControllerTopics,
+                                    initialValueDropDown:
+                                        "Select an ability level",
+                                    containerHeight: 50,
+                                    labelText: "Topics",
+                                    listData: [
+                                      "Select an ability level",
+                                      "Ability Level 1",
+                                      "Ability Level 2",
+                                      "Ability Level 3",
+                                      // Add more ability level options
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 69.h),
                                 ]),
                           ),
                         ),
@@ -194,8 +259,8 @@ class _PageProfileAddVideoCategoryState
                     ),
                     Container(
                       padding: EdgeInsets.only(bottom: 25.h),
-                      margin: EdgeInsets.only(
-                          top: marginConfirm.h, left: 20.h, right: 20.h),
+                      margin:
+                          EdgeInsets.only(top: 490.h, left: 20.h, right: 20.h),
                       child: Center(
                           child: ButtonLongForm(
                         nameButton: "Confirm",
@@ -204,6 +269,18 @@ class _PageProfileAddVideoCategoryState
                         formKey: _formKey,
                       )),
                     ),
+                    Container(
+                        margin: EdgeInsets.symmetric(horizontal: 40.w),
+                        child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Center(
+                                child: ButtonLongHeader(
+                              nameButton: "Video Category",
+                              routeName: "",
+                              colorButton: ListColor.colorCardHeaderVideo,
+                              fontWeight: FontWeight.bold,
+                              colorFont: Colors.white,
+                            ))))
                   ],
                 ),
               ),
