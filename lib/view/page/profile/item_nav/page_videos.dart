@@ -11,6 +11,7 @@ import 'package:teacher_mobile_app/res/font/font_type.dart';
 import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
 import 'page_nav_profile_select_picture.dart';
@@ -23,7 +24,6 @@ class PageVideos extends StatefulWidget {
 
 class _PageVideosState extends State<PageVideos> {
   ScrollController _scrollController = ScrollController();
-  double _opacity = 0.0;
 
   @override
   void initState() {
@@ -54,10 +54,28 @@ class _PageVideosState extends State<PageVideos> {
   bool showFollowing = true;
   bool _showAppBar = true;
   bool _showWidget = false;
+  double _opacityContainer = 0.0;
 
+  double _appBarOpacity = 1.0;
   void _handleScroll() {
+    // Menghitung opasitas App Bar berdasarkan posisi scroll
+    double scrollOffset = _scrollController.offset;
+    double appBarMaxHeight = 200.0; // Ganti dengan nilai yang sesuai
+    double opacity = 1.0 - (scrollOffset / appBarMaxHeight);
+    if (scrollOffset >= appBarMaxHeight) {
+      _showWidget = true;
+    } else {
+      _showWidget = false;
+    }
+    // Batasi opasitas agar berada dalam rentang 0.0 - 1.0
+    opacity = opacity.clamp(0.0, 1.0);
+
     setState(() {
-      _showWidget = _scrollController.offset >= 200;
+      _opacityContainer = (scrollOffset >= 200)
+          ? ((scrollOffset - 200) / 100).clamp(0.0, 1.0)
+          : 0.0;
+
+      _appBarOpacity = opacity;
     });
   }
 
@@ -70,7 +88,7 @@ class _PageVideosState extends State<PageVideos> {
           systemNavigationBarIconBrightness: Brightness.light));
     }
     return Scaffold(
-      appBar: AppBarMainVideo(_showWidget, _opacity),
+      appBar: AppBarMainVideo(_showWidget, _appBarOpacity, _opacityContainer),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
@@ -716,34 +734,45 @@ class _PageVideosState extends State<PageVideos> {
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return index == 0
-                              ? Container(
-                                  color: Color.fromARGB(255, 237, 175, 255),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      ComponentTextDescription("New Video",
-                                          teksColor:
-                                              Color.fromARGB(255, 26, 80, 167),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal +
-                                                  0.sp),
-                                      Card(
-                                        color: Color.fromARGB(255, 26, 80, 167),
-                                        shape: CircleBorder(),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(10.0.h),
-                                          child: ComponentTextDescription("+",
+                              ? GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                PageProfileAddVideoCategory()));
+                                  },
+                                  child: Container(
+                                      color: Color.fromARGB(255, 237, 175, 255),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          ComponentTextDescription("New Video",
                                               teksColor: Color.fromARGB(
-                                                  255, 175, 255, 243),
+                                                  255, 26, 80, 167),
+                                              fontWeight: FontWeight.bold,
                                               fontSize:
-                                                  size.sizeTextHeaderGlobal +
-                                                      4.sp),
-                                        ),
-                                      )
-                                    ],
-                                  ))
+                                                  size.sizeTextDescriptionGlobal +
+                                                      0.sp),
+                                          Card(
+                                            color: Color.fromARGB(
+                                                255, 26, 80, 167),
+                                            shape: CircleBorder(),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(10.0.h),
+                                              child: ComponentTextDescription(
+                                                  "+",
+                                                  teksColor: Color.fromARGB(
+                                                      255, 175, 255, 243),
+                                                  fontSize:
+                                                      size.sizeTextHeaderGlobal +
+                                                          4.sp),
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                )
                               : Container(
                                   decoration: BoxDecoration(
                                       gradient: LinearGradient(
