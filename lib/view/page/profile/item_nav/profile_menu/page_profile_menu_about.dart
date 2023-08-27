@@ -96,7 +96,7 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
     return Scaffold(
       extendBodyBehindAppBar:
           true, // Extend the body behind the AppBar to show the blur effect
-      appBar: AppBarGlobal(),
+      appBar: AppBarPageVideo(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
