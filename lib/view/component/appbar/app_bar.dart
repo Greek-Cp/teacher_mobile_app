@@ -97,11 +97,11 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
 class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
   bool _showWidget;
   double opacity;
-  AppBarMainVideo(this._showWidget, this.opacity);
+  double opacityContainer;
+  AppBarMainVideo(this._showWidget, this.opacity, this.opacityContainer);
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 0.h, left: 0.h),
       child: AppBar(
         forceMaterialTransparency: true,
         backgroundColor:
@@ -125,17 +125,13 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         actions: [
-          SizedBox(
-            width: size.sizePaddingLeftAndRightPage.w,
-          ),
           _showWidget
-              ? AnimatedOpacity(
-                  duration: Duration(milliseconds: 300),
-                  opacity: _showWidget ? 1.0 : 0.0,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Opacity(
+                    opacity: opacityContainer,
                     child: Container(
                       width: 60.h,
                       decoration: BoxDecoration(
@@ -147,67 +143,67 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                 )
-              : AnimatedOpacity(
-                  opacity: _showWidget ? 0.0 : 1.0,
-                  duration: Duration(milliseconds: 300),
-                  child: ComponentTextDescription(
-                    "Hello Yanuar 👋",
-                    fontSize: size.sizeTextHeaderGlobal.sp,
-                    fontWeight: FontWeight.bold,
-                    teksColor: Colors.white,
+              : Expanded(
+                  child: Opacity(
+                    opacity: opacity,
+                    child: Container(
+                      margin: EdgeInsets.only(
+                          left: size.sizePaddingLeftAndRightPage.w),
+                      child: ComponentTextDescription(
+                        "Hello Yanuar 👋",
+                        fontSize: size.sizeTextHeaderGlobal.sp,
+                        fontWeight: FontWeight.bold,
+                        teksColor: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
-          SizedBox(
-            width: size.sizePaddingLeftAndRightPage.w,
-          ),
-          Expanded(
-            child: AnimatedOpacity(
-              duration: Duration(milliseconds: 300),
-              opacity: _showWidget ? 1.0 : 0.0,
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Colors.black,
-                        width: size.sizeBorderBlackGlobal.h),
-                    gradient: LinearGradient(
-                      colors: [
-                        Color.fromARGB(255, 203, 71, 242), // #08F4F9
-                        Color.fromARGB(255, 103, 1, 159), // #B988FF
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+          _showWidget
+              ? Expanded(
+                  child: Opacity(
+                    opacity: opacityContainer,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.black,
+                              width: size.sizeBorderBlackGlobal.h),
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB(255, 203, 71, 242), // #08F4F9
+                              Color.fromARGB(255, 103, 1, 159), // #B988FF
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                          borderRadius: BorderRadius.circular(30.r)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ComponentTextDescription(
+                            "@Username",
+                            teksColor: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: size.sizeTextDescriptionGlobal - 1,
+                            textAlign: TextAlign.left,
+                          ),
+                          ComponentTextDescription(
+                            "Firstname Lastname",
+                            teksColor: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: size.sizeTextDescriptionGlobal - 2,
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(30.r)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ComponentTextDescription(
-                      "@Username",
-                      teksColor: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: size.sizeTextDescriptionGlobal - 1,
-                      textAlign: TextAlign.left,
-                    ),
-                    ComponentTextDescription(
-                      "Firstname Lastname",
-                      teksColor: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: size.sizeTextDescriptionGlobal - 2,
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            width: size.sizePaddingLeftAndRightPage.w,
-          ),
+                  ),
+                )
+              : Container(),
           AnimatedOpacity(
             duration: Duration(milliseconds: 300),
             opacity: _showWidget ? 1.0 : 1.0,
             child: Container(
-              padding: EdgeInsets.only(right: 10.h, left: 10.h),
+              width: 60.h,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color.fromARGB(255, 139, 139, 139).withOpacity(0.3)),
@@ -217,9 +213,6 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
                 size: 30,
               ),
             ),
-          ),
-          SizedBox(
-            width: size.sizePaddingLeftAndRightPage.h,
           ),
         ],
         leading: Container(),
@@ -321,7 +314,6 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
         ],
-        leading: Container(),
         // Other properties of the AppBar if needed
       ),
     );
