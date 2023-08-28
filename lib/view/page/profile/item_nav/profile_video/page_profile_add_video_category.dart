@@ -71,6 +71,7 @@ class _PageProfileAddVideoCategoryState
     print("${lang_1} ${lang_2} ${lang_3} data");
   }
 
+  bool isCheckedBox = false;
   final List<String> countryOfResidenceList = [
     "Indonesia",
     "United States",
@@ -136,7 +137,7 @@ class _PageProfileAddVideoCategoryState
                 child: Stack(
                   children: [
                     Container(
-                      height: 505.h,
+                      height: 560.h,
                       margin: EdgeInsets.only(
                           left: size.sizePaddingLeftAndRightPage.w,
                           right: size.sizePaddingLeftAndRightPage.w,
@@ -176,7 +177,7 @@ class _PageProfileAddVideoCategoryState
                                         textEditingControllerSelectCountry,
                                     initialValueDropDown: "Select a Country",
                                     containerHeight: 50,
-                                    containerListHeight: 150,
+                                    containerListHeight: 80,
                                     labelText: "Target Country",
                                     listData: [
                                       ModelDropDownMultiChoose(
@@ -213,7 +214,7 @@ class _PageProfileAddVideoCategoryState
                                     initialValueDropDown: "Select a Grade",
                                     containerHeight: 50,
                                     labelText: "Grades",
-                                    containerListHeight: 150,
+                                    containerListHeight: 90,
                                     listData: [
                                       ModelDropDownMultiChoose(
                                           "Grade 1", false),
@@ -231,7 +232,7 @@ class _PageProfileAddVideoCategoryState
                                         textEditingControllerSubject,
                                     initialValueDropDown: "Select a Subject",
                                     containerHeight: 50,
-                                    containerListHeight: 150,
+                                    containerListHeight: 90,
                                     labelText: "Subject",
                                     listData: [
                                       "Select a Subject",
@@ -250,7 +251,7 @@ class _PageProfileAddVideoCategoryState
                                         "Select an ability level",
                                     maxBoxChoose: 3,
                                     containerHeight: 50,
-                                    containerListHeight: 150,
+                                    containerListHeight: 110,
                                     labelText: "Topics",
                                     listData: [
                                       ModelDropDownMultiChoose("Physic", false),
@@ -260,6 +261,83 @@ class _PageProfileAddVideoCategoryState
                                           "Algrebra", false),
                                       // Add more ability level options
                                     ],
+                                  ),
+
+                                  SizedBox(height: 20.h),
+                                  Container(
+                                    width: double.infinity,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            size.sizePaddingLeftAndRightPage -
+                                                3.w),
+                                    decoration: BoxDecoration(
+                                      color: Colors
+                                          .white, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                                      border: Border.all(
+                                        color: Colors
+                                            .black, // Warna garis tepi (outline) hitam
+                                        width: 2.0, // Ketebalan garis tepi
+                                      ),
+                                      borderRadius: BorderRadius.circular(size
+                                          .sizeRoundedGlobal
+                                          .r), // Sudut melengkung sebesar 30 unit
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 2.w,
+                                                    vertical: 8.h),
+                                                child: ComponentTextDescription(
+                                                  "Thick the box if this video can be watched and understood withoud sound",
+                                                  fontSize:
+                                                      size.sizeTextDescriptionGlobal -
+                                                          1.sp,
+                                                  maxLines: 3,
+                                                ),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  if (isCheckedBox == false) {
+                                                    isCheckedBox = true;
+                                                  } else {
+                                                    isCheckedBox = false;
+                                                  }
+                                                });
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 2.h,
+                                                    horizontal: 4.h),
+                                                child: Container(
+                                                  margin: EdgeInsets.only(
+                                                      left: 10.h),
+                                                  decoration: BoxDecoration(
+                                                      color:
+                                                          isCheckedBox == true
+                                                              ? Colors.purple
+                                                              : Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0.r),
+                                                      border: Border.all(
+                                                          color: Colors.black,
+                                                          width: size
+                                                              .sizeBorderBlackGlobal)),
+                                                  width: 25.w,
+                                                  height: 25.h,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
 
                                   SizedBox(height: 69.h),
@@ -272,13 +350,14 @@ class _PageProfileAddVideoCategoryState
                       padding: EdgeInsets.only(
                           bottom: 25.h, left: 20.w, right: 20.w),
                       margin:
-                          EdgeInsets.only(top: 495.h, left: 20.h, right: 20.h),
+                          EdgeInsets.only(top: 555.h, left: 20.h, right: 20.h),
                       child: Center(
                           child: ButtonLongForm(
                         nameButton: "Next",
                         routeName:
                             PageProfileMenuSelectLanguage.routeName.toString(),
                         formKey: _formKey,
+                        heightLongHeader: 40.h,
                       )),
                     ),
                     Container(
@@ -289,6 +368,7 @@ class _PageProfileAddVideoCategoryState
                                 child: ButtonLongHeader(
                               nameButton: "Video Category",
                               routeName: "",
+                              heightLongHeader: 10.h,
                               colorButton: ListColor.colorCardHeaderVideo,
                               fontWeight: FontWeight.bold,
                               colorFont: Colors.white,

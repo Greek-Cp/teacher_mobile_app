@@ -275,7 +275,8 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(bottom: 20.h),
+              margin: EdgeInsets.only(
+                  bottom: 25.h, left: 10.w, right: 10.w, top: 5.h),
               child: Container(
                 decoration: BoxDecoration(
                     border: Border.all(
