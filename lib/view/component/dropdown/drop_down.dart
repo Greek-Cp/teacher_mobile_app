@@ -880,8 +880,8 @@ class _DropDownWidgetMultiChooseBoxState
                               ? ListColor
                                   .colorValidationTextFieldBackgroundEmpty
                               : ListColor.colorBackgroundTextFieldAll,
-                          margin: EdgeInsets.only(top: 40.h),
-                          padding: EdgeInsets.only(right: 5, left: 0),
+                          margin: EdgeInsets.only(top: 30.h),
+                          padding: EdgeInsets.only(right: 0, left: 0),
                           child: Scrollbar(
                               thickness: 6,
                               thumbVisibility: true,
@@ -987,7 +987,7 @@ class _DropDownWidgetMultiChooseBoxState
                                               SizedBox(),
                                               Padding(
                                                 padding: EdgeInsets.symmetric(
-                                                    vertical: 2.h,
+                                                    vertical: 0.h,
                                                     horizontal: 4.h),
                                                 child: Container(
                                                   decoration: BoxDecoration(
