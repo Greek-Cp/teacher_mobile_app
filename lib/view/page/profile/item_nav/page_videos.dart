@@ -341,7 +341,7 @@ class _PageVideosState extends State<PageVideos> {
                                 teksColor: Color.fromARGB(255, 227, 203, 254),
                                 fontWeight: FontWeight.normal,
                                 textAlign: TextAlign.center,
-                                maxLines: 2,
+                                maxLines: 3,
                               ),
                               SizedBox(
                                 height: 20.h,
