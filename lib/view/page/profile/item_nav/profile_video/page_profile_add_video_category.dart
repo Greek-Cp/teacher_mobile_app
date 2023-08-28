@@ -171,7 +171,7 @@ class _PageProfileAddVideoCategoryState
                                   ),
                                   SizedBox(height: 30.h),
 
-                                  DropDownWidget(
+                                  DropDownWidgetMultiChooseBox(
                                     textEditingControllerDropDown:
                                         textEditingControllerSelectCountry,
                                     initialValueDropDown: "Select a Country",
@@ -179,11 +179,13 @@ class _PageProfileAddVideoCategoryState
                                     containerListHeight: 150,
                                     labelText: "Target Country",
                                     listData: [
-                                      "Select a Country",
-                                      "Country 1",
-                                      "Country 2",
-                                      "Country 3",
+                                      ModelDropDownMultiChoose(
+                                          "Germany", false),
+                                      ModelDropDownMultiChoose("French", false),
+                                      ModelDropDownMultiChoose(
+                                          "United Kingdom", false),
                                     ],
+                                    maxBoxChoose: 3,
                                   ),
                                   SizedBox(height: 20.h),
                                   DropDownWidget(
@@ -205,7 +207,7 @@ class _PageProfileAddVideoCategoryState
                                   SizedBox(
                                       height: 20
                                           .h), // Add more DropDownWidget instances for other labels
-                                  DropDownWidget(
+                                  DropDownWidgetMultiChooseBox(
                                     textEditingControllerDropDown:
                                         textEditingControllerGrades,
                                     initialValueDropDown: "Select a Grade",
@@ -213,12 +215,14 @@ class _PageProfileAddVideoCategoryState
                                     labelText: "Grades",
                                     containerListHeight: 150,
                                     listData: [
-                                      "Select a Grade",
-                                      "Grade 1",
-                                      "Grade 2",
-                                      "Grade 3",
-                                      // Add more grade options
+                                      ModelDropDownMultiChoose(
+                                          "Grade 1", false),
+                                      ModelDropDownMultiChoose(
+                                          "Grade 2", false),
+                                      ModelDropDownMultiChoose(
+                                          "Grade 3", false),
                                     ],
+                                    maxBoxChoose: 3,
                                   ),
 
                                   SizedBox(height: 20.h),
@@ -239,19 +243,21 @@ class _PageProfileAddVideoCategoryState
                                   ),
 
                                   SizedBox(height: 20.h),
-                                  DropDownWidget(
+                                  DropDownWidgetMultiChooseBox(
                                     textEditingControllerDropDown:
                                         textEditingControllerTopics,
                                     initialValueDropDown:
                                         "Select an ability level",
+                                    maxBoxChoose: 3,
                                     containerHeight: 50,
                                     containerListHeight: 150,
                                     labelText: "Topics",
                                     listData: [
-                                      "Select an ability level",
-                                      "Ability Level 1",
-                                      "Ability Level 2",
-                                      "Ability Level 3",
+                                      ModelDropDownMultiChoose("Physic", false),
+                                      ModelDropDownMultiChoose(
+                                          "Mathematic", false),
+                                      ModelDropDownMultiChoose(
+                                          "Algrebra", false),
                                       // Add more ability level options
                                     ],
                                   ),
