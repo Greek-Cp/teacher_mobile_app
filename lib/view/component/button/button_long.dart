@@ -12,20 +12,23 @@ class ButtonLongForm extends StatelessWidget {
   GlobalKey<FormState> formKey;
   Color? colorButton;
   VoidCallback? onClickButton;
+  double? heightLongHeader;
 
   ButtonLongForm(
       {required this.nameButton,
       required this.routeName,
       required this.formKey,
       this.colorButton,
-      this.onClickButton});
+      this.onClickButton,
+      this.heightLongHeader});
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return ElevatedButton(
         style: ButtonStyle(
-            minimumSize: MaterialStatePropertyAll(Size.fromHeight(55.h)),
+            minimumSize: MaterialStatePropertyAll(Size.fromHeight(
+                heightLongHeader == null ? 55.h : heightLongHeader!)),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.r),
                 side: BorderSide(
@@ -139,21 +142,23 @@ class ButtonLongHeader extends StatelessWidget {
   FontWeight fontWeight;
   Color colorFont;
   TextAlign textAlign;
-
+  double? heightLongHeader;
   ButtonLongHeader(
       {required this.nameButton,
       required this.routeName,
       required this.colorButton,
       required this.fontWeight,
       required this.colorFont,
-      this.textAlign = TextAlign.start});
+      this.textAlign = TextAlign.start,
+      this.heightLongHeader});
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return ElevatedButton(
         style: ButtonStyle(
-            minimumSize: MaterialStatePropertyAll(Size.fromHeight(55.h)),
+            minimumSize: MaterialStatePropertyAll(Size.fromHeight(
+                heightLongHeader == null ? 55.h : heightLongHeader!)),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.r),
                 side: BorderSide(
