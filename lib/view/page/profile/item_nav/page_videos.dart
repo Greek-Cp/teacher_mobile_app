@@ -335,13 +335,16 @@ class _PageVideosState extends State<PageVideos> {
                               SizedBox(
                                 height: 20.h,
                               ),
-                              ComponentTextDescription(
-                                "Math teacher by day, tutor by night, contact me if you need any helpsadkmsadkaskdasdasdkasmaksamkdksadmakdkmasdakdasadsakodaodksaoß",
-                                fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                                teksColor: Color.fromARGB(255, 227, 203, 254),
-                                fontWeight: FontWeight.normal,
-                                textAlign: TextAlign.center,
-                                maxLines: 3,
+                              Container(
+                                margin: EdgeInsets.only(),
+                                child: ComponentTextDescription(
+                                  "Math teacher by day, tutor by night, contact me if you need any helpsadkmsadkaskdasdasdkasmaksamkdksadmakdkmasdakdasadsakodaodksaoß",
+                                  fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                                  teksColor: Color.fromARGB(255, 227, 203, 254),
+                                  fontWeight: FontWeight.normal,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                ),
                               ),
                               SizedBox(
                                 height: 20.h,
