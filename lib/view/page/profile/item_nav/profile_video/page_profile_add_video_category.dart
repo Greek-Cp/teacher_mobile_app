@@ -18,7 +18,49 @@ import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
+
+class DropdownController extends GetxController {
+  List<List<ModelDropDownMultiChoose>> listDropDown = [
+    [
+      ModelDropDownMultiChoose("Germany", false),
+      ModelDropDownMultiChoose("French", false),
+      ModelDropDownMultiChoose("United Kingdom", false),
+    ].obs,
+    [
+      ModelDropDownMultiChoose("Grade 1", false),
+      ModelDropDownMultiChoose("Grade 2", false),
+      ModelDropDownMultiChoose("Grade 3", false),
+    ],
+    [
+      ModelDropDownMultiChoose("Physic", false),
+      ModelDropDownMultiChoose("Mathematic", false),
+      ModelDropDownMultiChoose("Algrebra", false),
+    ]
+  ].obs;
+  var targetCountry = "".obs;
+  var mainLanguage = "".obs;
+  var grades = "".obs;
+  var subject = "".obs;
+  var topics = "".obs;
+
+  void updateItem(int index, bool isSelected, int dropDown) {
+    listDropDown[dropDown][index].itemSelected = isSelected;
+  }
+
+  Rx<Color?> buttonColor = Colors.grey.obs;
+  List<RxBool> listIsFilledDataDropDown =
+      List.generate(5, (index) => false.obs);
+
+  void updateButtonColor() {
+    bool isAllTrue = listIsFilledDataDropDown.every((element) {
+      print("valbool = ${element}");
+      return element.value;
+    });
+    buttonColor.value = isAllTrue ? Colors.green : Colors.grey;
+  }
+}
 
 class PageProfileAddVideoCategory extends StatefulWidget {
   static String? routeName = "/PageAddVideoCategory";
@@ -58,17 +100,22 @@ class _PageProfileAddVideoCategoryState
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
     marginContainer = 430;
     marginConfirm = 400;
-    String lang_1 = controllerAccount.obsAccountUser.value.detailUser
-            ?.languageTeachSelectedByUser?.languageTeachSelect[0] ??
-        "";
-    String lang_2 = controllerAccount.obsAccountUser.value.detailUser
-            ?.languageTeachSelectedByUser?.languageTeachSelect[1] ??
-        "";
-    String lang_3 = controllerAccount.obsAccountUser.value.detailUser
-            ?.languageTeachSelectedByUser?.languageTeachSelect[2] ??
-        "";
-
-    print("${lang_1} ${lang_2} ${lang_3} data");
+    if (dropdownController.targetCountry != "") {
+      textEditingControllerSelectCountry.text =
+          dropdownController.targetCountry.value;
+    } else {
+      textEditingControllerSelectCountry.text = "Select a country";
+    }
+    if (dropdownController.grades != "") {
+      textEditingControllerGrades.text = dropdownController.grades.value;
+    } else {
+      textEditingControllerGrades.text = "Select a grade";
+    }
+    if (dropdownController.topics != "") {
+      textEditingControllerTopics.text = dropdownController.topics.value;
+    } else {
+      textEditingControllerTopics.text = "Select a topic";
+    }
   }
 
   bool isCheckedBox = false;
@@ -92,6 +139,7 @@ class _PageProfileAddVideoCategoryState
   ];
   AccountUserController controllerAccount = Get.find<AccountUserController>();
   ScrollController _scrollController = ScrollController();
+  final DropdownController dropdownController = Get.put(DropdownController());
 
   double marginConfirm = 0;
   double marginContainer = 0;
@@ -107,6 +155,10 @@ class _PageProfileAddVideoCategoryState
   TextEditingController textEditingControllerGrades = TextEditingController();
   TextEditingController textEditingControllerSubject = TextEditingController();
   TextEditingController textEditingControllerTopics = TextEditingController();
+  List<int> listData = [];
+  Color? buttonColor;
+
+  List<bool> listIstFilledDataDropDown = [false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -172,21 +224,30 @@ class _PageProfileAddVideoCategoryState
                                   ),
                                   SizedBox(height: 30.h),
 
-                                  DropDownWidgetMultiChooseBox(
+                                  PagePlaygroundaDropDownWidgetMultiChooseBoxTest(
                                     textEditingControllerDropDown:
                                         textEditingControllerSelectCountry,
                                     initialValueDropDown: "Select a Country",
                                     containerHeight: 50,
-                                    containerListHeight: 80,
+                                    containerListHeight: 90,
                                     labelText: "Target Country",
-                                    listData: [
-                                      ModelDropDownMultiChoose(
-                                          "Germany", false),
-                                      ModelDropDownMultiChoose("French", false),
-                                      ModelDropDownMultiChoose(
-                                          "United Kingdom", false),
-                                    ],
+                                    listData:
+                                        dropdownController.listDropDown[0],
                                     maxBoxChoose: 3,
+                                    f: (isFIlled, index, resultSelect) {
+                                      dropdownController.updateItem(
+                                          index, isFIlled, 0);
+
+                                      dropdownController
+                                          .listIsFilledDataDropDown[0]
+                                          .value = isFIlled;
+
+                                      print(
+                                          "asu ${textEditingControllerSelectCountry.text}");
+                                      dropdownController.updateButtonColor();
+                                      dropdownController.targetCountry.value =
+                                          resultSelect;
+                                    },
                                   ),
                                   SizedBox(height: 20.h),
                                   DropDownWidget(
@@ -203,29 +264,45 @@ class _PageProfileAddVideoCategoryState
                                       "French",
                                       "German",
                                     ],
-                                  ),
+                                    isFilledWithData: (isFiled) {
+                                      print(
+                                          "val before add ${dropdownController.listIsFilledDataDropDown[1].value}");
 
+                                      dropdownController
+                                          .listIsFilledDataDropDown[1]
+                                          .value = isFiled;
+
+                                      dropdownController.updateButtonColor();
+                                      print(
+                                          "val after add ${dropdownController.listIsFilledDataDropDown[1].value}");
+                                    },
+                                  ),
                                   SizedBox(
                                       height: 20
                                           .h), // Add more DropDownWidget instances for other labels
-                                  DropDownWidgetMultiChooseBox(
+                                  PagePlaygroundaDropDownWidgetMultiChooseBoxTest(
                                     textEditingControllerDropDown:
                                         textEditingControllerGrades,
                                     initialValueDropDown: "Select a Grade",
                                     containerHeight: 50,
                                     labelText: "Grades",
                                     containerListHeight: 90,
-                                    listData: [
-                                      ModelDropDownMultiChoose(
-                                          "Grade 1", false),
-                                      ModelDropDownMultiChoose(
-                                          "Grade 2", false),
-                                      ModelDropDownMultiChoose(
-                                          "Grade 3", false),
-                                    ],
+                                    listData:
+                                        dropdownController.listDropDown[1],
                                     maxBoxChoose: 3,
-                                  ),
+                                    f: (isFIlled, index, resultString) {
+                                      dropdownController.updateItem(
+                                          index, isFIlled, 1);
 
+                                      dropdownController
+                                          .listIsFilledDataDropDown[2]
+                                          .value = isFIlled;
+
+                                      dropdownController.updateButtonColor();
+                                      dropdownController.grades.value =
+                                          resultString;
+                                    },
+                                  ),
                                   SizedBox(height: 20.h),
                                   DropDownWidget(
                                     textEditingControllerDropDown:
@@ -235,16 +312,21 @@ class _PageProfileAddVideoCategoryState
                                     containerListHeight: 90,
                                     labelText: "Subject",
                                     listData: [
-                                      "Select a Subject",
                                       "Subject 1",
                                       "Subject 2",
                                       "Subject 3",
                                       // Add more subject options
                                     ],
+                                    isFilledWithData: (isFiled) {
+                                      dropdownController
+                                          .listIsFilledDataDropDown[3]
+                                          .value = isFiled;
+                                      dropdownController.updateButtonColor();
+                                    },
                                   ),
 
                                   SizedBox(height: 20.h),
-                                  DropDownWidgetMultiChooseBox(
+                                  PagePlaygroundaDropDownWidgetMultiChooseBoxTest(
                                     textEditingControllerDropDown:
                                         textEditingControllerTopics,
                                     initialValueDropDown:
@@ -253,14 +335,20 @@ class _PageProfileAddVideoCategoryState
                                     containerHeight: 50,
                                     containerListHeight: 110,
                                     labelText: "Topics",
-                                    listData: [
-                                      ModelDropDownMultiChoose("Physic", false),
-                                      ModelDropDownMultiChoose(
-                                          "Mathematic", false),
-                                      ModelDropDownMultiChoose(
-                                          "Algrebra", false),
-                                      // Add more ability level options
-                                    ],
+                                    listData:
+                                        dropdownController.listDropDown[2],
+                                    f: (isFIlled, index, resultString) {
+                                      dropdownController.updateItem(
+                                          index, isFIlled, 2);
+
+                                      dropdownController
+                                          .listIsFilledDataDropDown[4]
+                                          .value = isFIlled;
+
+                                      dropdownController.updateButtonColor();
+                                      dropdownController.topics.value =
+                                          resultString;
+                                    },
                                   ),
 
                                   SizedBox(height: 20.h),
@@ -330,7 +418,7 @@ class _PageProfileAddVideoCategoryState
                                                           width: size
                                                               .sizeBorderBlackGlobal)),
                                                   width: 25.w,
-                                                  height: 25.h,
+                                                  height: 23.h,
                                                 ),
                                               ),
                                             ),
@@ -346,19 +434,26 @@ class _PageProfileAddVideoCategoryState
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(
-                          bottom: 25.h, left: 20.w, right: 20.w),
-                      margin:
-                          EdgeInsets.only(top: 555.h, left: 20.h, right: 20.h),
-                      child: Center(
-                          child: ButtonLongForm(
-                        nameButton: "Next",
-                        routeName:
-                            PageProfileMenuSelectLanguage.routeName.toString(),
-                        formKey: _formKey,
-                        heightLongHeader: 40.h,
-                      )),
+                    Obx(
+                      () => Container(
+                        padding: EdgeInsets.only(
+                            bottom: 25.h, left: 20.w, right: 20.w),
+                        margin: EdgeInsets.only(
+                            top: 555.h, left: 20.h, right: 20.h),
+                        child: Center(
+                            child: ButtonLongForm(
+                          nameButton: "Next",
+                          routeName: PageProfileMenuSelectLanguage.routeName
+                              .toString(),
+                          formKey: _formKey,
+                          heightLongHeader: 40.h,
+                          onClickButton: () {
+                            Navigator.pushNamed(
+                                context, PagePlayground.routeName.toString());
+                          },
+                          colorButton: dropdownController.buttonColor.value,
+                        )),
+                      ),
                     ),
                     Container(
                         margin: EdgeInsets.symmetric(horizontal: 40.w),
