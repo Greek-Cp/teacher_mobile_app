@@ -258,28 +258,33 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
                                         Colors.blue.withOpacity(0.4),
                                     splashColor: Colors.green.withOpacity(0.5),
                                     onTap: () {
-                                      if (widget.itemCount ==
-                                          widget.maxBoxChoose!) {
-                                        Get.snackbar("Information",
-                                            "You can only can choose maximum ${widget.maxBoxChoose} item");
-                                      } else {
-                                        print(
-                                            " after tap slur ${widget.itemCount}");
-                                        setState(() {
-                                          widget.textEditingControllerDropDown
-                                                  .text =
-                                              widget.listData![index]
-                                                  .nameItemDropDown!;
-
-                                          if (widget.listData![index]
-                                                  .itemSelected ==
-                                              true) {
+                                      print(
+                                          " after tap slur ${widget.itemCount}");
+                                      setState(() {
+                                        widget.textEditingControllerDropDown
+                                                .text =
                                             widget.listData![index]
-                                                .itemSelected = false;
-                                            widget.itemCount -= 1;
-                                            // widget.listItemSelectedByUser.remove(
-                                            //     widget.listData![index]
-                                            //         .nameItemDropDown!);
+                                                .nameItemDropDown!;
+
+                                        if (widget.listData![index]
+                                                .itemSelected ==
+                                            true) {
+                                          widget.listData![index].itemSelected =
+                                              false;
+                                          widget.itemCount -= 1;
+                                          // widget.listItemSelectedByUser.remove(
+                                          //     widget.listData![index]
+                                          //         .nameItemDropDown!);
+                                          widget.f(
+                                              false,
+                                              index,
+                                              widget.initialValueDropDown!,
+                                              widget.itemCount,
+                                              widget.listData![index]
+                                                  .nameItemDropDown!,
+                                              true);
+
+                                          if (widget.itemCount == 0) {
                                             widget.f(
                                                 false,
                                                 index,
@@ -288,86 +293,74 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
                                                 widget.listData![index]
                                                     .nameItemDropDown!,
                                                 true);
-
-                                            if (widget.itemCount == 0) {
-                                              widget.f(
-                                                  false,
-                                                  index,
-                                                  widget.initialValueDropDown!,
-                                                  widget.itemCount,
-                                                  widget.listData![index]
-                                                      .nameItemDropDown!,
-                                                  true);
-                                            }
-                                          } else {
-                                            // widget.listItemSelectedByUser.add(
-                                            //     widget.listData![index]
-                                            //         .nameItemDropDown!);
-                                            widget.listData![index]
-                                                .itemSelected = true;
-                                            widget.itemCount += 1;
-
-                                            print(
-                                                "weird ${widget.listItemSelectedByUser}");
-                                            widget.f(
-                                                true,
-                                                index,
-                                                "",
-                                                widget.itemCount,
-                                                widget.listData![index]
-                                                    .nameItemDropDown!,
-                                                false);
                                           }
-                                          // widget.initialValueDropDown =
-                                          //     widget.listData![index];
+                                        } else {
+                                          // widget.listItemSelectedByUser.add(
+                                          //     widget.listData![index]
+                                          //         .nameItemDropDown!);
+                                          widget.listData![index].itemSelected =
+                                              true;
+                                          widget.itemCount += 1;
 
                                           print(
-                                              "Size ${widget.listItemSelectedByUser.length}");
-                                          widget.textEditingControllerDropDown
-                                                  .text =
-                                              widget.listItemSelectedByUser
-                                                  .join(",");
+                                              "weird ${widget.listItemSelectedByUser}");
+                                          widget.f(
+                                              true,
+                                              index,
+                                              "",
+                                              widget.itemCount,
+                                              widget.listData![index]
+                                                  .nameItemDropDown!,
+                                              false);
+                                        }
+                                        // widget.initialValueDropDown =
+                                        //     widget.listData![index];
 
-                                          setState(() {
-                                            double screenHeight =
-                                                MediaQuery.of(context)
-                                                    .size
-                                                    .height;
+                                        print(
+                                            "Size ${widget.listItemSelectedByUser.length}");
+                                        widget.textEditingControllerDropDown
+                                                .text =
+                                            widget.listItemSelectedByUser
+                                                .join(",");
 
-                                            double containerHeight = widget
-                                                        .containerListHeight !=
-                                                    null
-                                                ? widget.containerListHeight!
-                                                : screenHeight * 0.278;
+                                        setState(() {
+                                          double screenHeight =
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height;
 
-                                            if (widget.itemCount ==
-                                                widget.maxBoxChoose) {
-                                              animationRotateIndicatorController
-                                                  .forward(from: 0.0);
-                                              widget.containerHeight -=
-                                                  containerHeight;
-                                              //     if (widget.isFilledWithData !=
-                                              //     null) {
-                                              //   widget.isFilledWithData!(false);
-                                              // }`
-                                            } else if (widget.itemCount == 0) {
-                                              animationRotateIndicatorController
-                                                  .forward(from: 0.0);
-                                              widget.containerHeight -=
-                                                  containerHeight;
-                                              widget.textEditingControllerDropDown
-                                                      .text =
-                                                  widget.initialValueDropDown!;
-                                              // if (widget.isFilledWithData !=
-                                              //     null) {
-                                              //   widget.isFilledWithData!(false);
-                                              // }
-                                            }
-                                          });
+                                          double containerHeight =
+                                              widget.containerListHeight != null
+                                                  ? widget.containerListHeight!
+                                                  : screenHeight * 0.278;
+
+                                          if (widget.itemCount ==
+                                              widget.maxBoxChoose) {
+                                            animationRotateIndicatorController
+                                                .forward(from: 0.0);
+                                            widget.containerHeight -=
+                                                containerHeight;
+                                            //     if (widget.isFilledWithData !=
+                                            //     null) {
+                                            //   widget.isFilledWithData!(false);
+                                            // }`
+                                          } else if (widget.itemCount == 0) {
+                                            animationRotateIndicatorController
+                                                .forward(from: 0.0);
+                                            widget.containerHeight -=
+                                                containerHeight;
+                                            widget.textEditingControllerDropDown
+                                                    .text =
+                                                widget.initialValueDropDown!;
+                                            // if (widget.isFilledWithData !=
+                                            //     null) {
+                                            //   widget.isFilledWithData!(false);
+                                            // }
+                                          }
                                         });
-                                        //EasyLocalization.of(context)
-                                        widget.selectedIndex = index;
-                                      }
+                                      });
+                                      //EasyLocalization.of(context)
+                                      widget.selectedIndex = index;
                                       //select language
                                     },
                                     child: Column(
