@@ -9,7 +9,8 @@ import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 
 class ButtonBackArrow extends StatelessWidget {
   final VoidCallback onPressed;
-  ButtonBackArrow({required this.onPressed});
+  Color? colorBackgroundButton;
+  ButtonBackArrow({required this.onPressed, this.colorBackgroundButton});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -20,7 +21,9 @@ class ButtonBackArrow extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Card(
-          color: ListColor.backgroundBack,
+          color: colorBackgroundButton == null
+              ? ListColor.backgroundBack
+              : colorBackgroundButton,
           shape: CircleBorder(
             side: BorderSide(
                 width: size.sizeBorderBlackGlobal, color: Colors.black),
