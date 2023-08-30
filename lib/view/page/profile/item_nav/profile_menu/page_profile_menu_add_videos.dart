@@ -580,7 +580,7 @@ class _CardVideoState extends State<CardVideo> {
       });
     } else {
       // User canceled the selection
-      print('No image selected');
+      print('No video selected');
     }
   }
 
