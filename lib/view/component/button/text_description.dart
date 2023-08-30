@@ -43,11 +43,14 @@ class ComponentTextDescription extends StatelessWidget {
   double fontSize;
   FontWeight? fontWeight;
   int? maxLines;
+  bool? isWrappedText;
   ComponentTextDescription(this.textContent,
       {this.textAlign = TextAlign.start,
       this.teksColor = Colors.black,
       required this.fontSize,
-      this.fontWeight = FontWeight.normal,this.maxLines});
+      this.fontWeight = FontWeight.normal,
+      this.maxLines,
+      this.isWrappedText});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -68,6 +71,7 @@ class ComponentTextDescription extends StatelessWidget {
       textAlign: textAlign,
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines,
+      strutStyle: StrutStyle(forceStrutHeight: isWrappedText),
     );
   }
 }
