@@ -28,7 +28,11 @@ class PagePlaygroundaDropDownWidgetMultiChooseBoxTest extends StatefulWidget {
   Color? colorBackgroundDropDown;
   Color? colorBackgroundItemDropDown;
   int? maxBoxChoose;
-  Function(bool isFIlled, int index, String resultName) f;
+  int itemCount;
+
+  List<String> listItemSelectedByUser = [];
+  Function(bool isFIlled, int index, String resultName, int itemCount,
+      String nameItem, bool isRemoveItem) f;
 
   PagePlaygroundaDropDownWidgetMultiChooseBoxTest({
     this.voidCallbackDropDownArrowOnTap,
@@ -40,6 +44,8 @@ class PagePlaygroundaDropDownWidgetMultiChooseBoxTest extends StatefulWidget {
     required this.maxBoxChoose,
     required this.f,
     this.containerListHeight,
+    required this.itemCount,
+    required this.listItemSelectedByUser,
   });
   @override
   State<PagePlaygroundaDropDownWidgetMultiChooseBoxTest> createState() =>
@@ -66,6 +72,10 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
 
     // widget.textEditingControllerDropDown.text =
     //     widget.initialValueDropDown.toString();
+    if (widget.listItemSelectedByUser.length != 0) {
+      widget.textEditingControllerDropDown.text =
+          widget.listItemSelectedByUser.join(",");
+    }
     _animationControllerShake = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 100),
@@ -81,13 +91,12 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
 
   bool isEmpty = false;
 
-  int countItemSelected = 0;
-  List<String> listItemSelectedByUser = [];
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     print("wd ${widget.textEditingControllerDropDown.text}");
+    print(" before tap slur ${widget.itemCount}");
+
     return AnimatedBuilder(
       animation: _animationControllerShake,
       builder: (context, child) {
@@ -250,6 +259,8 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
                                     splashColor: Colors.green.withOpacity(0.5),
                                     onTap: () {
                                       //select language
+                                      print(
+                                          " after tap slur ${widget.itemCount}");
                                       setState(() {
                                         widget.textEditingControllerDropDown
                                                 .text =
@@ -261,32 +272,57 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
                                             true) {
                                           widget.listData![index].itemSelected =
                                               false;
-                                          countItemSelected -= 1;
-                                          listItemSelectedByUser.remove(widget
-                                              .listData![index]
-                                              .nameItemDropDown!);
-                                          if (countItemSelected == 0) {
-                                            widget.f(false, index,
-                                                widget.initialValueDropDown!);
+                                          widget.itemCount -= 1;
+                                          // widget.listItemSelectedByUser.remove(
+                                          //     widget.listData![index]
+                                          //         .nameItemDropDown!);
+                                          widget.f(
+                                              false,
+                                              index,
+                                              widget.initialValueDropDown!,
+                                              widget.itemCount,
+                                              widget.listData![index]
+                                                  .nameItemDropDown!,
+                                              true);
+
+                                          if (widget.itemCount == 0) {
+                                            widget.f(
+                                                false,
+                                                index,
+                                                widget.initialValueDropDown!,
+                                                widget.itemCount,
+                                                widget.listData![index]
+                                                    .nameItemDropDown!,
+                                                true);
                                           }
                                         } else {
-                                          listItemSelectedByUser.add(widget
-                                              .listData![index]
-                                              .nameItemDropDown!);
+                                          // widget.listItemSelectedByUser.add(
+                                          //     widget.listData![index]
+                                          //         .nameItemDropDown!);
                                           widget.listData![index].itemSelected =
                                               true;
-                                          countItemSelected += 1;
-                                          widget.f(true, index,
-                                              listItemSelectedByUser.join(","));
+                                          widget.itemCount += 1;
+
+                                          print(
+                                              "weird ${widget.listItemSelectedByUser}");
+                                          widget.f(
+                                              true,
+                                              index,
+                                              "",
+                                              widget.itemCount,
+                                              widget.listData![index]
+                                                  .nameItemDropDown!,
+                                              false);
                                         }
                                         // widget.initialValueDropDown =
                                         //     widget.listData![index];
 
                                         print(
-                                            "Size ${listItemSelectedByUser.length}");
+                                            "Size ${widget.listItemSelectedByUser.length}");
                                         widget.textEditingControllerDropDown
                                                 .text =
-                                            listItemSelectedByUser.join(",");
+                                            widget.listItemSelectedByUser
+                                                .join(",");
 
                                         setState(() {
                                           double screenHeight =
@@ -299,7 +335,7 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
                                                   ? widget.containerListHeight!
                                                   : screenHeight * 0.278;
 
-                                          if (countItemSelected ==
+                                          if (widget.itemCount ==
                                               widget.maxBoxChoose) {
                                             animationRotateIndicatorController
                                                 .forward(from: 0.0);
@@ -308,8 +344,8 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
                                             //     if (widget.isFilledWithData !=
                                             //     null) {
                                             //   widget.isFilledWithData!(false);
-                                            // }
-                                          } else if (countItemSelected == 0) {
+                                            // }`
+                                          } else if (widget.itemCount == 0) {
                                             animationRotateIndicatorController
                                                 .forward(from: 0.0);
                                             widget.containerHeight -=
