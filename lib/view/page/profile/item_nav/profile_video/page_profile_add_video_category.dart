@@ -45,6 +45,13 @@ class DropdownController extends GetxController {
   var subject = "".obs;
   var topics = "".obs;
 
+  List<RxInt> listItemCount = List.generate(3, (index) => 0.obs);
+
+  void updateItemCount(int indexItemCount, int valueNew) {
+    listItemCount[indexItemCount].value = valueNew;
+    print("after changed ${listItemCount[indexItemCount].value}");
+  }
+
   void updateItem(int index, bool isSelected, int dropDown) {
     listDropDown[dropDown][index].itemSelected = isSelected;
   }
@@ -52,6 +59,20 @@ class DropdownController extends GetxController {
   Rx<Color?> buttonColor = Colors.grey.obs;
   List<RxBool> listIsFilledDataDropDown =
       List.generate(5, (index) => false.obs);
+
+  List<List<String>> listItemSelectedByUser = [[], [], []];
+
+  void addItemSelected(int indexItem, String name) {
+    print("add item ${name}");
+
+    listItemSelectedByUser[indexItem].add(name);
+  }
+
+  void removeItemSelectedListUser(int indexItem, String name) {
+    print("remove item ${name}");
+
+    listItemSelectedByUser[indexItem].remove(name);
+  }
 
   void updateButtonColor() {
     bool isAllTrue = listIsFilledDataDropDown.every((element) {
@@ -158,8 +179,6 @@ class _PageProfileAddVideoCategoryState
   List<int> listData = [];
   Color? buttonColor;
 
-  List<bool> listIstFilledDataDropDown = [false, false, false, false, false];
-
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -168,6 +187,7 @@ class _PageProfileAddVideoCategoryState
           systemNavigationBarColor: Color.fromARGB(255, 38, 6, 77),
           systemNavigationBarIconBrightness: Brightness.light));
     }
+    print("${dropdownController.listItemCount[0].value} value asu");
     return Scaffold(
       appBar: AppBarPageVideo(),
       extendBodyBehindAppBar: true,
@@ -234,7 +254,8 @@ class _PageProfileAddVideoCategoryState
                                     listData:
                                         dropdownController.listDropDown[0],
                                     maxBoxChoose: 3,
-                                    f: (isFIlled, index, resultSelect) {
+                                    f: (isFIlled, index, resultSelect,
+                                        itemCount, name, statusRemove) {
                                       dropdownController.updateItem(
                                           index, isFIlled, 0);
 
@@ -247,7 +268,32 @@ class _PageProfileAddVideoCategoryState
                                       dropdownController.updateButtonColor();
                                       dropdownController.targetCountry.value =
                                           resultSelect;
+                                      print("from callback ${itemCount}");
+                                      print("name lur ${name}");
+                                      dropdownController.updateItemCount(
+                                          0, itemCount);
+                                      if (statusRemove == true) {
+                                        dropdownController
+                                            .listItemSelectedByUser[0]
+                                            .remove(name);
+                                        print(dropdownController
+                                                .listItemSelectedByUser[0]
+                                                .join(",") +
+                                            " data rem  ");
+                                      } else {
+                                        dropdownController
+                                            .listItemSelectedByUser[0]
+                                            .add(name);
+                                        print(dropdownController
+                                                .listItemSelectedByUser[0]
+                                                .join(",") +
+                                            " data add");
+                                      }
                                     },
+                                    itemCount: dropdownController
+                                        .listItemCount[0].value,
+                                    listItemSelectedByUser: dropdownController
+                                        .listItemSelectedByUser[0],
                                   ),
                                   SizedBox(height: 20.h),
                                   DropDownWidget(
@@ -290,10 +336,10 @@ class _PageProfileAddVideoCategoryState
                                     listData:
                                         dropdownController.listDropDown[1],
                                     maxBoxChoose: 3,
-                                    f: (isFIlled, index, resultString) {
+                                    f: (isFIlled, index, resultString,
+                                        itemCount, name, statusRemove) {
                                       dropdownController.updateItem(
                                           index, isFIlled, 1);
-
                                       dropdownController
                                           .listIsFilledDataDropDown[2]
                                           .value = isFIlled;
@@ -301,7 +347,22 @@ class _PageProfileAddVideoCategoryState
                                       dropdownController.updateButtonColor();
                                       dropdownController.grades.value =
                                           resultString;
+                                      dropdownController.updateItemCount(
+                                          1, itemCount);
+                                      if (statusRemove == true) {
+                                        dropdownController
+                                            .listItemSelectedByUser[1]
+                                            .remove(name);
+                                      } else {
+                                        dropdownController
+                                            .listItemSelectedByUser[1]
+                                            .add(name);
+                                      }
                                     },
+                                    itemCount: dropdownController
+                                        .listItemCount[1].value,
+                                    listItemSelectedByUser: dropdownController
+                                        .listItemSelectedByUser[1],
                                   ),
                                   SizedBox(height: 20.h),
                                   DropDownWidget(
@@ -337,7 +398,8 @@ class _PageProfileAddVideoCategoryState
                                     labelText: "Topics",
                                     listData:
                                         dropdownController.listDropDown[2],
-                                    f: (isFIlled, index, resultString) {
+                                    f: (isFIlled, index, resultString,
+                                        itemCount, name, statusRemove) {
                                       dropdownController.updateItem(
                                           index, isFIlled, 2);
 
@@ -348,7 +410,22 @@ class _PageProfileAddVideoCategoryState
                                       dropdownController.updateButtonColor();
                                       dropdownController.topics.value =
                                           resultString;
+                                      dropdownController.updateItemCount(
+                                          2, itemCount);
+                                      if (statusRemove == true) {
+                                        dropdownController
+                                            .listItemSelectedByUser[2]
+                                            .remove(name);
+                                      } else {
+                                        dropdownController
+                                            .listItemSelectedByUser[2]
+                                            .add(name);
+                                      }
                                     },
+                                    itemCount: dropdownController
+                                        .listItemCount[2].value,
+                                    listItemSelectedByUser: dropdownController
+                                        .listItemSelectedByUser[2],
                                   ),
 
                                   SizedBox(height: 20.h),
