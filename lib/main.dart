@@ -35,6 +35,7 @@ import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart
 import 'controller/account_user_controller.dart';
 import 'view/page/profile/item_nav/profile_menu/page_profile_menu_add_phone_number.dart';
 import 'view/page/profile/item_nav/profile_menu/page_profile_menu_change_username.dart';
+import 'view/page/profile/item_nav/profile_video/page_profile_add_video_description.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -81,7 +82,7 @@ class MainApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           debugShowCheckedModeBanner: false,
-          initialRoute: PageSelectLanguage.routeName.toString(),
+          initialRoute: PageProfileAddVideoDescription.routeName.toString(),
           defaultTransition: Transition.circularReveal,
           getPages: [
             GetPage(
@@ -151,7 +152,10 @@ class MainApp extends StatelessWidget {
                 page: () => PageProfileAddVideoCategory()),
             GetPage(
                 name: PagePlayground.routeName.toString(),
-                page: () => PagePlayground())
+                page: () => PagePlayground()),
+            GetPage(
+                name: PageProfileAddVideoDescription.routeName.toString(),
+                page: () => PageProfileAddVideoDescription())
           ],
           theme: _buildTheme(Brightness.light),
         );
