@@ -562,7 +562,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               ? Container()
               : Positioned(
                   bottom: 1,
-                  child: Padding(
+                  child: Container(
                     padding: EdgeInsets.only(left: 10.h),
                     child: ComponentTextDescription(
                         "Min (${tr((_currentMin).toString())})",
