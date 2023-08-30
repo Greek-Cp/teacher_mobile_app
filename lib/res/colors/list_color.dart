@@ -74,4 +74,8 @@ class ListColor {
   static const colorCardBaseNewVideo = Color.fromARGB(255, 118, 54, 191);
   static const colorCardHeaderVideo = Color.fromARGB(255, 84, 42, 152);
   static const colorDisabledButtonVideo = Color.fromARGB(255, 180, 186, 185);
+  static const colorbuttonPageVideoDescriptionEnabled =
+      Color.fromARGB(255, 126, 251, 205);
+  static const colorbuttonPageVideoDescriptionDisabled =
+      Color.fromARGB(255, 180, 180, 180);
 }
