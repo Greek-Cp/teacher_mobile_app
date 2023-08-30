@@ -3,12 +3,14 @@ import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/border/border.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
 
 class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -39,6 +41,7 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
         ),
+        automaticallyImplyLeading: false,
         actions: [
           Container(
             margin: EdgeInsets.only(left: 10.w),
@@ -231,6 +234,10 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
+  Color? colorsButtonNext;
+  final controller = Get.put<DropdownController>(DropdownController());
+
+  AppBarPageVideo(this.colorsButtonNext);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -306,6 +313,7 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
                     angle: 180 * (3.141592653589793238 / 180),
                     child: ButtonBackArrow(
                       onPressed: () {},
+                      colorBackgroundButton: colorsButtonNext,
                     ),
                   ),
                   ComponentTextDescription(
