@@ -40,9 +40,12 @@ class ButtonLongForm extends StatelessWidget {
               if (formKey.currentState!.validate())
                 {
                   formKey.currentState!.save(),
+                  print("ya"),
                   // Do something with the input
                   onClickButton!()
                 }
+              else
+                {print("tidak")}
             },
         child: Padding(
             padding: EdgeInsets.only(
