@@ -39,27 +39,59 @@ class _PageProfileAddVideoDescriptionState
   TextEditingController textEditingControllerVideoDescription =
       TextEditingController();
 
-  String lang = UtilLocalization.checkLocalization.toString();
-  TextEditingController textEditingControllerSelectCountry =
-      TextEditingController();
-  late AnimationController animationControllerSelectLanguage;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // labelText = tr("select_a_country");
-    // textEditingControllerChooseLanguage.text = labelText.toString();
-    // animationRotateIndicatorController = AnimationController(
-    //   vsync: this,
-    //   duration: Duration(milliseconds: 500),
-    //   upperBound: 0.5,
-    // );
-    // _animationRotateDouble = Tween<double>(begin: 0, end: 1.0)
-    //     .animate(animationRotateIndicatorController);
-    // setState(() {
-    //   _selectedLanguage = "English";
-    // });
+    textEditingControllerVideoTittle.addListener(() {
+      _onTextChangeVideoTittle();
+    });
+
+    textEditingControllerVideoDescription.addListener(() {
+      _onTextChangeVideoDescription();
+    });
+    print("d1 : ${dropdownController.targetCountry}");
+
+    print("d2 : ${dropdownController.grades}");
+
+    print("d3 : ${dropdownController.mainLanguage}");
+
+    print("d4 : ${dropdownController.subject}");
+  }
+
+  bool _isTextFieldVideoTittleEmpty = true;
+  bool _isTextFieldVideoDescriptionEmpty = true;
+
+  bool _isMinimumCharacterVideoTittle = false;
+  bool _isMinimumCharacterVideoDescription = false;
+
+  void _onTextChangeVideoTittle() {
+    setState(() {
+      _isTextFieldVideoTittleEmpty =
+          textEditingControllerVideoTittle.text.isEmpty;
+      if (textEditingControllerVideoTittle.text.length >= 5) {
+        _isMinimumCharacterVideoTittle = true;
+      } else {
+        _isMinimumCharacterVideoTittle = false;
+      }
+    });
+    print(_isMinimumCharacterVideoTittle);
+
+    print("Value bool ${_isMinimumCharacterVideoTittle}");
+  }
+
+  void _onTextChangeVideoDescription() {
+    setState(() {
+      _isTextFieldVideoDescriptionEmpty =
+          textEditingControllerVideoDescription.text.isEmpty;
+
+      if (textEditingControllerVideoDescription.text.length >= 90) {
+        _isMinimumCharacterVideoDescription = true;
+      } else {
+        _isMinimumCharacterVideoDescription = false;
+      }
+    });
+    print("Value bool  data ${_isMinimumCharacterVideoDescription}");
   }
 
   Color? buttonColor;
@@ -75,7 +107,10 @@ class _PageProfileAddVideoDescriptionState
           systemNavigationBarIconBrightness: Brightness.light));
     }
     return Scaffold(
-      appBar: AppBarPageVideo(dropdownController.buttonColor.value),
+      appBar: AppBarPageVideo(_isMinimumCharacterVideoDescription == true &&
+              _isMinimumCharacterVideoTittle == true
+          ? ListColor.backgroundBack
+          : Colors.grey),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
@@ -125,7 +160,7 @@ class _PageProfileAddVideoDescriptionState
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   SizedBox(
-                                    height: 30.h,
+                                    height: 55.h,
                                   ),
                                   Container(
                                     decoration: BoxDecoration(
@@ -149,7 +184,19 @@ class _PageProfileAddVideoDescriptionState
                                             CrossAxisAlignment.stretch,
                                         children: [
                                           ComponentTextDescription(
-                                            "Countries : ${dropdownController.targetCountry}",
+                                            "Countries : ${dropdownController.targetCountry.value}",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal -
+                                                    2.sp,
+                                            teksColor: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            isWrappedText: true,
+                                          ),
+                                          SizedBox(
+                                            height: 3.h,
+                                          ),
+                                          ComponentTextDescription(
+                                            "Language: ${dropdownController.mainLanguage.value}",
                                             fontSize: size
                                                 .sizeTextDescriptionGlobal.sp,
                                             teksColor: Colors.white,
@@ -160,7 +207,7 @@ class _PageProfileAddVideoDescriptionState
                                             height: 3.h,
                                           ),
                                           ComponentTextDescription(
-                                            "Language: ${dropdownController.mainLanguage}",
+                                            "Grade: ${dropdownController.grades.value}",
                                             fontSize: size
                                                 .sizeTextDescriptionGlobal.sp,
                                             teksColor: Colors.white,
@@ -171,7 +218,7 @@ class _PageProfileAddVideoDescriptionState
                                             height: 3.h,
                                           ),
                                           ComponentTextDescription(
-                                            "Grade: ${dropdownController.grades}",
+                                            "Subject: ${dropdownController.subject.value}",
                                             fontSize: size
                                                 .sizeTextDescriptionGlobal.sp,
                                             teksColor: Colors.white,
@@ -182,18 +229,7 @@ class _PageProfileAddVideoDescriptionState
                                             height: 3.h,
                                           ),
                                           ComponentTextDescription(
-                                            "Subject: ${dropdownController.subject}",
-                                            fontSize: size
-                                                .sizeTextDescriptionGlobal.sp,
-                                            teksColor: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            isWrappedText: true,
-                                          ),
-                                          SizedBox(
-                                            height: 3.h,
-                                          ),
-                                          ComponentTextDescription(
-                                            "Topic: ${dropdownController.topics}",
+                                            "Topic: ${dropdownController.topics.value}",
                                             fontSize: size
                                                 .sizeTextDescriptionGlobal.sp,
                                             teksColor: Colors.white,
@@ -231,26 +267,28 @@ class _PageProfileAddVideoDescriptionState
                         ),
                       ),
                     ),
-                    Obx(
-                      () => Container(
-                        padding: EdgeInsets.only(
-                            bottom: 50.h, left: 20.w, right: 20.w),
-                        margin: EdgeInsets.only(
-                            top: 487.h, left: 20.h, right: 20.h),
-                        child: Center(
-                            child: ButtonLongForm(
-                          nameButton: "Next",
-                          routeName: PageProfileMenuSelectLanguage.routeName
-                              .toString(),
-                          formKey: _formKey,
-                          heightLongHeader: 40.h,
-                          onClickButton: () {
-                            Navigator.pushNamed(
-                                context, PagePlayground.routeName.toString());
-                          },
-                          colorButton: dropdownController.buttonColor.value,
-                        )),
-                      ),
+                    Container(
+                      padding: EdgeInsets.only(
+                          bottom: 50.h, left: 20.w, right: 20.w),
+                      margin:
+                          EdgeInsets.only(top: 487.h, left: 20.h, right: 20.h),
+                      child: Center(
+                          child: ButtonLongForm(
+                        nameButton: "Next",
+                        routeName:
+                            PageProfileMenuSelectLanguage.routeName.toString(),
+                        formKey: _formKey,
+                        heightLongHeader: 40.h,
+                        onClickButton: () {
+                          Navigator.pushNamed(
+                              context, PagePlayground.routeName.toString());
+                        },
+                        colorButton: _isMinimumCharacterVideoDescription ==
+                                    true &&
+                                _isMinimumCharacterVideoTittle == true
+                            ? ListColor.colorbuttonPageVideoDescriptionEnabled
+                            : ListColor.colorbuttonPageVideoDescriptionDisabled,
+                      )),
                     ),
                     Container(
                         margin: EdgeInsets.symmetric(horizontal: 40.w),
