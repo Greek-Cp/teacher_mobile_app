@@ -51,48 +51,56 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
               },
               child: Column(
                 children: [
-                  ButtonBackArrow(
-                    onPressed: () {},
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ButtonBackArrow(
+                      onPressed: () {},
+                    ),
                   ),
                   Container()
                 ],
               ),
             ),
           ),
-          Expanded(
-              child: Container(
-                  height: 100.h,
-                  margin: EdgeInsets.only(
-                      bottom: 20.h,
-                      left: 0.h,
-                      right: size.sizePaddingLeftAndRightPage.h),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.black,
-                          width: size.sizeBorderBlackGlobal.h),
-                      color: ListColor.colorBackgroundConfirmToSaveChanges,
-                      borderRadius: BorderRadius.circular(30.r)),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ComponentTextDescription(
-                        tr("confirm_to_save_changes"),
-                        fontSize: size.sizeTextDescriptionGlobal.sp,
-                        textAlign: TextAlign.right,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 201, 148, 4),
-                            shape: BoxShape.circle),
-                        child: LottieBuilder.asset(
-                          "assets/icon/animation_confirm_to_save_changes.json",
-                          width: 30.w,
-                          height: 25.h,
-                        ),
-                      ),
-                    ],
-                  ))),
+          Expanded(child: Container()),
+          Container(
+              height: 100.h,
+              margin: EdgeInsets.only(
+                  bottom: 15.h,
+                  left: 0.h,
+                  top: 10.h,
+                  right: size.sizePaddingLeftAndRightPage.h),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Colors.black, width: size.sizeBorderBlackGlobal.h),
+                  color: ListColor.colorBackgroundConfirmToSaveChanges,
+                  borderRadius: BorderRadius.circular(30.r)),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 210.w,
+                    padding: EdgeInsets.all(10),
+                    child: ComponentTextDescription(
+                      tr("confirm_to_save_changes"),
+                      fontSize: size.sizeTextDescriptionGlobal.sp,
+                      textAlign: TextAlign.right,
+                      maxLines: 1,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 201, 148, 4),
+                        shape: BoxShape.circle),
+                    child: LottieBuilder.asset(
+                      "assets/icon/animation_confirm_to_save_changes.json",
+                      width: 30.w,
+                      height: 25.h,
+                    ),
+                  ),
+                ],
+              )),
         ],
         // Other properties of the AppBar if needed
       ),
