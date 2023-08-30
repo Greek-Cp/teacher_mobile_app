@@ -27,6 +27,8 @@ class DropdownController extends GetxController {
       ModelDropDownMultiChoose("Germany", false),
       ModelDropDownMultiChoose("French", false),
       ModelDropDownMultiChoose("United Kingdom", false),
+      ModelDropDownMultiChoose("Indonesia", false),
+      ModelDropDownMultiChoose("Usa", false),
     ].obs,
     [
       ModelDropDownMultiChoose("Grade 1", false),
@@ -44,6 +46,8 @@ class DropdownController extends GetxController {
   var grades = "".obs;
   var subject = "".obs;
   var topics = "".obs;
+  var videoTittle = "".obs;
+  var videoDescripiton = "".obs;
 
   List<RxInt> listItemCount = List.generate(3, (index) => 0.obs);
 
@@ -125,17 +129,28 @@ class _PageProfileAddVideoCategoryState
       textEditingControllerSelectCountry.text =
           dropdownController.targetCountry.value;
     } else {
-      textEditingControllerSelectCountry.text = "Select a country";
+      textEditingControllerSelectCountry.text = "Select a Country";
     }
     if (dropdownController.grades != "") {
       textEditingControllerGrades.text = dropdownController.grades.value;
     } else {
-      textEditingControllerGrades.text = "Select a grade";
+      textEditingControllerGrades.text = "Select a Grade";
     }
     if (dropdownController.topics != "") {
       textEditingControllerTopics.text = dropdownController.topics.value;
     } else {
-      textEditingControllerTopics.text = "Select a topic";
+      textEditingControllerTopics.text = "Select a Topic";
+    }
+    if (dropdownController.mainLanguage != "") {
+      textEditingControllerMainLanguage.text =
+          dropdownController.mainLanguage.value;
+    } else {
+      textEditingControllerMainLanguage.text = "Select a Language";
+    }
+    if (dropdownController.subject != "") {
+      textEditingControllerSubject.text = dropdownController.subject.value;
+    } else {
+      textEditingControllerSubject.text = "Select a Subject";
     }
   }
 
@@ -189,7 +204,7 @@ class _PageProfileAddVideoCategoryState
     }
     print("${dropdownController.listItemCount[0].value} value asu");
     return Scaffold(
-      appBar: AppBarPageVideo(),
+      appBar: AppBarPageVideo(dropdownController.buttonColor.value),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
@@ -209,7 +224,7 @@ class _PageProfileAddVideoCategoryState
                 child: Stack(
                   children: [
                     Container(
-                      height: 560.h,
+                      height: 600.h,
                       margin: EdgeInsets.only(
                           left: size.sizePaddingLeftAndRightPage.w,
                           right: size.sizePaddingLeftAndRightPage.w,
@@ -249,7 +264,7 @@ class _PageProfileAddVideoCategoryState
                                         textEditingControllerSelectCountry,
                                     initialValueDropDown: "Select a Country",
                                     containerHeight: 50,
-                                    containerListHeight: 90,
+                                    containerListHeight: 120,
                                     labelText: "Target Country",
                                     listData:
                                         dropdownController.listDropDown[0],
@@ -310,13 +325,15 @@ class _PageProfileAddVideoCategoryState
                                       "French",
                                       "German",
                                     ],
-                                    isFilledWithData: (isFiled) {
+                                    isFilledWithData: (isFiled, value) {
                                       print(
                                           "val before add ${dropdownController.listIsFilledDataDropDown[1].value}");
 
                                       dropdownController
                                           .listIsFilledDataDropDown[1]
                                           .value = isFiled;
+                                      dropdownController.mainLanguage.value =
+                                          value;
 
                                       dropdownController.updateButtonColor();
                                       print(
@@ -378,10 +395,11 @@ class _PageProfileAddVideoCategoryState
                                       "Subject 3",
                                       // Add more subject options
                                     ],
-                                    isFilledWithData: (isFiled) {
+                                    isFilledWithData: (isFiled, value) {
                                       dropdownController
                                           .listIsFilledDataDropDown[3]
                                           .value = isFiled;
+                                      dropdownController.subject.value = value;
                                       dropdownController.updateButtonColor();
                                     },
                                   ),
@@ -514,9 +532,9 @@ class _PageProfileAddVideoCategoryState
                     Obx(
                       () => Container(
                         padding: EdgeInsets.only(
-                            bottom: 25.h, left: 20.w, right: 20.w),
+                            bottom: 50.h, left: 20.w, right: 20.w),
                         margin: EdgeInsets.only(
-                            top: 555.h, left: 20.h, right: 20.h),
+                            top: 595.h, left: 20.h, right: 20.h),
                         child: Center(
                             child: ButtonLongForm(
                           nameButton: "Next",
