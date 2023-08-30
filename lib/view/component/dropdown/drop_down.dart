@@ -258,34 +258,28 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
                                         Colors.blue.withOpacity(0.4),
                                     splashColor: Colors.green.withOpacity(0.5),
                                     onTap: () {
-                                      //select language
-                                      print(
-                                          " after tap slur ${widget.itemCount}");
-                                      setState(() {
-                                        widget.textEditingControllerDropDown
-                                                .text =
-                                            widget.listData![index]
-                                                .nameItemDropDown!;
-
-                                        if (widget.listData![index]
-                                                .itemSelected ==
-                                            true) {
-                                          widget.listData![index].itemSelected =
-                                              false;
-                                          widget.itemCount -= 1;
-                                          // widget.listItemSelectedByUser.remove(
-                                          //     widget.listData![index]
-                                          //         .nameItemDropDown!);
-                                          widget.f(
-                                              false,
-                                              index,
-                                              widget.initialValueDropDown!,
-                                              widget.itemCount,
+                                      if (widget.itemCount ==
+                                          widget.maxBoxChoose!) {
+                                        Get.snackbar("Information",
+                                            "You can only can choose maximum ${widget.maxBoxChoose} item");
+                                      } else {
+                                        print(
+                                            " after tap slur ${widget.itemCount}");
+                                        setState(() {
+                                          widget.textEditingControllerDropDown
+                                                  .text =
                                               widget.listData![index]
-                                                  .nameItemDropDown!,
-                                              true);
+                                                  .nameItemDropDown!;
 
-                                          if (widget.itemCount == 0) {
+                                          if (widget.listData![index]
+                                                  .itemSelected ==
+                                              true) {
+                                            widget.listData![index]
+                                                .itemSelected = false;
+                                            widget.itemCount -= 1;
+                                            // widget.listItemSelectedByUser.remove(
+                                            //     widget.listData![index]
+                                            //         .nameItemDropDown!);
                                             widget.f(
                                                 false,
                                                 index,
@@ -294,74 +288,87 @@ class _PagePlaygroundaDropDownWidgetMultiChooseBoxTestState
                                                 widget.listData![index]
                                                     .nameItemDropDown!,
                                                 true);
+
+                                            if (widget.itemCount == 0) {
+                                              widget.f(
+                                                  false,
+                                                  index,
+                                                  widget.initialValueDropDown!,
+                                                  widget.itemCount,
+                                                  widget.listData![index]
+                                                      .nameItemDropDown!,
+                                                  true);
+                                            }
+                                          } else {
+                                            // widget.listItemSelectedByUser.add(
+                                            //     widget.listData![index]
+                                            //         .nameItemDropDown!);
+                                            widget.listData![index]
+                                                .itemSelected = true;
+                                            widget.itemCount += 1;
+
+                                            print(
+                                                "weird ${widget.listItemSelectedByUser}");
+                                            widget.f(
+                                                true,
+                                                index,
+                                                "",
+                                                widget.itemCount,
+                                                widget.listData![index]
+                                                    .nameItemDropDown!,
+                                                false);
                                           }
-                                        } else {
-                                          // widget.listItemSelectedByUser.add(
-                                          //     widget.listData![index]
-                                          //         .nameItemDropDown!);
-                                          widget.listData![index].itemSelected =
-                                              true;
-                                          widget.itemCount += 1;
+                                          // widget.initialValueDropDown =
+                                          //     widget.listData![index];
 
                                           print(
-                                              "weird ${widget.listItemSelectedByUser}");
-                                          widget.f(
-                                              true,
-                                              index,
-                                              "",
-                                              widget.itemCount,
-                                              widget.listData![index]
-                                                  .nameItemDropDown!,
-                                              false);
-                                        }
-                                        // widget.initialValueDropDown =
-                                        //     widget.listData![index];
+                                              "Size ${widget.listItemSelectedByUser.length}");
+                                          widget.textEditingControllerDropDown
+                                                  .text =
+                                              widget.listItemSelectedByUser
+                                                  .join(",");
 
-                                        print(
-                                            "Size ${widget.listItemSelectedByUser.length}");
-                                        widget.textEditingControllerDropDown
-                                                .text =
-                                            widget.listItemSelectedByUser
-                                                .join(",");
+                                          setState(() {
+                                            double screenHeight =
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .height;
 
-                                        setState(() {
-                                          double screenHeight =
-                                              MediaQuery.of(context)
-                                                  .size
-                                                  .height;
+                                            double containerHeight = widget
+                                                        .containerListHeight !=
+                                                    null
+                                                ? widget.containerListHeight!
+                                                : screenHeight * 0.278;
 
-                                          double containerHeight =
-                                              widget.containerListHeight != null
-                                                  ? widget.containerListHeight!
-                                                  : screenHeight * 0.278;
-
-                                          if (widget.itemCount ==
-                                              widget.maxBoxChoose) {
-                                            animationRotateIndicatorController
-                                                .forward(from: 0.0);
-                                            widget.containerHeight -=
-                                                containerHeight;
-                                            //     if (widget.isFilledWithData !=
-                                            //     null) {
-                                            //   widget.isFilledWithData!(false);
-                                            // }`
-                                          } else if (widget.itemCount == 0) {
-                                            animationRotateIndicatorController
-                                                .forward(from: 0.0);
-                                            widget.containerHeight -=
-                                                containerHeight;
-                                            widget.textEditingControllerDropDown
-                                                    .text =
-                                                widget.initialValueDropDown!;
-                                            // if (widget.isFilledWithData !=
-                                            //     null) {
-                                            //   widget.isFilledWithData!(false);
-                                            // }
-                                          }
+                                            if (widget.itemCount ==
+                                                widget.maxBoxChoose) {
+                                              animationRotateIndicatorController
+                                                  .forward(from: 0.0);
+                                              widget.containerHeight -=
+                                                  containerHeight;
+                                              //     if (widget.isFilledWithData !=
+                                              //     null) {
+                                              //   widget.isFilledWithData!(false);
+                                              // }`
+                                            } else if (widget.itemCount == 0) {
+                                              animationRotateIndicatorController
+                                                  .forward(from: 0.0);
+                                              widget.containerHeight -=
+                                                  containerHeight;
+                                              widget.textEditingControllerDropDown
+                                                      .text =
+                                                  widget.initialValueDropDown!;
+                                              // if (widget.isFilledWithData !=
+                                              //     null) {
+                                              //   widget.isFilledWithData!(false);
+                                              // }
+                                            }
+                                          });
                                         });
-                                      });
-                                      //EasyLocalization.of(context)
-                                      widget.selectedIndex = index;
+                                        //EasyLocalization.of(context)
+                                        widget.selectedIndex = index;
+                                      }
+                                      //select language
                                     },
                                     child: Column(
                                       crossAxisAlignment:
@@ -492,7 +499,7 @@ class DropDownWidget extends StatefulWidget {
   VoidCallback? voidCallbackDropDownArrowOnTap;
   Color? colorBackgroundDropDown;
   Color? colorBackgroundItemDropDown;
-  Function(bool isFiled)? isFilledWithData;
+  Function(bool isFiled, String data)? isFilledWithData;
   DropDownWidget(
       {this.voidCallbackDropDownArrowOnTap,
       required this.textEditingControllerDropDown,
@@ -522,8 +529,9 @@ class _DropDownWidgetState extends State<DropDownWidget>
         vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
     animationRotateDouble = Tween<double>(begin: 0, end: 1.0)
         .animate(animationRotateIndicatorController);
-    widget.textEditingControllerDropDown.text =
-        widget.initialValueDropDown.toString();
+    // widget.textEditingControllerDropDown.text =
+    //     widget.initialValueDropDown.toString();
+
     _animationControllerShake = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 100),
@@ -710,7 +718,11 @@ class _DropDownWidgetState extends State<DropDownWidget>
                                                   .height;
 
                                           if (widget.isFilledWithData != null) {
-                                            widget.isFilledWithData!(true);
+                                            widget.isFilledWithData!(
+                                                true,
+                                                widget
+                                                    .textEditingControllerDropDown
+                                                    .text);
 
                                             // widget.isFilledWithData!(
                                             //     itemCountAdded);
