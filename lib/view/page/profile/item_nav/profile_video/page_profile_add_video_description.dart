@@ -50,7 +50,6 @@ class _PageProfileAddVideoDescriptionState
     textEditingControllerVideoDescription.addListener(() {
       _onTextChangeVideoDescription();
     });
-    print("d1 : ${dropdownController.targetCountry}");
 
     print("d2 : ${dropdownController.grades}");
 
@@ -184,7 +183,7 @@ class _PageProfileAddVideoDescriptionState
                                             CrossAxisAlignment.stretch,
                                         children: [
                                           ComponentTextDescription(
-                                            "Countries : ${dropdownController.targetCountry.value}",
+                                            "Countries : ${dropdownController.listItemSelectedByUser[0].join(",")}",
                                             fontSize:
                                                 size.sizeTextDescriptionGlobal -
                                                     2.sp,
@@ -197,8 +196,9 @@ class _PageProfileAddVideoDescriptionState
                                           ),
                                           ComponentTextDescription(
                                             "Language: ${dropdownController.mainLanguage.value}",
-                                            fontSize: size
-                                                .sizeTextDescriptionGlobal.sp,
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal -
+                                                    2.sp,
                                             teksColor: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             isWrappedText: true,
@@ -207,9 +207,10 @@ class _PageProfileAddVideoDescriptionState
                                             height: 3.h,
                                           ),
                                           ComponentTextDescription(
-                                            "Grade: ${dropdownController.grades.value}",
-                                            fontSize: size
-                                                .sizeTextDescriptionGlobal.sp,
+                                            "Grade: ${dropdownController.listItemSelectedByUser[1].join(",")}",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal -
+                                                    2.sp,
                                             teksColor: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             isWrappedText: true,
@@ -219,8 +220,9 @@ class _PageProfileAddVideoDescriptionState
                                           ),
                                           ComponentTextDescription(
                                             "Subject: ${dropdownController.subject.value}",
-                                            fontSize: size
-                                                .sizeTextDescriptionGlobal.sp,
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal -
+                                                    2.sp,
                                             teksColor: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             isWrappedText: true,
@@ -229,9 +231,10 @@ class _PageProfileAddVideoDescriptionState
                                             height: 3.h,
                                           ),
                                           ComponentTextDescription(
-                                            "Topic: ${dropdownController.topics.value}",
-                                            fontSize: size
-                                                .sizeTextDescriptionGlobal.sp,
+                                            "Topic: ${dropdownController.listItemSelectedByUser[2].join(",")}",
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal -
+                                                    2.sp,
                                             teksColor: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             isWrappedText: true,
