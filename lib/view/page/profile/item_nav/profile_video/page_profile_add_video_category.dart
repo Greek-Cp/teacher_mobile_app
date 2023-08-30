@@ -17,8 +17,10 @@ import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_add_description.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_description.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
 class DropdownController extends GetxController {
@@ -41,6 +43,7 @@ class DropdownController extends GetxController {
       ModelDropDownMultiChoose("Algrebra", false),
     ]
   ].obs;
+
   var targetCountry = "".obs;
   var mainLanguage = "".obs;
   var grades = "".obs;
@@ -60,7 +63,8 @@ class DropdownController extends GetxController {
     listDropDown[dropDown][index].itemSelected = isSelected;
   }
 
-  Rx<Color?> buttonColor = Colors.grey.obs;
+  Rx<Color?> buttonColor =
+      ListColor.colorbuttonPageVideoDescriptionDisabled.obs;
   List<RxBool> listIsFilledDataDropDown =
       List.generate(5, (index) => false.obs);
 
@@ -83,7 +87,9 @@ class DropdownController extends GetxController {
       print("valbool = ${element}");
       return element.value;
     });
-    buttonColor.value = isAllTrue ? Colors.green : Colors.grey;
+    buttonColor.value = isAllTrue
+        ? ListColor.colorbuttonPageVideoDescriptionEnabled
+        : ListColor.colorbuttonPageVideoDescriptionDisabled;
   }
 }
 
@@ -152,6 +158,13 @@ class _PageProfileAddVideoCategoryState
     } else {
       textEditingControllerSubject.text = "Select a Subject";
     }
+    print("d1 : ${dropdownController.targetCountry.value}");
+
+    print("d2 : ${dropdownController.grades.value}");
+
+    print("d3 : ${dropdownController.mainLanguage.value}");
+
+    print("d4 : ${dropdownController.subject.value}");
   }
 
   bool isCheckedBox = false;
@@ -257,7 +270,7 @@ class _PageProfileAddVideoCategoryState
                                   SizedBox(
                                     height: 30.h,
                                   ),
-                                  SizedBox(height: 30.h),
+                                  SizedBox(height: 40.h),
 
                                   PagePlaygroundaDropDownWidgetMultiChooseBoxTest(
                                     textEditingControllerDropDown:
@@ -454,8 +467,8 @@ class _PageProfileAddVideoCategoryState
                                             size.sizePaddingLeftAndRightPage -
                                                 3.w),
                                     decoration: BoxDecoration(
-                                      color: Colors
-                                          .white, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                                      color: Color.fromARGB(255, 229, 248,
+                                          252), // Jangan gunakan warna latar belakang untuk membuat outline terlihat
                                       border: Border.all(
                                         color: Colors
                                             .black, // Warna garis tepi (outline) hitam
@@ -543,8 +556,12 @@ class _PageProfileAddVideoCategoryState
                           formKey: _formKey,
                           heightLongHeader: 40.h,
                           onClickButton: () {
-                            Navigator.pushNamed(
-                                context, PagePlayground.routeName.toString());
+                            print("clicked");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        PageProfileAddVideoDescription()));
                           },
                           colorButton: dropdownController.buttonColor.value,
                         )),
