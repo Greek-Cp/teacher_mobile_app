@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
@@ -41,7 +42,7 @@ class _PageProfileMenuAddDescriptionState
   late AnimationController animationControllerSelectLanguage;
   late AnimationController animationControllerTutoringLanguage;
   late AnimationController animationControllerYear;
- 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -171,12 +172,20 @@ class _PageProfileMenuAddDescriptionState
                                   minLines: 3,
                                   lengthMax: 120,
                                   minCharacterHint: 30,
+                                  hintStyle: GoogleFonts.nunito(
+                                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                                    color: Colors.black,
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 20.h,
                                 ),
                                 TextFieldFormMultiLine(
                                   minCharacterHint: 60,
+                                  hintStyle: GoogleFonts.nunito(
+                                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                                    color: Colors.black,
+                                  ),
                                   labelText: "Long Description (max 300 char.)",
                                   textEditingControllerEmail:
                                       textEditingControllerFullDescription,
