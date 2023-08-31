@@ -8,6 +8,7 @@ import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/border/border.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
+import 'package:teacher_mobile_app/res/font/font_type.dart';
 import 'package:teacher_mobile_app/view/component/button/button_arrow_back.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
@@ -79,7 +80,6 @@ class AppBarGlobal extends StatelessWidget implements PreferredSizeWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: 210.w,
                     padding: EdgeInsets.all(10),
                     child: ComponentTextDescription(
                       tr("confirm_to_save_changes"),
@@ -164,15 +164,17 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
                   child: Opacity(
                     opacity: opacity,
                     child: Container(
-                      margin: EdgeInsets.only(
-                          left: size.sizePaddingLeftAndRightPage.w),
-                      child: ComponentTextDescription(
-                        "Hello Yanuar 👋",
-                        fontSize: size.sizeTextHeaderGlobal.sp,
-                        fontWeight: FontWeight.bold,
-                        teksColor: Colors.white,
-                      ),
-                    ),
+                        margin: EdgeInsets.only(
+                            left: size.sizePaddingLeftAndRightPage.w),
+                        child: Text(
+                          "Hello Yanuar 👋",
+                          style: FontType.font_utama(
+                              fontSize: size.sizeTextDescriptionGlobal + 10.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        )),
                   ),
                 ),
           _showWidget
@@ -200,13 +202,13 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
                             "@Username",
                             teksColor: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: size.sizeTextDescriptionGlobal - 1,
+                            fontSize: 10.sp,
                             textAlign: TextAlign.left,
                           ),
                           ComponentTextDescription(
                             "Firstname Lastname",
                             teksColor: Colors.white,
-                            fontSize: size.sizeTextDescriptionGlobal - 2,
+                            fontSize: size.sizeTextDescriptionGlobal - 5.sp,
                             textAlign: TextAlign.left,
                           ),
                         ],
@@ -232,6 +234,111 @@ class AppBarMainVideo extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
         leading: Container(),
+        // Other properties of the AppBar if needed
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(70.h);
+}
+
+class AppBarPageVideoSecond extends StatelessWidget
+    implements PreferredSizeWidget {
+  Color? colorsButtonNext;
+  final controller = Get.put<DropdownController>(DropdownController());
+
+  AppBarPageVideoSecond(this.colorsButtonNext);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 0.h, left: 0.h),
+      child: AppBar(
+        forceMaterialTransparency: true,
+        backgroundColor:
+            Colors.transparent, // Make the AppBar background transparent
+        elevation: 0, // Remove shadow under the AppBar
+
+        toolbarHeight: 100.h,
+        flexibleSpace: ClipRect(
+          // Clip the background to avoid blur overflow
+          child: BackdropFilter(
+            // Add blur effect to the background
+
+            filter: ImageFilter.blur(
+                sigmaX: 5,
+                sigmaY:
+                    5), // Adjust the sigma values for the desired blur intensity
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.black
+                  .withOpacity(0.07), // Adjust the opacity of the blur effect
+            ),
+          ),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Column(
+              children: [
+                ButtonBackArrow(
+                  onPressed: () {},
+                ),
+                Container()
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(
+                  bottom: 25.h, left: 10.w, right: 10.w, top: 5.h),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.black, width: size.sizeBorderBlackGlobal),
+                    color: ListColor.colorBackgroundCardNewVideo,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Center(
+                  child: ComponentTextDescription(
+                    "new_video",
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
+                    teksColor: ListColor.colorFontPageNav,
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              child: Column(
+                children: [
+                  Transform.rotate(
+                    angle: 180 * (3.141592653589793238 / 180),
+                    child: ButtonBackArrow(
+                      onPressed: () {},
+                      colorBackgroundButton: colorsButtonNext,
+                    ),
+                  ),
+                  ComponentTextDescription(
+                    "Next",
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
+                    teksColor: Colors.white,
+                    fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
         // Other properties of the AppBar if needed
       ),
     );
@@ -317,11 +424,13 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
             child: Container(
               child: Column(
                 children: [
-                  Transform.rotate(
-                    angle: 180 * (3.141592653589793238 / 180),
-                    child: ButtonBackArrow(
-                      onPressed: () {},
-                      colorBackgroundButton: colorsButtonNext,
+                  Obx(
+                    () => Transform.rotate(
+                      angle: 180 * (3.141592653589793238 / 180),
+                      child: ButtonBackArrow(
+                        onPressed: () {},
+                        colorBackgroundButton: controller.buttonColor.value,
+                      ),
                     ),
                   ),
                   ComponentTextDescription(
