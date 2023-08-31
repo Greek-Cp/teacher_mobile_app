@@ -321,19 +321,20 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                       width: size.sizeBorderBlackGlobal,
                                     ),
                                   ),
-                                  child: ClipOval(
-                                    // Replace this with your image source
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: ClipOval(
+                                      // Replace this with your image source
 
-                                    child: SvgPicture.asset(
-                                      "assets/icon/profile/ic_avatar_profile.svg",
-                                      width: 90, // adjust the size as needed
-                                      height: 90,
+                                      child: SvgPicture.asset(
+                                        "assets/icon/profile/ic_avatar_profile.svg",
+                                        width: 50, // adjust the size as needed
+                                        height: 90,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Container(
-                                  width: 40.w,
-                                  height: 40.h,
                                   margin:
                                       EdgeInsets.only(left: 60.w, top: 45.h),
                                   child: GestureDetector(
@@ -354,7 +355,7 @@ class _PageDashboardProfileState extends State<PageDashboardProfile> {
                                           borderRadius:
                                               BorderRadius.circular(10.r)),
                                       child: Padding(
-                                        padding: EdgeInsets.all(8.0.h),
+                                        padding: EdgeInsets.all(8.0),
                                         child: SvgPicture.asset(
                                           "assets/icon/ic_pencil.svg",
                                           width: 15.w,
