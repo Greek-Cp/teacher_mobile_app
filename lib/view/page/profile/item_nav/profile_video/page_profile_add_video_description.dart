@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:teacher_mobile_app/controller/account_user_controller.dart';
 import 'package:teacher_mobile_app/res/border/divider_global.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
@@ -43,12 +44,21 @@ class _PageProfileAddVideoDescriptionState
   void initState() {
     // TODO: implement initState
     super.initState();
+    textEditingControllerVideoDescription.text =
+        dropdownController.videoDescripiton.toString();
+
+    textEditingControllerVideoTittle.text =
+        dropdownController.videoTittle.toString();
     textEditingControllerVideoTittle.addListener(() {
       _onTextChangeVideoTittle();
+      dropdownController.videoTittle.value =
+          textEditingControllerVideoTittle.text;
     });
 
     textEditingControllerVideoDescription.addListener(() {
       _onTextChangeVideoDescription();
+      dropdownController.videoDescripiton.value =
+          textEditingControllerVideoDescription.text;
     });
 
     print("d2 : ${dropdownController.grades}");
@@ -60,7 +70,6 @@ class _PageProfileAddVideoDescriptionState
 
   bool _isTextFieldVideoTittleEmpty = true;
   bool _isTextFieldVideoDescriptionEmpty = true;
-
   bool _isMinimumCharacterVideoTittle = false;
   bool _isMinimumCharacterVideoDescription = false;
 
@@ -84,7 +93,7 @@ class _PageProfileAddVideoDescriptionState
       _isTextFieldVideoDescriptionEmpty =
           textEditingControllerVideoDescription.text.isEmpty;
 
-      if (textEditingControllerVideoDescription.text.length >= 90) {
+      if (textEditingControllerVideoDescription.text.length >= 20) {
         _isMinimumCharacterVideoDescription = true;
       } else {
         _isMinimumCharacterVideoDescription = false;
@@ -106,10 +115,11 @@ class _PageProfileAddVideoDescriptionState
           systemNavigationBarIconBrightness: Brightness.light));
     }
     return Scaffold(
-      appBar: AppBarPageVideo(_isMinimumCharacterVideoDescription == true &&
-              _isMinimumCharacterVideoTittle == true
-          ? ListColor.backgroundBack
-          : Colors.grey),
+      appBar: AppBarPageVideoSecond(
+          _isMinimumCharacterVideoDescription == true &&
+                  _isMinimumCharacterVideoTittle == true
+              ? ListColor.colorbuttonPageVideoDescriptionEnabled
+              : Colors.grey),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
@@ -253,18 +263,31 @@ class _PageProfileAddVideoDescriptionState
                                     hintText: "Short tittle",
                                     minLines: 2,
                                     lengthMax: 30,
+                                    hintStyle: GoogleFonts.nunito(
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal.sp,
+                                      color: ListColor
+                                          .colorOutlineTextFieldWhenEmpty,
+                                    ),
                                   ),
                                   SizedBox(height: 20.h),
                                   TextFieldFormMultiLine(
-                                    minCharacterHint: 90,
+                                    minCharacterHint: 20,
+                                    hintStyle: GoogleFonts.nunito(
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal.sp,
+                                      color: ListColor
+                                          .colorOutlineTextFieldWhenEmpty,
+                                    ),
                                     labelText:
                                         "Video Description (90 character max)",
                                     textEditingControllerEmail:
                                         textEditingControllerVideoDescription,
-                                    hintText: "Short tittle",
+                                    hintText: "Video Description",
                                     minLines: 5,
                                     lengthMax: 90,
                                   ),
+                                  SizedBox(height: 40.h),
                                 ]),
                           ),
                         ),
