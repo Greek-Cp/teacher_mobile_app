@@ -158,13 +158,6 @@ class _PageProfileAddVideoCategoryState
     } else {
       textEditingControllerSubject.text = "Select a Subject";
     }
-    print("d1 : ${dropdownController.targetCountry.value}");
-
-    print("d2 : ${dropdownController.grades.value}");
-
-    print("d3 : ${dropdownController.mainLanguage.value}");
-
-    print("d4 : ${dropdownController.subject.value}");
   }
 
   bool isCheckedBox = false;
@@ -237,7 +230,7 @@ class _PageProfileAddVideoCategoryState
                 child: Stack(
                   children: [
                     Container(
-                      height: 600.h,
+                      height: 550.h,
                       margin: EdgeInsets.only(
                           left: size.sizePaddingLeftAndRightPage.w,
                           right: size.sizePaddingLeftAndRightPage.w,
@@ -268,9 +261,8 @@ class _PageProfileAddVideoCategoryState
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   SizedBox(
-                                    height: 30.h,
+                                    height: 40.h,
                                   ),
-                                  SizedBox(height: 40.h),
 
                                   PagePlaygroundaDropDownWidgetMultiChooseBoxTest(
                                     textEditingControllerDropDown:
@@ -421,8 +413,7 @@ class _PageProfileAddVideoCategoryState
                                   PagePlaygroundaDropDownWidgetMultiChooseBoxTest(
                                     textEditingControllerDropDown:
                                         textEditingControllerTopics,
-                                    initialValueDropDown:
-                                        "Select an ability level",
+                                    initialValueDropDown: "Select a Topic",
                                     maxBoxChoose: 3,
                                     containerHeight: 50,
                                     containerListHeight: 110,
@@ -511,8 +502,12 @@ class _PageProfileAddVideoCategoryState
                                                     vertical: 2.h,
                                                     horizontal: 4.h),
                                                 child: Container(
+                                                  padding: EdgeInsets.all(10),
                                                   margin: EdgeInsets.only(
-                                                      left: 10.h),
+                                                      left: 10.h,
+                                                      top: 10.h,
+                                                      right: 5.h,
+                                                      bottom: 10.h),
                                                   decoration: BoxDecoration(
                                                       color:
                                                           isCheckedBox == true
@@ -525,8 +520,6 @@ class _PageProfileAddVideoCategoryState
                                                           color: Colors.black,
                                                           width: size
                                                               .sizeBorderBlackGlobal)),
-                                                  width: 25.w,
-                                                  height: 23.h,
                                                 ),
                                               ),
                                             ),
@@ -535,8 +528,9 @@ class _PageProfileAddVideoCategoryState
                                       ],
                                     ),
                                   ),
-
-                                  SizedBox(height: 69.h),
+                                  Container(
+                                    height: 30.h,
+                                  )
                                 ]),
                           ),
                         ),
@@ -547,7 +541,7 @@ class _PageProfileAddVideoCategoryState
                         padding: EdgeInsets.only(
                             bottom: 50.h, left: 20.w, right: 20.w),
                         margin: EdgeInsets.only(
-                            top: 595.h, left: 20.h, right: 20.h),
+                            top: 545.h, left: 20.h, right: 20.h),
                         child: Center(
                             child: ButtonLongForm(
                           nameButton: "Next",
@@ -557,11 +551,27 @@ class _PageProfileAddVideoCategoryState
                           heightLongHeader: 40.h,
                           onClickButton: () {
                             print("clicked");
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        PageProfileAddVideoDescription()));
+
+                            if (textEditingControllerSelectCountry.text == "Select a Country" &&
+                                textEditingControllerGrades.text ==
+                                    "Select a Grade" &&
+                                textEditingControllerTopics.text ==
+                                    "Select a Topic" &&
+                                textEditingControllerMainLanguage.text ==
+                                    "Select a Language" &&
+                                textEditingControllerSubject.text ==
+                                    "Select a Subject") {
+                              // Jika semua nilai teks adalah teks default
+                              // Set variabel dis menjadi true
+                            } else {
+                              // Jika setidaknya satu nilai teks bukan teks default
+                              // Set variabel dis menjadi false
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                          PageProfileAddVideoDescription()));
+                            }
                           },
                           colorButton: dropdownController.buttonColor.value,
                         )),
@@ -1035,6 +1045,355 @@ class ContainerChip extends StatelessWidget {
           fontSize: size.sizeTextDescriptionGlobal - 7.sp,
           fontWeight: FontWeight.bold,
         ),
+      ),
+    );
+  }
+}
+
+class DropDownWidget extends StatefulWidget {
+  TextEditingController textEditingControllerDropDown = TextEditingController();
+
+  int selectedIndex = 0;
+
+  String? initialValueDropDown;
+  double containerHeight = 50;
+  double? containerListHeight = 150;
+  String? labelText;
+  List<String>? listData;
+  VoidCallback? voidCallbackDropDownArrowOnTap;
+  Color? colorBackgroundDropDown;
+  Color? colorBackgroundItemDropDown;
+  Function(bool isFiled, String data)? isFilledWithData;
+  DropDownWidget(
+      {this.voidCallbackDropDownArrowOnTap,
+      required this.textEditingControllerDropDown,
+      required this.initialValueDropDown,
+      required this.containerHeight,
+      required this.labelText,
+      required this.listData,
+      this.containerListHeight,
+      this.isFilledWithData});
+  @override
+  State<DropDownWidget> createState() => _DropDownWidgetState();
+}
+
+class _DropDownWidgetState extends State<DropDownWidget>
+    with TickerProviderStateMixin {
+  late final AnimationController animationRotateIndicatorController;
+  late final Animation<double> animationRotateDouble;
+  late final AnimationController _animationControllerShake;
+  late final Animation<double> _animationShake;
+
+  @override
+  void initState() {
+    super.initState();
+    // labelText = tr("select_a_country");
+    // textEditingControllerDropDown.text = labelText.toString();
+    animationRotateIndicatorController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
+    animationRotateDouble = Tween<double>(begin: 0, end: 1.0)
+        .animate(animationRotateIndicatorController);
+    // widget.textEditingControllerDropDown.text =
+    //     widget.initialValueDropDown.toString();
+
+    _animationControllerShake = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 100),
+    );
+    _animationShake =
+        Tween(begin: -5.0, end: 5.0).animate(_animationControllerShake)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _animationControllerShake.reverse();
+            }
+          });
+  }
+
+  bool isEmpty = false;
+  int itemCountAdded = 0;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return AnimatedBuilder(
+      animation: _animationControllerShake,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(
+            10 * _animationControllerShake.value,
+            0.0,
+          ),
+          child: child,
+        );
+      },
+      child: Stack(
+        children: [
+          Stack(children: [
+            GestureDetector(
+              onTap: () {
+                if (animationRotateIndicatorController.status ==
+                    AnimationStatus.completed) {
+                  animationRotateIndicatorController.reverse(from: 0.5);
+                } else {
+                  animationRotateIndicatorController.forward(from: 0.0);
+                }
+                double screenHeight = MediaQuery.of(context).size.height;
+                double containerHeight = widget.containerListHeight != null
+                    ? widget.containerListHeight!
+                    : screenHeight * 0.278;
+
+                if (widget.containerHeight <= 90) {
+                  setState(() {
+                    widget.containerHeight += containerHeight;
+                    if (widget.voidCallbackDropDownArrowOnTap != null) {
+                      Future.delayed(Duration(milliseconds: 440),
+                          () => {widget.voidCallbackDropDownArrowOnTap!()});
+                    }
+                  });
+                } else {
+                  setState(() {
+                    widget.containerHeight -= containerHeight;
+                  });
+                }
+              },
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 400),
+                margin: EdgeInsets.only(top: 8.h),
+                height: widget.containerHeight.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: isEmpty == true
+                        ? ListColor.colorOutlineTextFieldWhenEmpty
+                        : Colors.black,
+                    width: 2.0,
+                  ),
+                  color: isEmpty == true
+                      ? ListColor.colorValidationTextFieldBackgroundEmpty
+                      : ListColor.colorBackgroundTextFieldAll,
+                  borderRadius:
+                      BorderRadius.circular(size.roundedCircularGlobal),
+                ),
+                child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 15.h,
+                      left: 15.w,
+                      right: 10.w,
+                      bottom: 7.h,
+                    ),
+                    child: Stack(
+                      children: [
+                        TextFormField(
+                          controller: widget.textEditingControllerDropDown,
+                          validator: (value) {
+                            print("valuee $value");
+                            if (value == widget.initialValueDropDown) {
+                              setState(() {
+                                isEmpty = true;
+                                _animationControllerShake.forward();
+                              });
+                              return null;
+                            } else {
+                              setState(() {
+                                isEmpty = false;
+                              });
+                            }
+                            return null;
+                          },
+                          readOnly: true, // Make the field read-only
+                          style: FontType.font_utama(
+                              fontSize: size.sizeTextDescriptionGlobal.sp,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black),
+                          decoration: InputDecoration(
+                            border: InputBorder.none, // Remove the outline
+                            contentPadding: EdgeInsets.zero, // Remove padding
+                            isCollapsed: true, // Collapse the vertical space
+                          ),
+                        ),
+                        UtilLocalization.checkLocalization(context)
+                                    .toString() ==
+                                "US"
+                            ? Positioned(
+                                right: 1,
+                                child: RotationTransition(
+                                  turns: animationRotateIndicatorController,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 0),
+                                    child: Image.asset(
+                                      "assets/icon/ic_drop_down_chose.png",
+                                      width: 20.w,
+                                      height: 20.h,
+                                      color: isEmpty == true
+                                          ? ListColor
+                                              .colorOutlineTextFieldWhenEmpty
+                                          : Color.fromARGB(255, 114, 87, 216),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Positioned(
+                                left: 1,
+                                child: RotationTransition(
+                                  turns: animationRotateIndicatorController,
+                                  child: Image.asset(
+                                    "assets/icon/ic_drop_down_chose.png",
+                                    width: 20.w,
+                                    height: 20.h,
+                                    color: isEmpty == true
+                                        ? ListColor
+                                            .colorOutlineTextFieldWhenEmpty
+                                        : Color.fromARGB(255, 114, 87, 216),
+                                  ),
+                                ),
+                              ),
+                        Container(
+                          color: isEmpty == true
+                              ? ListColor
+                                  .colorValidationTextFieldBackgroundEmpty
+                              : ListColor.colorBackgroundTextFieldAll,
+                          margin: EdgeInsets.only(top: 40.h),
+                          padding: EdgeInsets.only(right: 5, left: 0),
+                          child: Scrollbar(
+                              thickness: 6,
+                              thumbVisibility: true,
+                              trackVisibility: true,
+                              radius: Radius.circular(30),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: AlwaysScrollableScrollPhysics(),
+                                itemCount: widget.listData!.length,
+                                itemBuilder: (context, index) {
+                                  return InkResponse(
+                                    borderRadius: BorderRadius.circular(30),
+                                    highlightColor:
+                                        Colors.blue.withOpacity(0.4),
+                                    splashColor: Colors.green.withOpacity(0.5),
+                                    onTap: () {
+                                      //select language
+                                      setState(() {
+                                        widget.textEditingControllerDropDown
+                                            .text = widget.listData![index];
+                                        // widget.initialValueDropDown =
+                                        //     widget.listData![index];
+                                        setState(() {
+                                          double screenHeight =
+                                              MediaQuery.of(context)
+                                                  .size
+                                                  .height;
+
+                                          if (widget.isFilledWithData != null) {
+                                            widget.isFilledWithData!(
+                                                true,
+                                                widget
+                                                    .textEditingControllerDropDown
+                                                    .text);
+
+                                            // widget.isFilledWithData!(
+                                            //     itemCountAdded);
+                                          }
+                                          double containerHeight =
+                                              widget.containerListHeight != null
+                                                  ? widget.containerListHeight!
+                                                  : screenHeight * 0.278;
+
+                                          if (animationRotateIndicatorController
+                                                  .status ==
+                                              AnimationStatus.completed) {
+                                            animationRotateIndicatorController
+                                                .reverse(from: 0.5);
+                                          } else {
+                                            animationRotateIndicatorController
+                                                .forward(from: 0.0);
+                                          }
+                                          widget.containerHeight -=
+                                              containerHeight;
+                                        });
+                                        print(
+                                            "value${widget.initialValueDropDown}");
+                                      });
+                                      //EasyLocalization.of(context)
+                                      widget.selectedIndex = index;
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 20.h),
+                                          child: Divider(
+                                            height: 3,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 5.h),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              ComponentTextDescription(
+                                                widget.listData![index],
+                                                fontSize: size
+                                                    .sizeTextDescriptionGlobal,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                              SizedBox(),
+                                              // Padding(
+                                              //   padding: EdgeInsets.symmetric(
+                                              //       vertical: 2.h,
+                                              //       horizontal: 10.h),
+                                              //   child: Container(
+                                              //     decoration: BoxDecoration(
+                                              //         color:
+                                              //             widget.selectedIndex ==
+                                              //                     index
+                                              //                 ? Colors.purple
+                                              //                 : ListColor.colorBackgroundTextFieldAll,
+                                              //         borderRadius:
+                                              //             BorderRadius.circular(
+                                              //                 5.0.r),
+                                              //         border: Border.all(
+                                              //             color: Colors.black,
+                                              //             width: size
+                                              //                 .sizeBorderBlackGlobal)),
+                                              //     width: 15.w,
+                                              //     height: 15.h,
+                                              //   ),
+                                              // )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              )),
+                        ),
+                      ],
+                    )),
+              ),
+            ),
+            Align(
+                alignment: Alignment.topLeft,
+                child: AnimatedContainer(
+                    duration: Duration(milliseconds: 500),
+                    margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.h),
+                    color: isEmpty == true
+                        ? ListColor.colorValidationTextFieldBackgroundEmpty
+                        : ListColor.colorBackgroundTextFieldAll,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.h),
+                      child: ComponentTextDescription(
+                        tr(widget.labelText.toString()),
+                        fontWeight: FontWeight.normal,
+                        fontSize: size.sizeTextDescriptionGlobal,
+                      ),
+                    ))),
+          ]),
+          SizedBox(
+            height: 35.h,
+          ),
+        ],
       ),
     );
   }
