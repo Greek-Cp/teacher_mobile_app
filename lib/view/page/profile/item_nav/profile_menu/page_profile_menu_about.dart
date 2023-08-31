@@ -20,6 +20,7 @@ import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_language.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_login.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_description.dart';
 
 class PageProfileMenuAbout extends StatefulWidget {
   static String? routeName = "/PageProfileMenuAbout";
@@ -218,6 +219,13 @@ class _PageProfileMenuAboutState extends State<PageProfileMenuAbout>
                     child: Center(
                         child: ButtonLongForm(
                       nameButton: "confirm",
+                      onClickButton: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) =>
+                                    PageProfileAddVideoDescription()));
+                      },
                       routeName: PageProfileMenuAbout.routeName.toString(),
                       formKey: _formKey,
                     )),
