@@ -356,19 +356,24 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
 }
 
 class TextFieldFormMultiLine extends StatefulWidget {
-  TextFieldFormMultiLine(
-      {required this.textEditingControllerEmail,
-      required this.hintText,
-      required this.labelText,
-      required this.lengthMax,
-      required this.minLines,
-      required this.minCharacterHint});
+  TextFieldFormMultiLine({
+    required this.textEditingControllerEmail,
+    required this.hintText,
+    required this.labelText,
+    required this.lengthMax,
+    required this.minLines,
+    required this.minCharacterHint,
+    required this.hintStyle, // Tambahkan parameter hintStyle
+  });
+
   final TextEditingController textEditingControllerEmail;
   final String labelText;
   final String hintText;
   int lengthMax;
   int minLines;
   int minCharacterHint;
+  final TextStyle hintStyle; // Tambahkan parameter hintStyle
+
   @override
   State<TextFieldFormMultiLine> createState() => _TextFieldFormMultiLineState();
 }
@@ -443,7 +448,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
       child: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 5.h),
+            margin: EdgeInsets.only(top: 5.h, bottom: 0.h),
             child: TextFormField(
               focusNode: _focusNode,
               minLines: widget.minLines,
@@ -515,7 +520,9 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                     : ListColor.colorBackgroundTextFieldAll,
                 hintText: tr("${widget.hintText}"),
                 hintStyle: GoogleFonts.nunito(
-                    fontSize: size.sizeTextDescriptionGlobal.sp),
+                    fontSize: size.sizeTextDescriptionGlobal - 1.sp,
+                    fontWeight: FontWeight.normal),
+                counterStyle: widget.hintStyle,
                 contentPadding: EdgeInsets.all(15.h),
                 enabledBorder: OutlineInputBorder(
                   borderRadius:
@@ -563,7 +570,9 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               : Positioned(
                   bottom: 1,
                   child: Container(
-                    padding: EdgeInsets.only(left: 10.h),
+                    padding: EdgeInsets.only(
+                      left: 10.h,
+                    ),
                     child: ComponentTextDescription(
                         "Min (${tr((_currentMin).toString())})",
                         fontSize: size.sizeTextDescriptionGlobal.sp,
