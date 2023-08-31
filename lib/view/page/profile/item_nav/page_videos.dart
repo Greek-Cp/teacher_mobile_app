@@ -209,6 +209,21 @@ class _PageVideosState extends State<PageVideos> {
                                               ),
                                               textAlign: TextAlign.start,
                                             ),
+
+                                            // Text(
+                                            //   "English\nFrench\nGerman",
+                                            //   overflow: TextOverflow.ellipsis,
+                                            //   style: TextStyle(
+                                            //     height: 0.7.h,
+                                            //     fontSize:
+                                            //         size.sizeTextDescriptionGlobal -
+                                            //             5.sp,
+                                            //     fontWeight: FontWeight.bold,
+                                            //     color: Color.fromARGB(
+                                            //         255, 255, 126, 195),
+                                            //   ),
+                                            //   textAlign: TextAlign.start,
+                                            // ),
                                           ],
                                         ),
                                       ),
@@ -339,7 +354,8 @@ class _PageVideosState extends State<PageVideos> {
                                 margin: EdgeInsets.only(),
                                 child: ComponentTextDescription(
                                   "Math teacher by day, tutor by night, contact me if you need any helpsadkmsadkaskdasdasdkasmaksamkdksadmakdkmasdakdasadsakodaodksaoß",
-                                  fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                                  fontSize:
+                                      size.sizeTextDescriptionGlobal - 2.sp,
                                   teksColor: Color.fromARGB(255, 227, 203, 254),
                                   fontWeight: FontWeight.normal,
                                   textAlign: TextAlign.center,
