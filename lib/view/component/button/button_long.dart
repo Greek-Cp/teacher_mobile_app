@@ -169,14 +169,15 @@ class ButtonLongHeader extends StatelessWidget {
             backgroundColor: MaterialStatePropertyAll(colorButton)),
         onPressed: () => {Get.toNamed(this.routeName.toString())},
         child: Padding(
-            padding: EdgeInsets.only(
-                left: 30.h, right: 30.h, top: 10.h, bottom: 10.h),
+            padding:
+                EdgeInsets.only(left: 5.h, right: 5.h, top: 15.h, bottom: 15.h),
             child: ComponentTextDescription(
               tr("$nameButton"),
               teksColor: colorFont,
-              fontSize: size.textButton + 5,
+              fontSize: size.sizeTextDescriptionGlobal - 2.sp,
               fontWeight: fontWeight,
               textAlign: textAlign,
+              maxLines: 1,
             )));
   }
 }
