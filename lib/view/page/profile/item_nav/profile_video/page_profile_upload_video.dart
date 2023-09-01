@@ -603,6 +603,7 @@ class _CardVideoState extends State<CardVideo> {
                               ),
                             )
                           : Stack(
+                              // this stack
                               children: [
                                 ClipRRect(
                                     borderRadius: BorderRadius.circular(20.r),
