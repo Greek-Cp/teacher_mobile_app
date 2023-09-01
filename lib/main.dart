@@ -28,6 +28,7 @@ import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_upload_video.dart';
 import 'package:teacher_mobile_app/view/page/profile/nav/base_nav_account.dart';
 
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
@@ -82,7 +83,7 @@ class MainApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           debugShowCheckedModeBanner: false,
-          initialRoute: PageSelectLanguage.routeName.toString(),
+          initialRoute: PageProfileUploadVideo.routeName.toString(),
           defaultTransition: Transition.circularReveal,
           getPages: [
             GetPage(
@@ -155,7 +156,10 @@ class MainApp extends StatelessWidget {
                 page: () => PagePlayground()),
             GetPage(
                 name: PageProfileAddVideoDescription.routeName.toString(),
-                page: () => PageProfileAddVideoDescription())
+                page: () => PageProfileAddVideoDescription()),
+            GetPage(
+                name: PageProfileUploadVideo.routeName.toString(),
+                page: () => PageProfileUploadVideo())
           ],
           theme: _buildTheme(Brightness.light),
         );
