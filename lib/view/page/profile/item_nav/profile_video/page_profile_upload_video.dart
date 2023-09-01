@@ -26,6 +26,7 @@ import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
+import '../../../../../res/border/border.dart';
 import '../page_nav_profile_select_picture.dart';
 import '../profile_menu/page_profile_menu_add_videos.dart';
 
@@ -38,37 +39,10 @@ class PageProfileUploadVideo extends StatefulWidget {
 
 class _PageProfileUploadVideoState extends State<PageProfileUploadVideo>
     with TickerProviderStateMixin {
-  TextEditingController textEditingControllerVideoTittle =
-      TextEditingController();
-  TextEditingController textEditingControllerVideoDescription =
-      TextEditingController();
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    textEditingControllerVideoDescription.text =
-        dropdownController.videoDescripiton.toString();
-
-    textEditingControllerVideoTittle.text =
-        dropdownController.videoTittle.toString();
-    textEditingControllerVideoTittle.addListener(() {
-      _onTextChangeVideoTittle();
-      dropdownController.videoTittle.value =
-          textEditingControllerVideoTittle.text;
-    });
-
-    textEditingControllerVideoDescription.addListener(() {
-      _onTextChangeVideoDescription();
-      dropdownController.videoDescripiton.value =
-          textEditingControllerVideoDescription.text;
-    });
-
-    print("d2 : ${dropdownController.grades}");
-
-    print("d3 : ${dropdownController.mainLanguage}");
-
-    print("d4 : ${dropdownController.subject}");
   }
 
   List<ModelPhotoRequirements> listRequirementPhotoProfile = [
@@ -88,39 +62,9 @@ class _PageProfileUploadVideoState extends State<PageProfileUploadVideo>
     ModelPhotoRequirements(
         photoRequirements: "- Warm welcome", statusRequirement: false),
   ];
-  bool _isTextFieldVideoTittleEmpty = true;
-  bool _isTextFieldVideoDescriptionEmpty = true;
-  bool _isMinimumCharacterVideoTittle = false;
-  bool _isMinimumCharacterVideoDescription = false;
 
-  void _onTextChangeVideoTittle() {
-    setState(() {
-      _isTextFieldVideoTittleEmpty =
-          textEditingControllerVideoTittle.text.isEmpty;
-      if (textEditingControllerVideoTittle.text.length >= 5) {
-        _isMinimumCharacterVideoTittle = true;
-      } else {
-        _isMinimumCharacterVideoTittle = false;
-      }
-    });
-    print(_isMinimumCharacterVideoTittle);
-
-    print("Value bool ${_isMinimumCharacterVideoTittle}");
-  }
-
-  void _onTextChangeVideoDescription() {
-    setState(() {
-      _isTextFieldVideoDescriptionEmpty =
-          textEditingControllerVideoDescription.text.isEmpty;
-
-      if (textEditingControllerVideoDescription.text.length >= 20) {
-        _isMinimumCharacterVideoDescription = true;
-      } else {
-        _isMinimumCharacterVideoDescription = false;
-      }
-    });
-    print("Value bool  data ${_isMinimumCharacterVideoDescription}");
-  }
+  bool isAlreadyUploadVideo = false;
+  bool isAlreadyUploadThumbnail = false;
 
   File? selectedImage;
   Uint8List? imageThumbnnail;
@@ -180,11 +124,7 @@ class _PageProfileUploadVideoState extends State<PageProfileUploadVideo>
           systemNavigationBarIconBrightness: Brightness.light));
     }
     return Scaffold(
-      appBar: AppBarPageVideoSecond(
-          _isMinimumCharacterVideoDescription == true &&
-                  _isMinimumCharacterVideoTittle == true
-              ? ListColor.colorbuttonPageVideoDescriptionEnabled
-              : Colors.grey),
+      appBar: AppBarPageVideo(dropdownController.buttonColorPageVideoUpload),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
@@ -212,7 +152,7 @@ class _PageProfileUploadVideoState extends State<PageProfileUploadVideo>
                           bottom: 30),
                       decoration: BoxDecoration(
                         color: ListColor
-                            .colorCardBaseNewVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                            .colBackroundColorContainer, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
                         border: Border.all(
                           color:
                               Colors.black, // Warna garis tepi (outline) hitam
@@ -320,7 +260,11 @@ class _PageProfileUploadVideoState extends State<PageProfileUploadVideo>
                                     ),
                                   ),
                                   SizedBox(height: 30.h),
-                                  RowVideo(),
+                                  RowVideo(
+                                    getVideopath: (pathVid) {
+                                      print("Path Video Lur ${pathVid}");
+                                    },
+                                  ),
                                   SizedBox(height: 20.h),
                                   ComponentTextDescription(
                                     "Requirements: ",
@@ -372,6 +316,7 @@ class _PageProfileUploadVideoState extends State<PageProfileUploadVideo>
                                 child: ButtonLongHeader(
                               nameButton: "${dropdownController.videoTittle}",
                               routeName: "",
+                              textAlign: TextAlign.center,
                               heightLongHeader: 10.h,
                               colorButton: ListColor.colorCardHeaderVideo,
                               fontWeight: FontWeight.bold,
@@ -396,4 +341,370 @@ class _PageProfileUploadVideoState extends State<PageProfileUploadVideo>
   }
 
   final List<String> itemNames = ['student', 'views', 'videos', 'quizzes'];
+}
+
+class RowVideo extends StatefulWidget {
+  Function(String pathVid)? getVideopath;
+
+  RowVideo({this.getVideopath});
+  @override
+  State<RowVideo> createState() => _RowVideoState();
+}
+
+class _RowVideoState extends State<RowVideo> {
+  String? videoPath;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return CardVideo(
+      hintText: "Tap to select a video",
+      labelVideo: "Video",
+      getVideoPath: (pathVideo) {
+        setState(() {
+          videoPath = pathVideo;
+
+          widget.getVideopath!(pathVideo);
+        });
+      },
+    );
+  }
+}
+
+class CardVideo extends StatefulWidget {
+  final String hintText;
+  CardVideo(
+      {required this.hintText,
+      required this.labelVideo,
+      required this.getVideoPath});
+  File? selectedImage;
+  File? selectedImageThumbnail;
+  Uint8List? imageFrameVideo;
+
+  final String labelVideo;
+  final Function(String pathVideo) getVideoPath;
+
+  @override
+  State<CardVideo> createState() => _CardVideoState();
+}
+
+class _CardVideoState extends State<CardVideo> {
+  DropdownController dropdownController = Get.put(DropdownController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (dropdownController.videoPathCreate != "") {
+      widget.selectedImage = File(dropdownController.videoPathCreate.value);
+    }
+    if (dropdownController.videoPathThumbnail == "") {
+      if (dropdownController.videoPathCreate != "") {
+        widget.selectedImageThumbnail =
+            File(dropdownController.videoPathCreate.value);
+      }
+    } else {
+      widget.selectedImageThumbnail =
+          File(dropdownController.videoPathThumbnail.value);
+    }
+  }
+
+  Future<void> pickVIdeo() async {
+    final ImagePicker _picker = ImagePicker();
+    // Pick an image from the gallery
+    XFile? video = await _picker.pickVideo(source: ImageSource.gallery);
+
+    if (video != null) {
+      setState(() {
+        widget.selectedImage = File(video.path);
+        print("Video path ${video.path}");
+        widget.selectedImageThumbnail = widget.selectedImage;
+        dropdownController.videoPathCreate.value = widget.selectedImage!.path;
+        dropdownController.checkIsVideoPathFilled();
+
+        //     widget.getVideoPath(video.path);
+      });
+    } else {
+      // User canceled the selection
+      print('No video selected');
+    }
+  }
+
+  Future<void> pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    // Pick an image from the gallery
+    XFile? video = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (video != null) {
+      setState(() {
+        widget.selectedImageThumbnail = File(video.path);
+        dropdownController.videoPathThumbnail.value =
+            widget.selectedImageThumbnail!.path;
+        dropdownController.checkIsVideoPathFilled();
+      });
+    } else {
+      // User canceled the selection
+      print('No image selected');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width *
+                      0.3, // 30% of the screen width
+                  height: MediaQuery.of(context).size.width *
+                      0.3 *
+                      194.7 /
+                      110, // Maintaining the 6:19 aspect ratio
+                  margin: EdgeInsets.only(top: 10.h),
+                  child: Card(
+                    color: ListColor.colorBackgroundVideoContainer,
+                    shape: BorderApp.border,
+                    child: Container(
+                      child: widget.selectedImage == null
+                          ? GestureDetector(
+                              onTap: pickVIdeo,
+                              child: Container(
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ComponentTextDescription(
+                                      "${widget.hintText}",
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal - 2.sp,
+                                      textAlign: TextAlign.center,
+                                      fontWeight: FontWeight.bold,
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Stack(
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    child: FutureBuilder<Uint8List?>(
+                                      future: generateThumbnail(
+                                          dropdownController.videoPathCreate
+                                                  .value.isNotEmpty
+                                              ? dropdownController
+                                                  .videoPathCreate.value
+                                              : widget.selectedImage!.path),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                                ConnectionState.done &&
+                                            snapshot.hasData) {
+                                          return Image.memory(
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            snapshot.data!,
+                                          );
+                                        } else {
+                                          return CircularProgressIndicator();
+                                        }
+                                      },
+                                    )),
+                                Align(
+                                    alignment: Alignment.center,
+                                    child: Icon(
+                                      Icons.play_circle_fill,
+                                      size: 40,
+                                      color: Colors.white,
+                                    )),
+                              ],
+                            ),
+                    ),
+                  ),
+                ),
+                ComponentTextDescription("${widget.labelVideo}",
+                    fontSize: size.sizeTextDescriptionGlobal),
+              ],
+            ),
+            widget.selectedImage != null
+                ? Positioned(
+                    right: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          widget.selectedImage = null;
+                          dropdownController.videoPathCreate.value = "";
+                          dropdownController.checkIsVideoPathFilled();
+                        });
+                      },
+                      child: Card(
+                        color: Color.fromARGB(255, 214, 214, 214),
+                        shape: CircleBorder(
+                          side: BorderSide(
+                            width: size.sizeBorderBlackGlobal,
+                            color: Colors.black,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 5.h, horizontal: 15.w),
+                          child: Center(
+                            child: ComponentTextDescription(
+                              '\u00D7',
+                              fontSize: size.sizeTextDescriptionGlobal + 15.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : Positioned(right: 1, child: Container()),
+          ],
+        ),
+        Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width *
+                      0.3, // 30% of the screen width
+                  height: MediaQuery.of(context).size.width *
+                      0.3 *
+                      194.7 /
+                      110, // Maintaining the 6:19 aspect ratio
+                  margin: EdgeInsets.only(top: 10.h),
+                  child: Card(
+                    color: ListColor.colorBackgroundVideoContainer,
+                    shape: BorderApp.border,
+                    child: Container(
+                      child: widget.selectedImageThumbnail == null
+                          ? GestureDetector(
+                              onTap: pickImage,
+                              child: Container(
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ComponentTextDescription(
+                                      "Tap to select a thumbnail",
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal - 2.sp,
+                                      textAlign: TextAlign.center,
+                                      fontWeight: FontWeight.bold,
+                                      maxLines: 3,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Stack(
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    child: FutureBuilder<Uint8List?>(
+                                      future: generateThumbnail(
+                                          widget.selectedImageThumbnail!.path),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                                ConnectionState.done &&
+                                            snapshot.hasData) {
+                                          return Image.memory(
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            snapshot.data!,
+                                          );
+                                        } else {
+                                          return Image.file(
+                                            widget.selectedImageThumbnail!,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                          );
+                                        }
+                                      },
+                                    )),
+                                Align(
+                                    alignment: Alignment.center,
+                                    child: GestureDetector(
+                                      onTap: pickImage,
+                                      child: Container(
+                                        child: Center(
+                                          child: ComponentTextDescription(
+                                            "${widget.hintText}",
+                                            fontSize: size
+                                                .sizeTextDescriptionGlobal.sp,
+                                            textAlign: TextAlign.center,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    )),
+                              ],
+                            ),
+                    ),
+                  ),
+                ),
+                ComponentTextDescription("Thumbnail",
+                    fontSize: size.sizeTextDescriptionGlobal)
+              ],
+            ),
+            widget.selectedImageThumbnail != null
+                ? Positioned(
+                    right: 1,
+                    child: Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.selectedImageThumbnail = null;
+                            dropdownController.videoPathThumbnail.value = "";
+                            dropdownController.checkIsVideoPathFilled();
+                          });
+                        },
+                        child: Card(
+                          color: Color.fromARGB(255, 214, 214, 214),
+                          shape: CircleBorder(
+                            side: BorderSide(
+                              width: size.sizeBorderBlackGlobal,
+                              color: Colors.black,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5.h, horizontal: 15.w),
+                            child: Center(
+                              child: ComponentTextDescription(
+                                '\u00D7',
+                                fontSize:
+                                    size.sizeTextDescriptionGlobal + 15.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : Positioned(right: 1, child: Container()),
+          ],
+        )
+      ],
+    );
+  }
+
+  Future<Uint8List?> generateThumbnail(String videoPath) async {
+    print("gen video path ${videoPath}");
+    final thumbnailBytes = await VideoThumbnail.thumbnailData(
+      video: videoPath,
+      imageFormat: ImageFormat.JPEG,
+      quality: 85,
+    );
+    widget.imageFrameVideo = thumbnailBytes;
+    return thumbnailBytes;
+  }
 }
