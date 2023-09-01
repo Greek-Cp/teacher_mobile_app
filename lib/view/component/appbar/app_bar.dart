@@ -349,7 +349,7 @@ class AppBarPageVideoSecond extends StatelessWidget
 }
 
 class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
-  Color? colorsButtonNext;
+  Rx<Color?> colorsButtonNext;
   final controller = Get.put<DropdownController>(DropdownController());
 
   AppBarPageVideo(this.colorsButtonNext);
@@ -429,7 +429,7 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
                       angle: 180 * (3.141592653589793238 / 180),
                       child: ButtonBackArrow(
                         onPressed: () {},
-                        colorBackgroundButton: controller.buttonColor.value,
+                        colorBackgroundButton: colorsButtonNext!.value,
                       ),
                     ),
                   ),
