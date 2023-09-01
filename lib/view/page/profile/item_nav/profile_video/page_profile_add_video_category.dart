@@ -52,6 +52,9 @@ class DropdownController extends GetxController {
   var videoTittle = "".obs;
   var videoDescripiton = "".obs;
 
+  var videoPathCreate = "".obs;
+  var videoPathThumbnail = "".obs;
+
   List<RxInt> listItemCount = List.generate(3, (index) => 0.obs);
 
   void updateItemCount(int indexItemCount, int valueNew) {
@@ -64,6 +67,8 @@ class DropdownController extends GetxController {
   }
 
   Rx<Color?> buttonColor =
+      ListColor.colorbuttonPageVideoDescriptionDisabled.obs;
+  Rx<Color?> buttonColorPageVideoUpload =
       ListColor.colorbuttonPageVideoDescriptionDisabled.obs;
   List<RxBool> listIsFilledDataDropDown =
       List.generate(5, (index) => false.obs);
@@ -80,6 +85,19 @@ class DropdownController extends GetxController {
     print("remove item ${name}");
 
     listItemSelectedByUser[indexItem].remove(name);
+  }
+
+  bool isFilledPath = false;
+  void checkIsVideoPathFilled() {
+    if (videoPathCreate.value.isEmpty == true &&
+        videoPathThumbnail.isEmpty == true) {
+      isFilledPath = false;
+    } else {
+      isFilledPath = true;
+    }
+    buttonColorPageVideoUpload.value = isFilledPath
+        ? ListColor.colorbuttonPageVideoDescriptionEnabled
+        : ListColor.colorbuttonPageVideoDescriptionDisabled;
   }
 
   void updateButtonColor() {
@@ -210,7 +228,7 @@ class _PageProfileAddVideoCategoryState
     }
     print("${dropdownController.listItemCount[0].value} value asu");
     return Scaffold(
-      appBar: AppBarPageVideo(dropdownController.buttonColor.value),
+      appBar: AppBarPageVideo(dropdownController.buttonColor),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
