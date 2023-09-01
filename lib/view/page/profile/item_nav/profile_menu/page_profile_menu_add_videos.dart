@@ -25,6 +25,7 @@ import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_language.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_select_login.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../page_nav_profile_select_picture.dart';
@@ -527,6 +528,9 @@ class _PageProfileMenuAddVideosState extends State<PageProfileMenuAddVideos>
 }
 
 class RowVideo extends StatefulWidget {
+  Function(String pathVid)? getVideopath;
+
+  RowVideo({this.getVideopath});
   @override
   State<RowVideo> createState() => _RowVideoState();
 }
@@ -542,6 +546,8 @@ class _RowVideoState extends State<RowVideo> {
       getVideoPath: (pathVideo) {
         setState(() {
           videoPath = pathVideo;
+
+          widget.getVideopath!(pathVideo);
         });
       },
     );
@@ -566,6 +572,8 @@ class CardVideo extends StatefulWidget {
 }
 
 class _CardVideoState extends State<CardVideo> {
+  DropdownController dropdownController = Get.put(DropdownController());
+
   Future<void> pickVIdeo() async {
     final ImagePicker _picker = ImagePicker();
     // Pick an image from the gallery
@@ -576,6 +584,7 @@ class _CardVideoState extends State<CardVideo> {
         widget.selectedImage = File(video.path);
         print("Video path ${video.path}");
         widget.selectedImageThumbnail = widget.selectedImage;
+        dropdownController.videoPathCreate.value = widget.selectedImage!.path;
         //     widget.getVideoPath(video.path);
       });
     } else {
@@ -592,6 +601,8 @@ class _CardVideoState extends State<CardVideo> {
     if (video != null) {
       setState(() {
         widget.selectedImageThumbnail = File(video.path);
+        dropdownController.videoPathThumbnail.value =
+            widget.selectedImageThumbnail!.path;
       });
     } else {
       // User canceled the selection
@@ -646,7 +657,11 @@ class _CardVideoState extends State<CardVideo> {
                                     borderRadius: BorderRadius.circular(20.r),
                                     child: FutureBuilder<Uint8List?>(
                                       future: generateThumbnail(
-                                          widget.selectedImage!.path),
+                                          dropdownController.videoPathCreate
+                                                  .value.isNotEmpty
+                                              ? dropdownController
+                                                  .videoPathCreate.value
+                                              : widget.selectedImage!.path),
                                       builder: (context, snapshot) {
                                         if (snapshot.connectionState ==
                                                 ConnectionState.done &&
