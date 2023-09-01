@@ -22,6 +22,7 @@ import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_upload_video.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
 class PageProfileAddVideoDescription extends StatefulWidget {
@@ -54,6 +55,17 @@ class _PageProfileAddVideoDescriptionState
       dropdownController.videoTittle.value =
           textEditingControllerVideoTittle.text;
     });
+    if (dropdownController.videoTittle.value.length >= 5) {
+      _isMinimumCharacterVideoTittle = true;
+    } else {
+      _isMinimumCharacterVideoTittle = false;
+    }
+
+    if (dropdownController.videoDescripiton.value.length >= 20) {
+      _isMinimumCharacterVideoDescription = true;
+    } else {
+      _isMinimumCharacterVideoDescription = false;
+    }
 
     textEditingControllerVideoDescription.addListener(() {
       _onTextChangeVideoDescription();
@@ -139,7 +151,7 @@ class _PageProfileAddVideoDescriptionState
                 child: Stack(
                   children: [
                     Container(
-                      height: 490.h,
+                      height: 530.h,
                       margin: EdgeInsets.only(
                           left: size.sizePaddingLeftAndRightPage.w,
                           right: size.sizePaddingLeftAndRightPage.w,
@@ -297,7 +309,7 @@ class _PageProfileAddVideoDescriptionState
                       padding: EdgeInsets.only(
                           bottom: 50.h, left: 20.w, right: 20.w),
                       margin:
-                          EdgeInsets.only(top: 487.h, left: 20.h, right: 20.h),
+                          EdgeInsets.only(top: 525.h, left: 20.h, right: 20.h),
                       child: Center(
                           child: ButtonLongForm(
                         nameButton: "Next",
@@ -306,8 +318,10 @@ class _PageProfileAddVideoDescriptionState
                         formKey: _formKey,
                         heightLongHeader: 40.h,
                         onClickButton: () {
-                          Navigator.pushNamed(
-                              context, PagePlayground.routeName.toString());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => PageProfileUploadVideo()));
                         },
                         colorButton: _isMinimumCharacterVideoDescription ==
                                     true &&
