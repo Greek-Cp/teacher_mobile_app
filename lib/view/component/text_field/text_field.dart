@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -9,6 +10,7 @@ import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/res/dimension/size.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
 
 import '../../../res/colors/list_color.dart';
 
@@ -403,6 +405,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               _animationControllerShake.reverse();
             }
           });
+    _updateMinValue();
   }
 
   bool _shouldIncreaseMinOnEnter = true;
