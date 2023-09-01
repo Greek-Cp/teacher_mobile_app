@@ -28,6 +28,7 @@ import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_menu.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_upload_video.dart';
 import 'package:teacher_mobile_app/view/page/profile/nav/base_nav_account.dart';
 
@@ -159,7 +160,10 @@ class MainApp extends StatelessWidget {
                 page: () => PageProfileAddVideoDescription()),
             GetPage(
                 name: PageProfileUploadVideo.routeName.toString(),
-                page: () => PageProfileUploadVideo())
+                page: () => PageProfileUploadVideo()),
+            GetPage(
+                name: PageProfileAddVideoMenu.routeName.toString(),
+                page: () => PageProfileAddVideoMenu())
           ],
           theme: _buildTheme(Brightness.light),
         );
