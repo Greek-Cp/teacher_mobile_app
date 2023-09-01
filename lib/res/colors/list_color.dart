@@ -78,4 +78,5 @@ class ListColor {
       Color.fromARGB(255, 126, 251, 205);
   static const colorbuttonPageVideoDescriptionDisabled =
       Color.fromARGB(255, 180, 180, 180);
+  static const colBackroundColorContainer = Color.fromARGB(255, 161, 123, 216);
 }
