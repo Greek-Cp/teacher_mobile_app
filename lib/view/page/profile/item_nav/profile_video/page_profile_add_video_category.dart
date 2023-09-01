@@ -255,7 +255,7 @@ class _PageProfileAddVideoCategoryState
                           top: 20.h),
                       decoration: BoxDecoration(
                         color: ListColor
-                            .colorCardBaseNewVideo, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                            .colBackroundColorContainer, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
                         border: Border.all(
                           color:
                               Colors.black, // Warna garis tepi (outline) hitam
