@@ -16,7 +16,11 @@ class ButtonBackArrow extends StatelessWidget {
     // TODO: implement build
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pop();
+        if (onPressed != null) {
+          onPressed();
+        } else {
+          Navigator.of(context).pop();
+        }
       },
       child: Align(
         alignment: Alignment.centerLeft,
