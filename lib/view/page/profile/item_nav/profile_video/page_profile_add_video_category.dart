@@ -228,7 +228,9 @@ class _PageProfileAddVideoCategoryState
     }
     print("${dropdownController.listItemCount[0].value} value asu");
     return Scaffold(
-      appBar: AppBarPageVideo(dropdownController.buttonColor),
+      appBar: AppBarPageVideo(
+        dropdownController.buttonColor,
+      ),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
