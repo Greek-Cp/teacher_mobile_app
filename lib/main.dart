@@ -38,6 +38,7 @@ import 'controller/account_user_controller.dart';
 import 'view/page/profile/item_nav/profile_menu/page_profile_menu_add_phone_number.dart';
 import 'view/page/profile/item_nav/profile_menu/page_profile_menu_change_username.dart';
 import 'view/page/profile/item_nav/profile_video/page_profile_add_video_description.dart';
+import 'view/page/profile/item_nav/profile_video/page_profile_add_video_quiz.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -84,7 +85,7 @@ class MainApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           debugShowCheckedModeBanner: false,
-          initialRoute: PageSelectLanguage.routeName.toString(),
+          initialRoute: PageProfileAddVideoQuiz.routeName.toString(),
           defaultTransition: Transition.circularReveal,
           getPages: [
             GetPage(
@@ -163,7 +164,11 @@ class MainApp extends StatelessWidget {
                 page: () => PageProfileUploadVideo()),
             GetPage(
                 name: PageProfileAddVideoMenu.routeName.toString(),
-                page: () => PageProfileAddVideoMenu())
+                page: () => PageProfileAddVideoMenu()),
+            GetPage(
+              name: PageProfileAddVideoQuiz.routeName.toString(),
+              page: () => PageProfileAddVideoQuiz(),
+            )
           ],
           theme: _buildTheme(Brightness.light),
         );
