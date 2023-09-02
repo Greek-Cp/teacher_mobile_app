@@ -23,6 +23,30 @@ import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_description.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
+class ModelQuizVideo {
+  String? question = "";
+  String? imagePathQuestion = "";
+  String? answer1 = "";
+  String? answer2 = "";
+  String? answer3 = "";
+  String? answer4 = "";
+  bool? rightAnswer1;
+  bool? rightAnswer2;
+  bool? rightAnswer3;
+  bool? rihgtAnswer4;
+  ModelQuizVideo(
+      {this.question,
+      this.imagePathQuestion,
+      this.answer1,
+      this.answer2,
+      this.answer3,
+      this.answer4,
+      this.rightAnswer1,
+      this.rightAnswer2,
+      this.rightAnswer3,
+      this.rihgtAnswer4});
+}
+
 class DropdownController extends GetxController {
   List<List<ModelDropDownMultiChoose>> listDropDown = [
     [
@@ -54,6 +78,11 @@ class DropdownController extends GetxController {
 
   var videoPathCreate = "".obs;
   var videoPathThumbnail = "".obs;
+  RxList<ModelQuizVideo> listModelQuizVideo = [
+    ModelQuizVideo(),
+    ModelQuizVideo(),
+    ModelQuizVideo(),
+  ].obs;
 
   List<RxInt> listItemCount = List.generate(3, (index) => 0.obs);
 
