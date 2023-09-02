@@ -55,7 +55,8 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
         child: QuizWidget(
           color: Color.fromARGB(255, 221, 158, 244),
           isHeaderOnLeft: true,
-          headerName: "Quiz 1 For User bla ",
+          headerName: "Quiz 1",
+          indexQuizWidget: 0,
         ),
       ),
       GestureDetector(
@@ -68,6 +69,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           color: Color.fromARGB(255, 204, 244, 253),
           isHeaderOnCenter: true,
           headerName: "Quiz 2",
+          indexQuizWidget: 1,
         ),
       ),
       GestureDetector(
@@ -77,6 +79,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           });
         },
         child: QuizWidget(
+          indexQuizWidget: 2,
           color: Color.fromARGB(255, 236, 198, 160),
           isHeaderOnRight: true,
           headerName: "Quiz 3",
@@ -155,9 +158,10 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
   }
 
   Color? buttonColor;
-  final DropdownController dropdownController = Get.put(DropdownController());
 
   final _formKey = GlobalKey<FormState>();
+
+  DropdownController dropdownController = Get.put(DropdownController());
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -217,7 +221,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     SizedBox(
-                                      height: 55.h,
+                                      height: 40.h,
                                     ),
                                     for (int i = 0;
                                         i < listRequirementPhotoProfile.length;
@@ -230,6 +234,9 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                         fontWeight: FontWeight.bold,
                                         maxLines: 2,
                                       ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
                                     Stack(
                                       children: [
                                         ...listCardWidget,
@@ -301,30 +308,111 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
   final List<String> itemNames = ['student', 'views', 'videos', 'quizzes'];
 }
 
-class QuizWidget extends StatelessWidget {
-  QuizWidget({
-    Key? key,
-    required this.color,
-    this.isHeaderOnLeft,
-    this.isHeaderOnRight,
-    this.isHeaderOnCenter,
-    this.headerName,
-  }) : super(key: key);
+class QuizWidget extends StatefulWidget {
+  QuizWidget(
+      {Key? key,
+      required this.color,
+      this.isHeaderOnLeft,
+      this.isHeaderOnRight,
+      this.isHeaderOnCenter,
+      this.headerName,
+      required this.indexQuizWidget})
+      : super(key: key);
+
+  int indexQuizWidget;
 
   final Color color;
   final bool? isHeaderOnLeft;
   final bool? isHeaderOnRight;
   final bool? isHeaderOnCenter;
   final String? headerName;
+
+  @override
+  State<QuizWidget> createState() => _QuizWidgetState();
+}
+
+class _QuizWidgetState extends State<QuizWidget> {
   TextEditingController textEditingControllerQuiz = TextEditingController();
+
   TextEditingController textEditingControllerAnswer1 = TextEditingController();
+
   TextEditingController textEditingControllerAnswer2 = TextEditingController();
+
   TextEditingController textEditingControllerAnswer3 = TextEditingController();
+
   TextEditingController textEditingControllerAnswer4 = TextEditingController();
+
   bool rightAnswer1 = false;
+
   bool rightAnswer2 = false;
+
   bool rightAnswer3 = false;
+
   bool rightAnswer4 = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // if (dropdownController.listModelQuizVideo[widget.indexQuizWidget].answer1 !=
+    //     null) {
+    //   textEditingControllerAnswer1.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer1!;
+    // }
+
+    // textEditingControllerQuiz.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].question =
+    //       textEditingControllerQuiz.text;
+    // });
+
+    if (dropdownController
+            .listModelQuizVideo.value[widget.indexQuizWidget!].answer1 !=
+        null) {
+      textEditingControllerAnswer1.text = dropdownController
+          .listModelQuizVideo.value[widget.indexQuizWidget!].answer1!;
+    }
+    if (dropdownController
+            .listModelQuizVideo.value[widget.indexQuizWidget!].answer2 !=
+        null) {
+      textEditingControllerAnswer2.text = dropdownController
+          .listModelQuizVideo.value[widget.indexQuizWidget!].answer2!;
+    }
+    if (dropdownController
+            .listModelQuizVideo.value[widget.indexQuizWidget!].answer3 !=
+        null) {
+      textEditingControllerAnswer3.text = dropdownController
+          .listModelQuizVideo.value[widget.indexQuizWidget!].answer3!;
+    }
+    if (dropdownController
+            .listModelQuizVideo.value[widget.indexQuizWidget!].answer4 !=
+        null) {
+      textEditingControllerAnswer4.text = dropdownController
+          .listModelQuizVideo.value[widget.indexQuizWidget!].answer4!;
+    }
+
+    textEditingControllerQuiz.addListener(() {
+      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].question =
+          textEditingControllerQuiz.text;
+    });
+    textEditingControllerAnswer1.addListener(() {
+      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer1 =
+          textEditingControllerAnswer1.text;
+    });
+    textEditingControllerAnswer2.addListener(() {
+      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer2 =
+          textEditingControllerAnswer2.text;
+    });
+    textEditingControllerAnswer3.addListener(() {
+      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer3 =
+          textEditingControllerAnswer3.text;
+    });
+    textEditingControllerAnswer4.addListener(() {
+      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer4 =
+          textEditingControllerAnswer4.text;
+    });
+  }
+
+  DropdownController dropdownController = Get.put(DropdownController());
 
   @override
   Widget build(BuildContext context) {
@@ -335,7 +423,7 @@ class QuizWidget extends StatelessWidget {
           margin: EdgeInsets.only(top: 37.h, left: 0.w, right: 0.w),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 2),
-            color: color,
+            color: widget.color,
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Container(
@@ -396,6 +484,9 @@ class QuizWidget extends StatelessWidget {
                   colorBackgroundTextField:
                       ListColor.colBackroundColorContainer,
                 ),
+                SizedBox(
+                  height: 20.h,
+                ),
                 TextFieldFormMultiLine(
                   minCharacterHint: 20,
                   hintStyle: GoogleFonts.nunito(
@@ -411,6 +502,9 @@ class QuizWidget extends StatelessWidget {
                   lengthMax: 90,
                   colorBackgroundTextField:
                       ListColor.colBackroundColorContainer,
+                ),
+                SizedBox(
+                  height: 20.h,
                 ),
                 TextFieldFormMultiLine(
                   minCharacterHint: 20,
@@ -428,6 +522,9 @@ class QuizWidget extends StatelessWidget {
                   colorBackgroundTextField:
                       ListColor.colBackroundColorContainer,
                 ),
+                SizedBox(
+                  height: 20.h,
+                ),
                 TextFieldFormMultiLine(
                   minCharacterHint: 20,
                   hintStyle: GoogleFonts.nunito(
@@ -443,6 +540,9 @@ class QuizWidget extends StatelessWidget {
                   showIndicatorMax: false,
                   colorBackgroundTextField:
                       ListColor.colBackroundColorContainer,
+                ),
+                SizedBox(
+                  height: 0.h,
                 ),
                 ComponentTextDescription(
                   "Right Answer",
@@ -521,21 +621,21 @@ class QuizWidget extends StatelessWidget {
             ),
           ),
         ),
-        if (isHeaderOnLeft == true ||
-            isHeaderOnCenter == true ||
-            isHeaderOnRight == true)
+        if (widget.isHeaderOnLeft == true ||
+            widget.isHeaderOnCenter == true ||
+            widget.isHeaderOnRight == true)
           Align(
-            alignment: isHeaderOnLeft == true
+            alignment: widget.isHeaderOnLeft == true
                 ? Alignment.topLeft
-                : isHeaderOnCenter == true
+                : widget.isHeaderOnCenter == true
                     ? Alignment.topCenter
                     : Alignment.topRight,
             child: HeaderCard(
-              color: color,
-              headerName: headerName,
-              isLeft: isHeaderOnLeft,
-              isCenter: isHeaderOnCenter,
-              isRight: isHeaderOnRight,
+              color: widget.color,
+              headerName: widget.headerName,
+              isLeft: widget.isHeaderOnLeft,
+              isCenter: widget.isHeaderOnCenter,
+              isRight: widget.isHeaderOnRight,
             ),
           ),
       ],
@@ -601,9 +701,10 @@ class HeaderCard extends StatelessWidget {
               width: 30.w,
               child: ComponentTextDescription(
                 "${headerName}",
-                fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                fontSize: size.sizeTextDescriptionGlobal - 6.sp,
                 fontWeight: FontWeight.bold,
                 maxLines: 2,
+                textAlign: TextAlign.center,
               ),
             ),
             Icon(
