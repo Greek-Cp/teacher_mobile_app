@@ -187,7 +187,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                 child: Stack(
                   children: [
                     Container(
-                        height: 600.h,
+                        height: 1000.h,
                         margin: EdgeInsets.only(
                             left: size.sizePaddingLeftAndRightPage.w,
                             right: size.sizePaddingLeftAndRightPage.w,
@@ -219,13 +219,6 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                     SizedBox(
                                       height: 55.h,
                                     ),
-                                    SizedBox(height: 20.h),
-                                    ComponentTextDescription(
-                                      "Requirements: ",
-                                      fontSize:
-                                          size.sizeTextDescriptionGlobal + 5.sp,
-                                      fontWeight: FontWeight.bold,
-                                    ),
                                     for (int i = 0;
                                         i < listRequirementPhotoProfile.length;
                                         i++)
@@ -243,6 +236,9 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                         listCardWidget[indexCardSelectedUser]
                                       ],
                                     ),
+                                    SizedBox(
+                                      height: 30.h,
+                                    )
                                   ]),
                             ),
                           ),
@@ -276,7 +272,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                             alignment: Alignment.topCenter,
                             child: Center(
                                 child: ButtonLongHeader(
-                              nameButton: "${dropdownController.videoTittle}",
+                              nameButton: "Video Tittle",
                               routeName: "",
                               textAlign: TextAlign.center,
                               heightLongHeader: 10.h,
@@ -347,6 +343,7 @@ class QuizWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 10.h),
                 TextFieldFormMultiLine(
                   minCharacterHint: 20,
                   hintStyle: GoogleFonts.nunito(
@@ -367,7 +364,7 @@ class QuizWidget extends StatelessWidget {
                   fontSize: size.sizeTextDescriptionGlobal - 4.sp,
                   fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 20.h),
                 CardButtonLong(
                   nameButton: "Add Image",
                   routeName: "profile_picture",
@@ -382,21 +379,144 @@ class QuizWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 20.h),
                 TextFieldFormMultiLine(
                   minCharacterHint: 20,
                   hintStyle: GoogleFonts.nunito(
                     fontSize: size.sizeTextDescriptionGlobal.sp,
                     color: ListColor.colorOutlineTextFieldWhenEmpty,
                   ),
-                  labelText: "Question",
-                  textEditingControllerEmail: textEditingControllerQuiz,
-                  hintText: "Write a question \nmax 300 characters",
+                  labelText: "Answer 1",
+                  textEditingControllerEmail: textEditingControllerAnswer1,
+                  hintText: "Max 200 characters",
                   showIndicatorMin: false,
+                  showIndicatorMax: false,
                   minLines: 5,
                   lengthMax: 90,
                   colorBackgroundTextField:
                       ListColor.colBackroundColorContainer,
                 ),
+                TextFieldFormMultiLine(
+                  minCharacterHint: 20,
+                  hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    color: ListColor.colorOutlineTextFieldWhenEmpty,
+                  ),
+                  labelText: "Answer 2",
+                  textEditingControllerEmail: textEditingControllerAnswer2,
+                  hintText: "Max 200 characters",
+                  showIndicatorMin: false,
+                  showIndicatorMax: false,
+                  minLines: 5,
+                  lengthMax: 90,
+                  colorBackgroundTextField:
+                      ListColor.colBackroundColorContainer,
+                ),
+                TextFieldFormMultiLine(
+                  minCharacterHint: 20,
+                  hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    color: ListColor.colorOutlineTextFieldWhenEmpty,
+                  ),
+                  labelText: "Answer 3",
+                  textEditingControllerEmail: textEditingControllerAnswer3,
+                  hintText: "Max 200 characters",
+                  showIndicatorMin: false,
+                  showIndicatorMax: false,
+                  minLines: 5,
+                  lengthMax: 90,
+                  colorBackgroundTextField:
+                      ListColor.colBackroundColorContainer,
+                ),
+                TextFieldFormMultiLine(
+                  minCharacterHint: 20,
+                  hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    color: ListColor.colorOutlineTextFieldWhenEmpty,
+                  ),
+                  labelText: "Answer 4",
+                  textEditingControllerEmail: textEditingControllerAnswer4,
+                  hintText: "Max 200 characters",
+                  showIndicatorMin: false,
+                  minLines: 5,
+                  lengthMax: 90,
+                  showIndicatorMax: false,
+                  colorBackgroundTextField:
+                      ListColor.colBackroundColorContainer,
+                ),
+                ComponentTextDescription(
+                  "Right Answer",
+                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+                ComponentTextDescription(
+                  "Select 1 to 3 right answers.",
+                  fontSize: size.sizeTextDescriptionGlobal - 4.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+                GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.9,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          border: Border.all(color: Colors.black, width: 2.w),
+                          color: Color.fromARGB(255, 183, 155, 248)),
+                      child: Center(
+                        child: ComponentTextDescription(
+                          "Answer 1",
+                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          border: Border.all(color: Colors.black, width: 2.w),
+                          color: Color.fromARGB(255, 183, 155, 248)),
+                      child: Center(
+                        child: ComponentTextDescription(
+                          "Answer 2",
+                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          border: Border.all(color: Colors.black, width: 2.w),
+                          color: Color.fromARGB(255, 183, 155, 248)),
+                      child: Center(
+                        child: ComponentTextDescription(
+                          "Answer 3",
+                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          border: Border.all(color: Colors.black, width: 2.w),
+                          color: Color.fromARGB(255, 178, 253, 178)),
+                      child: Center(
+                        child: ComponentTextDescription(
+                          "Answer 4",
+                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
