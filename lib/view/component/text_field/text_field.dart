@@ -358,15 +358,17 @@ class _TextFieldFormPhoneState extends State<TextFieldFormPhone>
 }
 
 class TextFieldFormMultiLine extends StatefulWidget {
-  TextFieldFormMultiLine({
-    required this.textEditingControllerEmail,
-    required this.hintText,
-    required this.labelText,
-    required this.lengthMax,
-    required this.minLines,
-    required this.minCharacterHint,
-    required this.hintStyle, // Tambahkan parameter hintStyle
-  });
+  TextFieldFormMultiLine(
+      {required this.textEditingControllerEmail,
+      required this.hintText,
+      required this.labelText,
+      required this.lengthMax,
+      required this.minLines,
+      required this.minCharacterHint,
+      required this.hintStyle, // Tambahkan parameter hintStyle
+      this.showIndicatorMin = true,
+      this.showIndicatorMax,
+      this.colorBackgroundTextField});
 
   final TextEditingController textEditingControllerEmail;
   final String labelText;
@@ -374,6 +376,10 @@ class TextFieldFormMultiLine extends StatefulWidget {
   int lengthMax;
   int minLines;
   int minCharacterHint;
+  bool? showIndicatorMin;
+  bool? showIndicatorMax;
+  Color? colorBackgroundTextField;
+
   final TextStyle hintStyle; // Tambahkan parameter hintStyle
 
   @override
@@ -520,7 +526,9 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                 filled: true,
                 fillColor: isEmpty == true
                     ? ListColor.colorValidationTextFieldBackgroundEmpty
-                    : ListColor.colorBackgroundTextFieldAll,
+                    : widget.colorBackgroundTextField == null
+                        ? ListColor.colorBackgroundTextFieldAll
+                        : widget.colorBackgroundTextField,
                 hintText: tr("${widget.hintText}"),
                 hintStyle: GoogleFonts.nunito(
                     fontSize: size.sizeTextDescriptionGlobal - 1.sp,
@@ -559,7 +567,9 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                   margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
                   color: isEmpty == true
                       ? ListColor.colorValidationTextFieldBackgroundEmpty
-                      : ListColor.colorBackgroundTextFieldAll,
+                      : widget.colorBackgroundTextField == null
+                          ? ListColor.colorBackgroundTextFieldAll
+                          : widget.colorBackgroundTextField,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.h),
                     child: ComponentTextDescription(
@@ -568,21 +578,23 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                       fontSize: size.sizeTextDescriptionGlobal - 3,
                     ),
                   ))),
-          _currentMin == 0
-              ? Container()
-              : Positioned(
-                  bottom: 1,
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      left: 10.h,
-                    ),
-                    child: ComponentTextDescription(
-                        "Min (${tr((_currentMin).toString())})",
-                        fontSize: size.sizeTextDescriptionGlobal.sp,
-                        fontWeight: FontWeight.normal,
-                        teksColor: Colors.red),
-                  ),
-                ),
+          widget.showIndicatorMin == true
+              ? _currentMin == 0
+                  ? Container()
+                  : Positioned(
+                      bottom: 1,
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          left: 10.h,
+                        ),
+                        child: ComponentTextDescription(
+                            "Min (${tr((_currentMin).toString())})",
+                            fontSize: size.sizeTextDescriptionGlobal.sp,
+                            fontWeight: FontWeight.normal,
+                            teksColor: Colors.red),
+                      ),
+                    )
+              : Container(),
         ],
       ),
     );
