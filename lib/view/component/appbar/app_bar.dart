@@ -351,8 +351,8 @@ class AppBarPageVideoSecond extends StatelessWidget
 class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
   Rx<Color?> colorsButtonNext;
   final controller = Get.put<DropdownController>(DropdownController());
-
-  AppBarPageVideo(this.colorsButtonNext);
+  VoidCallback? onTapVideoRight;
+  AppBarPageVideo(this.colorsButtonNext, {this.onTapVideoRight});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -360,7 +360,7 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         forceMaterialTransparency: true,
         backgroundColor:
-            Colors.transparent, // Make the AppBar background transparent
+            Colors.transparent, // Make thex AppBar background transparent
         elevation: 0, // Remove shadow under the AppBar
 
         toolbarHeight: 100.h,
@@ -384,12 +384,14 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
         actions: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
+              //Navigator.of(context).pop();
             },
             child: Column(
               children: [
                 ButtonBackArrow(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
                 Container()
               ],
@@ -419,7 +421,7 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
+              onTapVideoRight!();
             },
             child: Container(
               child: Column(
@@ -428,7 +430,9 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
                     () => Transform.rotate(
                       angle: 180 * (3.141592653589793238 / 180),
                       child: ButtonBackArrow(
-                        onPressed: () {},
+                        onPressed: () {
+                          onTapVideoRight!();
+                        },
                         colorBackgroundButton: colorsButtonNext!.value,
                       ),
                     ),
