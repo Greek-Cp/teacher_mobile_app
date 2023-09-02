@@ -23,6 +23,7 @@ import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_quiz.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
@@ -124,7 +125,13 @@ class _PageProfileUploadVideoState extends State<PageProfileUploadVideo>
           systemNavigationBarIconBrightness: Brightness.light));
     }
     return Scaffold(
-      appBar: AppBarPageVideo(dropdownController.buttonColorPageVideoUpload),
+      appBar: AppBarPageVideo(
+        dropdownController.buttonColorPageVideoUpload,
+        onTapVideoRight: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => PageProfileAddVideoQuiz()));
+        },
+      ),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
@@ -467,7 +474,7 @@ class _CardVideoState extends State<CardVideo> {
                       110, // Maintaining the 6:19 aspect ratio
                   margin: EdgeInsets.only(top: 10.h),
                   child: Card(
-                    color: ListColor.colorBackgroundVideoContainer,
+                    color: ListColor.colorBackgroundTextFieldAll,
                     shape: BorderApp.border,
                     child: Container(
                       child: widget.selectedImage == null
@@ -580,7 +587,7 @@ class _CardVideoState extends State<CardVideo> {
                       110, // Maintaining the 6:19 aspect ratio
                   margin: EdgeInsets.only(top: 10.h),
                   child: Card(
-                    color: ListColor.colorBackgroundVideoContainer,
+                    color: ListColor.colorBackgroundTextFieldAll,
                     shape: BorderApp.border,
                     child: Container(
                       child: widget.selectedImageThumbnail == null
