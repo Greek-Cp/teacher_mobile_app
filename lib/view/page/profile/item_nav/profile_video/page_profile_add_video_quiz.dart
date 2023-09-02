@@ -40,6 +40,12 @@ class PageProfileAddVideoQuiz extends StatefulWidget {
 
 class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     with TickerProviderStateMixin {
+  List<TextEditingController> listTextEditingController = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
+
   int indexCardSelectedUser = 0;
   @override
   void initState() {
@@ -57,6 +63,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           isHeaderOnLeft: true,
           headerName: "Quiz 1",
           indexQuizWidget: 0,
+          textEditingController: listTextEditingController[0],
         ),
       ),
       GestureDetector(
@@ -70,6 +77,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           isHeaderOnCenter: true,
           headerName: "Quiz 2",
           indexQuizWidget: 1,
+          textEditingController: listTextEditingController[1],
         ),
       ),
       GestureDetector(
@@ -83,6 +91,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           color: Color.fromARGB(255, 236, 198, 160),
           isHeaderOnRight: true,
           headerName: "Quiz 3",
+          textEditingController: listTextEditingController[2],
         ),
       ),
     ];
@@ -316,11 +325,12 @@ class QuizWidget extends StatefulWidget {
       this.isHeaderOnRight,
       this.isHeaderOnCenter,
       this.headerName,
-      required this.indexQuizWidget})
+      required this.indexQuizWidget,
+      required this.textEditingController})
       : super(key: key);
+  TextEditingController textEditingController;
 
   int indexQuizWidget;
-
   final Color color;
   final bool? isHeaderOnLeft;
   final bool? isHeaderOnRight;
@@ -365,51 +375,51 @@ class _QuizWidgetState extends State<QuizWidget> {
     //       textEditingControllerQuiz.text;
     // });
 
-    if (dropdownController
-            .listModelQuizVideo.value[widget.indexQuizWidget!].answer1 !=
-        null) {
-      textEditingControllerAnswer1.text = dropdownController
-          .listModelQuizVideo.value[widget.indexQuizWidget!].answer1!;
-    }
-    if (dropdownController
-            .listModelQuizVideo.value[widget.indexQuizWidget!].answer2 !=
-        null) {
-      textEditingControllerAnswer2.text = dropdownController
-          .listModelQuizVideo.value[widget.indexQuizWidget!].answer2!;
-    }
-    if (dropdownController
-            .listModelQuizVideo.value[widget.indexQuizWidget!].answer3 !=
-        null) {
-      textEditingControllerAnswer3.text = dropdownController
-          .listModelQuizVideo.value[widget.indexQuizWidget!].answer3!;
-    }
-    if (dropdownController
-            .listModelQuizVideo.value[widget.indexQuizWidget!].answer4 !=
-        null) {
-      textEditingControllerAnswer4.text = dropdownController
-          .listModelQuizVideo.value[widget.indexQuizWidget!].answer4!;
-    }
+    // if (dropdownController
+    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer1 !=
+    //     null) {
+    //   textEditingControllerAnswer1.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer1!;
+    // }
+    // if (dropdownController
+    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer2 !=
+    //     null) {
+    //   textEditingControllerAnswer2.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer2!;
+    // }
+    // if (dropdownController
+    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer3 !=
+    //     null) {
+    //   textEditingControllerAnswer3.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer3!;
+    // }
+    // if (dropdownController
+    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer4 !=
+    //     null) {
+    //   textEditingControllerAnswer4.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer4!;
+    // }
 
-    textEditingControllerQuiz.addListener(() {
-      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].question =
-          textEditingControllerQuiz.text;
-    });
-    textEditingControllerAnswer1.addListener(() {
-      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer1 =
-          textEditingControllerAnswer1.text;
-    });
-    textEditingControllerAnswer2.addListener(() {
-      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer2 =
-          textEditingControllerAnswer2.text;
-    });
-    textEditingControllerAnswer3.addListener(() {
-      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer3 =
-          textEditingControllerAnswer3.text;
-    });
-    textEditingControllerAnswer4.addListener(() {
-      dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer4 =
-          textEditingControllerAnswer4.text;
-    });
+    // textEditingControllerQuiz.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].question =
+    //       textEditingControllerQuiz.text;
+    // });
+    // textEditingControllerAnswer1.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer1 =
+    //       textEditingControllerAnswer1.text;
+    // });
+    // textEditingControllerAnswer2.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer2 =
+    //       textEditingControllerAnswer2.text;
+    // });
+    // textEditingControllerAnswer3.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer3 =
+    //       textEditingControllerAnswer3.text;
+    // });
+    // textEditingControllerAnswer4.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer4 =
+    //       textEditingControllerAnswer4.text;
+    // });
   }
 
   DropdownController dropdownController = Get.put(DropdownController());
