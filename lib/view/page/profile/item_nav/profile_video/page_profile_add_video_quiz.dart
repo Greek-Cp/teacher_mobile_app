@@ -55,7 +55,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
         child: QuizWidget(
           color: Color.fromARGB(255, 221, 158, 244),
           isHeaderOnLeft: true,
-          headerName: "Quiz 1",
+          headerName: "Quiz 1 For User bla ",
         ),
       ),
       GestureDetector(
@@ -125,7 +125,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
       });
     } else {
       // User canceled the selection
-      print('No image selected');
+      print('No im  age selected');
     }
   }
 
@@ -187,7 +187,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                 child: Stack(
                   children: [
                     Container(
-                        height: 1000.h,
+                        height: 1400.h,
                         margin: EdgeInsets.only(
                             left: size.sizePaddingLeftAndRightPage.w,
                             right: size.sizePaddingLeftAndRightPage.w,
@@ -597,12 +597,13 @@ class HeaderCard extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              "${headerName}",
-              style: TextStyle(
-                fontSize: 10.sp,
-                color: Colors.black,
+            SizedBox(
+              width: 30.w,
+              child: ComponentTextDescription(
+                "${headerName}",
+                fontSize: size.sizeTextDescriptionGlobal - 2.sp,
                 fontWeight: FontWeight.bold,
+                maxLines: 2,
               ),
             ),
             Icon(
