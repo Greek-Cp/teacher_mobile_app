@@ -21,6 +21,8 @@ import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/account_page/page_sign_in.dart';
 
+import 'profile_menu/page_profile_menu_add_description.dart';
+
 class PageNavProfileSelectPicture extends StatefulWidget {
   static String? routeName = "/PageNavProfileSelectPicture";
 
@@ -58,6 +60,8 @@ class _PageNavProfileSelectPictureState
 
   String? lang;
   File? selectedImage;
+
+  final _formKey = GlobalKey<FormState>();
 
   Future<void> pickImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -111,122 +115,128 @@ class _PageNavProfileSelectPictureState
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Padding(
-          padding: EdgeInsets.only(
-              left: size.sizePaddingLeftAndRightPage,
-              right: size.sizePaddingLeftAndRightPage),
-          child: ListView(
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 90),
-                    decoration: BoxDecoration(
-                      color: ListColor
-                          .backgroundContainerProfileWhite, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                      border: Border.all(
-                        color: Colors.black, // Warna garis tepi (outline) hitam
-                        width: 2.0, // Ketebalan garis tepi
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: size.sizePaddingLeftAndRightPage,
+                right: size.sizePaddingLeftAndRightPage),
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 70.h),
+                      height: 280.h,
+                      decoration: BoxDecoration(
+                        color: ListColor
+                            .backgroundContainerProfileWhite, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                        border: Border.all(
+                          color:
+                              Colors.black, // Warna garis tepi (outline) hitam
+                          width: 2.0, // Ketebalan garis tepi
+                        ),
+                        borderRadius: BorderRadius.circular(size
+                            .sizeRoundedGlobal
+                            .r), // Sudut melengkung sebesar 30 unit
                       ),
-                      borderRadius: BorderRadius.circular(size.sizeRoundedGlobal
-                          .r), // Sudut melengkung sebesar 30 unit
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 50.h,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                pickImage();
-                              },
-                              child: CardButtonLong(
-                                nameButton: "select_your_profile_picture",
-                                routeName: "profile_picture",
-                                fontWeight: FontWeight.bold,
-                                colorButton: ListColor.cyanColor,
-                                colorFont: Colors.black,
-                                borderShape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  side: BorderSide(
-                                    width: size.sizeBorderBlackGlobal,
-                                    color: Colors.black,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 20.h),
+                        child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 30.h,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  pickImage();
+                                },
+                                child: CardButtonLong(
+                                  nameButton: "select_your_profile_picture",
+                                  routeName: "profile_picture",
+                                  fontWeight: FontWeight.bold,
+                                  colorButton: ListColor.cyanColor,
+                                  colorFont: Colors.black,
+                                  borderShape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                    side: BorderSide(
+                                      width: size.sizeBorderBlackGlobal,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            ComponentTextDescription(
-                              "Photo Requirements: ",
-                              fontSize: size.sizeTextDescriptionGlobal + 5.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            for (int i = 0;
-                                i < listRequirementPhotoProfile.length;
-                                i++)
                               ComponentTextDescription(
-                                listRequirementPhotoProfile[i]
-                                    .photoRequirements,
-                                fontSize: size.sizeTextDescriptionGlobal.sp,
+                                "Photo Requirements: ",
+                                fontSize: size.sizeTextDescriptionGlobal + 1.sp,
                                 fontWeight: FontWeight.bold,
                               ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                          ]),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Card(
-                      margin: EdgeInsets.only(top: 30.h),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(360.r),
-                          side: BorderSide(
-                              width: size.sizeBorderBlackGlobal,
-                              color: Colors.black)),
-                      child: Container(
-                        width: 120.h,
-                        height: 120.h,
-                        child: selectedImage == null
-                            ? Container()
-                            : CircleAvatar(
-                                backgroundImage: FileImage(selectedImage!),
+                              for (int i = 0;
+                                  i < listRequirementPhotoProfile.length;
+                                  i++)
+                                ComponentTextDescription(
+                                  listRequirementPhotoProfile[i]
+                                      .photoRequirements,
+                                  fontSize:
+                                      size.sizeTextDescriptionGlobal - 5.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              SizedBox(
+                                height: 20.h,
                               ),
+                            ]),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 335.h),
-                    padding: EdgeInsets.symmetric(horizontal: 20.h),
-                    child: CardButtonLong(
-                      nameButton: "set_picture",
-                      routeName: "profile_picture",
-                      fontWeight: FontWeight.bold,
-                      colorButton: ListColor.backgroundItemRatingGreen,
-                      colorFont: Colors.black,
-                      borderShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.r),
-                        side: BorderSide(
-                          width: size.sizeBorderBlackGlobal,
-                          color: Colors.black,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Card(
+                        margin: EdgeInsets.only(top: 10.h),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(360.r),
+                            side: BorderSide(
+                                width: size.sizeBorderBlackGlobal,
+                                color: Colors.black)),
+                        child: Container(
+                          width: 120.h,
+                          height: 120.h,
+                          child: selectedImage == null
+                              ? Container()
+                              : CircleAvatar(
+                                  backgroundImage: FileImage(selectedImage!),
+                                ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 50.h,
-              ),
+                    Container(
+                      margin: EdgeInsets.only(top: 315.h),
+                      padding: EdgeInsets.symmetric(horizontal: 20.h),
+                      child: CardButtonLong(
+                        nameButton: "set_picture",
+                        routeName: "profile_picture",
+                        fontWeight: FontWeight.bold,
+                        colorButton: ListColor.backgroundItemRatingGreen,
+                        colorFont: Colors.black,
+                        borderShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.r),
+                          side: BorderSide(
+                            width: size.sizeBorderBlackGlobal,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 50.h,
+                ),
 
-              //Tutoring
-            ],
+                //Tutoring
+              ],
+            ),
           ),
         ),
       ),
