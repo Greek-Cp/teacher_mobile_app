@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:teacher_mobile_app/controller/account_user_controller.dart';
 import 'package:teacher_mobile_app/res/border/divider_global.dart';
@@ -40,10 +41,34 @@ class PageProfileAddVideoQuiz extends StatefulWidget {
 
 class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     with TickerProviderStateMixin {
-  List<TextEditingController> listTextEditingController = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
+  List<List<TextEditingController>> listTextEditingController = [
+    [
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+    ],
+    [
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+    ],
+    [
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+    ],
+  ];
+
+  List<File> listImageQuiz = [
+    File(""),
+    File(""),
+    File(""),
   ];
 
   int indexCardSelectedUser = 0;
@@ -64,6 +89,8 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           headerName: "Quiz 1",
           indexQuizWidget: 0,
           textEditingController: listTextEditingController[0],
+          selectedImage: listImageQuiz[0],
+          key_form: listKey[0],
         ),
       ),
       GestureDetector(
@@ -78,6 +105,8 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           headerName: "Quiz 2",
           indexQuizWidget: 1,
           textEditingController: listTextEditingController[1],
+          selectedImage: listImageQuiz[1],
+          key_form: listKey[1],
         ),
       ),
       GestureDetector(
@@ -92,6 +121,8 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           isHeaderOnRight: true,
           headerName: "Quiz 3",
           textEditingController: listTextEditingController[2],
+          selectedImage: listImageQuiz[2],
+          key_form: listKey[2],
         ),
       ),
     ];
@@ -169,6 +200,11 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
   Color? buttonColor;
 
   final _formKey = GlobalKey<FormState>();
+  List<GlobalKey<FormState>> listKey = [
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>()
+  ];
 
   DropdownController dropdownController = Get.put(DropdownController());
   @override
@@ -223,7 +259,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                               horizontal: size.sizePaddingLeftAndRightPage.h),
                           child: SingleChildScrollView(
                             child: Form(
-                              key: _formKey,
+                              key: listKey[indexCardSelectedUser],
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -295,7 +331,17 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                               colorButton: ListColor.colorCardHeaderVideo,
                               fontWeight: FontWeight.bold,
                               colorFont: Colors.white,
-                            ))))
+                            )))),
+                    Container(
+                        margin: EdgeInsets.only(
+                            top: 1575.w,
+                            left: size.sizePaddingLeftAndRightPage + 25.w,
+                            right: size.sizePaddingLeftAndRightPage + 25.w),
+                        child: ButtonLongForm(
+                            nameButton: "Save Quiz",
+                            routeName:
+                                PageProfileAddVideoQuiz.routeName.toString(),
+                            formKey: listKey[indexCardSelectedUser]))
                   ],
                 ),
               ),
@@ -326,9 +372,11 @@ class QuizWidget extends StatefulWidget {
       this.isHeaderOnCenter,
       this.headerName,
       required this.indexQuizWidget,
-      required this.textEditingController})
+      required this.textEditingController,
+      required this.selectedImage,
+      required this.key_form})
       : super(key: key);
-  TextEditingController textEditingController;
+  List<TextEditingController> textEditingController;
 
   int indexQuizWidget;
   final Color color;
@@ -336,22 +384,15 @@ class QuizWidget extends StatefulWidget {
   final bool? isHeaderOnRight;
   final bool? isHeaderOnCenter;
   final String? headerName;
+  File? selectedImage;
+
+  final GlobalKey<FormState> key_form;
 
   @override
   State<QuizWidget> createState() => _QuizWidgetState();
 }
 
 class _QuizWidgetState extends State<QuizWidget> {
-  TextEditingController textEditingControllerQuiz = TextEditingController();
-
-  TextEditingController textEditingControllerAnswer1 = TextEditingController();
-
-  TextEditingController textEditingControllerAnswer2 = TextEditingController();
-
-  TextEditingController textEditingControllerAnswer3 = TextEditingController();
-
-  TextEditingController textEditingControllerAnswer4 = TextEditingController();
-
   bool rightAnswer1 = false;
 
   bool rightAnswer2 = false;
@@ -422,6 +463,39 @@ class _QuizWidgetState extends State<QuizWidget> {
     // });
   }
 
+  Future<void> pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+
+    // Pick an image from the gallery
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      // Crop the selected image
+      ImageCropper imageCropper = ImageCropper();
+      CroppedFile? croppedImage = await imageCropper.cropImage(
+          sourcePath: image.path,
+          cropStyle: CropStyle.circle,
+          uiSettings: [
+            AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: Color.fromARGB(255, 32, 36, 47),
+                activeControlsWidgetColor: Color.fromARGB(255, 114, 87, 215),
+                toolbarWidgetColor: Colors.white,
+                backgroundColor: Colors.black,
+                initAspectRatio: CropAspectRatioPreset.original,
+                lockAspectRatio: false),
+          ]);
+
+      setState(() {
+        widget.selectedImage =
+            File(croppedImage!.path); // Set the selected and cropped image
+      });
+    } else {
+      // User canceled the selection
+      print('No image selected');
+    }
+  }
+
   DropdownController dropdownController = Get.put(DropdownController());
 
   @override
@@ -449,7 +523,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     color: ListColor.colorOutlineTextFieldWhenEmpty,
                   ),
                   labelText: "Question",
-                  textEditingControllerEmail: textEditingControllerQuiz,
+                  textEditingControllerEmail: widget.textEditingController[0],
                   hintText: "Write a question \nmax 300 characters",
                   showIndicatorMin: false,
                   minLines: 5,
@@ -463,20 +537,73 @@ class _QuizWidgetState extends State<QuizWidget> {
                   fontWeight: FontWeight.bold,
                 ),
                 SizedBox(height: 20.h),
-                CardButtonLong(
-                  nameButton: "Add Image",
-                  routeName: "profile_picture",
-                  fontWeight: FontWeight.bold,
-                  colorButton: ListColor.backgroundItemRatingCyan,
-                  colorFont: Colors.black,
-                  borderShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.r),
-                    side: BorderSide(
-                      width: size.sizeBorderBlackGlobal,
-                      color: Colors.black,
+                if (widget.selectedImage!.path.isEmpty)
+                  GestureDetector(
+                    child: CardButtonLong(
+                      nameButton: "Add Image",
+                      routeName: "profile_picture",
+                      fontWeight: FontWeight.bold,
+                      colorButton: ListColor.backgroundItemRatingCyan,
+                      colorFont: Colors.black,
+                      borderShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.r),
+                        side: BorderSide(
+                          width: size.sizeBorderBlackGlobal,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
+                    onTap: () {
+                      pickImage();
+                    },
                   ),
-                ),
+                if (widget.selectedImage!.path.isNotEmpty)
+                  Stack(
+                    children: [
+                      Image.asset(
+                        widget.selectedImage!.path,
+                        fit: BoxFit.fill,
+                      ),
+                      widget.selectedImage != null
+                          ? Positioned(
+                              right: 1,
+                              child: Container(
+                                transform:
+                                    Matrix4.translationValues(10, -30.h, 0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      widget.selectedImage = File("");
+                                    });
+                                  },
+                                  child: Card(
+                                    color: Color.fromARGB(255, 214, 214, 214),
+                                    shape: CircleBorder(
+                                      side: BorderSide(
+                                        width: size.sizeBorderBlackGlobal,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5.h, horizontal: 15.w),
+                                      child: Center(
+                                        child: ComponentTextDescription(
+                                          '\u00D7',
+                                          fontSize:
+                                              size.sizeTextDescriptionGlobal +
+                                                  15.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Positioned(right: 1, child: Container()),
+                    ],
+                  ),
                 SizedBox(height: 20.h),
                 TextFieldFormMultiLine(
                   minCharacterHint: 20,
@@ -485,7 +612,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     color: ListColor.colorOutlineTextFieldWhenEmpty,
                   ),
                   labelText: "Answer 1",
-                  textEditingControllerEmail: textEditingControllerAnswer1,
+                  textEditingControllerEmail: widget.textEditingController[1],
                   hintText: "Max 200 characters",
                   showIndicatorMin: false,
                   showIndicatorMax: false,
@@ -504,7 +631,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     color: ListColor.colorOutlineTextFieldWhenEmpty,
                   ),
                   labelText: "Answer 2",
-                  textEditingControllerEmail: textEditingControllerAnswer2,
+                  textEditingControllerEmail: widget.textEditingController[2],
                   hintText: "Max 200 characters",
                   showIndicatorMin: false,
                   showIndicatorMax: false,
@@ -523,7 +650,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     color: ListColor.colorOutlineTextFieldWhenEmpty,
                   ),
                   labelText: "Answer 3",
-                  textEditingControllerEmail: textEditingControllerAnswer3,
+                  textEditingControllerEmail: widget.textEditingController[3],
                   hintText: "Max 200 characters",
                   showIndicatorMin: false,
                   showIndicatorMax: false,
@@ -542,7 +669,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     color: ListColor.colorOutlineTextFieldWhenEmpty,
                   ),
                   labelText: "Answer 4",
-                  textEditingControllerEmail: textEditingControllerAnswer4,
+                  textEditingControllerEmail: widget.textEditingController[4],
                   hintText: "Max 200 characters",
                   showIndicatorMin: false,
                   minLines: 5,
@@ -626,7 +753,10 @@ class _QuizWidgetState extends State<QuizWidget> {
                       ),
                     ),
                   ],
-                )
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
               ],
             ),
           ),
