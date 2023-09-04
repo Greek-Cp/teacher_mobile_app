@@ -549,22 +549,26 @@ class _CardVideoState extends State<CardVideo> {
                           dropdownController.checkIsVideoPathFilled();
                         });
                       },
-                      child: Card(
-                        color: Color.fromARGB(255, 214, 214, 214),
-                        shape: CircleBorder(
-                          side: BorderSide(
-                            width: size.sizeBorderBlackGlobal,
-                            color: Colors.black,
+                      child: Container(
+                        transform: Matrix4.translationValues(20.w, -10.h, 0),
+                        child: Card(
+                          color: Color.fromARGB(255, 214, 214, 214),
+                          shape: CircleBorder(
+                            side: BorderSide(
+                              width: size.sizeBorderBlackGlobal,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 5.h, horizontal: 15.w),
-                          child: Center(
-                            child: ComponentTextDescription(
-                              '\u00D7',
-                              fontSize: size.sizeTextDescriptionGlobal + 15.sp,
-                              fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5.h, horizontal: 15.w),
+                            child: Center(
+                              child: ComponentTextDescription(
+                                '\u00D7',
+                                fontSize:
+                                    size.sizeTextDescriptionGlobal + 15.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -666,6 +670,7 @@ class _CardVideoState extends State<CardVideo> {
                 ? Positioned(
                     right: 1,
                     child: Container(
+                      transform: Matrix4.translationValues(20.w, -10.h, 0),
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
