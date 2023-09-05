@@ -236,12 +236,11 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                 child: Stack(
                   children: [
                     Container(
-                        height: 1400.h,
                         margin: EdgeInsets.only(
                             left: size.sizePaddingLeftAndRightPage.w,
                             right: size.sizePaddingLeftAndRightPage.w,
                             top: 20.h,
-                            bottom: 30),
+                            bottom: 30.h),
                         decoration: BoxDecoration(
                           color: ListColor
                               .colBackroundColorContainer, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -332,16 +331,6 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                               fontWeight: FontWeight.bold,
                               colorFont: Colors.white,
                             )))),
-                    Container(
-                        margin: EdgeInsets.only(
-                            top: 1575.w,
-                            left: size.sizePaddingLeftAndRightPage + 25.w,
-                            right: size.sizePaddingLeftAndRightPage + 25.w),
-                        child: ButtonLongForm(
-                            nameButton: "Save Quiz",
-                            routeName:
-                                PageProfileAddVideoQuiz.routeName.toString(),
-                            formKey: listKey[indexCardSelectedUser]))
                   ],
                 ),
               ),
@@ -505,260 +494,253 @@ class _QuizWidgetState extends State<QuizWidget> {
         Container(
           transform: Matrix4.translationValues(0, .5, 2),
           margin: EdgeInsets.only(top: 37.h, left: 0.w, right: 0.w),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 2),
             color: widget.color,
             borderRadius: BorderRadius.circular(20.r),
           ),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10.h),
-                TextFieldFormMultiLine(
-                  minCharacterHint: 20,
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: size.sizeTextDescriptionGlobal.sp,
-                    color: ListColor.colorOutlineTextFieldWhenEmpty,
-                  ),
-                  labelText: "Question",
-                  textEditingControllerEmail: widget.textEditingController[0],
-                  hintText: "Write a question \nmax 300 characters",
-                  showIndicatorMin: false,
-                  minLines: 5,
-                  lengthMax: 90,
-                  colorBackgroundTextField:
-                      ListColor.colBackroundColorContainer,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10.h),
+              TextFieldFormMultiLine(
+                minCharacterHint: 20,
+                hintStyle: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                  color: ListColor.colorOutlineTextFieldWhenEmpty,
                 ),
-                ComponentTextDescription(
-                  "Optional:\n-Upload a picture related to the question.\n-PNG or Jpeg\n-Max 3 MB",
-                  fontSize: size.sizeTextDescriptionGlobal - 4.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                SizedBox(height: 20.h),
-                if (widget.selectedImage!.path.isEmpty)
-                  GestureDetector(
-                    child: CardButtonLong(
-                      nameButton: "Add Image",
-                      routeName: "profile_picture",
-                      fontWeight: FontWeight.bold,
-                      colorButton: ListColor.backgroundItemRatingCyan,
-                      colorFont: Colors.black,
-                      borderShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.r),
-                        side: BorderSide(
-                          width: size.sizeBorderBlackGlobal,
-                          color: Colors.black,
-                        ),
+                labelText: "Question",
+                textEditingControllerEmail: widget.textEditingController[0],
+                hintText: "Write a question \nmax 300 characters",
+                showIndicatorMin: false,
+                minLines: 5,
+                lengthMax: 90,
+                colorBackgroundTextField: ListColor.colBackroundColorContainer,
+              ),
+              ComponentTextDescription(
+                "Optional:\n-Upload a picture related to the question.\n-PNG or Jpeg\n-Max 3 MB",
+                fontSize: size.sizeTextDescriptionGlobal - 4.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              SizedBox(height: 20.h),
+              if (widget.selectedImage!.path.isEmpty)
+                GestureDetector(
+                  child: CardButtonLong(
+                    nameButton: "Add Image",
+                    routeName: "profile_picture",
+                    fontWeight: FontWeight.bold,
+                    colorButton: ListColor.backgroundItemRatingCyan,
+                    colorFont: Colors.black,
+                    borderShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.r),
+                      side: BorderSide(
+                        width: size.sizeBorderBlackGlobal,
+                        color: Colors.black,
                       ),
                     ),
-                    onTap: () {
-                      pickImage();
-                    },
                   ),
-                if (widget.selectedImage!.path.isNotEmpty)
-                  Stack(
-                    children: [
-                      Image.asset(
-                        widget.selectedImage!.path,
-                        fit: BoxFit.fill,
-                      ),
-                      widget.selectedImage != null
-                          ? Positioned(
-                              right: 1,
-                              child: Container(
-                                transform:
-                                    Matrix4.translationValues(10, -30.h, 0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      widget.selectedImage = File("");
-                                    });
-                                  },
-                                  child: Card(
-                                    color: Color.fromARGB(255, 214, 214, 214),
-                                    shape: CircleBorder(
-                                      side: BorderSide(
-                                        width: size.sizeBorderBlackGlobal,
-                                        color: Colors.black,
-                                      ),
+                  onTap: () {
+                    pickImage();
+                  },
+                ),
+              if (widget.selectedImage!.path.isNotEmpty)
+                Stack(
+                  children: [
+                    Image.file(
+                      widget.selectedImage!,
+                      fit: BoxFit.fill,
+                    ),
+                    widget.selectedImage != null
+                        ? Positioned(
+                            right: 1,
+                            child: Container(
+                              transform:
+                                  Matrix4.translationValues(10, -30.h, 0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    widget.selectedImage = File("");
+                                  });
+                                },
+                                child: Card(
+                                  color: Color.fromARGB(255, 214, 214, 214),
+                                  shape: CircleBorder(
+                                    side: BorderSide(
+                                      width: size.sizeBorderBlackGlobal,
+                                      color: Colors.black,
                                     ),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 5.h, horizontal: 15.w),
-                                      child: Center(
-                                        child: ComponentTextDescription(
-                                          '\u00D7',
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal +
-                                                  15.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5.h, horizontal: 15.w),
+                                    child: Center(
+                                      child: ComponentTextDescription(
+                                        '\u00D7',
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal +
+                                                15.sp,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            )
-                          : Positioned(right: 1, child: Container()),
-                    ],
-                  ),
-                SizedBox(height: 20.h),
-                TextFieldFormMultiLine(
-                  minCharacterHint: 20,
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: size.sizeTextDescriptionGlobal.sp,
-                    color: ListColor.colorOutlineTextFieldWhenEmpty,
-                  ),
-                  labelText: "Answer 1",
-                  textEditingControllerEmail: widget.textEditingController[1],
-                  hintText: "Max 200 characters",
-                  showIndicatorMin: false,
-                  showIndicatorMax: false,
-                  minLines: 5,
-                  lengthMax: 90,
-                  colorBackgroundTextField:
-                      ListColor.colBackroundColorContainer,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                TextFieldFormMultiLine(
-                  minCharacterHint: 20,
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: size.sizeTextDescriptionGlobal.sp,
-                    color: ListColor.colorOutlineTextFieldWhenEmpty,
-                  ),
-                  labelText: "Answer 2",
-                  textEditingControllerEmail: widget.textEditingController[2],
-                  hintText: "Max 200 characters",
-                  showIndicatorMin: false,
-                  showIndicatorMax: false,
-                  minLines: 5,
-                  lengthMax: 90,
-                  colorBackgroundTextField:
-                      ListColor.colBackroundColorContainer,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                TextFieldFormMultiLine(
-                  minCharacterHint: 20,
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: size.sizeTextDescriptionGlobal.sp,
-                    color: ListColor.colorOutlineTextFieldWhenEmpty,
-                  ),
-                  labelText: "Answer 3",
-                  textEditingControllerEmail: widget.textEditingController[3],
-                  hintText: "Max 200 characters",
-                  showIndicatorMin: false,
-                  showIndicatorMax: false,
-                  minLines: 5,
-                  lengthMax: 90,
-                  colorBackgroundTextField:
-                      ListColor.colBackroundColorContainer,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                TextFieldFormMultiLine(
-                  minCharacterHint: 20,
-                  hintStyle: GoogleFonts.nunito(
-                    fontSize: size.sizeTextDescriptionGlobal.sp,
-                    color: ListColor.colorOutlineTextFieldWhenEmpty,
-                  ),
-                  labelText: "Answer 4",
-                  textEditingControllerEmail: widget.textEditingController[4],
-                  hintText: "Max 200 characters",
-                  showIndicatorMin: false,
-                  minLines: 5,
-                  lengthMax: 90,
-                  showIndicatorMax: false,
-                  colorBackgroundTextField:
-                      ListColor.colBackroundColorContainer,
-                ),
-                SizedBox(
-                  height: 0.h,
-                ),
-                ComponentTextDescription(
-                  "Right Answer",
-                  fontSize: size.sizeTextDescriptionGlobal.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                ComponentTextDescription(
-                  "Select 1 to 3 right answers.",
-                  fontSize: size.sizeTextDescriptionGlobal - 4.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                GridView.count(
-                  shrinkWrap: true,
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.9,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.r),
-                          border: Border.all(color: Colors.black, width: 2.w),
-                          color: Color.fromARGB(255, 183, 155, 248)),
-                      child: Center(
-                        child: ComponentTextDescription(
-                          "Answer 1",
-                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.r),
-                          border: Border.all(color: Colors.black, width: 2.w),
-                          color: Color.fromARGB(255, 183, 155, 248)),
-                      child: Center(
-                        child: ComponentTextDescription(
-                          "Answer 2",
-                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.r),
-                          border: Border.all(color: Colors.black, width: 2.w),
-                          color: Color.fromARGB(255, 183, 155, 248)),
-                      child: Center(
-                        child: ComponentTextDescription(
-                          "Answer 3",
-                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.r),
-                          border: Border.all(color: Colors.black, width: 2.w),
-                          color: Color.fromARGB(255, 178, 253, 178)),
-                      child: Center(
-                        child: ComponentTextDescription(
-                          "Answer 4",
-                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                            ),
+                          )
+                        : Positioned(right: 1, child: Container()),
                   ],
                 ),
-                SizedBox(
-                  height: 30.h,
+              SizedBox(height: 20.h),
+              TextFieldFormMultiLine(
+                minCharacterHint: 20,
+                hintStyle: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                  color: ListColor.colorOutlineTextFieldWhenEmpty,
                 ),
-              ],
-            ),
+                labelText: "Answer 1",
+                textEditingControllerEmail: widget.textEditingController[1],
+                hintText: "Max 200 characters",
+                showIndicatorMin: false,
+                showIndicatorMax: false,
+                minLines: 5,
+                lengthMax: 90,
+                colorBackgroundTextField: ListColor.colBackroundColorContainer,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              TextFieldFormMultiLine(
+                minCharacterHint: 20,
+                hintStyle: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                  color: ListColor.colorOutlineTextFieldWhenEmpty,
+                ),
+                labelText: "Answer 2",
+                textEditingControllerEmail: widget.textEditingController[2],
+                hintText: "Max 200 characters",
+                showIndicatorMin: false,
+                showIndicatorMax: false,
+                minLines: 5,
+                lengthMax: 90,
+                colorBackgroundTextField: ListColor.colBackroundColorContainer,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              TextFieldFormMultiLine(
+                minCharacterHint: 20,
+                hintStyle: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                  color: ListColor.colorOutlineTextFieldWhenEmpty,
+                ),
+                labelText: "Answer 3",
+                textEditingControllerEmail: widget.textEditingController[3],
+                hintText: "Max 200 characters",
+                showIndicatorMin: false,
+                showIndicatorMax: false,
+                minLines: 5,
+                lengthMax: 90,
+                colorBackgroundTextField: ListColor.colBackroundColorContainer,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              TextFieldFormMultiLine(
+                minCharacterHint: 20,
+                hintStyle: GoogleFonts.nunito(
+                  fontSize: size.sizeTextDescriptionGlobal.sp,
+                  color: ListColor.colorOutlineTextFieldWhenEmpty,
+                ),
+                labelText: "Answer 4",
+                textEditingControllerEmail: widget.textEditingController[4],
+                hintText: "Max 200 characters",
+                showIndicatorMin: false,
+                minLines: 5,
+                lengthMax: 90,
+                showIndicatorMax: false,
+                colorBackgroundTextField: ListColor.colBackroundColorContainer,
+              ),
+              SizedBox(
+                height: 0.h,
+              ),
+              ComponentTextDescription(
+                "Right Answer",
+                fontSize: size.sizeTextDescriptionGlobal.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              ComponentTextDescription(
+                "Select 1 to 3 right answers.",
+                fontSize: size.sizeTextDescriptionGlobal - 4.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                childAspectRatio: 1.9,
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(color: Colors.black, width: 2.w),
+                        color: Color.fromARGB(255, 183, 155, 248)),
+                    child: Center(
+                      child: ComponentTextDescription(
+                        "Answer 1",
+                        fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(color: Colors.black, width: 2.w),
+                        color: Color.fromARGB(255, 183, 155, 248)),
+                    child: Center(
+                      child: ComponentTextDescription(
+                        "Answer 2",
+                        fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(color: Colors.black, width: 2.w),
+                        color: Color.fromARGB(255, 183, 155, 248)),
+                    child: Center(
+                      child: ComponentTextDescription(
+                        "Answer 3",
+                        fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(color: Colors.black, width: 2.w),
+                        color: Color.fromARGB(255, 178, 253, 178)),
+                    child: Center(
+                      child: ComponentTextDescription(
+                        "Answer 4",
+                        fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+            ],
           ),
         ),
         if (widget.isHeaderOnLeft == true ||
