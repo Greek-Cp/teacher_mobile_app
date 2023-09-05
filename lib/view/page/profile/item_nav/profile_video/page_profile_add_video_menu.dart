@@ -22,6 +22,7 @@ import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_quiz.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_upload_video.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
@@ -325,11 +326,20 @@ class _PageProfileAddVideoMenuState extends State<PageProfileAddVideoMenu>
                                   ),
                                 ),
                                 SizedBox(height: 10.h),
-                                CardMenuVideoProfile(
-                                    ListColor.backgroundItemRatingCyan,
-                                    "Add Quiz",
-                                    "(You can do that later)",
-                                    true),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                PageProfileAddVideoQuiz()));
+                                  },
+                                  child: CardMenuVideoProfile(
+                                      ListColor.backgroundItemRatingCyan,
+                                      "Add Quiz",
+                                      "(You can do that later)",
+                                      true),
+                                ),
                                 SizedBox(height: 10.h),
                                 CardMenuVideoProfile(
                                     Color.fromARGB(255, 110, 186, 249),
