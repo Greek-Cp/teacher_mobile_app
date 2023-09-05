@@ -28,6 +28,7 @@ import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../../../res/border/border.dart';
+import 'video_player_page.dart';
 
 class PageProfileAddVideoMenu extends StatefulWidget {
   static String? routeName = "/PageProfileAddVideoMenu";
@@ -48,6 +49,8 @@ class _PageProfileAddVideoMenuState extends State<PageProfileAddVideoMenu>
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    selectedImageThumbnail = File(dropdownController.videoPathThumbnail.value);
   }
 
   bool _isTextFieldVideoTittleEmpty = true;
@@ -204,46 +207,78 @@ class _PageProfileAddVideoMenuState extends State<PageProfileAddVideoMenu>
                                   ),
                                 ),
                                 SizedBox(height: 20.h),
-                                Center(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.4, // 30% of the screen width
-                                    height: MediaQuery.of(context).size.width *
-                                        0.4 *
-                                        194.7 /
-                                        110, // Maintaining the 6:19 aspect ratio
-                                    margin: EdgeInsets.only(top: 10.h),
-                                    child: Card(
-                                      color: ListColor
-                                          .colorBackgroundVideoContainer,
-                                      shape: BorderApp.border,
-                                      child: Container(
-                                        child: selectedImageThumbnail == null
-                                            ? Container(
-                                                child: Center(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child:
-                                                        ComponentTextDescription(
-                                                      "",
-                                                      fontSize:
-                                                          size.sizeTextDescriptionGlobal -
-                                                              2.sp,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      maxLines: 3,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => VideoPlayerPage(
+                                          videoUrl: dropdownController
+                                              .videoPathCreate
+                                              .value, // Ganti dengan URL/video Anda sendiri
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Center(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4, // 30% of the screen width
+                                      height: MediaQuery.of(context)
+                                              .size
+                                              .width *
+                                          0.4 *
+                                          194.7 /
+                                          110, // Maintaining the 6:19 aspect ratio
+                                      margin: EdgeInsets.only(top: 10.h),
+                                      child: Card(
+                                        color: ListColor
+                                            .colorBackgroundVideoContainer,
+                                        shape: BorderApp.border,
+                                        child: Container(
+                                            child: dropdownController
+                                                        .videoPathThumbnail ==
+                                                    ""
+                                                ? Container(
+                                                    child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.r),
+                                                        child: FutureBuilder<
+                                                            Uint8List?>(
+                                                          future: generateThumbnail(
+                                                              dropdownController
+                                                                  .videoPathCreate
+                                                                  .value),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            if (snapshot.connectionState ==
+                                                                    ConnectionState
+                                                                        .done &&
+                                                                snapshot
+                                                                    .hasData) {
+                                                              return Image
+                                                                  .memory(
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                width: double
+                                                                    .infinity,
+                                                                height: double
+                                                                    .infinity,
+                                                                snapshot.data!,
+                                                              );
+                                                            } else {
+                                                              return CircularProgressIndicator();
+                                                            }
+                                                          },
+                                                        )),
+                                                  )
+                                                : Container(
+                                                    child: Center(
+                                                      child: Image.file(
+                                                          selectedImageThumbnail!),
                                                     ),
-                                                  ),
-                                                ),
-                                              )
-                                            : Stack(
-                                                // this stack
-                                                children: [],
-                                              ),
+                                                  )),
                                       ),
                                     ),
                                   ),
@@ -285,39 +320,21 @@ class _PageProfileAddVideoMenuState extends State<PageProfileAddVideoMenu>
                                               ),
                                             ),
                                           ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                if (isCheckedBox == false) {
-                                                  isCheckedBox = true;
-                                                } else {
-                                                  isCheckedBox = false;
-                                                }
-                                              });
-                                            },
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 2.h,
-                                                  horizontal: 4.h),
-                                              child: Container(
-                                                padding: EdgeInsets.all(10),
-                                                margin: EdgeInsets.only(
-                                                    left: 10.h,
-                                                    top: 10.h,
-                                                    right: 5.h,
-                                                    bottom: 10.h),
-                                                decoration: BoxDecoration(
-                                                    color: isCheckedBox == true
-                                                        ? Colors.purple
-                                                        : Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0.r),
-                                                    border: Border.all(
-                                                        color: Colors.black,
-                                                        width: size
-                                                            .sizeBorderBlackGlobal)),
-                                              ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 2.h, horizontal: 4.h),
+                                            child: Checkbox(
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  if (isCheckedBox == false) {
+                                                    isCheckedBox = true;
+                                                  } else {
+                                                    isCheckedBox = false;
+                                                  }
+                                                });
+                                              },
+                                              value: isCheckedBox,
+                                              activeColor: Color(0xFF6200EE),
                                             ),
                                           ),
                                         ],
@@ -380,6 +397,7 @@ class _PageProfileAddVideoMenuState extends State<PageProfileAddVideoMenu>
   }
 
   bool myCourseSelected = false;
+
   Future<Uint8List?> generateThumbnail(String videoPath) async {
     print("gen video path ${videoPath}");
     final thumbnailBytes = await VideoThumbnail.thumbnailData(
@@ -452,12 +470,16 @@ class CardMenuVideoProfile extends StatelessWidget {
                     )
                   : Column(
                       children: [
-                        ComponentTextDescription(
-                          "${stringHeader}",
-                          teksColor: Colors.black,
-                          fontSize: size.sizeTextDescriptionGlobal.sp,
-                          fontWeight: FontWeight.bold,
-                          textAlign: TextAlign.center,
+                        Padding(
+                          padding: EdgeInsets.all(8.0.h),
+                          child: ComponentTextDescription(
+                            "${stringHeader}",
+                            teksColor: Colors.black,
+                            fontSize: size.sizeTextDescriptionGlobal.sp,
+                            fontWeight: FontWeight.bold,
+                            isWrappedText: true,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ],
                     )),
