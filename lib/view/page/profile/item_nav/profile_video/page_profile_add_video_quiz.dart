@@ -25,6 +25,7 @@ import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
+import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../../../res/border/border.dart';
@@ -41,6 +42,8 @@ class PageProfileAddVideoQuiz extends StatefulWidget {
 
 class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     with TickerProviderStateMixin {
+  late VideoPlayerController _controller;
+
   List<List<TextEditingController>> listTextEditingController = [
     [
       TextEditingController(),
@@ -73,9 +76,17 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
 
   int indexCardSelectedUser = 0;
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _controller = VideoPlayerController.file(
+        File(dropdownController.videoPathCreate.value));
     listCardWidget = [
       GestureDetector(
         onTap: () {
@@ -216,7 +227,10 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           systemNavigationBarIconBrightness: Brightness.light));
     }
     return Scaffold(
-      appBar: AppBarPageVideo(dropdownController.buttonColorPageVideoUpload),
+      appBar: AppBarPageVideo(
+        dropdownController.buttonColorPageVideoUpload,
+        showButtonLeftOnly: true,
+      ),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
@@ -233,104 +247,137 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           slivers: [
             SliverToBoxAdapter(
               child: SafeArea(
-                child: Stack(
+                child: Column(
                   children: [
-                    Container(
-                        margin: EdgeInsets.only(
-                            left: size.sizePaddingLeftAndRightPage.w,
-                            right: size.sizePaddingLeftAndRightPage.w,
-                            top: 20.h,
-                            bottom: 30.h),
-                        decoration: BoxDecoration(
-                          color: ListColor
-                              .colBackroundColorContainer, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
-                          border: Border.all(
-                            color: Colors
-                                .black, // Warna garis tepi (outline) hitam
-                            width: 2.0, // Ketebalan garis tepi
-                          ),
-                          borderRadius: BorderRadius.circular(size
-                              .sizeRoundedGlobal
-                              .r), // Sudut melengkung sebesar 30 unit
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.sizePaddingLeftAndRightPage.h),
-                          child: SingleChildScrollView(
-                            child: Form(
-                              key: listKey[indexCardSelectedUser],
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    SizedBox(
-                                      height: 40.h,
-                                    ),
-                                    for (int i = 0;
-                                        i < listRequirementPhotoProfile.length;
-                                        i++)
-                                      ComponentTextDescription(
-                                        tr("${listRequirementPhotoProfile[i].photoRequirements}"),
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal -
-                                                4.sp,
-                                        fontWeight: FontWeight.bold,
-                                        maxLines: 2,
-                                      ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Stack(
-                                      children: [
-                                        ...listCardWidget,
-                                        listCardWidget[indexCardSelectedUser]
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 30.h,
-                                    )
-                                  ]),
+                    Stack(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.only(
+                                left: size.sizePaddingLeftAndRightPage.w,
+                                right: size.sizePaddingLeftAndRightPage.w,
+                                top: 20.h,
+                                bottom: 30.h),
+                            decoration: BoxDecoration(
+                              color: ListColor
+                                  .colBackroundColorContainer, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
+                              border: Border.all(
+                                color: Colors
+                                    .black, // Warna garis tepi (outline) hitam
+                                width: 2.0, // Ketebalan garis tepi
+                              ),
+                              borderRadius: BorderRadius.circular(size
+                                  .sizeRoundedGlobal
+                                  .r), // Sudut melengkung sebesar 30 unit
                             ),
-                          ),
-                        )),
-                    // Container(
-                    //   padding: EdgeInsets.only(
-                    //       bottom: 50.h, left: 20.w, right: 20.w),
-                    //   margin:
-                    //       EdgeInsets.only(top: 487.h, left: 20.h, right: 20.h),
-                    //   child: Center(
-                    //       child: ButtonLongForm(
-                    //     nameButton: "Next",
-                    //     routeName:
-                    //         PageProfileMenuSelectLanguage.routeName.toString(),
-                    //     formKey: _formKey,
-                    //     heightLongHeader: 40.h,
-                    //     onClickButton: () {
-                    //       Navigator.pushNamed(
-                    //           context, PagePlayground.routeName.toString());
-                    //     },
-                    //     colorButton: _isMinimumCharacterVideoDescription ==
-                    //                 true &&
-                    //             _isMinimumCharacterVideoTittle == true
-                    //         ? ListColor.colorbuttonPageVideoDescriptionEnabled
-                    //         : ListColor.colorbuttonPageVideoDescriptionDisabled,
-                    //   )),
-                    // ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      size.sizePaddingLeftAndRightPage.h),
+                              child: SingleChildScrollView(
+                                child: Form(
+                                  key: listKey[indexCardSelectedUser],
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        SizedBox(
+                                          height: 40.h,
+                                        ),
+                                        for (int i = 0;
+                                            i <
+                                                listRequirementPhotoProfile
+                                                    .length;
+                                            i++)
+                                          ComponentTextDescription(
+                                            tr("${listRequirementPhotoProfile[i].photoRequirements}"),
+                                            fontSize:
+                                                size.sizeTextDescriptionGlobal -
+                                                    4.sp,
+                                            fontWeight: FontWeight.bold,
+                                            maxLines: 2,
+                                          ),
+                                        SizedBox(
+                                          height: 20.h,
+                                        ),
+                                        Stack(
+                                          children: [
+                                            ...listCardWidget,
+                                            listCardWidget[
+                                                indexCardSelectedUser]
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 30.h,
+                                        )
+                                      ]),
+                                ),
+                              ),
+                            )),
+                        // Container(
+                        //   padding: EdgeInsets.only(
+                        //       bottom: 50.h, left: 20.w, right: 20.w),
+                        //   margin:
+                        //       EdgeInsets.only(top: 487.h, left: 20.h, right: 20.h),
+                        //   child: Center(
+                        //       child: ButtonLongForm(
+                        //     nameButton: "Next",
+                        //     routeName:
+                        //         PageProfileMenuSelectLanguage.routeName.toString(),
+                        //     formKey: _formKey,
+                        //     heightLongHeader: 40.h,
+                        //     onClickButton: () {
+                        //       Navigator.pushNamed(
+                        //           context, PagePlayground.routeName.toString());
+                        //     },
+                        //     colorButton: _isMinimumCharacterVideoDescription ==
+                        //                 true &&
+                        //             _isMinimumCharacterVideoTittle == true
+                        //         ? ListColor.colorbuttonPageVideoDescriptionEnabled
+                        //         : ListColor.colorbuttonPageVideoDescriptionDisabled,
+                        //   )),
+                        // ),
+                        Container(
+                            margin: EdgeInsets.symmetric(horizontal: 40.w),
+                            child: Align(
+                                alignment: Alignment.topCenter,
+                                child: Center(
+                                    child: ButtonLongHeader(
+                                  nameButton: "Video Tittle",
+                                  routeName: "",
+                                  textAlign: TextAlign.center,
+                                  heightLongHeader: 10.h,
+                                  colorButton: ListColor.colorCardHeaderVideo,
+                                  fontWeight: FontWeight.bold,
+                                  colorFont: Colors.white,
+                                )))),
+                        // Container(
+                        //     margin: EdgeInsets.only(
+                        //         top: 1575.w,
+                        //         left: size.sizePaddingLeftAndRightPage + 25.w,
+                        //         right: size.sizePaddingLeftAndRightPage + 25.w),
+                        //     child: ButtonLongForm(
+                        //         nameButton: "Save Quiz",
+                        //         routeName: PageProfileAddVideoQuiz.routeName
+                        //             .toString(),
+                        //         formKey: listKey[indexCardSelectedUser]))
+                      ],
+                    ),
                     Container(
-                        margin: EdgeInsets.symmetric(horizontal: 40.w),
-                        child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Center(
-                                child: ButtonLongHeader(
-                              nameButton: "Video Tittle",
-                              routeName: "",
-                              textAlign: TextAlign.center,
-                              heightLongHeader: 10.h,
-                              colorButton: ListColor.colorCardHeaderVideo,
-                              fontWeight: FontWeight.bold,
-                              colorFont: Colors.white,
-                            )))),
+                        transform: Matrix4.translationValues(0, -70.h, 2),
+                        margin: EdgeInsets.only(
+                            left: size.sizePaddingLeftAndRightPage + 25.w,
+                            right: size.sizePaddingLeftAndRightPage + 25.w),
+                        child: ButtonLongForm(
+                            nameButton: "Save Quiz",
+                            routeName:
+                                PageProfileAddVideoQuiz.routeName.toString(),
+                            formKey: listKey[indexCardSelectedUser])),
+                    SizedBox(
+                      height: 40.h,
+                    )
                   ],
                 ),
               ),
@@ -815,8 +862,8 @@ class HeaderCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-        child: Row(
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 0.h),
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
