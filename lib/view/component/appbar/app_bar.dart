@@ -285,7 +285,9 @@ class AppBarPageVideoSecond extends StatelessWidget
             child: Column(
               children: [
                 ButtonBackArrow(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
                 Container()
               ],
@@ -352,7 +354,9 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
   Rx<Color?> colorsButtonNext;
   final controller = Get.put<DropdownController>(DropdownController());
   VoidCallback? onTapVideoRight;
-  AppBarPageVideo(this.colorsButtonNext, {this.onTapVideoRight});
+  bool? showButtonLeftOnly;
+  AppBarPageVideo(this.colorsButtonNext,
+      {this.onTapVideoRight, this.showButtonLeftOnly});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -419,35 +423,37 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              onTapVideoRight!();
-            },
-            child: Container(
-              child: Column(
-                children: [
-                  Obx(
-                    () => Transform.rotate(
-                      angle: 180 * (3.141592653589793238 / 180),
-                      child: ButtonBackArrow(
-                        onPressed: () {
-                          onTapVideoRight!();
-                        },
-                        colorBackgroundButton: colorsButtonNext!.value,
-                      ),
+          showButtonLeftOnly == true
+              ? Container()
+              : GestureDetector(
+                  onTap: () {
+                    onTapVideoRight!();
+                  },
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Obx(
+                          () => Transform.rotate(
+                            angle: 180 * (3.141592653589793238 / 180),
+                            child: ButtonBackArrow(
+                              onPressed: () {
+                                onTapVideoRight!();
+                              },
+                              colorBackgroundButton: colorsButtonNext!.value,
+                            ),
+                          ),
+                        ),
+                        ComponentTextDescription(
+                          "Next",
+                          fontWeight: FontWeight.bold,
+                          textAlign: TextAlign.center,
+                          teksColor: Colors.white,
+                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                        ),
+                      ],
                     ),
                   ),
-                  ComponentTextDescription(
-                    "Next",
-                    fontWeight: FontWeight.bold,
-                    textAlign: TextAlign.center,
-                    teksColor: Colors.white,
-                    fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
         ],
         // Other properties of the AppBar if needed
       ),
