@@ -40,6 +40,40 @@ class PageProfileAddVideoQuiz extends StatefulWidget {
       _PageProfileAddVideoQuizState();
 }
 
+class DataController extends GetxController {
+  List<List<TextEditingController>> listTextEditingController = [
+    [
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+    ],
+    [
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+    ],
+    [
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+    ],
+  ];
+
+  List<List<File>> listImageQuiz = [
+    [File("")],
+    [File("")],
+    [File("")],
+  ];
+
+  // Fungsi untuk memuat data
+}
+
 class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     with TickerProviderStateMixin {
   late VideoPlayerController _controller;
@@ -68,10 +102,10 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     ],
   ];
 
-  List<File> listImageQuiz = [
-    File(""),
-    File(""),
-    File(""),
+  List<List<File>> listImageQuiz = [
+    [File("")],
+    [File("")],
+    [File("")],
   ];
 
   int indexCardSelectedUser = 0;
@@ -81,12 +115,99 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     super.dispose();
   }
 
+  ValueNotifier<bool> isAllFilledNotifier = ValueNotifier<bool>(false);
+
+  List<ValueNotifier<bool>> listValueNotifier = [
+    ValueNotifier<bool>(false),
+    ValueNotifier<bool>(false),
+    ValueNotifier<bool>(false),
+  ];
+
+  void _checkAllFields() {
+    bool allFilled = true;
+    for (int i = 0; i < listTextEditingController.length; i++) {
+      for (int x = 0; x < listTextEditingController[i].length; x++) {
+        if (listTextEditingController[i][x].text.isEmpty) {
+          allFilled = false;
+          break;
+        }
+      }
+    }
+
+    for (int d = 0; d < listImageQuiz.length; d++) {
+      for (int b = 0; b < listImageQuiz[d].length; b++) {
+        if (listImageQuiz[d][b].path.isEmpty) {
+          print("is empty true ${listImageQuiz[d][b].path}");
+          allFilled = false;
+          break;
+        } else {
+          print("is empy false ${listImageQuiz[d][b].path}");
+        }
+      }
+    }
+
+    // for (int b = 0; b < listImageQuiz.length; b++) {
+    //   if (listImageQuiz[b].path.isEmpty) {
+    //     allFilled = false;
+    //   }
+    // }
+    isAllFilledNotifier.value = allFilled;
+  }
+
+  void _checkALlFiellQuiz(int indexQuiz) {
+    bool isQuizFilled = true;
+    for (int y = 0; y < listTextEditingController[indexQuiz].length; y++) {
+      if (listTextEditingController[indexQuiz][y].text.isEmpty) {
+        isQuizFilled = false;
+        break;
+      }
+    }
+    for (int b = 0; b < listImageQuiz[indexQuiz].length; b++) {
+      if (listImageQuiz[indexQuiz][b].path.isEmpty) {
+        print("is empty true ${listImageQuiz[indexQuiz][b].path}");
+        isQuizFilled = false;
+        break;
+      } else {
+        print("is empy false ${listImageQuiz[indexQuiz][b].path}");
+      }
+    }
+
+    listValueNotifier[indexQuiz].value = isQuizFilled;
+  }
+
+  bool oneQUizFilled = false;
+  final controllerData = Get.put(DataController());
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _controller = VideoPlayerController.file(
         File(dropdownController.videoPathCreate.value));
+    if (listTextEditingController != null) {
+      listTextEditingController = controllerData.listTextEditingController;
+      for (int i = 0; i < listTextEditingController.length; i++) {
+        for (int x = 0; x < listTextEditingController[i].length; x++) {
+          {
+            _checkAllFields();
+            _checkALlFiellQuiz(i);
+          }
+        }
+      }
+    }
+    if (listImageQuiz != null) {
+      listImageQuiz = controllerData.listImageQuiz;
+    }
+    for (int i = 0; i < listTextEditingController.length; i++) {
+      for (int x = 0; x < listTextEditingController[i].length; x++) {
+        listTextEditingController[i][x].addListener(() {
+          _checkAllFields();
+          _checkALlFiellQuiz(i);
+        });
+      }
+    }
+    controllerData.listTextEditingController = listTextEditingController;
+    controllerData.listImageQuiz = listImageQuiz;
+
     listCardWidget = [
       GestureDetector(
         onTap: () {
@@ -102,6 +223,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           textEditingController: listTextEditingController[0],
           selectedImage: listImageQuiz[0],
           key_form: listKey[0],
+          isFieldValue: listValueNotifier[0],
         ),
       ),
       GestureDetector(
@@ -118,6 +240,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           textEditingController: listTextEditingController[1],
           selectedImage: listImageQuiz[1],
           key_form: listKey[1],
+          isFieldValue: listValueNotifier[1],
         ),
       ),
       GestureDetector(
@@ -134,6 +257,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           textEditingController: listTextEditingController[2],
           selectedImage: listImageQuiz[2],
           key_form: listKey[2],
+          isFieldValue: listValueNotifier[2],
         ),
       ),
     ];
@@ -161,52 +285,13 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
 
   bool isAlreadyUploadVideo = false;
   bool isAlreadyUploadThumbnail = false;
+  Color backgroundColor = Colors.grey; // Warna latar belakang awalnya abu
 
   File? selectedImage;
   Uint8List? imageThumbnnail;
   File? selectedVideoIntro;
   Uint8List? thumbnailImageSelectedIntro;
   TextEditingController textEditingControllerQuiz = TextEditingController();
-  Future<void> pickVIdeo() async {
-    final ImagePicker _picker = ImagePicker();
-
-    // Pick an image from the gallery
-    XFile? video = await _picker.pickVideo(source: ImageSource.gallery);
-
-    if (video != null) {
-      setState(() {
-        selectedImage = File(video.path);
-      });
-    } else {
-      // User canceled the selection
-      print('No im  age selected');
-    }
-  }
-
-  Future<void> pickVideoIntro() async {
-    final ImagePicker _picker = ImagePicker();
-
-    // Pick an image from the gallery
-    XFile? video = await _picker.pickVideo(source: ImageSource.gallery);
-
-    if (video != null) {
-      setState(() {
-        selectedVideoIntro = File(video.path);
-      });
-    } else {
-      // User canceled the selection
-      print('No image selected');
-    }
-  }
-
-  Future<Uint8List?> generateThumbnail(String videoPath) async {
-    final thumbnailBytes = await VideoThumbnail.thumbnailData(
-      video: videoPath,
-      imageFormat: ImageFormat.JPEG,
-      quality: 85,
-    );
-    return thumbnailBytes;
-  }
 
   Color? buttonColor;
 
@@ -230,6 +315,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
       appBar: AppBarPageVideo(
         dropdownController.buttonColorPageVideoUpload,
         showButtonLeftOnly: true,
+        nameAppBar: "Quiz",
       ),
       extendBodyBehindAppBar: true,
       body: Container(
@@ -308,6 +394,27 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                             listCardWidget[
                                                 indexCardSelectedUser]
                                           ],
+                                        ),
+                                        ValueListenableBuilder<bool>(
+                                          valueListenable: isAllFilledNotifier,
+                                          builder:
+                                              (context, isAllFilled, child) {
+                                            backgroundColor = isAllFilled
+                                                ? Colors.green
+                                                : Colors.grey;
+                                            return Container(
+                                              width: double.infinity,
+                                              height: 50,
+                                              color: backgroundColor,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                'Warna Latar Belakang',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
                                         SizedBox(
                                           height: 30.h,
@@ -410,7 +517,8 @@ class QuizWidget extends StatefulWidget {
       required this.indexQuizWidget,
       required this.textEditingController,
       required this.selectedImage,
-      required this.key_form})
+      required this.key_form,
+      required this.isFieldValue})
       : super(key: key);
   List<TextEditingController> textEditingController;
 
@@ -420,7 +528,9 @@ class QuizWidget extends StatefulWidget {
   final bool? isHeaderOnRight;
   final bool? isHeaderOnCenter;
   final String? headerName;
-  File? selectedImage;
+  List<File?> selectedImage;
+
+  ValueNotifier<bool> isFieldValue;
 
   final GlobalKey<FormState> key_form;
 
@@ -436,6 +546,8 @@ class _QuizWidgetState extends State<QuizWidget> {
   bool rightAnswer3 = false;
 
   bool rightAnswer4 = false;
+
+  final controllerData = Get.put(DataController());
 
   @override
   void initState() {
@@ -523,14 +635,18 @@ class _QuizWidgetState extends State<QuizWidget> {
           ]);
 
       setState(() {
-        widget.selectedImage =
+        widget.selectedImage[0] =
             File(croppedImage!.path); // Set the selected and cropped image
+        controllerData.listImageQuiz[widget.indexQuizWidget][0] =
+            File(croppedImage!.path);
       });
     } else {
       // User canceled the selection
       print('No image selected');
     }
   }
+
+  Color backgroundColor = Colors.grey; // Warna latar belakang awalnya abu
 
   DropdownController dropdownController = Get.put(DropdownController());
 
@@ -571,7 +687,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                 fontWeight: FontWeight.bold,
               ),
               SizedBox(height: 20.h),
-              if (widget.selectedImage!.path.isEmpty)
+              if (widget.selectedImage[0]!.path.isEmpty)
                 GestureDetector(
                   child: CardButtonLong(
                     nameButton: "Add Image",
@@ -591,11 +707,11 @@ class _QuizWidgetState extends State<QuizWidget> {
                     pickImage();
                   },
                 ),
-              if (widget.selectedImage!.path.isNotEmpty)
+              if (widget.selectedImage[0]!.path.isNotEmpty)
                 Stack(
                   children: [
                     Image.file(
-                      widget.selectedImage!,
+                      widget.selectedImage[0]!,
                       fit: BoxFit.fill,
                     ),
                     widget.selectedImage != null
@@ -607,7 +723,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    widget.selectedImage = File("");
+                                    widget.selectedImage[0] = File("");
                                   });
                                 },
                                 child: Card(
@@ -805,6 +921,7 @@ class _QuizWidgetState extends State<QuizWidget> {
               isLeft: widget.isHeaderOnLeft,
               isCenter: widget.isHeaderOnCenter,
               isRight: widget.isHeaderOnRight,
+              isFieldValue: widget.isFieldValue,
             ),
           ),
       ],
@@ -813,20 +930,24 @@ class _QuizWidgetState extends State<QuizWidget> {
 }
 
 class HeaderCard extends StatelessWidget {
-  HeaderCard({
-    Key? key,
-    required this.color,
-    required this.headerName,
-    required this.isLeft,
-    required this.isCenter,
-    required this.isRight,
-  }) : super(key: key);
+  HeaderCard(
+      {Key? key,
+      required this.color,
+      required this.headerName,
+      required this.isLeft,
+      required this.isCenter,
+      required this.isRight,
+      required this.isFieldValue})
+      : super(key: key);
 
   final Color color;
   final String? headerName;
   final bool? isLeft;
   final bool? isCenter;
   final bool? isRight;
+
+  final ValueNotifier<bool> isFieldValue;
+  Color backgroundColor = Colors.grey; // Warna latar belakang awalnya abu
 
   EdgeInsetsGeometry _calculateMargin() {
     if (isLeft == true) {
@@ -863,25 +984,48 @@ class HeaderCard extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 0.h),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              width: 30.w,
-              child: ComponentTextDescription(
-                "${headerName}",
-                fontSize: size.sizeTextDescriptionGlobal - 6.sp,
-                fontWeight: FontWeight.bold,
-                maxLines: 2,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Icon(
-              Icons.verified_rounded,
-              size: 18.h,
-              color: Colors.green,
-            )
-          ],
+        child: ValueListenableBuilder<bool>(
+          valueListenable: isFieldValue,
+          builder: (context, isAllFilled, child) {
+            backgroundColor = isAllFilled ? Colors.green : Colors.grey;
+            return isAllFilled == true
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 30.w,
+                        child: ComponentTextDescription(
+                          "${headerName}",
+                          fontSize: size.sizeTextDescriptionGlobal - 6.sp,
+                          fontWeight: FontWeight.bold,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Icon(
+                        Icons.verified_rounded,
+                        size: 18.h,
+                        color: Colors.green,
+                      ),
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 30.w,
+                        child: ComponentTextDescription(
+                          "${headerName}",
+                          fontSize: size.sizeTextDescriptionGlobal - 6.sp,
+                          fontWeight: FontWeight.bold,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  );
+          },
         ),
       ),
     );
