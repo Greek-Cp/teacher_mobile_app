@@ -355,8 +355,9 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
   final controller = Get.put<DropdownController>(DropdownController());
   VoidCallback? onTapVideoRight;
   bool? showButtonLeftOnly;
+  String? nameAppBar;
   AppBarPageVideo(this.colorsButtonNext,
-      {this.onTapVideoRight, this.showButtonLeftOnly});
+      {this.onTapVideoRight, this.showButtonLeftOnly, this.nameAppBar});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -413,7 +414,7 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Center(
                   child: ComponentTextDescription(
-                    "new_video",
+                    "${nameAppBar}",
                     fontWeight: FontWeight.bold,
                     textAlign: TextAlign.center,
                     teksColor: ListColor.colorFontPageNav,
@@ -424,7 +425,9 @@ class AppBarPageVideo extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           showButtonLeftOnly == true
-              ? Container()
+              ? Container(
+                  margin: EdgeInsets.only(right: 30.w),
+                )
               : GestureDetector(
                   onTap: () {
                     onTapVideoRight!();
