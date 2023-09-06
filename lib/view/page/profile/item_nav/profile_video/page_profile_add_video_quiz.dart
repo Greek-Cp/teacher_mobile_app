@@ -196,6 +196,14 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     }
     if (listImageQuiz != null) {
       listImageQuiz = controllerData.listImageQuiz;
+      for (int i = 0; i < listImageQuiz.length; i++) {
+        for (int x = 0; x < listImageQuiz[i].length; x++) {
+          {
+            _checkAllFields();
+            _checkALlFiellQuiz(i);
+          }
+        }
+      }
     }
     for (int i = 0; i < listTextEditingController.length; i++) {
       for (int x = 0; x < listTextEditingController[i].length; x++) {
@@ -639,6 +647,12 @@ class _QuizWidgetState extends State<QuizWidget> {
             File(croppedImage!.path); // Set the selected and cropped image
         controllerData.listImageQuiz[widget.indexQuizWidget][0] =
             File(croppedImage!.path);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PageProfileAddVideoQuiz(),
+          ),
+        );
       });
     } else {
       // User canceled the selection
@@ -724,7 +738,16 @@ class _QuizWidgetState extends State<QuizWidget> {
                                 onTap: () {
                                   setState(() {
                                     widget.selectedImage[0] = File("");
+                                    controllerData.listImageQuiz[
+                                        widget.indexQuizWidget][0] = File("");
                                   });
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PageProfileAddVideoQuiz(),
+                                    ),
+                                  );
                                 },
                                 child: Card(
                                   color: Color.fromARGB(255, 214, 214, 214),
