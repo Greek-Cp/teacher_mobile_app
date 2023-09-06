@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -368,7 +369,8 @@ class TextFieldFormMultiLine extends StatefulWidget {
       required this.hintStyle, // Tambahkan parameter hintStyle
       this.showIndicatorMin = true,
       this.showIndicatorMax,
-      this.colorBackgroundTextField});
+      this.colorBackgroundTextField,
+      this.showLatex});
 
   final TextEditingController textEditingControllerEmail;
   final String labelText;
@@ -378,7 +380,9 @@ class TextFieldFormMultiLine extends StatefulWidget {
   int minCharacterHint;
   bool? showIndicatorMin;
   bool? showIndicatorMax;
+  bool? showLatex = false;
   Color? colorBackgroundTextField;
+  bool? showLatexContainer = false;
 
   final TextStyle hintStyle; // Tambahkan parameter hintStyle
 
@@ -389,10 +393,14 @@ class TextFieldFormMultiLine extends StatefulWidget {
 class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
     with TickerProviderStateMixin {
   Widget? animationSucces;
-
   FocusNode? _focusNode;
   bool _isValidEmail = true;
+  bool? checkboxLatexClikcked = false;
+  late final AnimationController animationRotateIndicatorController;
+  late final Animation<double> animationRotateDouble;
   late final AnimationController _controllerLottie;
+  int? latexContainer = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -411,6 +419,10 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               _animationControllerShake.reverse();
             }
           });
+    animationRotateIndicatorController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 500), upperBound: 0.5);
+    animationRotateDouble = Tween<double>(begin: 0, end: 1.0)
+        .animate(animationRotateIndicatorController);
     _updateMinValue();
   }
 
@@ -454,147 +466,304 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
           child: child,
         );
       },
-      child: Stack(
+      child: Column(
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 5.h, bottom: 0.h),
-            child: TextFormField(
-              focusNode: _focusNode,
-              minLines: widget.minLines,
-              maxLength: widget.lengthMax,
-              controller: widget.textEditingControllerEmail,
-              textInputAction: TextInputAction.done,
-              validator: (value) {
-                if (value == null ||
-                    value.isEmpty ||
-                    value.length < widget.minCharacterHint) {
-                  setState(() {
-                    isEmpty = true;
-                    _animationControllerShake.forward();
-                  });
-                  return null;
-                } else {
-                  setState(() {
-                    isEmpty = false;
-                  });
-                }
-                return null;
-              },
-              onChanged: (value) {
-                setState(() {
-                  _updateMinValue();
-                  _shouldIncreaseMinOnEnter = true;
-                });
-              },
+          Stack(
+            children: [
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 5.h, bottom: 0.h),
+                    child: TextFormField(
+                      focusNode: _focusNode,
+                      minLines: widget.minLines,
+                      maxLength: widget.lengthMax,
+                      controller: widget.textEditingControllerEmail,
+                      textInputAction: TextInputAction.done,
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            value.length < widget.minCharacterHint) {
+                          setState(() {
+                            isEmpty = true;
+                            _animationControllerShake.forward();
+                          });
+                          return null;
+                        } else {
+                          setState(() {
+                            isEmpty = false;
+                          });
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          _updateMinValue();
+                          _shouldIncreaseMinOnEnter = true;
+                        });
+                      },
 
-              onFieldSubmitted: (term) {
-                _focusNode!.unfocus();
-              },
+                      onFieldSubmitted: (term) {
+                        _focusNode!.unfocus();
+                      },
 
-              onEditingComplete: () {
-                if (UtilValidatorData.isEmailValid(
-                    widget.textEditingControllerEmail.text.toString())) {
-                  setState(() {
-                    animationSucces = Lottie.asset(
-                      "assets/icon/animation_succes.json",
-                      width: 20,
-                      height: 20,
-                      repeat: false,
-                      controller: _controllerLottie,
-                    );
-                  });
+                      onEditingComplete: () {
+                        if (UtilValidatorData.isEmailValid(widget
+                            .textEditingControllerEmail.text
+                            .toString())) {
+                          setState(() {
+                            animationSucces = Lottie.asset(
+                              "assets/icon/animation_succes.json",
+                              width: 20,
+                              height: 20,
+                              repeat: false,
+                              controller: _controllerLottie,
+                            );
+                          });
 
-                  print("Is Email");
-                } else {
-                  setState(() {
-                    animationSucces = Lottie.asset(
-                      "assets/icon/animation_wrong.json",
-                      width: 30,
-                      height: 30,
-                      repeat: false,
-                      controller: _controllerLottie,
-                    );
-                  });
+                          print("Is Email");
+                        } else {
+                          setState(() {
+                            animationSucces = Lottie.asset(
+                              "assets/icon/animation_wrong.json",
+                              width: 30,
+                              height: 30,
+                              repeat: false,
+                              controller: _controllerLottie,
+                            );
+                          });
 
-                  print("Not Email");
-                }
-              },
-              style: GoogleFonts.nunito(
-                  fontSize: size.sizeTextDescriptionGlobal.sp),
-              maxLines: null, // Set this to null for multiline support
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: isEmpty == true
-                    ? ListColor.colorValidationTextFieldBackgroundEmpty
-                    : widget.colorBackgroundTextField == null
-                        ? ListColor.colorBackgroundTextFieldAll
-                        : widget.colorBackgroundTextField,
-                hintText: tr("${widget.hintText}"),
-                hintStyle: GoogleFonts.nunito(
-                    fontSize: size.sizeTextDescriptionGlobal - 1.sp,
-                    fontWeight: FontWeight.normal),
-                counterStyle: widget.hintStyle,
-                contentPadding: EdgeInsets.all(15.h),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(size.roundedCircularGlobal),
-                  borderSide: BorderSide(
-                    color: isEmpty == true
-                        ? ListColor.colorOutlineTextFieldWhenEmpty
-                        : Colors.black, // Change the border color here
-                    width: size
-                        .sizeBorderBlackGlobal, // Change the border width here
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(size.roundedCircularGlobal),
-                  borderSide: BorderSide(
-                    color: isEmpty == true
-                        ? ListColor.colorOutlineTextFieldWhenEmpty
-                        : Colors.black, // Change the border color here
-                    width: size
-                        .sizeBorderBlackGlobal, // Change the border width here
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Align(
-              alignment: Alignment.topLeft,
-              child: AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
-                  margin: EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
-                  color: isEmpty == true
-                      ? ListColor.colorValidationTextFieldBackgroundEmpty
-                      : widget.colorBackgroundTextField == null
-                          ? ListColor.colorBackgroundTextFieldAll
-                          : widget.colorBackgroundTextField,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.h),
-                    child: ComponentTextDescription(
-                      tr("${widget.labelText}"),
-                      fontWeight: FontWeight.normal,
-                      fontSize: size.sizeTextDescriptionGlobal - 3,
+                          print("Not Email");
+                        }
+                      },
+                      style: GoogleFonts.nunito(
+                          fontSize: size.sizeTextDescriptionGlobal.sp),
+                      maxLines: null, // Set this to null for multiline support
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: isEmpty == true
+                            ? ListColor.colorValidationTextFieldBackgroundEmpty
+                            : widget.colorBackgroundTextField == null
+                                ? ListColor.colorBackgroundTextFieldAll
+                                : widget.colorBackgroundTextField,
+                        hintText: tr("${widget.hintText}"),
+                        hintStyle: GoogleFonts.nunito(
+                            fontSize: size.sizeTextDescriptionGlobal - 1.sp,
+                            fontWeight: FontWeight.normal),
+                        counterStyle: widget.hintStyle,
+                        contentPadding: EdgeInsets.all(15.h),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(size.roundedCircularGlobal),
+                          borderSide: BorderSide(
+                            color: isEmpty == true
+                                ? ListColor.colorOutlineTextFieldWhenEmpty
+                                : Colors.black, // Change the border color here
+                            width: size
+                                .sizeBorderBlackGlobal, // Change the border width here
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(size.roundedCircularGlobal),
+                          borderSide: BorderSide(
+                            color: isEmpty == true
+                                ? ListColor.colorOutlineTextFieldWhenEmpty
+                                : Colors.black, // Change the border color here
+                            width: size
+                                .sizeBorderBlackGlobal, // Change the border width here
+                          ),
+                        ),
+                      ),
                     ),
-                  ))),
-          widget.showIndicatorMin == true
-              ? _currentMin == 0
-                  ? Container()
-                  : Positioned(
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 1000),
+                      margin: EdgeInsets.only(top: 8.h),
+                      height: latexContainer!.h,
+                      transform: Matrix4.translationValues(
+                        0,
+                        -30.h,
+                        -2,
+                      ),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: widget.showLatexContainer == true
+                              ? Colors.black
+                              : Colors.transparent,
+                          width: widget.showLatexContainer == true ? 2 : 0,
+                        ),
+                        color: isEmpty == true
+                            ? ListColor.colorValidationTextFieldBackgroundEmpty
+                            : ListColor.colorBackgroundTextFieldAll,
+                        borderRadius:
+                            BorderRadius.circular(size.roundedCircularGlobal),
+                      ),
+                      child: TeXView(
+                        child: TeXViewColumn(children: [
+                          TeXViewInkWell(
+                            id: "id_0",
+                            child: TeXViewColumn(children: [
+                              TeXViewDocument(
+                                  widget.textEditingControllerEmail.text,
+                                  style: TeXViewStyle(
+                                      padding: TeXViewPadding.all(10))),
+                            ]),
+                          )
+                        ]),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: AnimatedContainer(
+                      duration: Duration(milliseconds: 500),
+                      margin:
+                          EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
+                      color: isEmpty == true
+                          ? ListColor.colorValidationTextFieldBackgroundEmpty
+                          : widget.colorBackgroundTextField == null
+                              ? ListColor.colorBackgroundTextFieldAll
+                              : widget.colorBackgroundTextField,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.h),
+                        child: ComponentTextDescription(
+                          tr("${widget.labelText}"),
+                          fontWeight: FontWeight.normal,
+                          fontSize: size.sizeTextDescriptionGlobal - 3,
+                        ),
+                      ))),
+              checkboxLatexClikcked == true
+                  ? Positioned(
                       bottom: 1,
                       child: Container(
-                        padding: EdgeInsets.only(
-                          left: 10.h,
-                        ),
-                        child: ComponentTextDescription(
-                            "Min (${tr((_currentMin).toString())})",
-                            fontSize: size.sizeTextDescriptionGlobal.sp,
-                            fontWeight: FontWeight.normal,
-                            teksColor: Colors.red),
-                      ),
-                    )
-              : Container(),
+                          padding: EdgeInsets.all(5.w),
+                          transform: Matrix4.translationValues(40.w, -18.h, 0),
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 2.0),
+                            borderRadius: BorderRadius.circular(20.r),
+                            color: Color.fromARGB(255, 94, 204, 205),
+                          ),
+                          margin: EdgeInsets.only(
+                              left: size.sizeMarginLeftTittle.w),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (animationRotateIndicatorController.status ==
+                                  AnimationStatus.completed) {
+                                animationRotateIndicatorController.reverse(
+                                    from: 0.5);
+                                widget.showLatexContainer = false;
+                                setState(() {
+                                  latexContainer = 0;
+                                });
+                              } else {
+                                animationRotateIndicatorController.forward(
+                                    from: 0.0);
+                                widget.showLatexContainer = true;
+                                setState(() {
+                                  latexContainer = 160;
+                                });
+                              }
+                              double screenHeight =
+                                  MediaQuery.of(context).size.height;
+
+                              // double containerHeight =
+                              //     widget.containerListHeight != null
+                              //         ? widget.containerListHeight!
+                              //         : screenHeight * 0.278;
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ComponentTextDescription(
+                                  "Show LatTex Output",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.sizeTextDescriptionGlobal - 3,
+                                  teksColor: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                RotationTransition(
+                                  turns: animationRotateIndicatorController,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 0),
+                                    child: Image.asset(
+                                      "assets/icon/ic_drop_down_chose.png",
+                                      width: 15.w,
+                                      height: 15.h,
+                                      color: isEmpty == true
+                                          ? ListColor
+                                              .colorOutlineTextFieldWhenEmpty
+                                          : Color.fromARGB(255, 117, 251, 250),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )))
+                  : Container(),
+              Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                      height: 20.h,
+                      transform: Matrix4.translationValues(-10.w, -5.h, 0),
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 2.0),
+                          borderRadius: BorderRadius.circular(20.r),
+                          color: Color.fromARGB(255, 108, 58, 183)),
+                      margin:
+                          EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.h),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ComponentTextDescription("LaTex",
+                                  teksColor: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize:
+                                      size.sizeTextDescriptionGlobal - 3.sp),
+                              Checkbox(
+                                value: checkboxLatexClikcked,
+                                onChanged: (value) {
+                                  if (checkboxLatexClikcked == true) {
+                                    setState(() {
+                                      checkboxLatexClikcked = false;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      checkboxLatexClikcked = true;
+                                    });
+                                  }
+                                },
+                              )
+                            ],
+                          )))),
+              widget.showIndicatorMin == true
+                  ? _currentMin == 0
+                      ? Container()
+                      : Positioned(
+                          bottom: 1,
+                          child: Container(
+                            padding: EdgeInsets.only(
+                              left: 10.h,
+                            ),
+                            child: ComponentTextDescription(
+                                "Min (${tr((_currentMin).toString())})",
+                                fontSize: size.sizeTextDescriptionGlobal.sp,
+                                fontWeight: FontWeight.normal,
+                                teksColor: Colors.red),
+                          ),
+                        )
+                  : Container(),
+            ],
+          ),
         ],
       ),
     );
