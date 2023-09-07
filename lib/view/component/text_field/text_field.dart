@@ -577,46 +577,50 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: 1000),
-                      margin: EdgeInsets.only(top: 8.h),
-                      height: latexContainer!.h,
-                      transform: Matrix4.translationValues(
-                        0,
-                        -30.h,
-                        -2,
-                      ),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: widget.showLatexContainer == true
-                              ? Colors.black
-                              : Colors.transparent,
-                          width: widget.showLatexContainer == true ? 2 : 0,
-                        ),
-                        color: isEmpty == true
-                            ? ListColor.colorValidationTextFieldBackgroundEmpty
-                            : ListColor.colorBackgroundTextFieldAll,
-                        borderRadius:
-                            BorderRadius.circular(size.roundedCircularGlobal),
-                      ),
-                      child: TeXView(
-                        child: TeXViewColumn(children: [
-                          TeXViewInkWell(
-                            id: "id_0",
-                            child: TeXViewColumn(children: [
-                              TeXViewDocument(
-                                  widget.textEditingControllerEmail.text,
-                                  style: TeXViewStyle(
-                                      padding: TeXViewPadding.all(10))),
-                            ]),
-                          )
-                        ]),
-                      ),
-                    ),
-                  ),
+                  checkboxLatexClikcked == true
+                      ? Align(
+                          alignment: Alignment.bottomCenter,
+                          child: AnimatedContainer(
+                            duration: Duration(milliseconds: 1000),
+                            margin: EdgeInsets.only(top: 8.h),
+                            height: latexContainer!.h,
+                            transform: Matrix4.translationValues(
+                              0,
+                              -30.h,
+                              -2,
+                            ),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: widget.showLatexContainer == true
+                                    ? Colors.black
+                                    : Colors.transparent,
+                                width:
+                                    widget.showLatexContainer == true ? 2 : 0,
+                              ),
+                              color: isEmpty == true
+                                  ? ListColor
+                                      .colorValidationTextFieldBackgroundEmpty
+                                  : ListColor.colorBackgroundTextFieldAll,
+                              borderRadius: BorderRadius.circular(
+                                  size.roundedCircularGlobal),
+                            ),
+                            child: TeXView(
+                              child: TeXViewColumn(children: [
+                                TeXViewInkWell(
+                                  id: "id_0",
+                                  child: TeXViewColumn(children: [
+                                    TeXViewDocument(
+                                        widget.textEditingControllerEmail.text,
+                                        style: TeXViewStyle(
+                                            padding: TeXViewPadding.all(10))),
+                                  ]),
+                                )
+                              ]),
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
               Align(
