@@ -481,11 +481,12 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                       ],
                     ),
                     Container(
-                        transform: Matrix4.translationValues(0, -70.h, 2),
+                        transform: Matrix4.translationValues(0, -130.h, 2),
                         margin: EdgeInsets.only(
-                            left: size.sizePaddingLeftAndRightPage + 25.w,
-                            right: size.sizePaddingLeftAndRightPage + 25.w),
+                            left: size.sizePaddingLeftAndRightPage + 40.w,
+                            right: size.sizePaddingLeftAndRightPage + 40.w),
                         child: ButtonLongForm(
+                            colorButton: Color.fromARGB(255, 145, 252, 108),
                             nameButton: "Save Quiz",
                             routeName:
                                 PageProfileAddVideoQuiz.routeName.toString(),
@@ -866,7 +867,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                 childAspectRatio: 1.9,
                 children: [
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.r),
                         border: Border.all(color: Colors.black, width: 2.w),
@@ -880,7 +881,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.r),
                         border: Border.all(color: Colors.black, width: 2.w),
@@ -894,7 +895,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.r),
                         border: Border.all(color: Colors.black, width: 2.w),
@@ -908,7 +909,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.r),
                         border: Border.all(color: Colors.black, width: 2.w),
@@ -924,7 +925,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                 ],
               ),
               SizedBox(
-                height: 30.h,
+                height: 4.h,
               ),
             ],
           ),
