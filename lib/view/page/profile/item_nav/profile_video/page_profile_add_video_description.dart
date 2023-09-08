@@ -22,6 +22,8 @@ import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_menu.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_quiz.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_upload_video.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
@@ -131,7 +133,14 @@ class _PageProfileAddVideoDescriptionState
           _isMinimumCharacterVideoDescription == true &&
                   _isMinimumCharacterVideoTittle == true
               ? ListColor.colorbuttonPageVideoDescriptionEnabled
-              : Colors.grey),
+              : Colors.grey, () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PageProfileUploadVideo(),
+          ),
+        );
+      }),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
