@@ -73,7 +73,20 @@ class _PageProfileAddVideoMenuState extends State<PageProfileAddVideoMenu>
     }
     return Scaffold(
       appBar: AppBarPageVideoSecond(
-          ListColor.colorbuttonPageVideoDescriptionEnabled),
+        ListColor.colorbuttonPageVideoDescriptionEnabled,
+        () => {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VideoPlayerPage(
+                videoUrl: dropdownController.videoPathCreate
+                    .value, // Ganti dengan URL/video Anda sendiri
+              ),
+            ),
+          ),
+        },
+        hiddenButtonRight: true,
+      ),
       extendBodyBehindAppBar: true,
       body: Container(
         decoration: BoxDecoration(
