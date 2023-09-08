@@ -247,8 +247,10 @@ class AppBarPageVideoSecond extends StatelessWidget
     implements PreferredSizeWidget {
   Color? colorsButtonNext;
   final controller = Get.put<DropdownController>(DropdownController());
-
-  AppBarPageVideoSecond(this.colorsButtonNext);
+  VoidCallback? onTapRightButton;
+  bool? hiddenButtonRight;
+  AppBarPageVideoSecond(this.colorsButtonNext, this.onTapRightButton,
+      {this.hiddenButtonRight});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -315,31 +317,35 @@ class AppBarPageVideoSecond extends StatelessWidget
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Container(
-              child: Column(
-                children: [
-                  Transform.rotate(
-                    angle: 180 * (3.141592653589793238 / 180),
-                    child: ButtonBackArrow(
-                      onPressed: () {},
-                      colorBackgroundButton: colorsButtonNext,
+          hiddenButtonRight == true
+              ? Container(margin: EdgeInsets.only(right: 20.w))
+              : GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Transform.rotate(
+                          angle: 180 * (3.141592653589793238 / 180),
+                          child: ButtonBackArrow(
+                            onPressed: () {
+                              onTapRightButton!();
+                            },
+                            colorBackgroundButton: colorsButtonNext,
+                          ),
+                        ),
+                        ComponentTextDescription(
+                          "Next",
+                          fontWeight: FontWeight.bold,
+                          textAlign: TextAlign.center,
+                          teksColor: Colors.white,
+                          fontSize: size.sizeTextDescriptionGlobal - 2.sp,
+                        ),
+                      ],
                     ),
                   ),
-                  ComponentTextDescription(
-                    "Next",
-                    fontWeight: FontWeight.bold,
-                    textAlign: TextAlign.center,
-                    teksColor: Colors.white,
-                    fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
         ],
         // Other properties of the AppBar if needed
       ),
