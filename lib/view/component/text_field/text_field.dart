@@ -715,8 +715,8 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
               Align(
                   alignment: Alignment.topRight,
                   child: Container(
-                      height: 20.h,
-                      transform: Matrix4.translationValues(-10.w, -5.h, 0),
+                      height: 23.h,
+                      transform: Matrix4.translationValues(-15.w, -5.h, 0),
                       decoration: BoxDecoration(
                           border: Border.all(width: 2.0),
                           borderRadius: BorderRadius.circular(20.r),
@@ -724,9 +724,10 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                       margin:
                           EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
                       child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.h),
+                          padding: EdgeInsets.only(left: 15.h),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               ComponentTextDescription("LaTex",
                                   teksColor: Colors.white,
@@ -734,6 +735,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                                   fontSize:
                                       size.sizeTextDescriptionGlobal - 3.sp),
                               Checkbox(
+                                activeColor: Colors.green,
                                 value: checkboxLatexClikcked,
                                 onChanged: (value) {
                                   if (checkboxLatexClikcked == true) {
