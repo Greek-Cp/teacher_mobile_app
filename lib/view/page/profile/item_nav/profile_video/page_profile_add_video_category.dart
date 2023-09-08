@@ -259,6 +259,12 @@ class _PageProfileAddVideoCategoryState
     return Scaffold(
       appBar: AppBarPageVideo(
         dropdownController.buttonColor,
+        onTapVideoRight: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => PageProfileAddVideoDescription()));
+        },
       ),
       extendBodyBehindAppBar: true,
       body: Container(
