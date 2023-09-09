@@ -606,6 +606,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                                   size.roundedCircularGlobal),
                             ),
                             child: TeXView(
+                              renderingEngine: TeXViewRenderingEngine.katex(),
                               child: TeXViewColumn(children: [
                                 TeXViewInkWell(
                                   id: "id_0",
