@@ -403,27 +403,6 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                                 indexCardSelectedUser]
                                           ],
                                         ),
-                                        ValueListenableBuilder<bool>(
-                                          valueListenable: isAllFilledNotifier,
-                                          builder:
-                                              (context, isAllFilled, child) {
-                                            backgroundColor = isAllFilled
-                                                ? Colors.green
-                                                : Colors.grey;
-                                            return Container(
-                                              width: double.infinity,
-                                              height: 50,
-                                              color: backgroundColor,
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                'Warna Latar Belakang',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
                                         SizedBox(
                                           height: 30.h,
                                         )
@@ -480,19 +459,26 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                         //         formKey: listKey[indexCardSelectedUser]))
                       ],
                     ),
-                    Container(
-                        transform: Matrix4.translationValues(0, -130.h, 2),
-                        margin: EdgeInsets.only(
-                            left: size.sizePaddingLeftAndRightPage + 40.w,
-                            right: size.sizePaddingLeftAndRightPage + 40.w),
-                        child: ButtonLongForm(
-                            colorButton: Color.fromARGB(255, 145, 252, 108),
-                            nameButton: "Save Quiz",
-                            routeName:
-                                PageProfileAddVideoQuiz.routeName.toString(),
-                            formKey: listKey[indexCardSelectedUser])),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: isAllFilledNotifier,
+                      builder: (context, isAllFilled, child) {
+                        backgroundColor =
+                            isAllFilled ? Colors.green : Colors.grey;
+                        return Container(
+                            transform: Matrix4.translationValues(0, -120.h, 2),
+                            margin: EdgeInsets.only(
+                                left: size.sizePaddingLeftAndRightPage + 40.w,
+                                right: size.sizePaddingLeftAndRightPage + 40.w),
+                            child: ButtonLongForm(
+                                colorButton: backgroundColor,
+                                nameButton: "Save Quiz",
+                                routeName: PageProfileAddVideoQuiz.routeName
+                                    .toString(),
+                                formKey: listKey[indexCardSelectedUser]));
+                      },
+                    ),
                     SizedBox(
-                      height: 40.h,
+                      height: 0.h,
                     )
                   ],
                 ),
@@ -513,6 +499,12 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
   }
 
   final List<String> itemNames = ['student', 'views', 'videos', 'quizzes'];
+}
+
+class ModelAnswer {
+  String? nameAnswer;
+  bool? isAnswer;
+  ModelAnswer(this.nameAnswer, this.isAnswer);
 }
 
 class QuizWidget extends StatefulWidget {
@@ -549,12 +541,6 @@ class QuizWidget extends StatefulWidget {
 
 class _QuizWidgetState extends State<QuizWidget> {
   bool rightAnswer1 = false;
-
-  bool rightAnswer2 = false;
-
-  bool rightAnswer3 = false;
-
-  bool rightAnswer4 = false;
 
   final controllerData = Get.put(DataController());
 
@@ -665,13 +651,24 @@ class _QuizWidgetState extends State<QuizWidget> {
 
   DropdownController dropdownController = Get.put(DropdownController());
 
+  List<String> answerChoices = [
+    "Answer 1",
+    "Answer 2",
+    "Answer 3",
+    "Answer 4",
+  ];
+  bool isItemSelected =
+      false; // Variabel untuk melacak status item yang dipilih
+
+  int countTap = 1;
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
           transform: Matrix4.translationValues(0, .5, 2),
-          margin: EdgeInsets.only(top: 37.h, left: 0.w, right: 0.w),
+          margin:
+              EdgeInsets.only(top: 37.h, left: 0.w, right: 0.w, bottom: 30.h),
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 2),
@@ -779,20 +776,23 @@ class _QuizWidgetState extends State<QuizWidget> {
                   ],
                 ),
               SizedBox(height: 20.h),
-              TextFieldFormMultiLine(
-                minCharacterHint: 20,
-                hintStyle: GoogleFonts.nunito(
-                  fontSize: size.sizeTextDescriptionGlobal.sp,
-                  color: ListColor.colorOutlineTextFieldWhenEmpty,
+              GestureDetector(
+                onTap: () {},
+                child: TextFieldFormMultiLine(
+                  minCharacterHint: 20,
+                  hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    color: ListColor.colorOutlineTextFieldWhenEmpty,
+                  ),
+                  labelText: "Answer 1",
+                  textEditingControllerEmail: widget.textEditingController[1],
+                  hintText: "Max 200 characters",
+                  showIndicatorMin: false,
+                  showIndicatorMax: false,
+                  minLines: 5,
+                  lengthMax: 700,
+                  colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
                 ),
-                labelText: "Answer 1",
-                textEditingControllerEmail: widget.textEditingController[1],
-                hintText: "Max 200 characters",
-                showIndicatorMin: false,
-                showIndicatorMax: false,
-                minLines: 5,
-                lengthMax: 700,
-                colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
               ),
               SizedBox(
                 height: 20.h,
@@ -861,71 +861,44 @@ class _QuizWidgetState extends State<QuizWidget> {
                 fontSize: size.sizeTextDescriptionGlobal - 4.sp,
                 fontWeight: FontWeight.bold,
               ),
-              GridView.count(
+              GridView.builder(
                 shrinkWrap: true,
-                crossAxisCount: 2,
-                childAspectRatio: 1.9,
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.r),
-                        border: Border.all(color: Colors.black, width: 2.w),
-                        color: Color.fromARGB(255, 183, 155, 248)),
-                    child: Center(
-                      child: ComponentTextDescription(
-                        "Answer 1",
-                        fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                        fontWeight: FontWeight.bold,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.9,
+                ),
+                itemCount: answerChoices.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        // Ketika item diklik, atur indeks item yang dipilih
+                        selectedItemIndex = index;
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.black, width: 2),
+                        color: selectedItemIndex ==
+                                index // Ubah warna hanya pada item yang dipilih
+                            ? Color.fromARGB(255, 178, 253, 178)
+                            : Color.fromARGB(255, 183, 155, 248),
+                      ),
+                      child: Center(
+                        child: ComponentTextDescription(
+                          answerChoices[index],
+                          fontSize: size.sizeTextDescriptionGlobal - 2,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.r),
-                        border: Border.all(color: Colors.black, width: 2.w),
-                        color: Color.fromARGB(255, 183, 155, 248)),
-                    child: Center(
-                      child: ComponentTextDescription(
-                        "Answer 2",
-                        fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.r),
-                        border: Border.all(color: Colors.black, width: 2.w),
-                        color: Color.fromARGB(255, 183, 155, 248)),
-                    child: Center(
-                      child: ComponentTextDescription(
-                        "Answer 3",
-                        fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.r),
-                        border: Border.all(color: Colors.black, width: 2.w),
-                        color: Color.fromARGB(255, 178, 253, 178)),
-                    child: Center(
-                      child: ComponentTextDescription(
-                        "Answer 4",
-                        fontSize: size.sizeTextDescriptionGlobal - 2.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
               SizedBox(
-                height: 4.h,
+                height: 30.h,
               ),
             ],
           ),
@@ -952,6 +925,9 @@ class _QuizWidgetState extends State<QuizWidget> {
     );
   }
 }
+
+int selectedItemIndex =
+    -1; // Variabel untuk melacak indeks item yang dipilih, -1 berarti tidak ada yang dipilih
 
 class HeaderCard extends StatelessWidget {
   HeaderCard(
