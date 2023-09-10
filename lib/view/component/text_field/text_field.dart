@@ -713,6 +713,22 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                             ),
                           )))
                   : Container(),
+              isEmpty == true
+                  ? Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        padding: EdgeInsets.all(5.w),
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 201, 148, 4),
+                            shape: BoxShape.circle),
+                        child: LottieBuilder.asset(
+                          "assets/icon/animation_confirm_to_save_changes.json",
+                          width: 10.w,
+                          height: 15.h,
+                        ),
+                      ),
+                    )
+                  : Container(),
               Align(
                   alignment: Alignment.topRight,
                   child: Container(
@@ -736,7 +752,8 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                                   fontSize:
                                       size.sizeTextDescriptionGlobal - 3.sp),
                               Checkbox(
-                                activeColor: Colors.green,
+                                activeColor: Color.fromARGB(255, 59, 25, 177),
+                                checkColor: Colors.green,
                                 value: checkboxLatexClikcked,
                                 onChanged: (value) {
                                   if (checkboxLatexClikcked == true) {
