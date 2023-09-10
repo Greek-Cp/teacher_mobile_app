@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:teacher_mobile_app/controller/account_user_controller.dart';
 import 'package:teacher_mobile_app/res/border/divider_global.dart';
 import 'package:teacher_mobile_app/res/colors/list_color.dart';
@@ -71,7 +72,11 @@ class DataController extends GetxController {
     [File("")],
   ];
 
-  // Fungsi untuk memuat data
+  List<List<String>> listAnswerSelectedByUser = [
+    [""],
+    [""],
+    [""],
+  ]; // Fungsi untuk memuat data
 }
 
 class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
@@ -107,6 +112,12 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     [File("")],
     [File("")],
   ];
+
+  List<List<String>> listAnswerSelectedByUser = [
+    [""],
+    [""],
+    [""],
+  ]; // Fungsi
 
   int indexCardSelectedUser = 0;
   @override
@@ -146,6 +157,17 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
       }
     }
 
+    for (int d = 0; d < listAnswerSelectedByUser.length; d++) {
+      for (int b = 0; b < listAnswerSelectedByUser[d].length; b++) {
+        if (listImageQuiz[d][b].path.isEmpty) {
+          print("is empty true ${listImageQuiz[d][b].path}");
+          allFilled = false;
+          break;
+        } else {
+          print("is empy false ${listImageQuiz[d][b].path}");
+        }
+      }
+    }
     // for (int b = 0; b < listImageQuiz.length; b++) {
     //   if (listImageQuiz[b].path.isEmpty) {
     //     allFilled = false;
@@ -213,8 +235,17 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
         });
       }
     }
+    for (int i = 0; i < listAnswerSelectedByUser.length; i++) {
+      for (int x = 0; x < listAnswerSelectedByUser[i].length; x++) {
+        listTextEditingController[i][x].addListener(() {
+          _checkAllFields();
+          _checkALlFiellQuiz(i);
+        });
+      }
+    }
     controllerData.listTextEditingController = listTextEditingController;
     controllerData.listImageQuiz = listImageQuiz;
+    controllerData.listAnswerSelectedByUser = listAnswerSelectedByUser;
 
     listCardWidget = [
       GestureDetector(
@@ -232,6 +263,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           selectedImage: listImageQuiz[0],
           key_form: listKey[0],
           isFieldValue: listValueNotifier[0],
+          answerSelectedByUser: listAnswerSelectedByUser[0],
         ),
       ),
       GestureDetector(
@@ -249,6 +281,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           selectedImage: listImageQuiz[1],
           key_form: listKey[1],
           isFieldValue: listValueNotifier[1],
+          answerSelectedByUser: listAnswerSelectedByUser[1],
         ),
       ),
       GestureDetector(
@@ -266,6 +299,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           selectedImage: listImageQuiz[2],
           key_form: listKey[2],
           isFieldValue: listValueNotifier[2],
+          answerSelectedByUser: listAnswerSelectedByUser[2],
         ),
       ),
     ];
@@ -519,7 +553,9 @@ class QuizWidget extends StatefulWidget {
       required this.textEditingController,
       required this.selectedImage,
       required this.key_form,
-      required this.isFieldValue})
+      required this.isFieldValue,
+      required this.answerSelectedByUser,
+      require})
       : super(key: key);
   List<TextEditingController> textEditingController;
 
@@ -530,7 +566,7 @@ class QuizWidget extends StatefulWidget {
   final bool? isHeaderOnCenter;
   final String? headerName;
   List<File?> selectedImage;
-
+  List<String>? answerSelectedByUser;
   ValueNotifier<bool> isFieldValue;
 
   final GlobalKey<FormState> key_form;
@@ -604,7 +640,31 @@ class _QuizWidgetState extends State<QuizWidget> {
     //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer4 =
     //       textEditingControllerAnswer4.text;
     // });
+    widget.textEditingController[3].addListener(() {
+      if (widget.textEditingController[3].text.isEmpty) {
+        setState(() {
+          countDefault_1 = 0;
+        });
+      } else {
+        setState(() {
+          countDefault_1 = 1;
+        });
+      }
+    });
+    widget.textEditingController[4].addListener(() {
+      if (widget.textEditingController[4].text.isEmpty) {
+        setState(() {
+          countDefault_2 = 0;
+        });
+      } else {
+        setState(() {
+          countDefault_2 = 1;
+        });
+      }
+    });
   }
+
+  int countIndex = 2;
 
   Future<void> pickImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -659,8 +719,8 @@ class _QuizWidgetState extends State<QuizWidget> {
   ];
   bool isItemSelected =
       false; // Variabel untuk melacak status item yang dipilih
-
-  int countTap = 1;
+  int countDefault_1 = 0;
+  int countDefault_2 = 0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -821,7 +881,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                   fontSize: size.sizeTextDescriptionGlobal.sp,
                   color: ListColor.colorOutlineTextFieldWhenEmpty,
                 ),
-                labelText: "Answer 3",
+                labelText: "Answer 3 (Optional)",
                 textEditingControllerEmail: widget.textEditingController[3],
                 hintText: "Max 200 characters",
                 showIndicatorMin: false,
@@ -839,7 +899,7 @@ class _QuizWidgetState extends State<QuizWidget> {
                   fontSize: size.sizeTextDescriptionGlobal.sp,
                   color: ListColor.colorOutlineTextFieldWhenEmpty,
                 ),
-                labelText: "Answer 4",
+                labelText: "Answer 4 (Optional)",
                 textEditingControllerEmail: widget.textEditingController[4],
                 hintText: "Max 200 characters",
                 showIndicatorMin: false,
@@ -867,13 +927,16 @@ class _QuizWidgetState extends State<QuizWidget> {
                   crossAxisCount: 2,
                   childAspectRatio: 1.9,
                 ),
-                itemCount: answerChoices.length,
+                itemCount: countIndex + countDefault_1 + countDefault_2,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
                         // Ketika item diklik, atur indeks item yang dipilih
                         selectedItemIndex = index;
+                        widget.answerSelectedByUser![0] = answerChoices[index];
+                        controllerData.listAnswerSelectedByUser[
+                            widget.indexQuizWidget][0] = answerChoices[index];
                       });
                     },
                     child: Container(
@@ -1021,6 +1084,16 @@ class HeaderCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           maxLines: 2,
                           textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 201, 148, 4),
+                            shape: BoxShape.circle),
+                        child: LottieBuilder.asset(
+                          "assets/icon/animation_confirm_to_save_changes.json",
+                          width: 20.w,
+                          height: 20.h,
                         ),
                       ),
                     ],
