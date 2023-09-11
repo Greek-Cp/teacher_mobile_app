@@ -134,10 +134,24 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     ValueNotifier<bool>(false),
   ];
 
+  int count = 0;
   void _checkAllFields() {
     bool allFilled = true;
+
     for (int i = 0; i < listTextEditingController.length; i++) {
-      for (int x = 0; x < listTextEditingController[i].length; x++) {
+      int mt1 = 0;
+      int mt2 = 0;
+      if (listTextEditingController[i][3].text.isNotEmpty) {
+        mt1 = 1;
+      } else {
+        mt1 = 0;
+      }
+      if (listTextEditingController[i][4].text.isNotEmpty) {
+        mt2 = 1;
+      } else {
+        mt2 = 0;
+      }
+      for (int x = 0; x < 3 + mt1 + mt2; x++) {
         if (listTextEditingController[i][x].text.isEmpty) {
           allFilled = false;
           break;
@@ -176,9 +190,25 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     isAllFilledNotifier.value = allFilled;
   }
 
+  int mx1 = 0;
+  int mx2 = 0;
   void _checkALlFiellQuiz(int indexQuiz) {
     bool isQuizFilled = true;
-    for (int y = 0; y < listTextEditingController[indexQuiz].length; y++) {
+    print("Index Quiz ${listTextEditingController[indexQuiz].length}");
+    if (listTextEditingController[indexQuiz][3].text.isNotEmpty) {
+      mx1 = 1;
+    } else {
+      mx1 = 0;
+    }
+    if (listTextEditingController[indexQuiz][4].text.isNotEmpty) {
+      mx2 = 1;
+    } else {
+      mx2 = 0;
+    }
+    print("mx ${mx1}");
+    print("mx ${mx2}");
+    for (int y = 0; y < 3 + mx1 + mx2; y++) {
+      print("y index ${y}");
       if (listTextEditingController[indexQuiz][y].text.isEmpty) {
         isQuizFilled = false;
         break;
@@ -662,8 +692,31 @@ class _QuizWidgetState extends State<QuizWidget> {
         });
       }
     });
+
+    print(
+        "widget index ${extractLastCharacter(controllerData.listAnswerSelectedByUser[widget.indexQuizWidget][0])}");
+    selectedItemIndex = extractLastCharacter(
+        controllerData.listAnswerSelectedByUser[widget.indexQuizWidget][0]);
+
+    // if (widget.answerSelectedByUser![widget.indexQuizWidget][0] != "") {
+    //   selectedItemIndex =
+    //       int.parse(widget.answerSelectedByUser![widget.indexQuizWidget][0]);
+    // }
   }
 
+  int extractLastCharacter(String text) {
+    if (text.isEmpty) {
+      return -1; // String kosong, tidak ada karakter terakhir
+    }
+    text.substring(text.length - 1);
+
+    print("widget index" + text.substring(text.length - 1));
+
+    return int.parse(text.substring(text.length - 1)) - 1;
+  }
+
+  int selectedItemIndex =
+      -1; // Variabel untuk melacak indeks item yang dipilih, -1 berarti tidak ada yang dipilih
   int countIndex = 2;
 
   Future<void> pickImage() async {
@@ -988,9 +1041,6 @@ class _QuizWidgetState extends State<QuizWidget> {
     );
   }
 }
-
-int selectedItemIndex =
-    -1; // Variabel untuk melacak indeks item yang dipilih, -1 berarti tidak ada yang dipilih
 
 class HeaderCard extends StatelessWidget {
   HeaderCard(
