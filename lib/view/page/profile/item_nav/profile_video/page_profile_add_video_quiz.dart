@@ -133,7 +133,6 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     ValueNotifier<bool>(false),
     ValueNotifier<bool>(false),
   ];
-
   int count = 0;
   void _checkAllFields() {
     bool allFilled = true;
@@ -285,6 +284,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           });
         },
         child: QuizWidget(
+          indexSelectedQuizWidget: indexCardSelectedUser,
           color: Color.fromARGB(255, 221, 158, 244),
           isHeaderOnLeft: true,
           headerName: "Quiz 1",
@@ -303,6 +303,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           });
         },
         child: QuizWidget(
+          indexSelectedQuizWidget: indexCardSelectedUser,
           color: Color.fromARGB(255, 204, 244, 253),
           isHeaderOnCenter: true,
           headerName: "Quiz 2",
@@ -321,7 +322,65 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           });
         },
         child: QuizWidget(
+          indexSelectedQuizWidget: indexCardSelectedUser,
           indexQuizWidget: 2,
+          color: Color.fromARGB(255, 236, 198, 160),
+          isHeaderOnRight: true,
+          headerName: "Quiz 3",
+          textEditingController: listTextEditingController[2],
+          selectedImage: listImageQuiz[2],
+          key_form: listKey[2],
+          isFieldValue: listValueNotifier[2],
+          answerSelectedByUser: listAnswerSelectedByUser[2],
+        ),
+      ),
+    ];
+
+    listCardHeader = [
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            indexCardSelectedUser = 0;
+          });
+        },
+        child: QuizHeaderWidget(
+          color: Color.fromARGB(255, 221, 158, 244),
+          isHeaderOnLeft: true,
+          headerName: "Quiz 1",
+          indexQuizHeaderWidget: 0,
+          textEditingController: listTextEditingController[0],
+          selectedImage: listImageQuiz[0],
+          key_form: listKey[0],
+          isFieldValue: listValueNotifier[0],
+          answerSelectedByUser: listAnswerSelectedByUser[0],
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            indexCardSelectedUser = 1;
+          });
+        },
+        child: QuizHeaderWidget(
+          color: Color.fromARGB(255, 204, 244, 253),
+          isHeaderOnCenter: true,
+          headerName: "Quiz 2",
+          indexQuizHeaderWidget: 1,
+          textEditingController: listTextEditingController[1],
+          selectedImage: listImageQuiz[1],
+          key_form: listKey[1],
+          isFieldValue: listValueNotifier[1],
+          answerSelectedByUser: listAnswerSelectedByUser[1],
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            indexCardSelectedUser = 2;
+          });
+        },
+        child: QuizHeaderWidget(
+          indexQuizHeaderWidget: 2,
           color: Color.fromARGB(255, 236, 198, 160),
           isHeaderOnRight: true,
           headerName: "Quiz 3",
@@ -336,6 +395,8 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
   }
 
   List<Widget> listCardWidget = [];
+
+  List<Widget> listCardHeader = [];
   List<ModelPhotoRequirements> listRequirementPhotoProfile = [
     ModelPhotoRequirements(
         photoRequirements:
@@ -463,6 +524,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                         Stack(
                                           children: [
                                             ...listCardWidget,
+                                            ...listCardHeader,
                                             listCardWidget[
                                                 indexCardSelectedUser]
                                           ],
@@ -585,11 +647,13 @@ class QuizWidget extends StatefulWidget {
       required this.key_form,
       required this.isFieldValue,
       required this.answerSelectedByUser,
-      require})
+      require,
+      required this.indexSelectedQuizWidget})
       : super(key: key);
   List<TextEditingController> textEditingController;
 
   int indexQuizWidget;
+  int indexSelectedQuizWidget;
   final Color color;
   final bool? isHeaderOnLeft;
   final bool? isHeaderOnRight;
@@ -607,13 +671,14 @@ class QuizWidget extends StatefulWidget {
 
 class _QuizWidgetState extends State<QuizWidget> {
   bool rightAnswer1 = false;
-
+  int? heightContainer = 0;
   final controllerData = Get.put(DataController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    heightContainer = 1300;
     // if (dropdownController.listModelQuizVideo[widget.indexQuizWidget].answer1 !=
     //     null) {
     //   textEditingControllerAnswer1.text = dropdownController
@@ -779,6 +844,7 @@ class _QuizWidgetState extends State<QuizWidget> {
     return Stack(
       children: [
         Container(
+          height: heightContainer!.h,
           transform: Matrix4.translationValues(0, .5, 2),
           margin:
               EdgeInsets.only(top: 37.h, left: 0.w, right: 0.w, bottom: 30.h),
@@ -1019,6 +1085,236 @@ class _QuizWidgetState extends State<QuizWidget> {
             ],
           ),
         ),
+        if (widget.isHeaderOnLeft == true ||
+            widget.isHeaderOnCenter == true ||
+            widget.isHeaderOnRight == true)
+          Align(
+            alignment: widget.isHeaderOnLeft == true
+                ? Alignment.topLeft
+                : widget.isHeaderOnCenter == true
+                    ? Alignment.topCenter
+                    : Alignment.topRight,
+            child: HeaderCard(
+              color: widget.color,
+              headerName: widget.headerName,
+              isLeft: widget.isHeaderOnLeft,
+              isCenter: widget.isHeaderOnCenter,
+              isRight: widget.isHeaderOnRight,
+              isFieldValue: widget.isFieldValue,
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class QuizHeaderWidget extends StatefulWidget {
+  QuizHeaderWidget(
+      {Key? key,
+      required this.color,
+      this.isHeaderOnLeft,
+      this.isHeaderOnRight,
+      this.isHeaderOnCenter,
+      this.headerName,
+      required this.indexQuizHeaderWidget,
+      required this.textEditingController,
+      required this.selectedImage,
+      required this.key_form,
+      required this.isFieldValue,
+      required this.answerSelectedByUser,
+      require})
+      : super(key: key);
+  List<TextEditingController> textEditingController;
+
+  int indexQuizHeaderWidget;
+  final Color color;
+  final bool? isHeaderOnLeft;
+  final bool? isHeaderOnRight;
+  final bool? isHeaderOnCenter;
+  final String? headerName;
+  List<File?> selectedImage;
+  List<String>? answerSelectedByUser;
+  ValueNotifier<bool> isFieldValue;
+
+  final GlobalKey<FormState> key_form;
+
+  @override
+  State<QuizHeaderWidget> createState() => _QuizHeaderWidgetState();
+}
+
+class _QuizHeaderWidgetState extends State<QuizHeaderWidget> {
+  bool rightAnswer1 = false;
+
+  final controllerData = Get.put(DataController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // if (dropdownController.listModelQuizVideo[widget.indexQuizHeaderWidget].answer1 !=
+    //     null) {
+    //   textEditingControllerAnswer1.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizHeaderWidget!].answer1!;
+    // }
+
+    // textEditingControllerQuiz.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizHeaderWidget!].question =
+    //       textEditingControllerQuiz.text;
+    // });
+
+    // if (dropdownController
+    //         .listModelQuizVideo.value[widget.indexQuizHeaderWidget!].answer1 !=
+    //     null) {
+    //   textEditingControllerAnswer1.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizHeaderWidget!].answer1!;
+    // }
+    // if (dropdownController
+    //         .listModelQuizVideo.value[widget.indexQuizHeaderWidget!].answer2 !=
+    //     null) {
+    //   textEditingControllerAnswer2.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizHeaderWidget!].answer2!;
+    // }
+    // if (dropdownController
+    //         .listModelQuizVideo.value[widget.indexQuizHeaderWidget!].answer3 !=
+    //     null) {
+    //   textEditingControllerAnswer3.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizHeaderWidget!].answer3!;
+    // }
+    // if (dropdownController
+    //         .listModelQuizVideo.value[widget.indexQuizHeaderWidget!].answer4 !=
+    //     null) {
+    //   textEditingControllerAnswer4.text = dropdownController
+    //       .listModelQuizVideo.value[widget.indexQuizHeaderWidget!].answer4!;
+    // }
+
+    // textEditingControllerQuiz.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizHeaderWidget!].question =
+    //       textEditingControllerQuiz.text;
+    // });
+    // textEditingControllerAnswer1.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizHeaderWidget!].answer1 =
+    //       textEditingControllerAnswer1.text;
+    // });
+    // textEditingControllerAnswer2.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizHeaderWidget!].answer2 =
+    //       textEditingControllerAnswer2.text;
+    // });
+    // textEditingControllerAnswer3.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizHeaderWidget!].answer3 =
+    //       textEditingControllerAnswer3.text;
+    // });
+    // textEditingControllerAnswer4.addListener(() {
+    //   dropdownController.listModelQuizVideo[widget.indexQuizHeaderWidget!].answer4 =
+    //       textEditingControllerAnswer4.text;
+    // });
+    widget.textEditingController[3].addListener(() {
+      if (widget.textEditingController[3].text.isEmpty) {
+        setState(() {
+          countDefault_1 = 0;
+        });
+      } else {
+        setState(() {
+          countDefault_1 = 1;
+        });
+      }
+    });
+    widget.textEditingController[4].addListener(() {
+      if (widget.textEditingController[4].text.isEmpty) {
+        setState(() {
+          countDefault_2 = 0;
+        });
+      } else {
+        setState(() {
+          countDefault_2 = 1;
+        });
+      }
+    });
+
+    print(
+        "widget index ${extractLastCharacter(controllerData.listAnswerSelectedByUser[widget.indexQuizHeaderWidget][0])}");
+    selectedItemIndex = extractLastCharacter(controllerData
+        .listAnswerSelectedByUser[widget.indexQuizHeaderWidget][0]);
+
+    // if (widget.answerSelectedByUser![widget.indexQuizHeaderWidget][0] != "") {
+    //   selectedItemIndex =
+    //       int.parse(widget.answerSelectedByUser![widget.indexQuizHeaderWidget][0]);
+    // }
+  }
+
+  int extractLastCharacter(String text) {
+    if (text.isEmpty) {
+      return -1; // String kosong, tidak ada karakter terakhir
+    }
+    text.substring(text.length - 1);
+
+    print("widget index" + text.substring(text.length - 1));
+
+    return int.parse(text.substring(text.length - 1)) - 1;
+  }
+
+  int selectedItemIndex =
+      -1; // Variabel untuk melacak indeks item yang dipilih, -1 berarti tidak ada yang dipilih
+  int countIndex = 2;
+
+  Future<void> pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+
+    // Pick an image from the gallery
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      // Crop the selected image
+      ImageCropper imageCropper = ImageCropper();
+      CroppedFile? croppedImage = await imageCropper.cropImage(
+          sourcePath: image.path,
+          cropStyle: CropStyle.circle,
+          uiSettings: [
+            AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: Color.fromARGB(255, 32, 36, 47),
+                activeControlsWidgetColor: Color.fromARGB(255, 114, 87, 215),
+                toolbarWidgetColor: Colors.white,
+                backgroundColor: Colors.black,
+                initAspectRatio: CropAspectRatioPreset.original,
+                lockAspectRatio: false),
+          ]);
+
+      setState(() {
+        widget.selectedImage[0] =
+            File(croppedImage!.path); // Set the selected and cropped image
+        controllerData.listImageQuiz[widget.indexQuizHeaderWidget][0] =
+            File(croppedImage!.path);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PageProfileAddVideoQuiz(),
+          ),
+        );
+      });
+    } else {
+      // User canceled the selection
+      print('No image selected');
+    }
+  }
+
+  Color backgroundColor = Colors.grey; // Warna latar belakang awalnya abu
+
+  DropdownController dropdownController = Get.put(DropdownController());
+
+  List<String> answerChoices = [
+    "Answer 1",
+    "Answer 2",
+    "Answer 3",
+    "Answer 4",
+  ];
+  bool isItemSelected =
+      false; // Variabel untuk melacak status item yang dipilih
+  int countDefault_1 = 0;
+  int countDefault_2 = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
         if (widget.isHeaderOnLeft == true ||
             widget.isHeaderOnCenter == true ||
             widget.isHeaderOnRight == true)
