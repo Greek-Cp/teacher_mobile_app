@@ -738,8 +738,6 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                           border: Border.all(width: 2.0),
                           borderRadius: BorderRadius.circular(20.r),
                           color: Color.fromARGB(255, 108, 58, 183)),
-                      margin:
-                          EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
                       child: Padding(
                           padding: EdgeInsets.only(left: 15.h),
                           child: Row(
@@ -752,7 +750,7 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                                   fontSize:
                                       size.sizeTextDescriptionGlobal - 3.sp),
                               Checkbox(
-                                activeColor: Color.fromARGB(255, 59, 25, 177),
+                                activeColor: Color.fromARGB(255, 227, 49, 176),
                                 checkColor: Colors.green,
                                 value: checkboxLatexClikcked,
                                 onChanged: (value) {
