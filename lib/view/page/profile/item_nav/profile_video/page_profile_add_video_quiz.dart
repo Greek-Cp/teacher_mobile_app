@@ -335,63 +335,6 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
         ),
       ),
     ];
-
-    listCardHeader = [
-      GestureDetector(
-        onTap: () {
-          setState(() {
-            indexCardSelectedUser = 0;
-          });
-        },
-        child: QuizHeaderWidget(
-          color: Color.fromARGB(255, 221, 158, 244),
-          isHeaderOnLeft: true,
-          headerName: "Quiz 1",
-          indexQuizHeaderWidget: 0,
-          textEditingController: listTextEditingController[0],
-          selectedImage: listImageQuiz[0],
-          key_form: listKey[0],
-          isFieldValue: listValueNotifier[0],
-          answerSelectedByUser: listAnswerSelectedByUser[0],
-        ),
-      ),
-      GestureDetector(
-        onTap: () {
-          setState(() {
-            indexCardSelectedUser = 1;
-          });
-        },
-        child: QuizHeaderWidget(
-          color: Color.fromARGB(255, 204, 244, 253),
-          isHeaderOnCenter: true,
-          headerName: "Quiz 2",
-          indexQuizHeaderWidget: 1,
-          textEditingController: listTextEditingController[1],
-          selectedImage: listImageQuiz[1],
-          key_form: listKey[1],
-          isFieldValue: listValueNotifier[1],
-          answerSelectedByUser: listAnswerSelectedByUser[1],
-        ),
-      ),
-      GestureDetector(
-        onTap: () {
-          setState(() {
-            indexCardSelectedUser = 2;
-          });
-        },
-        child: QuizHeaderWidget(
-          indexQuizHeaderWidget: 2,
-          color: Color.fromARGB(255, 236, 198, 160),
-          isHeaderOnRight: true,
-          headerName: "Quiz 3",
-          textEditingController: listTextEditingController[2],
-          selectedImage: listImageQuiz[2],
-          key_form: listKey[2],
-          isFieldValue: listValueNotifier[2],
-          answerSelectedByUser: listAnswerSelectedByUser[2],
-        ),
-      ),
-    ];
   }
 
   List<Widget> listCardWidget = [];
@@ -524,7 +467,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                         Stack(
                                           children: [
                                             ...listCardWidget,
-                                            ...listCardHeader,
+                                            //...listCardHeader,
                                             listCardWidget[
                                                 indexCardSelectedUser]
                                           ],
@@ -854,117 +797,143 @@ class _QuizWidgetState extends State<QuizWidget> {
             color: widget.color,
             borderRadius: BorderRadius.circular(20.r),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10.h),
-              TextFieldFormMultiLine(
-                minCharacterHint: 20,
-                hintStyle: GoogleFonts.nunito(
-                  fontSize: size.sizeTextDescriptionGlobal.sp,
-                  color: ListColor.colorOutlineTextFieldWhenEmpty,
-                ),
-                labelText: "Question",
-                textEditingControllerEmail: widget.textEditingController[0],
-                hintText: "Write a question \nmax 300 characters",
-                showIndicatorMin: false,
-                minLines: 5,
-                lengthMax: 700,
-                colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
-              ),
-              ComponentTextDescription(
-                "Optional:\n-Upload a picture related to the question.\n-PNG or Jpeg\n-Max 3 MB",
-                fontSize: size.sizeTextDescriptionGlobal - 4.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              SizedBox(height: 20.h),
-              if (widget.selectedImage[0]!.path.isEmpty)
-                GestureDetector(
-                  child: CardButtonLong(
-                    nameButton: "Add Image",
-                    routeName: "profile_picture",
-                    fontWeight: FontWeight.bold,
-                    colorButton: ListColor.backgroundItemRatingCyan,
-                    colorFont: Colors.black,
-                    borderShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.r),
-                      side: BorderSide(
-                        width: size.sizeBorderBlackGlobal,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    pickImage();
-                  },
-                ),
-              if (widget.selectedImage[0]!.path.isNotEmpty)
-                Stack(
-                  children: [
-                    Image.file(
-                      widget.selectedImage[0]!,
-                      fit: BoxFit.fill,
-                    ),
-                    widget.selectedImage != null
-                        ? Positioned(
-                            right: 1,
-                            child: Container(
-                              transform:
-                                  Matrix4.translationValues(10, -30.h, 0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    widget.selectedImage[0] = File("");
-                                    controllerData.listImageQuiz[
-                                        widget.indexQuizWidget][0] = File("");
-                                  });
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          PageProfileAddVideoQuiz(),
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  color: Color.fromARGB(255, 214, 214, 214),
-                                  shape: CircleBorder(
-                                    side: BorderSide(
-                                      width: size.sizeBorderBlackGlobal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 5.h, horizontal: 15.w),
-                                    child: Center(
-                                      child: ComponentTextDescription(
-                                        '\u00D7',
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal +
-                                                15.sp,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        : Positioned(right: 1, child: Container()),
-                  ],
-                ),
-              SizedBox(height: 20.h),
-              GestureDetector(
-                onTap: () {},
-                child: TextFieldFormMultiLine(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10.h),
+                TextFieldFormMultiLine(
                   minCharacterHint: 20,
                   hintStyle: GoogleFonts.nunito(
                     fontSize: size.sizeTextDescriptionGlobal.sp,
                     color: ListColor.colorOutlineTextFieldWhenEmpty,
                   ),
-                  labelText: "Answer 1",
-                  textEditingControllerEmail: widget.textEditingController[1],
+                  labelText: "Question",
+                  textEditingControllerEmail: widget.textEditingController[0],
+                  hintText: "Write a question \nmax 300 characters",
+                  showIndicatorMin: false,
+                  minLines: 5,
+                  lengthMax: 700,
+                  colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+                ),
+                ComponentTextDescription(
+                  "Optional:\n-Upload a picture related to the question.\n-PNG or Jpeg\n-Max 3 MB",
+                  fontSize: size.sizeTextDescriptionGlobal - 4.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+                SizedBox(height: 20.h),
+                if (widget.selectedImage[0]!.path.isEmpty)
+                  GestureDetector(
+                    child: CardButtonLong(
+                      nameButton: "Add Image",
+                      routeName: "profile_picture",
+                      fontWeight: FontWeight.bold,
+                      colorButton: ListColor.backgroundItemRatingCyan,
+                      colorFont: Colors.black,
+                      borderShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.r),
+                        side: BorderSide(
+                          width: size.sizeBorderBlackGlobal,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      pickImage();
+                    },
+                  ),
+                if (widget.selectedImage[0]!.path.isNotEmpty)
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(12.0.w),
+                        child: AspectRatio(
+                          aspectRatio:
+                              1.0, // 1.0 adalah aspect ratio persegi (1:1)
+                          child: Image.file(widget.selectedImage[0]!,
+                              width: 50.w, height: 50.h, fit: BoxFit.cover),
+                        ),
+                      ),
+                      widget.selectedImage != null
+                          ? Positioned(
+                              right: 1,
+                              child: Container(
+                                transform:
+                                    Matrix4.translationValues(5, -20.h, 0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      widget.selectedImage[0] = File("");
+                                      controllerData.listImageQuiz[
+                                          widget.indexQuizWidget][0] = File("");
+                                    });
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PageProfileAddVideoQuiz(),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    color: Color.fromARGB(255, 214, 214, 214),
+                                    shape: CircleBorder(
+                                      side: BorderSide(
+                                        width: size.sizeBorderBlackGlobal,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5.h, horizontal: 15.w),
+                                      child: Center(
+                                        child: ComponentTextDescription(
+                                          '\u00D7',
+                                          fontSize:
+                                              size.sizeTextDescriptionGlobal +
+                                                  15.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Positioned(right: 1, child: Container()),
+                    ],
+                  ),
+                SizedBox(height: 20.h),
+                GestureDetector(
+                  onTap: () {},
+                  child: TextFieldFormMultiLine(
+                    minCharacterHint: 20,
+                    hintStyle: GoogleFonts.nunito(
+                      fontSize: size.sizeTextDescriptionGlobal.sp,
+                      color: ListColor.colorOutlineTextFieldWhenEmpty,
+                    ),
+                    labelText: "Answer 1",
+                    textEditingControllerEmail: widget.textEditingController[1],
+                    hintText: "Max 200 characters",
+                    showIndicatorMin: false,
+                    showIndicatorMax: false,
+                    minLines: 5,
+                    lengthMax: 700,
+                    colorBackgroundTextField:
+                        Color.fromARGB(255, 249, 220, 253),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                TextFieldFormMultiLine(
+                  minCharacterHint: 20,
+                  hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    color: ListColor.colorOutlineTextFieldWhenEmpty,
+                  ),
+                  labelText: "Answer 2",
+                  textEditingControllerEmail: widget.textEditingController[2],
                   hintText: "Max 200 characters",
                   showIndicatorMin: false,
                   showIndicatorMax: false,
@@ -972,117 +941,100 @@ class _QuizWidgetState extends State<QuizWidget> {
                   lengthMax: 700,
                   colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              TextFieldFormMultiLine(
-                minCharacterHint: 20,
-                hintStyle: GoogleFonts.nunito(
+                SizedBox(
+                  height: 20.h,
+                ),
+                TextFieldFormMultiLine(
+                  minCharacterHint: 20,
+                  hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    color: ListColor.colorOutlineTextFieldWhenEmpty,
+                  ),
+                  labelText: "Answer 3 (Optional)",
+                  textEditingControllerEmail: widget.textEditingController[3],
+                  hintText: "Max 200 characters",
+                  showIndicatorMin: false,
+                  showIndicatorMax: false,
+                  minLines: 5,
+                  lengthMax: 700,
+                  colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                TextFieldFormMultiLine(
+                  minCharacterHint: 20,
+                  hintStyle: GoogleFonts.nunito(
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    color: ListColor.colorOutlineTextFieldWhenEmpty,
+                  ),
+                  labelText: "Answer 4 (Optional)",
+                  textEditingControllerEmail: widget.textEditingController[4],
+                  hintText: "Max 200 characters",
+                  showIndicatorMin: false,
+                  minLines: 5,
+                  lengthMax: 700,
+                  showIndicatorMax: false,
+                  colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+                ),
+                SizedBox(
+                  height: 0.h,
+                ),
+                ComponentTextDescription(
+                  "Right Answer",
                   fontSize: size.sizeTextDescriptionGlobal.sp,
-                  color: ListColor.colorOutlineTextFieldWhenEmpty,
+                  fontWeight: FontWeight.bold,
                 ),
-                labelText: "Answer 2",
-                textEditingControllerEmail: widget.textEditingController[2],
-                hintText: "Max 200 characters",
-                showIndicatorMin: false,
-                showIndicatorMax: false,
-                minLines: 5,
-                lengthMax: 700,
-                colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              TextFieldFormMultiLine(
-                minCharacterHint: 20,
-                hintStyle: GoogleFonts.nunito(
-                  fontSize: size.sizeTextDescriptionGlobal.sp,
-                  color: ListColor.colorOutlineTextFieldWhenEmpty,
+                ComponentTextDescription(
+                  "Select 1 to 3 right answers.",
+                  fontSize: size.sizeTextDescriptionGlobal - 4.sp,
+                  fontWeight: FontWeight.bold,
                 ),
-                labelText: "Answer 3 (Optional)",
-                textEditingControllerEmail: widget.textEditingController[3],
-                hintText: "Max 200 characters",
-                showIndicatorMin: false,
-                showIndicatorMax: false,
-                minLines: 5,
-                lengthMax: 700,
-                colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              TextFieldFormMultiLine(
-                minCharacterHint: 20,
-                hintStyle: GoogleFonts.nunito(
-                  fontSize: size.sizeTextDescriptionGlobal.sp,
-                  color: ListColor.colorOutlineTextFieldWhenEmpty,
-                ),
-                labelText: "Answer 4 (Optional)",
-                textEditingControllerEmail: widget.textEditingController[4],
-                hintText: "Max 200 characters",
-                showIndicatorMin: false,
-                minLines: 5,
-                lengthMax: 700,
-                showIndicatorMax: false,
-                colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
-              ),
-              SizedBox(
-                height: 0.h,
-              ),
-              ComponentTextDescription(
-                "Right Answer",
-                fontSize: size.sizeTextDescriptionGlobal.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              ComponentTextDescription(
-                "Select 1 to 3 right answers.",
-                fontSize: size.sizeTextDescriptionGlobal - 4.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.9,
-                ),
-                itemCount: countIndex + countDefault_1 + countDefault_2,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        // Ketika item diklik, atur indeks item yang dipilih
-                        selectedItemIndex = index;
-                        widget.answerSelectedByUser![0] = answerChoices[index];
-                        controllerData.listAnswerSelectedByUser[
-                            widget.indexQuizWidget][0] = answerChoices[index];
-                      });
-                    },
-                    child: Container(
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.black, width: 2),
-                        color: selectedItemIndex ==
-                                index // Ubah warna hanya pada item yang dipilih
-                            ? Color.fromARGB(255, 178, 253, 178)
-                            : Color.fromARGB(255, 183, 155, 248),
-                      ),
-                      child: Center(
-                        child: ComponentTextDescription(
-                          answerChoices[index],
-                          fontSize: size.sizeTextDescriptionGlobal - 2,
-                          fontWeight: FontWeight.bold,
+                GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.9,
+                  ),
+                  itemCount: countIndex + countDefault_1 + countDefault_2,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          // Ketika item diklik, atur indeks item yang dipilih
+                          selectedItemIndex = index;
+                          widget.answerSelectedByUser![0] =
+                              answerChoices[index];
+                          controllerData.listAnswerSelectedByUser[
+                              widget.indexQuizWidget][0] = answerChoices[index];
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.black, width: 2),
+                          color: selectedItemIndex ==
+                                  index // Ubah warna hanya pada item yang dipilih
+                              ? Color.fromARGB(255, 178, 253, 178)
+                              : Color.fromARGB(255, 183, 155, 248),
+                        ),
+                        child: Center(
+                          child: ComponentTextDescription(
+                            answerChoices[index],
+                            fontSize: size.sizeTextDescriptionGlobal - 2,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: 30.h,
-              ),
-            ],
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+              ],
+            ),
           ),
         ),
         if (widget.isHeaderOnLeft == true ||
@@ -1392,7 +1344,7 @@ class HeaderCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 0.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
         child: ValueListenableBuilder<bool>(
           valueListenable: isFieldValue,
           builder: (context, isAllFilled, child) {
@@ -1420,6 +1372,7 @@ class HeaderCard extends StatelessWidget {
                     ],
                   )
                 : Column(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
@@ -1432,18 +1385,33 @@ class HeaderCard extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 201, 148, 4),
-                            shape: BoxShape.circle),
-                        child: LottieBuilder.asset(
-                          "assets/icon/animation_confirm_to_save_changes.json",
-                          width: 20.w,
-                          height: 20.h,
-                        ),
-                      ),
                     ],
                   );
+            // : Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       SizedBox(
+            //         width: 30.w,
+            //         child: ComponentTextDescription(
+            //           "${headerName}",
+            //           fontSize: size.sizeTextDescriptionGlobal - 6.sp,
+            //           fontWeight: FontWeight.bold,
+            //           maxLines: 2,
+            //           textAlign: TextAlign.center,
+            //         ),
+            //       ),
+            //       Container(
+            //         decoration: BoxDecoration(
+            //             color: Color.fromARGB(255, 201, 148, 4),
+            //             shape: BoxShape.circle),
+            //         child: LottieBuilder.asset(
+            //           "assets/icon/animation_confirm_to_save_changes.json",
+            //           width: 20.w,
+            //           height: 20.h,
+            //         ),
+            //       ),
+            //     ],
+            //   );
           },
         ),
       ),
