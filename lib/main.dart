@@ -29,6 +29,7 @@ import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_menu.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_quiz_custom.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_upload_video.dart';
 import 'package:teacher_mobile_app/view/page/profile/nav/base_nav_account.dart';
 
@@ -168,7 +169,11 @@ class MainApp extends StatelessWidget {
             GetPage(
               name: PageProfileAddVideoQuiz.routeName.toString(),
               page: () => PageProfileAddVideoQuiz(),
-            )
+            ),
+            GetPage(
+              name: PageProfileAddVideoQuizCustom.routeName.toString(),
+              page: () => PageProfileAddVideoQuizCustom(),
+            ),
           ],
           theme: _buildTheme(Brightness.light),
         );
