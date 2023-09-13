@@ -287,7 +287,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           indexSelectedQuizWidget: indexCardSelectedUser,
           color: Color.fromARGB(255, 221, 158, 244),
           isHeaderOnLeft: true,
-          headerName: "Quiz 1",
+          headerName: "Question 1",
           indexQuizWidget: 0,
           textEditingController: listTextEditingController[0],
           selectedImage: listImageQuiz[0],
@@ -306,7 +306,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           indexSelectedQuizWidget: indexCardSelectedUser,
           color: Color.fromARGB(255, 204, 244, 253),
           isHeaderOnCenter: true,
-          headerName: "Quiz 2",
+          headerName: "Question 2",
           indexQuizWidget: 1,
           textEditingController: listTextEditingController[1],
           selectedImage: listImageQuiz[1],
@@ -326,7 +326,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
           indexQuizWidget: 2,
           color: Color.fromARGB(255, 236, 198, 160),
           isHeaderOnRight: true,
-          headerName: "Quiz 3",
+          headerName: "Question 3",
           textEditingController: listTextEditingController[2],
           selectedImage: listImageQuiz[2],
           key_form: listKey[2],
@@ -738,7 +738,7 @@ class _QuizWidgetState extends State<QuizWidget> {
       ImageCropper imageCropper = ImageCropper();
       CroppedFile? croppedImage = await imageCropper.cropImage(
           sourcePath: image.path,
-          cropStyle: CropStyle.circle,
+          cropStyle: CropStyle.rectangle,
           uiSettings: [
             AndroidUiSettings(
                 toolbarTitle: 'Cropper',
@@ -746,8 +746,9 @@ class _QuizWidgetState extends State<QuizWidget> {
                 activeControlsWidgetColor: Color.fromARGB(255, 114, 87, 215),
                 toolbarWidgetColor: Colors.white,
                 backgroundColor: Colors.black,
-                initAspectRatio: CropAspectRatioPreset.original,
-                lockAspectRatio: false),
+                hideBottomControls: true,
+                initAspectRatio: CropAspectRatioPreset.square,
+                lockAspectRatio: true),
           ]);
 
       setState(() {
@@ -1312,9 +1313,9 @@ class HeaderCard extends StatelessWidget {
 
   EdgeInsetsGeometry _calculateMargin() {
     if (isLeft == true) {
-      return EdgeInsets.only(left: 29.w, right: 0.w);
+      return EdgeInsets.only(left: 20.w, right: 0.w);
     } else if (isRight == true) {
-      return EdgeInsets.only(left: 0.w, right: 29.w);
+      return EdgeInsets.only(left: 0.w, right: 20.w);
     } else {
       return EdgeInsets.zero; // Tanpa margin jika di tengah
     }
@@ -1344,7 +1345,7 @@ class HeaderCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 0.h),
         child: ValueListenableBuilder<bool>(
           valueListenable: isFieldValue,
           builder: (context, isAllFilled, child) {
@@ -1355,7 +1356,7 @@ class HeaderCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: 30.w,
+                        width: 50.w,
                         child: ComponentTextDescription(
                           "${headerName}",
                           fontSize: size.sizeTextDescriptionGlobal - 6.sp,
@@ -1376,7 +1377,7 @@ class HeaderCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: 30.w,
+                        width: 50.w,
                         child: ComponentTextDescription(
                           "${headerName}",
                           fontSize: size.sizeTextDescriptionGlobal - 6.sp,
