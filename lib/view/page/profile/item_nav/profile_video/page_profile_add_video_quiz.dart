@@ -522,6 +522,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                         Stack(
                                           children: [
                                             ...listCardHeader,
+                                            ...listCardWidget,
 
                                             //...listCardHeader,
                                             listCardWidget[
@@ -677,6 +678,7 @@ class _QuizWidgetState extends State<QuizWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    heightContainer = 1300;
 
     widget.textEditingController[3].addListener(() {
       if (widget.textEditingController[3].text.isEmpty) {
@@ -788,6 +790,7 @@ class _QuizWidgetState extends State<QuizWidget> {
     return Stack(
       children: [
         Container(
+          height: heightContainer!.h,
           transform: Matrix4.translationValues(0, .5, 2),
           margin:
               EdgeInsets.only(top: 37.h, left: 0.w, right: 0.w, bottom: 30.h),
