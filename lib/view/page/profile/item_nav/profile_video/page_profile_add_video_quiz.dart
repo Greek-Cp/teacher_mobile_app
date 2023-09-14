@@ -275,7 +275,62 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     controllerData.listTextEditingController = listTextEditingController;
     controllerData.listImageQuiz = listImageQuiz;
     controllerData.listAnswerSelectedByUser = listAnswerSelectedByUser;
-
+    listCardHeader = [
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            indexCardSelectedUser = 0;
+          });
+        },
+        child: QuizHeaderWidget(
+          color: Color.fromARGB(255, 221, 158, 244),
+          isHeaderOnLeft: true,
+          headerName: "Question 1",
+          indexQuizHeaderWidget: 0,
+          textEditingController: listTextEditingController[0],
+          selectedImage: listImageQuiz[0],
+          key_form: listKey[0],
+          isFieldValue: listValueNotifier[0],
+          answerSelectedByUser: listAnswerSelectedByUser[0],
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            indexCardSelectedUser = 1;
+          });
+        },
+        child: QuizHeaderWidget(
+          color: Color.fromARGB(255, 204, 244, 253),
+          isHeaderOnCenter: true,
+          headerName: "Question 2",
+          indexQuizHeaderWidget: 1,
+          textEditingController: listTextEditingController[1],
+          selectedImage: listImageQuiz[1],
+          key_form: listKey[1],
+          isFieldValue: listValueNotifier[1],
+          answerSelectedByUser: listAnswerSelectedByUser[1],
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            indexCardSelectedUser = 2;
+          });
+        },
+        child: QuizHeaderWidget(
+          indexQuizHeaderWidget: 2,
+          color: Color.fromARGB(255, 236, 198, 160),
+          isHeaderOnRight: true,
+          headerName: "Question 3",
+          textEditingController: listTextEditingController[2],
+          selectedImage: listImageQuiz[2],
+          key_form: listKey[2],
+          isFieldValue: listValueNotifier[2],
+          answerSelectedByUser: listAnswerSelectedByUser[2],
+        ),
+      ),
+    ];
     listCardWidget = [
       GestureDetector(
         onTap: () {
@@ -466,7 +521,8 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                                         ),
                                         Stack(
                                           children: [
-                                            ...listCardWidget,
+                                            ...listCardHeader,
+
                                             //...listCardHeader,
                                             listCardWidget[
                                                 indexCardSelectedUser]
@@ -621,63 +677,7 @@ class _QuizWidgetState extends State<QuizWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    heightContainer = 1300;
-    // if (dropdownController.listModelQuizVideo[widget.indexQuizWidget].answer1 !=
-    //     null) {
-    //   textEditingControllerAnswer1.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer1!;
-    // }
 
-    // textEditingControllerQuiz.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].question =
-    //       textEditingControllerQuiz.text;
-    // });
-
-    // if (dropdownController
-    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer1 !=
-    //     null) {
-    //   textEditingControllerAnswer1.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer1!;
-    // }
-    // if (dropdownController
-    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer2 !=
-    //     null) {
-    //   textEditingControllerAnswer2.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer2!;
-    // }
-    // if (dropdownController
-    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer3 !=
-    //     null) {
-    //   textEditingControllerAnswer3.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer3!;
-    // }
-    // if (dropdownController
-    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer4 !=
-    //     null) {
-    //   textEditingControllerAnswer4.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer4!;
-    // }
-
-    // textEditingControllerQuiz.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].question =
-    //       textEditingControllerQuiz.text;
-    // });
-    // textEditingControllerAnswer1.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer1 =
-    //       textEditingControllerAnswer1.text;
-    // });
-    // textEditingControllerAnswer2.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer2 =
-    //       textEditingControllerAnswer2.text;
-    // });
-    // textEditingControllerAnswer3.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer3 =
-    //       textEditingControllerAnswer3.text;
-    // });
-    // textEditingControllerAnswer4.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer4 =
-    //       textEditingControllerAnswer4.text;
-    // });
     widget.textEditingController[3].addListener(() {
       if (widget.textEditingController[3].text.isEmpty) {
         setState(() {
@@ -788,7 +788,6 @@ class _QuizWidgetState extends State<QuizWidget> {
     return Stack(
       children: [
         Container(
-          height: heightContainer!.h,
           transform: Matrix4.translationValues(0, .5, 2),
           margin:
               EdgeInsets.only(top: 37.h, left: 0.w, right: 0.w, bottom: 30.h),
