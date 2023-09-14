@@ -19,7 +19,7 @@ import 'package:teacher_mobile_app/res/font/font_type.dart';
 import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
-import 'package:teacher_mobile_app/view/component/dropdown/drop_down.dart';
+
 import 'package:teacher_mobile_app/view/component/text_field/text_field.dart';
 import 'package:teacher_mobile_app/view/component/utils/Util.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_profile_menu_select_language.dart';
@@ -134,60 +134,6 @@ class _PageProfileAddVideoQuizCustomState
     ValueNotifier<bool>(false),
   ];
   int count = 0;
-  void _checkAllFields() {
-    bool allFilled = true;
-
-    for (int i = 0; i < listTextEditingController.length; i++) {
-      int mt1 = 0;
-      int mt2 = 0;
-      if (listTextEditingController[i][3].text.isNotEmpty) {
-        mt1 = 1;
-      } else {
-        mt1 = 0;
-      }
-      if (listTextEditingController[i][4].text.isNotEmpty) {
-        mt2 = 1;
-      } else {
-        mt2 = 0;
-      }
-      for (int x = 0; x < 3 + mt1 + mt2; x++) {
-        if (listTextEditingController[i][x].text.isEmpty) {
-          allFilled = false;
-          break;
-        }
-      }
-    }
-
-    for (int d = 0; d < listImageQuiz.length; d++) {
-      for (int b = 0; b < listImageQuiz[d].length; b++) {
-        if (listImageQuiz[d][b].path.isEmpty) {
-          print("is empty true ${listImageQuiz[d][b].path}");
-          allFilled = false;
-          break;
-        } else {
-          print("is empy false ${listImageQuiz[d][b].path}");
-        }
-      }
-    }
-
-    for (int d = 0; d < listAnswerSelectedByUser.length; d++) {
-      for (int b = 0; b < listAnswerSelectedByUser[d].length; b++) {
-        if (listImageQuiz[d][b].path.isEmpty) {
-          print("is empty true ${listImageQuiz[d][b].path}");
-          allFilled = false;
-          break;
-        } else {
-          print("is empy false ${listImageQuiz[d][b].path}");
-        }
-      }
-    }
-    // for (int b = 0; b < listImageQuiz.length; b++) {
-    //   if (listImageQuiz[b].path.isEmpty) {
-    //     allFilled = false;
-    //   }
-    // }
-    isAllFilledNotifier.value = allFilled;
-  }
 
   int mx1 = 0;
   int mx2 = 0;
@@ -234,48 +180,65 @@ class _PageProfileAddVideoQuizCustomState
     super.initState();
     _controller = VideoPlayerController.file(
         File(dropdownController.videoPathCreate.value));
-    if (listTextEditingController != null) {
-      listTextEditingController = controllerData.listTextEditingController;
-      for (int i = 0; i < listTextEditingController.length; i++) {
-        for (int x = 0; x < listTextEditingController[i].length; x++) {
-          {
-            _checkAllFields();
-            _checkALlFiellQuiz(i);
-          }
-        }
-      }
-    }
-    if (listImageQuiz != null) {
-      listImageQuiz = controllerData.listImageQuiz;
-      for (int i = 0; i < listImageQuiz.length; i++) {
-        for (int x = 0; x < listImageQuiz[i].length; x++) {
-          {
-            _checkAllFields();
-            _checkALlFiellQuiz(i);
-          }
-        }
-      }
-    }
-    for (int i = 0; i < listTextEditingController.length; i++) {
-      for (int x = 0; x < listTextEditingController[i].length; x++) {
-        listTextEditingController[i][x].addListener(() {
-          _checkAllFields();
-          _checkALlFiellQuiz(i);
-        });
-      }
-    }
-    for (int i = 0; i < listAnswerSelectedByUser.length; i++) {
-      for (int x = 0; x < listAnswerSelectedByUser[i].length; x++) {
-        listTextEditingController[i][x].addListener(() {
-          _checkAllFields();
-          _checkALlFiellQuiz(i);
-        });
-      }
-    }
     controllerData.listTextEditingController = listTextEditingController;
     controllerData.listImageQuiz = listImageQuiz;
     controllerData.listAnswerSelectedByUser = listAnswerSelectedByUser;
-
+    listCardHeader = [
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            indexCardSelectedUser = 0;
+          });
+        },
+        child: QuizHeaderWidget(
+          color: Color.fromARGB(255, 221, 158, 244),
+          isHeaderOnLeft: true,
+          headerName: "Question 1",
+          indexQuizHeaderWidget: 0,
+          textEditingController: listTextEditingController[0],
+          selectedImage: listImageQuiz[0],
+          key_form: listKey[0],
+          isFieldValue: listValueNotifier[0],
+          answerSelectedByUser: listAnswerSelectedByUser[0],
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            indexCardSelectedUser = 1;
+          });
+        },
+        child: QuizHeaderWidget(
+          color: Color.fromARGB(255, 204, 244, 253),
+          isHeaderOnCenter: true,
+          headerName: "Question 2",
+          indexQuizHeaderWidget: 1,
+          textEditingController: listTextEditingController[1],
+          selectedImage: listImageQuiz[1],
+          key_form: listKey[1],
+          isFieldValue: listValueNotifier[1],
+          answerSelectedByUser: listAnswerSelectedByUser[1],
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            indexCardSelectedUser = 2;
+          });
+        },
+        child: QuizHeaderWidget(
+          indexQuizHeaderWidget: 2,
+          color: Color.fromARGB(255, 236, 198, 160),
+          isHeaderOnRight: true,
+          headerName: "Question 3",
+          textEditingController: listTextEditingController[2],
+          selectedImage: listImageQuiz[2],
+          key_form: listKey[2],
+          isFieldValue: listValueNotifier[2],
+          answerSelectedByUser: listAnswerSelectedByUser[2],
+        ),
+      ),
+    ];
     listCardWidget = [
       GestureDetector(
         onTap: () {
@@ -287,7 +250,7 @@ class _PageProfileAddVideoQuizCustomState
           indexSelectedQuizWidget: indexCardSelectedUser,
           color: Color.fromARGB(255, 221, 158, 244),
           isHeaderOnLeft: true,
-          headerName: "Quiz 1",
+          headerName: "Question 1",
           indexQuizWidget: 0,
           textEditingController: listTextEditingController[0],
           selectedImage: listImageQuiz[0],
@@ -306,7 +269,7 @@ class _PageProfileAddVideoQuizCustomState
           indexSelectedQuizWidget: indexCardSelectedUser,
           color: Color.fromARGB(255, 204, 244, 253),
           isHeaderOnCenter: true,
-          headerName: "Quiz 2",
+          headerName: "Question 2",
           indexQuizWidget: 1,
           textEditingController: listTextEditingController[1],
           selectedImage: listImageQuiz[1],
@@ -326,7 +289,7 @@ class _PageProfileAddVideoQuizCustomState
           indexQuizWidget: 2,
           color: Color.fromARGB(255, 236, 198, 160),
           isHeaderOnRight: true,
-          headerName: "Quiz 3",
+          headerName: "Question 3",
           textEditingController: listTextEditingController[2],
           selectedImage: listImageQuiz[2],
           key_form: listKey[2],
@@ -466,7 +429,8 @@ class _PageProfileAddVideoQuizCustomState
                                         ),
                                         Stack(
                                           children: [
-                                            ...listCardWidget,
+                                            ...listCardHeader,
+
                                             //...listCardHeader,
                                             listCardWidget[
                                                 indexCardSelectedUser]
@@ -622,63 +586,7 @@ class _QuizWidgetState extends State<QuizWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    heightContainer = 1300;
-    // if (dropdownController.listModelQuizVideo[widget.indexQuizWidget].answer1 !=
-    //     null) {
-    //   textEditingControllerAnswer1.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer1!;
-    // }
 
-    // textEditingControllerQuiz.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].question =
-    //       textEditingControllerQuiz.text;
-    // });
-
-    // if (dropdownController
-    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer1 !=
-    //     null) {
-    //   textEditingControllerAnswer1.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer1!;
-    // }
-    // if (dropdownController
-    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer2 !=
-    //     null) {
-    //   textEditingControllerAnswer2.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer2!;
-    // }
-    // if (dropdownController
-    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer3 !=
-    //     null) {
-    //   textEditingControllerAnswer3.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer3!;
-    // }
-    // if (dropdownController
-    //         .listModelQuizVideo.value[widget.indexQuizWidget!].answer4 !=
-    //     null) {
-    //   textEditingControllerAnswer4.text = dropdownController
-    //       .listModelQuizVideo.value[widget.indexQuizWidget!].answer4!;
-    // }
-
-    // textEditingControllerQuiz.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].question =
-    //       textEditingControllerQuiz.text;
-    // });
-    // textEditingControllerAnswer1.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer1 =
-    //       textEditingControllerAnswer1.text;
-    // });
-    // textEditingControllerAnswer2.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer2 =
-    //       textEditingControllerAnswer2.text;
-    // });
-    // textEditingControllerAnswer3.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer3 =
-    //       textEditingControllerAnswer3.text;
-    // });
-    // textEditingControllerAnswer4.addListener(() {
-    //   dropdownController.listModelQuizVideo[widget.indexQuizWidget!].answer4 =
-    //       textEditingControllerAnswer4.text;
-    // });
     widget.textEditingController[3].addListener(() {
       if (widget.textEditingController[3].text.isEmpty) {
         setState(() {
@@ -739,7 +647,7 @@ class _QuizWidgetState extends State<QuizWidget> {
       ImageCropper imageCropper = ImageCropper();
       CroppedFile? croppedImage = await imageCropper.cropImage(
           sourcePath: image.path,
-          cropStyle: CropStyle.circle,
+          cropStyle: CropStyle.rectangle,
           uiSettings: [
             AndroidUiSettings(
                 toolbarTitle: 'Cropper',
@@ -747,8 +655,9 @@ class _QuizWidgetState extends State<QuizWidget> {
                 activeControlsWidgetColor: Color.fromARGB(255, 114, 87, 215),
                 toolbarWidgetColor: Colors.white,
                 backgroundColor: Colors.black,
-                initAspectRatio: CropAspectRatioPreset.original,
-                lockAspectRatio: false),
+                hideBottomControls: true,
+                initAspectRatio: CropAspectRatioPreset.square,
+                lockAspectRatio: true),
           ]);
 
       setState(() {
@@ -783,12 +692,20 @@ class _QuizWidgetState extends State<QuizWidget> {
       false; // Variabel untuk melacak status item yang dipilih
   int countDefault_1 = 0;
   int countDefault_2 = 0;
+  final Map<String, String> questionTypes = {
+    'assets/img/ic_question_1.svg': 'Multiple\nChoice\nQuestions',
+    'assets/img/ic_question_2.svg': 'Matching',
+    'assets/img/ic_question_3.svg': 'Fill the Blanks',
+    'assets/img/ic_question_4.svg': 'Group',
+  };
+  int indexQuestSelection = -1;
+  bool showListTypeQuestion = true;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          height: heightContainer!.h,
           transform: Matrix4.translationValues(0, .5, 2),
           margin:
               EdgeInsets.only(top: 37.h, left: 0.w, right: 0.w, bottom: 30.h),
@@ -800,20 +717,55 @@ class _QuizWidgetState extends State<QuizWidget> {
           ),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 10.h),
-                Column(
-                  children: [
-                    Card(
-                        color: Color.fromARGB(255, 249, 220, 252),
-                        child: Row(children: [
-                          ComponentTextDescription("Multiple Choice Questions",
-                              fontSize: size.sizeTextDescriptionGlobal.sp),
-                          Image.asset("aasets/img/ic_multiple_choice.png")
-                        ]))
+                ComponentTextDescription("Choose a Question type",
+                    fontSize: size.sizeTextDescriptionGlobal.sp),
+                DropDownWidget(
+                  textEditingControllerDropDown: TextEditingController(),
+                  initialValueDropDown: "Select a Subject",
+                  containerHeight: 50,
+                  containerListHeight: 90,
+                  labelText: "Question Type",
+                  listData: [
+                    "Multiple Choice Questions",
+                    "Matching",
+                    "Fill the Blanks",
+                    "Group"
+                    // Add more subject options
                   ],
-                )
+                  isFilledWithData: (isFiled, value) {},
+                ),
+                showListTypeQuestion == true
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: questionTypes.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final assetsIconSvg =
+                              questionTypes.keys.elementAt(index);
+                          final name = questionTypes.values.elementAt(index);
+
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                indexQuestSelection = index;
+                                showListTypeQuestion = false;
+                              });
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+                              child: widgetQuestionType(name, assetsIconSvg),
+                            ),
+                          );
+                        },
+                      )
+                    : Container(),
+                if (indexQuestSelection == 0) QuizFormWidget(),
+                SizedBox(
+                  height: 30.h,
+                ),
+                if (indexQuestSelection == 1) MatchingFormWidget(),
+                if (indexQuestSelection == 2) GroupForm()
               ],
             ),
           ),
@@ -838,6 +790,466 @@ class _QuizWidgetState extends State<QuizWidget> {
           ),
       ],
     );
+  }
+}
+
+class MatchingFormWidget extends StatefulWidget {
+  @override
+  State<MatchingFormWidget> createState() => _MatchingFormWidgetState();
+}
+
+class _MatchingFormWidgetState extends State<MatchingFormWidget> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      SizedBox(height: 10.h),
+      // Widget TextFieldFormMultiLine untuk pertanyaan
+
+      TextFieldFormMultiLine(
+        minCharacterHint: 20,
+        hintStyle: GoogleFonts.nunito(
+          fontSize: size.sizeTextDescriptionGlobal.sp,
+          color: ListColor.colorOutlineTextFieldWhenEmpty,
+        ),
+        labelText: "Question",
+        textEditingControllerEmail: TextEditingController(text: "questionText"),
+        hintText: "Write a question \nmax 300 characters",
+        showIndicatorMin: false,
+        minLines: 5,
+        lengthMax: 700,
+        colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+      ),
+      // Widget ComponentTextDescription untuk instruksi tambahan
+      ComponentTextDescription(
+        "- Fill each box below with a text or an image.\n-The right and left boxes positions will be randomized on the student app.",
+        fontSize: size.sizeTextDescriptionGlobal - 4.sp,
+        fontWeight: FontWeight.bold,
+      ),
+      ComponentSelectAnswerType(),
+      ComponentSelectAnswerType(),
+      ComponentSelectAnswerType(),
+      ComponentSelectAnswerType(),
+      SizedBox(
+        height: 50.h,
+      )
+    ]);
+  }
+}
+
+class GroupForm extends StatefulWidget {
+  @override
+  State<GroupForm> createState() => _GroupFormState();
+}
+
+class _GroupFormState extends State<GroupForm> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      SizedBox(height: 10.h),
+      // Widget TextFieldFormMultiLine untuk pertanyaan
+
+      TextFieldFormMultiLine(
+        minCharacterHint: 20,
+        hintStyle: GoogleFonts.nunito(
+          fontSize: size.sizeTextDescriptionGlobal.sp,
+          color: ListColor.colorOutlineTextFieldWhenEmpty,
+        ),
+        labelText: "Question",
+        textEditingControllerEmail: TextEditingController(text: "questionText"),
+        hintText: "Write a question \nmax 300 characters",
+        showIndicatorMin: false,
+        minLines: 5,
+        lengthMax: 700,
+        colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+      ),
+      // Widget ComponentTextDescription untuk instruksi tambahan
+    ]);
+  }
+}
+
+class ComponentSelectAnswerType extends StatelessWidget {
+  const ComponentSelectAnswerType({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(3.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          BoxAddQuestionType(),
+          Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(20.r)),
+                height: 10.h,
+                width: 30.h,
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(20.r)),
+                height: 10.h,
+                width: 30.h,
+              )
+            ],
+          ),
+          BoxAddQuestionType()
+        ],
+      ),
+    );
+  }
+}
+
+class BoxAddQuestionType extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      decoration: BoxDecoration(
+          color: Color.fromARGB(255, 235, 235, 235),
+          border: Border.all(color: Colors.black, width: 2),
+          borderRadius: BorderRadius.circular(20.r)),
+      padding: EdgeInsets.all(10.w),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 168, 252, 155),
+                borderRadius: BorderRadius.circular(30.r),
+                border: Border.all(color: Colors.black)),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+              child: ComponentTextDescription(
+                "Add Text",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 120, 215, 222),
+                borderRadius: BorderRadius.circular(30.r),
+                border: Border.all(color: Colors.black)),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+              child: ComponentTextDescription(
+                "Add Latex",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 238, 189, 251),
+                borderRadius: BorderRadius.circular(30.r),
+                border: Border.all(color: Colors.black)),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+              child: ComponentTextDescription(
+                "Add Image",
+                fontWeight: FontWeight.bold,
+                fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class QuizFormWidget extends StatefulWidget {
+  @override
+  _QuizFormWidgetState createState() => _QuizFormWidgetState();
+}
+
+class _QuizFormWidgetState extends State<QuizFormWidget> {
+  // Define atribut-atribut yang diperlukan untuk menyimpan data
+  String questionText = "";
+  List<String?> answerText = ["", "", "", ""];
+  String? selectedImage = "";
+  int selectedItemIndex = -1;
+  final List<String> answerChoices = [
+    "Choice 1",
+    "Choice 2",
+    "Choice 3",
+    "Choice 4"
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 10.h),
+        // Widget TextFieldFormMultiLine untuk pertanyaan
+
+        SizedBox(
+          height: 20.h,
+        ),
+        TextFieldFormMultiLine(
+          minCharacterHint: 20,
+          hintStyle: GoogleFonts.nunito(
+            fontSize: size.sizeTextDescriptionGlobal.sp,
+            color: ListColor.colorOutlineTextFieldWhenEmpty,
+          ),
+          labelText: "Question",
+          textEditingControllerEmail: TextEditingController(text: questionText),
+          hintText: "Write a question \nmax 300 characters",
+          showIndicatorMin: false,
+          minLines: 5,
+          lengthMax: 700,
+          colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+        ),
+        // Widget ComponentTextDescription untuk instruksi tambahan
+        ComponentTextDescription(
+          "Optional:\n-Upload a picture related to the question.\n-PNG or Jpeg\n-Max 3 MB",
+          fontSize: size.sizeTextDescriptionGlobal - 4.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        SizedBox(height: 20.h),
+        // Widget untuk menambahkan gambar
+        if (selectedImage!.isEmpty)
+          GestureDetector(
+            child: CardButtonLong(
+              nameButton: "Add Image",
+              routeName: "profile_picture",
+              fontWeight: FontWeight.bold,
+              colorButton: ListColor.backgroundItemRatingCyan,
+              colorFont: Colors.black,
+              borderShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.r),
+                side: BorderSide(
+                  width: size.sizeBorderBlackGlobal,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            onTap: () {
+              pickImage();
+            },
+          ),
+        // Widget untuk menampilkan gambar yang sudah dipilih
+        if (selectedImage!.isNotEmpty)
+          Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(12.0.w),
+                child: AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Image.file(
+                    File(selectedImage!),
+                    width: 50.w,
+                    height: 50.h,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 1,
+                child: Container(
+                  transform: Matrix4.translationValues(5, -20.h, 0),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedImage = "";
+                        // Clear selected image here
+                      });
+                    },
+                    child: Card(
+                      color: Color.fromARGB(255, 214, 214, 214),
+                      shape: CircleBorder(
+                        side: BorderSide(
+                          width: size.sizeBorderBlackGlobal,
+                          color: Colors.black,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 5.h, horizontal: 15.w),
+                        child: Center(
+                          child: ComponentTextDescription(
+                            '\u00D7',
+                            fontSize: size.sizeTextDescriptionGlobal + 15.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        SizedBox(height: 20.h),
+        // Widget untuk jawaban
+        GestureDetector(
+          onTap: () {},
+          child: TextFieldFormMultiLine(
+            minCharacterHint: 20,
+            hintStyle: GoogleFonts.nunito(
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+              color: ListColor.colorOutlineTextFieldWhenEmpty,
+            ),
+            labelText: "Answer 1",
+            textEditingControllerEmail:
+                TextEditingController(text: answerText[0]),
+            hintText: "Max 200 characters",
+            showIndicatorMin: false,
+            showIndicatorMax: false,
+            minLines: 5,
+            lengthMax: 700,
+            colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+          ),
+        ),
+        SizedBox(height: 20.h),
+        // Widget untuk pilihan jawaban
+        GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1.9,
+          ),
+          itemCount: answerChoices.length,
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  // Ketika item diklik, atur indeks item yang dipilih
+                  selectedItemIndex = index;
+                  // Update selected answer here
+                });
+              },
+              child: Container(
+                margin: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.black, width: 2),
+                  color: selectedItemIndex == index
+                      ? Color.fromARGB(255, 178, 253, 178)
+                      : Color.fromARGB(255, 183, 155, 248),
+                ),
+                child: Center(
+                  child: ComponentTextDescription(
+                    answerChoices[index],
+                    fontSize: size.sizeTextDescriptionGlobal - 2,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+        SizedBox(height: 30.h),
+      ],
+    );
+  }
+
+  // Fungsi untuk memilih gambar
+  void pickImage() {
+    // Implement image picking logic here
+  }
+}
+
+class ModelQuestionMatching {
+  String? questionText;
+  List<String>? answerLeft;
+  List<String>? answerRight;
+  bool? statusFilled = false;
+  ModelQuestionMatching({
+    this.questionText,
+    this.answerLeft,
+    this.answerRight,
+  });
+  bool isFullyFilled() {
+    // Memeriksa apakah semua atribut yang perlu diisi sudah terisi
+    return questionText != null &&
+        answerLeft != null &&
+        answerRight != null &&
+        !answerLeft!.any((answer) => answer == null) &&
+        !answerRight!.any((answer) => answer == null);
+  }
+}
+
+class ModelQuestionMultipleChoiceQuestions {
+  String? questionText;
+  String? imageQuiz;
+  List<String>? answerText;
+  String? answer;
+
+  ModelQuestionMultipleChoiceQuestions({
+    this.questionText,
+    this.imageQuiz,
+    this.answerText,
+    this.answer,
+  });
+
+  bool isFullyFilled() {
+    // Memeriksa apakah semua atribut yang perlu diisi sudah terisi
+    return questionText != null &&
+        imageQuiz != null &&
+        answerText != null &&
+        answer != null &&
+        !answerText!.any((answer) => answer == null);
+  }
+}
+
+Widget widgetQuestionType(String name, String assetsIconSvg) {
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.r),
+        color: Color.fromARGB(255, 249, 220, 252),
+        border: Border.all()),
+    child: Padding(
+      padding: EdgeInsets.all(size.sizeMarginLeftTittle - 2.w),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        ComponentTextDescription("${name}",
+            isWrappedText: true, fontSize: size.sizeTextDescriptionGlobal.sp),
+        SvgPicture.asset("${assetsIconSvg}")
+      ]),
+    ),
+  );
+}
+
+class ModelQuestionGroup {
+  String? groupName1;
+  String? groupName2;
+  List<String>? groupNameElement1;
+  List<String>? groupNameElement2;
+
+  ModelQuestionGroup({
+    this.groupName1,
+    this.groupName2,
+    this.groupNameElement1,
+    this.groupNameElement2,
+  });
+
+  bool isFullyFilled() {
+    // Memeriksa apakah semua atribut yang perlu diisi sudah terisi
+    return groupName1 != null &&
+        groupName2 != null &&
+        groupNameElement1 != null &&
+        groupNameElement2 != null &&
+        !groupNameElement1!.any((element) => element == null) &&
+        !groupNameElement2!.any((element) => element == null);
   }
 }
 
@@ -1093,9 +1505,9 @@ class HeaderCard extends StatelessWidget {
 
   EdgeInsetsGeometry _calculateMargin() {
     if (isLeft == true) {
-      return EdgeInsets.only(left: 29.w, right: 0.w);
+      return EdgeInsets.only(left: 20.w, right: 0.w);
     } else if (isRight == true) {
-      return EdgeInsets.only(left: 0.w, right: 29.w);
+      return EdgeInsets.only(left: 0.w, right: 20.w);
     } else {
       return EdgeInsets.zero; // Tanpa margin jika di tengah
     }
@@ -1125,7 +1537,7 @@ class HeaderCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 0.h),
         child: ValueListenableBuilder<bool>(
           valueListenable: isFieldValue,
           builder: (context, isAllFilled, child) {
@@ -1136,7 +1548,7 @@ class HeaderCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: 30.w,
+                        width: 50.w,
                         child: ComponentTextDescription(
                           "${headerName}",
                           fontSize: size.sizeTextDescriptionGlobal - 6.sp,
@@ -1157,7 +1569,7 @@ class HeaderCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: 30.w,
+                        width: 50.w,
                         child: ComponentTextDescription(
                           "${headerName}",
                           fontSize: size.sizeTextDescriptionGlobal - 6.sp,
