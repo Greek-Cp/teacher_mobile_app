@@ -796,11 +796,15 @@ class TextFieldForm extends StatefulWidget {
   TextFieldForm(
       {required this.textEditingControllerEmail,
       required this.hintText,
-      required this.labelText});
+      required this.labelText,
+      this.hintStyle,
+      this.sizeTextLabel});
 
   final TextEditingController textEditingControllerEmail;
   final String labelText;
   final String hintText;
+  final TextStyle? hintStyle;
+  final double? sizeTextLabel;
 
   @override
   State<TextFieldForm> createState() => _TextFieldFormState();
@@ -962,7 +966,9 @@ class _TextFieldFormState extends State<TextFieldForm>
                     child: ComponentTextDescription(
                       tr("${widget.labelText}"),
                       fontWeight: FontWeight.normal,
-                      fontSize: size.sizeTextDescriptionGlobal,
+                      fontSize: widget.sizeTextLabel == null
+                          ? size.sizeTextDescriptionGlobal
+                          : widget.sizeTextLabel!,
                     ),
                   ))),
         ],
