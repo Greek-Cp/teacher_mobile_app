@@ -29,6 +29,7 @@ dependencies:
   flutter_screenutil: 5.8.4
   video_player: ^2.7.1
   flutter_tex: ^4.0.3+4
+  rounded_background_text: ^0.4.3
 
 dev_dependencies:
   flutter_test:
