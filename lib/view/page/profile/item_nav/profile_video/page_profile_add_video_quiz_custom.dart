@@ -719,23 +719,35 @@ class _QuizWidgetState extends State<QuizWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ComponentTextDescription("Choose a Question type",
-                    fontSize: size.sizeTextDescriptionGlobal.sp),
-                DropDownWidget(
-                  textEditingControllerDropDown: TextEditingController(),
-                  initialValueDropDown: "Select a Subject",
-                  containerHeight: 50,
-                  containerListHeight: 90,
-                  labelText: "Question Type",
-                  listData: [
-                    "Multiple Choice Questions",
-                    "Matching",
-                    "Fill the Blanks",
-                    "Group"
-                    // Add more subject options
-                  ],
-                  isFilledWithData: (isFiled, value) {},
-                ),
+                if (indexQuestSelection == -1)
+                  Container(
+                    margin: EdgeInsets.only(top: 10.h),
+                    child: ComponentTextDescription("Choose a Question type",
+                        fontSize: size.sizeTextDescriptionGlobal.sp),
+                  ),
+                if (indexQuestSelection != -1)
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      DropDownWidget(
+                        textEditingControllerDropDown: TextEditingController(),
+                        initialValueDropDown: "Select a Subject",
+                        containerHeight: 50,
+                        containerListHeight: 90,
+                        labelText: "Question Type",
+                        listData: [
+                          "Multiple Choice Questions",
+                          "Matching",
+                          "Fill the Blanks",
+                          "Group"
+                          // Add more subject options
+                        ],
+                        isFilledWithData: (isFiled, value) {},
+                      ),
+                    ],
+                  ),
                 showListTypeQuestion == true
                     ? ListView.builder(
                         shrinkWrap: true,
@@ -761,11 +773,12 @@ class _QuizWidgetState extends State<QuizWidget> {
                       )
                     : Container(),
                 if (indexQuestSelection == 0) QuizFormWidget(),
-                SizedBox(
-                  height: 30.h,
-                ),
                 if (indexQuestSelection == 1) MatchingFormWidget(),
-                if (indexQuestSelection == 2) GroupForm()
+                if (indexQuestSelection == 2) FillBlankForm(),
+                if (indexQuestSelection == 3) GroupForm(),
+                SizedBox(
+                  height: 50.h,
+                )
               ],
             ),
           ),
@@ -846,26 +859,15 @@ class _GroupFormState extends State<GroupForm> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      SizedBox(height: 10.h),
-      // Widget TextFieldFormMultiLine untuk pertanyaan
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 10.h),
+          // Widget TextFieldFormMultiLine untuk pertanyaan
 
-      TextFieldFormMultiLine(
-        minCharacterHint: 20,
-        hintStyle: GoogleFonts.nunito(
-          fontSize: size.sizeTextDescriptionGlobal.sp,
-          color: ListColor.colorOutlineTextFieldWhenEmpty,
-        ),
-        labelText: "Question",
-        textEditingControllerEmail: TextEditingController(text: "questionText"),
-        hintText: "Write a question \nmax 300 characters",
-        showIndicatorMin: false,
-        minLines: 5,
-        lengthMax: 700,
-        colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
-      ),
-      // Widget ComponentTextDescription untuk instruksi tambahan
-    ]);
+          // Widget ComponentTextDescription untuk instruksi tambahan
+        ]);
   }
 }
 
@@ -907,6 +909,38 @@ class ComponentSelectAnswerType extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class FillBlankForm extends StatefulWidget {
+  @override
+  State<FillBlankForm> createState() => _FillBlankFormState();
+}
+
+class _FillBlankFormState extends State<FillBlankForm> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      SizedBox(height: 10.h),
+      // Widget TextFieldFormMultiLine untuk pertanyaan
+
+      TextFieldFormMultiLine(
+        minCharacterHint: 20,
+        hintStyle: GoogleFonts.nunito(
+          fontSize: size.sizeTextDescriptionGlobal.sp,
+          color: ListColor.colorOutlineTextFieldWhenEmpty,
+        ),
+        labelText: "Text",
+        textEditingControllerEmail: TextEditingController(text: "questionText"),
+        hintText: "Write a question \nmax 300 characters",
+        showIndicatorMin: false,
+        minLines: 5,
+        lengthMax: 700,
+        colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+      ),
+      // Widget ComponentTextDescription untuk instruksi tambahan
+    ]);
   }
 }
 
