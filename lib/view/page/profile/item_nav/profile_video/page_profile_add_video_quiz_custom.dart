@@ -865,7 +865,95 @@ class _GroupFormState extends State<GroupForm> {
         children: [
           SizedBox(height: 10.h),
           // Widget TextFieldFormMultiLine untuk pertanyaan
-
+          TextFieldFormMultiLine(
+            minCharacterHint: 20,
+            hintStyle: GoogleFonts.nunito(
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+              color: ListColor.colorOutlineTextFieldWhenEmpty,
+            ),
+            labelText: "Question",
+            textEditingControllerEmail: TextEditingController(),
+            hintText: "Write a question \nmax 300 characters",
+            showIndicatorMin: false,
+            minLines: 5,
+            lengthMax: 700,
+            colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: TextFieldForm(
+                  textEditingControllerEmail: TextEditingController(),
+                  hintText: "",
+                  hintStyle: GoogleFonts.nunito(
+                      fontSize: size.sizeTextDescriptionGlobal - 10.sp),
+                  labelText: "Group 1 name",
+                  sizeTextLabel: 10,
+                ),
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              Expanded(
+                child: TextFieldForm(
+                  textEditingControllerEmail: TextEditingController(),
+                  hintText: "",
+                  labelText: "Group 2 name",
+                  sizeTextLabel: 10,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            children: [
+              Expanded(
+                  child: Container(
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 226, 254, 235),
+                    borderRadius: BorderRadius.circular(20.r),
+                    border: Border.all(color: Colors.black, width: 2)),
+                height: 200.h,
+              )),
+              SizedBox(
+                width: 10.h,
+              ),
+              Expanded(
+                  child: Container(
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 226, 254, 235),
+                    borderRadius: BorderRadius.circular(20.r),
+                    border: Border.all(color: Colors.black, width: 2)),
+                height: 200.h,
+              )),
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          ComponentTextDescription(
+            "Add Group Elements",
+            fontSize: size.sizeTextDescriptionGlobal.sp,
+            fontWeight: FontWeight.bold,
+          ),
+          ComponentTextDescription(
+            "- Fill the box below and drag it into one of the two groups above\n- Each group can have between 1 to 4 elements\n- To remove a box, drag it outside the group box.",
+            fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+            fontWeight: FontWeight.bold,
+            maxLines: 6,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 185, 212, 219),
+                  borderRadius: BorderRadius.circular(20.r),
+                  border: Border.all(width: 2, color: Colors.black)),
+              child: Center(child: BoxAddQuestionType()))
           // Widget ComponentTextDescription untuk instruksi tambahan
         ]);
   }
