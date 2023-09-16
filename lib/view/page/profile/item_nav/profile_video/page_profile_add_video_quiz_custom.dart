@@ -1000,16 +1000,109 @@ class ComponentSelectAnswerType extends StatelessWidget {
   }
 }
 
+class ComponentTextFieldDragQuest extends StatefulWidget {
+  @override
+  _ComponentTextFieldDragQuestState createState() =>
+      _ComponentTextFieldDragQuestState();
+}
+
+class _ComponentTextFieldDragQuestState
+    extends State<ComponentTextFieldDragQuest> {
+  TextEditingController _textController = TextEditingController();
+  double _textFieldWidth = 100.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Color.fromARGB(255, 250, 231, 249),
+          borderRadius: BorderRadius.circular(10)),
+      width: _textFieldWidth,
+      padding: EdgeInsets.only(left: 0.w, right: 0.w),
+      child: TextField(
+        controller: _textController,
+        style: GoogleFonts.nunito(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontSize: size.sizeTextDescriptionGlobal.sp),
+        decoration: InputDecoration(
+          border: InputBorder.none, // Remove the outline
+        ),
+        onChanged: (value) {
+          // Calculate the required width based on the text input length
+          setState(() {
+            _textFieldWidth = (value.length * 10).toDouble();
+          });
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+}
+
+class ComponentTextFieldDragAnswer extends StatefulWidget {
+  @override
+  ComponentTextFieldDragAnswerState createState() =>
+      ComponentTextFieldDragAnswerState();
+}
+
+class ComponentTextFieldDragAnswerState
+    extends State<ComponentTextFieldDragAnswer> {
+  TextEditingController _textController = TextEditingController();
+  double _textFieldWidth = 100.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(width: 2, color: Colors.black),
+          color: Color.fromARGB(255, 213, 139, 215),
+          borderRadius: BorderRadius.circular(10)),
+      width: _textFieldWidth,
+      child: TextField(
+        controller: _textController,
+        style: GoogleFonts.nunito(
+            color: Colors.black,
+            fontSize: size.sizeTextDescriptionGlobal.sp,
+            fontWeight: FontWeight.bold),
+        decoration: InputDecoration(
+          border: InputBorder.none, // Remove the outline
+          contentPadding: EdgeInsets.zero, // Remove padding
+        ),
+        onChanged: (value) {
+          // Calculate the required width based on the text input length
+          setState(() {
+            _textFieldWidth = (value.length * 10).toDouble();
+          });
+        },
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+}
+
 class FillBlankForm extends StatefulWidget {
   @override
   State<FillBlankForm> createState() => _FillBlankFormState();
 }
 
 class _FillBlankFormState extends State<FillBlankForm> {
+  List<Widget> listWidgetQUestion = [];
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(height: 10.h),
       // Widget TextFieldFormMultiLine untuk pertanyaan
 
@@ -1027,6 +1120,142 @@ class _FillBlankFormState extends State<FillBlankForm> {
         lengthMax: 700,
         colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
       ),
+      DragTarget(
+        builder: (context, candidateData, rejectedData) {
+          return Stack(
+            children: [
+              Container(
+                height: 200.h,
+                margin: EdgeInsets.only(top: 10.h),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 252, 215, 252),
+                    borderRadius: BorderRadius.circular(20.r),
+                    border: Border.all(width: 2, color: Colors.black)),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Wrap(
+                    children: listWidgetQUestion,
+                    spacing: 5.w,
+                  ),
+                ),
+              ),
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: AnimatedContainer(
+                      duration: Duration(milliseconds: 500),
+                      margin:
+                          EdgeInsets.only(left: size.sizeMarginLeftTittle.w),
+                      color: Color.fromARGB(255, 248, 209, 250),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.h),
+                        child: ComponentTextDescription(
+                          "Text",
+                          fontWeight: FontWeight.normal,
+                          fontSize: size.sizeTextDescriptionGlobal - 3,
+                        ),
+                      ))),
+            ],
+          );
+        },
+        onAccept: (data) {
+          if (data == "textfield") {
+            Get.snackbar("Alert", "TextField Added");
+            listWidgetQUestion.add(ComponentTextFieldDragQuest());
+          }
+          if (data == "answer_textfield") {
+            Get.snackbar("Alert", "Answer TextField Added");
+            listWidgetQUestion.add(ComponentTextFieldDragAnswer());
+          }
+        },
+      ),
+
+      ComponentTextDescription("Add Text",
+          fontSize: size.sizeTextDescriptionGlobal.sp),
+      ComponentTextDescription(
+        " - Fill the box below and drag it in the text box above.\n - To remove a box, drag it outside the text area.",
+        fontSize: size.sizeTextDescriptionGlobal - 3.sp,
+        maxLines: 4,
+      ),
+      Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 249, 221, 251),
+            border: Border.all(width: 2, color: Colors.black),
+            borderRadius: BorderRadius.circular(10.r)),
+        child: Draggable(
+          data: "textfield",
+          child: Container(
+            height: 40.h,
+            padding: EdgeInsets.all(10.w),
+            margin: EdgeInsets.all(10.w),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 249, 234, 249),
+                border: Border.all(width: 2, color: Colors.black),
+                borderRadius: BorderRadius.circular(10.r)),
+            child: ComponentTextDescription(
+              "Main Field",
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+            ),
+          ),
+          feedback: Container(
+            padding: EdgeInsets.all(10.w),
+            margin: EdgeInsets.all(10.w),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 249, 234, 249),
+                border: Border.all(width: 2, color: Colors.black),
+                borderRadius: BorderRadius.circular(10.r)),
+            child: ComponentTextDescription(
+              "Main Field",
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+            ),
+          ),
+        ),
+      ),
+      ComponentTextDescription("Add Blanks",
+          fontSize: size.sizeTextDescriptionGlobal.sp),
+      ComponentTextDescription(
+        " - Fill the box below and drag it in the text box above.\n - You can add up to 6 blanks of 30 chracters each.\n - To remove a box, drag it outside the text area.",
+        fontSize: size.sizeTextDescriptionGlobal - 3.sp,
+        maxLines: 4,
+      ),
+
+      Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Color.fromARGB(255, 249, 221, 251),
+            border: Border.all(width: 2, color: Colors.black),
+            borderRadius: BorderRadius.circular(10.r)),
+        child: Draggable(
+          data: "answer_textfield",
+          child: Container(
+            height: 40.h,
+            padding: EdgeInsets.all(10.w),
+            margin: EdgeInsets.all(10.w),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 213, 139, 215),
+                border: Border.all(width: 2, color: Colors.black),
+                borderRadius: BorderRadius.circular(10.r)),
+            child: ComponentTextDescription(
+              "Main Field",
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+            ),
+          ),
+          feedback: Container(
+            padding: EdgeInsets.all(10.w),
+            margin: EdgeInsets.all(10.w),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 213, 139, 215),
+                border: Border.all(width: 2, color: Colors.black),
+                borderRadius: BorderRadius.circular(10.r)),
+            child: ComponentTextDescription(
+              "Main Field",
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+            ),
+          ),
+        ),
+      )
+
       // Widget ComponentTextDescription untuk instruksi tambahan
     ]);
   }
