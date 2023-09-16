@@ -1008,8 +1008,15 @@ class ComponentTextFieldDragQuest extends StatefulWidget {
 
 class _ComponentTextFieldDragQuestState
     extends State<ComponentTextFieldDragQuest> {
-  TextEditingController _textController = TextEditingController();
+  TextEditingController _textController =
+      TextEditingController(text: " Type Text ");
   double _textFieldWidth = 100.0;
+  int i = 1;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1018,7 +1025,6 @@ class _ComponentTextFieldDragQuestState
           color: Color.fromARGB(255, 250, 231, 249),
           borderRadius: BorderRadius.circular(10)),
       width: _textFieldWidth,
-      padding: EdgeInsets.only(left: 0.w, right: 0.w),
       child: TextField(
         controller: _textController,
         style: GoogleFonts.nunito(
@@ -1028,8 +1034,25 @@ class _ComponentTextFieldDragQuestState
         decoration: InputDecoration(
           border: InputBorder.none, // Remove the outline
         ),
+        onEditingComplete: () {
+          if (i == 1) {
+            _textController.text = ' ' + _textController.text;
+          }
+          setState(() {
+            i++;
+          });
+        },
+        onSubmitted: (value) {
+          if (i == 1) {
+            _textController.text = ' ' + _textController.text;
+          }
+          setState(() {
+            i++;
+          });
+        },
         onChanged: (value) {
           // Calculate the required width based on the text input length
+
           setState(() {
             _textFieldWidth = (value.length * 10).toDouble();
           });
@@ -1053,9 +1076,10 @@ class ComponentTextFieldDragAnswer extends StatefulWidget {
 
 class ComponentTextFieldDragAnswerState
     extends State<ComponentTextFieldDragAnswer> {
-  TextEditingController _textController = TextEditingController();
+  TextEditingController _textController =
+      TextEditingController(text: " Type Answer ");
   double _textFieldWidth = 100.0;
-
+  int i = 1;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -1066,6 +1090,24 @@ class ComponentTextFieldDragAnswerState
       width: _textFieldWidth,
       child: TextField(
         controller: _textController,
+        textAlign: TextAlign.start,
+        cursorWidth: 0,
+        onEditingComplete: () {
+          if (i == 1) {
+            _textController.text = ' ' + _textController.text;
+          }
+          setState(() {
+            i++;
+          });
+        },
+        onSubmitted: (value) {
+          if (i == 1) {
+            _textController.text = ' ' + _textController.text;
+          }
+          setState(() {
+            i++;
+          });
+        },
         style: GoogleFonts.nunito(
             color: Colors.black,
             fontSize: size.sizeTextDescriptionGlobal.sp,
@@ -1076,6 +1118,7 @@ class ComponentTextFieldDragAnswerState
         ),
         onChanged: (value) {
           // Calculate the required width based on the text input length
+
           setState(() {
             _textFieldWidth = (value.length * 10).toDouble();
           });
@@ -1120,6 +1163,9 @@ class _FillBlankFormState extends State<FillBlankForm> {
         lengthMax: 700,
         colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
       ),
+      SizedBox(
+        height: 10.h,
+      ),
       DragTarget(
         builder: (context, candidateData, rejectedData) {
           return Stack(
@@ -1135,9 +1181,9 @@ class _FillBlankFormState extends State<FillBlankForm> {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Wrap(
-                    children: listWidgetQUestion,
-                    spacing: 5.w,
-                  ),
+                      children: listWidgetQUestion,
+                      spacing: 8.w,
+                      runSpacing: 2.0.w),
                 ),
               ),
               Align(
@@ -1169,13 +1215,18 @@ class _FillBlankFormState extends State<FillBlankForm> {
           }
         },
       ),
-
+      SizedBox(
+        height: 10.h,
+      ),
       ComponentTextDescription("Add Text",
           fontSize: size.sizeTextDescriptionGlobal.sp),
       ComponentTextDescription(
         " - Fill the box below and drag it in the text box above.\n - To remove a box, drag it outside the text area.",
         fontSize: size.sizeTextDescriptionGlobal - 3.sp,
         maxLines: 4,
+      ),
+      SizedBox(
+        height: 10.h,
       ),
       Container(
         width: double.infinity,
@@ -1194,7 +1245,7 @@ class _FillBlankFormState extends State<FillBlankForm> {
                 border: Border.all(width: 2, color: Colors.black),
                 borderRadius: BorderRadius.circular(10.r)),
             child: ComponentTextDescription(
-              "Main Field",
+              "Text Field",
               fontSize: size.sizeTextDescriptionGlobal.sp,
             ),
           ),
@@ -1212,14 +1263,20 @@ class _FillBlankFormState extends State<FillBlankForm> {
           ),
         ),
       ),
+      SizedBox(
+        height: 10.h,
+      ),
       ComponentTextDescription("Add Blanks",
           fontSize: size.sizeTextDescriptionGlobal.sp),
+
       ComponentTextDescription(
         " - Fill the box below and drag it in the text box above.\n - You can add up to 6 blanks of 30 chracters each.\n - To remove a box, drag it outside the text area.",
         fontSize: size.sizeTextDescriptionGlobal - 3.sp,
         maxLines: 4,
       ),
-
+      SizedBox(
+        height: 10.h,
+      ),
       Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -1254,75 +1311,367 @@ class _FillBlankFormState extends State<FillBlankForm> {
             ),
           ),
         ),
-      )
-
+      ),
+      SizedBox(
+        height: 10.h,
+      ),
+      GestureDetector(
+        child: CardButtonLong(
+          nameButton: "Add Image",
+          routeName: "profile_picture",
+          fontWeight: FontWeight.bold,
+          colorButton: ListColor.backgroundItemRatingCyan,
+          colorFont: Colors.black,
+          borderShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            side: BorderSide(
+              width: size.sizeBorderBlackGlobal,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        onTap: () {},
+      ),
       // Widget ComponentTextDescription untuk instruksi tambahan
     ]);
   }
 }
 
-class BoxAddQuestionType extends StatelessWidget {
+class BoxAddQuestionType extends StatefulWidget {
+  @override
+  State<BoxAddQuestionType> createState() => _BoxAddQuestionTypeState();
+}
+
+class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
+  TextEditingController _textEditingController = TextEditingController();
+  String? resultAddText = "";
+  String? resultAddLatex = "";
+  File? resultAddImage;
+
+  bool? isImageAdded = false;
+
+  Future<void> _showMyDialogAddText() async {
+    final result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          insetPadding: EdgeInsets.zero,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Stack(
+            children: <Widget>[
+              // Background blur effect
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
+                child: Container(
+                  color: Colors.white.withOpacity(0.2),
+                ),
+              ),
+              // Content
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Center(
+                      child: Container(
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Container(
+                              width: 200.w,
+                              child: TextField(
+                                keyboardType: TextInputType.text,
+                                controller: _textEditingController,
+                                style: GoogleFonts.nunito(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize:
+                                        size.sizeTextDescriptionGlobal.sp),
+                                decoration: InputDecoration(
+                                  border:
+                                      InputBorder.none, // Remove the outline
+                                ),
+                                maxLines: null,
+                                onEditingComplete: () {},
+                                onChanged: (value) {
+                                  // Calculate the required width based on the text input length
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          resultAddText = _textEditingController.text;
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Add Text'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    print("add text" + resultAddText!);
+  }
+
+  Future<void> _showMyDialogAddLatex() async {
+    final result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          insetPadding: EdgeInsets.zero,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Stack(
+            children: <Widget>[
+              // Background blur effect
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
+                child: Container(
+                  color: Colors.white.withOpacity(0.2),
+                ),
+              ),
+              // Content
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Center(
+                      child: Container(
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            ComponentTextDescription("Latex Code",
+                                fontSize: size.sizeTextDescriptionGlobal.sp),
+                            Container(
+                              width: 200.w,
+                              child: TextField(
+                                keyboardType: TextInputType.text,
+                                controller: _textEditingController,
+                                style: GoogleFonts.nunito(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize:
+                                        size.sizeTextDescriptionGlobal.sp),
+                                decoration: InputDecoration(
+                                  border:
+                                      InputBorder.none, // Remove the outline
+                                ),
+                                maxLines: null,
+                                onEditingComplete: () {},
+                                onChanged: (value) {
+                                  // Calculate the required width based on the text input length
+                                },
+                              ),
+                            ),
+                            ComponentTextDescription("Output Code",
+                                fontSize: size.sizeTextDescriptionGlobal.sp),
+                            Container(
+                              width: 200.w,
+                              child: TextField(
+                                keyboardType: TextInputType.text,
+                                controller: _textEditingController,
+                                style: GoogleFonts.nunito(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize:
+                                        size.sizeTextDescriptionGlobal.sp),
+                                decoration: InputDecoration(
+                                  border:
+                                      InputBorder.none, // Remove the outline
+                                ),
+                                maxLines: null,
+                                onEditingComplete: () {},
+                                onChanged: (value) {
+                                  // Calculate the required width based on the text input length
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          resultAddText = _textEditingController.text;
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Add Text'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    print("add text" + resultAddText!);
+  }
+
+  Future<void> pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+
+    // Pick an image from the gallery
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      // Crop the selected image
+      ImageCropper imageCropper = ImageCropper();
+      CroppedFile? croppedImage = await imageCropper.cropImage(
+          sourcePath: image.path,
+          cropStyle: CropStyle.circle,
+          uiSettings: [
+            AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: Color.fromARGB(255, 32, 36, 47),
+                activeControlsWidgetColor: Color.fromARGB(255, 114, 87, 215),
+                toolbarWidgetColor: Colors.white,
+                backgroundColor: Colors.black,
+                initAspectRatio: CropAspectRatioPreset.original,
+                lockAspectRatio: false),
+          ]);
+
+      setState(() {
+        resultAddImage = File(image.path);
+        resultAddText = image.path;
+        isImageAdded = true;
+      });
+    } else {
+      // User canceled the selection
+      print('No image selected');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
+      height: 110.h,
+      width: 110.w,
       decoration: BoxDecoration(
           color: Color.fromARGB(255, 235, 235, 235),
           border: Border.all(color: Colors.black, width: 2),
           borderRadius: BorderRadius.circular(20.r)),
       padding: EdgeInsets.all(10.w),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 168, 252, 155),
-                borderRadius: BorderRadius.circular(30.r),
-                border: Border.all(color: Colors.black)),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
-              child: ComponentTextDescription(
-                "Add Text",
-                fontWeight: FontWeight.bold,
-                fontSize: size.sizeTextDescriptionGlobal - 5.sp,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 120, 215, 222),
-                borderRadius: BorderRadius.circular(30.r),
-                border: Border.all(color: Colors.black)),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
-              child: ComponentTextDescription(
-                "Add Latex",
-                fontWeight: FontWeight.bold,
-                fontSize: size.sizeTextDescriptionGlobal - 5.sp,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 238, 189, 251),
-                borderRadius: BorderRadius.circular(30.r),
-                border: Border.all(color: Colors.black)),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
-              child: ComponentTextDescription(
-                "Add Image",
-                fontWeight: FontWeight.bold,
-                fontSize: size.sizeTextDescriptionGlobal - 5.sp,
-              ),
-            ),
-          ),
-        ],
-      ),
+      child: resultAddText == ""
+          ? Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    _showMyDialogAddText();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 168, 252, 155),
+                        borderRadius: BorderRadius.circular(30.r),
+                        border: Border.all(color: Colors.black)),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+                      child: ComponentTextDescription(
+                        "Add Text",
+                        fontWeight: FontWeight.bold,
+                        fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _showMyDialogAddLatex();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 120, 215, 222),
+                        borderRadius: BorderRadius.circular(30.r),
+                        border: Border.all(color: Colors.black)),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+                      child: ComponentTextDescription(
+                        "Add Latex",
+                        fontWeight: FontWeight.bold,
+                        fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    pickImage();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 238, 189, 251),
+                        borderRadius: BorderRadius.circular(30.r),
+                        border: Border.all(color: Colors.black)),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+                      child: ComponentTextDescription(
+                        "Add Image",
+                        fontWeight: FontWeight.bold,
+                        fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : isImageAdded == true
+              ? Container(
+                  height: 110.h,
+                  width: 110.w,
+                  child: Image.file(resultAddImage!))
+              : Container(
+                  height: 110.h,
+                  width: 110.w,
+                  child: Center(
+                    child: ComponentTextDescription(
+                      "${resultAddText}",
+                      textAlign: TextAlign.center,
+                      fontSize: size.sizeTextDescriptionGlobal + 10.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
     );
   }
 }
