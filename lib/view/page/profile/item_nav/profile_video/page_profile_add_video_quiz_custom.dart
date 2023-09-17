@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -1364,7 +1366,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
               BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
                 child: Container(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withOpacity(0.0),
                 ),
               ),
               // Content
@@ -1384,19 +1386,23 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                           children: <Widget>[
                             Container(
                               width: 200.w,
-                              child: TextField(
+                              height: 200.h,
+                              child: AutoSizeTextField(
                                 keyboardType: TextInputType.text,
                                 controller: _textEditingController,
                                 style: GoogleFonts.nunito(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
-                                    fontSize:
-                                        size.sizeTextDescriptionGlobal.sp),
+                                    fontSize: 120.sp),
+                                maxFontSize: 90,
+                                minFontSize: 60,
+                                stepGranularity: 10,
+                                maxLines: 4,
                                 decoration: InputDecoration(
                                   border:
                                       InputBorder.none, // Remove the outline
                                 ),
-                                maxLines: null,
+                                minLines: 2,
                                 onEditingComplete: () {},
                                 onChanged: (value) {
                                   // Calculate the required width based on the text input length
@@ -1432,110 +1438,8 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
     print("add text" + resultAddText!);
   }
 
-  Future<void> _showMyDialogAddLatex() async {
-    final result = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          insetPadding: EdgeInsets.zero,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          child: Stack(
-            children: <Widget>[
-              // Background blur effect
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
-                child: Container(
-                  color: Colors.white.withOpacity(0.2),
-                ),
-              ),
-              // Content
-              Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Center(
-                      child: Container(
-                        padding: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            ComponentTextDescription("Latex Code",
-                                fontSize: size.sizeTextDescriptionGlobal.sp),
-                            Container(
-                              width: 200.w,
-                              child: TextField(
-                                keyboardType: TextInputType.text,
-                                controller: _textEditingController,
-                                style: GoogleFonts.nunito(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontSize:
-                                        size.sizeTextDescriptionGlobal.sp),
-                                decoration: InputDecoration(
-                                  border:
-                                      InputBorder.none, // Remove the outline
-                                ),
-                                maxLines: null,
-                                onEditingComplete: () {},
-                                onChanged: (value) {
-                                  // Calculate the required width based on the text input length
-                                },
-                              ),
-                            ),
-                            ComponentTextDescription("Output Code",
-                                fontSize: size.sizeTextDescriptionGlobal.sp),
-                            Container(
-                              width: 200.w,
-                              child: TextField(
-                                keyboardType: TextInputType.text,
-                                controller: _textEditingController,
-                                style: GoogleFonts.nunito(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    fontSize:
-                                        size.sizeTextDescriptionGlobal.sp),
-                                decoration: InputDecoration(
-                                  border:
-                                      InputBorder.none, // Remove the outline
-                                ),
-                                maxLines: null,
-                                onEditingComplete: () {},
-                                onChanged: (value) {
-                                  // Calculate the required width based on the text input length
-                                },
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          resultAddText = _textEditingController.text;
-                        });
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('Add Text'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-
+  String latexCode = "";
+  void _showMyDialogAddLatex() {
     print("add text" + resultAddText!);
   }
 
@@ -1550,7 +1454,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
       ImageCropper imageCropper = ImageCropper();
       CroppedFile? croppedImage = await imageCropper.cropImage(
           sourcePath: image.path,
-          cropStyle: CropStyle.circle,
+          cropStyle: CropStyle.rectangle,
           uiSettings: [
             AndroidUiSettings(
                 toolbarTitle: 'Cropper',
@@ -1558,8 +1462,9 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                 activeControlsWidgetColor: Color.fromARGB(255, 114, 87, 215),
                 toolbarWidgetColor: Colors.white,
                 backgroundColor: Colors.black,
-                initAspectRatio: CropAspectRatioPreset.original,
-                lockAspectRatio: false),
+                hideBottomControls: true,
+                initAspectRatio: CropAspectRatioPreset.square,
+                lockAspectRatio: true),
           ]);
 
       setState(() {
@@ -1577,15 +1482,16 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      height: 110.h,
+      height: 102.h,
       width: 110.w,
       decoration: BoxDecoration(
           color: Color.fromARGB(255, 235, 235, 235),
           border: Border.all(color: Colors.black, width: 2),
           borderRadius: BorderRadius.circular(20.r)),
-      padding: EdgeInsets.all(10.w),
       child: resultAddText == ""
           ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: () {
@@ -1598,7 +1504,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                         border: Border.all(color: Colors.black)),
                     child: Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
                       child: ComponentTextDescription(
                         "Add Text",
                         fontWeight: FontWeight.bold,
@@ -1613,6 +1519,125 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                 GestureDetector(
                   onTap: () {
                     _showMyDialogAddLatex();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Dialog(
+                          insetPadding: EdgeInsets.zero,
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          child: Stack(
+                            children: <Widget>[
+                              // Background blur effect
+                              BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 7, sigmaY: 7),
+                                  child: Container(
+                                    color: Colors.white.withOpacity(0.0),
+                                  )),
+                              // Content
+                              Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Center(
+                                      child: Container(
+                                        padding: EdgeInsets.all(16),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            ComponentTextDescription(
+                                                "Latex Code",
+                                                fontSize: size
+                                                    .sizeTextDescriptionGlobal
+                                                    .sp),
+                                            Container(
+                                              width: 200.w,
+                                              child: TextField(
+                                                keyboardType:
+                                                    TextInputType.text,
+                                                controller:
+                                                    _textEditingController,
+                                                style: GoogleFonts.nunito(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: size
+                                                        .sizeTextDescriptionGlobal
+                                                        .sp),
+                                                decoration: InputDecoration(
+                                                  border: InputBorder
+                                                      .none, // Remove the outline
+                                                ),
+                                                maxLines: null,
+                                                onEditingComplete: () {},
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    latexCode = value;
+                                                  });
+                                                  // Calculate the required width based on the text input length
+                                                },
+                                              ),
+                                            ),
+                                            ComponentTextDescription(
+                                                "Output Code Latex",
+                                                fontSize: size
+                                                    .sizeTextDescriptionGlobal
+                                                    .sp),
+                                            Container(
+                                              width: 200.w,
+                                              child: Column(
+                                                children: [
+                                                  TeXView(
+                                                    child: TeXViewColumn(
+                                                        children: [
+                                                          TeXViewInkWell(
+                                                            id: "id_0",
+                                                            child:
+                                                                TeXViewColumn(
+                                                                    children: [
+                                                                  TeXViewDocument(
+                                                                      latexCode,
+                                                                      style: TeXViewStyle(
+                                                                          padding:
+                                                                              TeXViewPadding.all(10))),
+                                                                ]),
+                                                          )
+                                                        ]),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: 16),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          resultAddText =
+                                              _textEditingController.text;
+                                        });
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('Add Text'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -1623,7 +1648,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
                       child: ComponentTextDescription(
-                        "Add Latex",
+                        "add latex",
                         fontWeight: FontWeight.bold,
                         fontSize: size.sizeTextDescriptionGlobal - 5.sp,
                       ),
@@ -1656,21 +1681,91 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
               ],
             )
           : isImageAdded == true
-              ? Container(
-                  height: 110.h,
-                  width: 110.w,
-                  child: Image.file(resultAddImage!))
-              : Container(
-                  height: 110.h,
-                  width: 110.w,
-                  child: Center(
-                    child: ComponentTextDescription(
-                      "${resultAddText}",
-                      textAlign: TextAlign.center,
-                      fontSize: size.sizeTextDescriptionGlobal + 10.sp,
-                      fontWeight: FontWeight.bold,
+              ? Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(18.r),
+                      child: Image.file(
+                        resultAddImage!,
+                        height: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          Get.snackbar("Click", "Delete");
+                          resultAddImage = null;
+                          isImageAdded = false;
+                          resultAddText = "";
+                        });
+                      },
+                      child: Container(
+                        height: 40.h,
+                        transform: Matrix4.translationValues(40.w, -5.h, 0),
+                        child: Card(
+                          shape: CircleBorder(
+                            side: BorderSide(
+                              width: size.sizeBorderBlackGlobal,
+                              color: Colors.black,
+                            ),
+                          ),
+                          child: Center(
+                            child: ComponentTextDescription(
+                              '\u00D7',
+                              fontSize: size.sizeTextDescriptionGlobal + 0.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : Stack(
+                  children: [
+                    Container(
+                      height: 110.h,
+                      width: 110.w,
+                      child: Center(
+                        child: ComponentTextDescription(
+                          "${resultAddText}",
+                          textAlign: TextAlign.center,
+                          fontSize: size.sizeTextDescriptionGlobal + 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          Get.snackbar("Click", "Delete");
+                          resultAddImage = null;
+                          isImageAdded = false;
+                          resultAddText = "";
+                        });
+                      },
+                      child: Container(
+                        height: 40.h,
+                        transform: Matrix4.translationValues(40.w, -5.h, 0),
+                        child: Card(
+                          shape: CircleBorder(
+                            side: BorderSide(
+                              width: size.sizeBorderBlackGlobal,
+                              color: Colors.black,
+                            ),
+                          ),
+                          child: Center(
+                            child: ComponentTextDescription(
+                              '\u00D7',
+                              fontSize: size.sizeTextDescriptionGlobal + 0.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
     );
   }
@@ -1841,12 +1936,11 @@ class _QuizFormWidgetState extends State<QuizFormWidget> {
               child: Container(
                 margin: EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.black, width: 2),
-                  color: selectedItemIndex == index
-                      ? Color.fromARGB(255, 178, 253, 178)
-                      : Color.fromARGB(255, 183, 155, 248),
-                ),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.black, width: 2),
+                    color: selectedItemIndex == index
+                        ? Color.fromARGB(255, 178, 253, 178)
+                        : Color.fromARGB(255, 183, 155, 248)),
                 child: Center(
                   child: ComponentTextDescription(
                     answerChoices[index],
