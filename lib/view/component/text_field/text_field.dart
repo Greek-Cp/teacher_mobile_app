@@ -749,21 +749,36 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                                   fontWeight: FontWeight.bold,
                                   fontSize:
                                       size.sizeTextDescriptionGlobal - 3.sp),
-                              Checkbox(
-                                activeColor: Color.fromARGB(255, 227, 49, 176),
-                                checkColor: Colors.green,
-                                value: checkboxLatexClikcked,
-                                onChanged: (value) {
-                                  if (checkboxLatexClikcked == true) {
-                                    setState(() {
-                                      checkboxLatexClikcked = false;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      checkboxLatexClikcked = true;
-                                    });
-                                  }
-                                },
+                              Theme(
+                                data: Theme.of(context).copyWith(
+                                  unselectedWidgetColor: Colors.white,
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      color: Colors.green,
+                                    ),
+                                    Checkbox(
+                                      fillColor: MaterialStatePropertyAll(
+                                          Color.fromARGB(255, 249, 220, 253)),
+                                      activeColor:
+                                          Color.fromARGB(255, 227, 49, 176),
+                                      checkColor: Colors.green,
+                                      value: checkboxLatexClikcked,
+                                      onChanged: (value) {
+                                        if (checkboxLatexClikcked == true) {
+                                          setState(() {
+                                            checkboxLatexClikcked = false;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            checkboxLatexClikcked = true;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           )))),
