@@ -842,13 +842,14 @@ class _MatchingFormWidgetState extends State<MatchingFormWidget> {
         "- Fill each box below with a text or an image.\n-The right and left boxes positions will be randomized on the student app.",
         fontSize: size.sizeTextDescriptionGlobal - 4.sp,
         fontWeight: FontWeight.bold,
+        maxLines: 3,
       ),
       ComponentSelectAnswerType(),
       ComponentSelectAnswerType(),
       ComponentSelectAnswerType(),
       ComponentSelectAnswerType(),
       SizedBox(
-        height: 50.h,
+        height: 5.h,
       )
     ]);
   }
@@ -860,8 +861,6 @@ class GroupForm extends StatefulWidget {
 }
 
 class _GroupFormState extends State<GroupForm> {
-  List<Widget> resultDrag = [];
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -916,31 +915,13 @@ class _GroupFormState extends State<GroupForm> {
           Row(
             children: [
               Expanded(
-                child: DragTarget(
-                  builder: (context, candidateData, rejectedData) {
-                    return Container(
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 226, 254, 235),
-                            borderRadius: BorderRadius.circular(20.r),
-                            border: Border.all(color: Colors.black, width: 2)),
-                        height: 200.h,
-                        child: Column(
-                          children: [...resultDrag],
-                        ));
-                  },
-                  onAccept: (data) {
-                    setState(() {
-                      resultDrag.add(
-                        Container(
-                          width: 40.w,
-                          height: 40.h,
-                          color: Colors.yellow,
-                        ),
-                      );
-                    });
-                  },
-                ),
-              ),
+                  child: Container(
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 226, 254, 235),
+                    borderRadius: BorderRadius.circular(20.r),
+                    border: Border.all(color: Colors.black, width: 2)),
+                height: 200.h,
+              )),
               SizedBox(
                 width: 10.h,
               ),
@@ -979,9 +960,8 @@ class _GroupFormState extends State<GroupForm> {
                   border: Border.all(width: 2, color: Colors.black)),
               child: Center(
                   child: Draggable(
-                child: BoxAddQuestionType(),
-                feedback: BoxAddQuestionType(),
-              )))
+                      feedback: BoxAddQuestionType(),
+                      child: BoxAddQuestionType())))
           // Widget ComponentTextDescription untuk instruksi tambahan
         ]);
   }
@@ -1435,19 +1415,19 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Container(
-                              width: 200.w,
-                              height: 200.h,
+                              width: 120.w,
+                              height: 100.h,
                               child: AutoSizeTextField(
                                 keyboardType: TextInputType.text,
                                 controller: _textEditingController,
                                 style: GoogleFonts.nunito(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
-                                    fontSize: 120.sp),
+                                    fontSize: 70.sp),
                                 maxFontSize: 90,
-                                minFontSize: 60,
+                                minFontSize: 10,
                                 stepGranularity: 10,
-                                maxLines: 4,
+                                maxLines: 10,
                                 decoration: InputDecoration(
                                   border:
                                       InputBorder.none, // Remove the outline
@@ -1525,8 +1505,12 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                     fontSize:
                                         size.sizeTextDescriptionGlobal.sp),
                                 Container(
-                                  height: 100.h,
-                                  width: 200.w,
+                                  height: MediaQuery.of(context).size.width *
+                                      0.3, // 30% of the screen width
+
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(
@@ -1542,6 +1526,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                         fontSize:
                                             size.sizeTextDescriptionGlobal.sp),
                                     decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.zero,
                                       border: InputBorder
                                           .none, // Remove the outline
                                     ),
@@ -1609,7 +1594,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                         borderRadius:
                                             BorderRadius.circular(20.r)),
                                     height: 100.h,
-                                    width: 100.w,
+                                    width: 120.w,
                                     child: TeXView(
                                       child: TeXViewColumn(children: [
                                         TeXViewDocument(latexCode,
@@ -1719,8 +1704,8 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      height: 102.h,
-      width: 110.w,
+      height: MediaQuery.of(context).size.height * 0.2,
+      width: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
           color: Color.fromARGB(255, 235, 235, 235),
           border: Border.all(color: Colors.black, width: 2),
@@ -1862,6 +1847,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                         : Container(
                             height: 110.h,
                             width: 110.w,
+                            padding: EdgeInsets.all(10.w),
                             child: Center(
                               child: AutoSizeText(
                                 '${resultAddText}',
@@ -1987,11 +1973,20 @@ class _QuizFormWidgetState extends State<QuizFormWidget> {
                 padding: EdgeInsets.all(12.0.w),
                 child: AspectRatio(
                   aspectRatio: 1.0,
-                  child: Image.file(
-                    File(selectedImage!),
-                    width: 50.w,
-                    height: 50.h,
-                    fit: BoxFit.cover,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(width: 3, color: Colors.black)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18.r),
+                      child: Image.file(
+                        File(selectedImage!),
+                        width: 50.w,
+                        height: 50.h,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -2095,8 +2090,45 @@ class _QuizFormWidgetState extends State<QuizFormWidget> {
   }
 
   // Fungsi untuk memilih gambar
-  void pickImage() {
-    // Implement image picking logic here
+  Future<void> pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+
+    // Pick an image from the gallery
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      // Crop the selected image
+      ImageCropper imageCropper = ImageCropper();
+      CroppedFile? croppedImage = await imageCropper.cropImage(
+          sourcePath: image.path,
+          cropStyle: CropStyle.rectangle,
+          uiSettings: [
+            AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: Color.fromARGB(255, 32, 36, 47),
+                activeControlsWidgetColor: Color.fromARGB(255, 114, 87, 215),
+                toolbarWidgetColor: Colors.white,
+                backgroundColor: Colors.black,
+                initAspectRatio: CropAspectRatioPreset.square,
+                hideBottomControls: true,
+                lockAspectRatio: false),
+          ]);
+
+      setState(() {
+        selectedImage =
+            croppedImage!.path; // Set the selected and cropped image
+
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => PageProfileAddVideoQuizCustom(),
+        //   ),
+        // );
+      });
+    } else {
+      // User canceled the selection
+      print('No image selected');
+    }
   }
 }
 
