@@ -1963,7 +1963,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.image),
+                                    Icon(Icons.image_outlined),
                                     ComponentTextDescription(
                                       "Image",
                                       fontWeight: FontWeight.bold,
