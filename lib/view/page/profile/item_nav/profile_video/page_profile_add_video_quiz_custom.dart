@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -736,7 +737,9 @@ class _QuizWidgetState extends State<QuizWidget> {
                         height: 15.h,
                       ),
                       DropDownWidget(
-                        textEditingControllerDropDown: TextEditingController(),
+                        textEditingControllerDropDown: TextEditingController(
+                            text: questionTypes.values
+                                .elementAt(indexQuestSelection)),
                         initialValueDropDown: "Select a Subject",
                         containerHeight: 50,
                         containerListHeight: 90,
@@ -748,6 +751,11 @@ class _QuizWidgetState extends State<QuizWidget> {
                           "Group"
                           // Add more subject options
                         ],
+                        onItemSelected: (name, ind) {
+                          setState(() {
+                            indexQuestSelection = ind;
+                          });
+                        },
                         isFilledWithData: (isFiled, value) {},
                       ),
                     ],
@@ -861,6 +869,8 @@ class GroupForm extends StatefulWidget {
 }
 
 class _GroupFormState extends State<GroupForm> {
+  List<Widget> listWidget = [];
+  List<Widget> listWidgetRight = [];
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -915,24 +925,73 @@ class _GroupFormState extends State<GroupForm> {
           Row(
             children: [
               Expanded(
-                  child: Container(
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 226, 254, 235),
-                    borderRadius: BorderRadius.circular(20.r),
-                    border: Border.all(color: Colors.black, width: 2)),
-                height: 200.h,
-              )),
+                child: DragTarget<Widget>(
+                  builder: (context, candidateData, rejectedData) {
+                    return listWidget.length == 0
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 226, 254, 235),
+                                borderRadius: BorderRadius.circular(20.r),
+                                border:
+                                    Border.all(color: Colors.black, width: 2)),
+                            height: 200.h,
+                            child: Column(children: listWidget),
+                          )
+                        : Container(
+                            padding: EdgeInsets.only(top: 5, bottom: 5),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 226, 254, 235),
+                                borderRadius: BorderRadius.circular(20.r),
+                                border:
+                                    Border.all(color: Colors.black, width: 2)),
+                            child: Column(children: listWidget),
+                          );
+                  },
+                  onAccept: (data) {
+                    Widget wget = Container(
+                        child: data,
+                        margin: EdgeInsets.symmetric(vertical: 5.h));
+                    listWidget.add(wget);
+
+                    Get.snackbar("Notification", "Add Answer Succesfully");
+                  },
+                ),
+              ),
               SizedBox(
                 width: 10.h,
               ),
               Expanded(
-                  child: Container(
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 226, 254, 235),
-                    borderRadius: BorderRadius.circular(20.r),
-                    border: Border.all(color: Colors.black, width: 2)),
-                height: 200.h,
-              )),
+                child: DragTarget<Widget>(
+                  builder: (context, candidateData, rejectedData) {
+                    return listWidgetRight.length == 0
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 226, 254, 235),
+                                borderRadius: BorderRadius.circular(20.r),
+                                border:
+                                    Border.all(color: Colors.black, width: 2)),
+                            height: 200.h,
+                            child: Column(children: listWidgetRight),
+                          )
+                        : Container(
+                            padding: EdgeInsets.only(top: 5, bottom: 5),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 226, 254, 235),
+                                borderRadius: BorderRadius.circular(20.r),
+                                border:
+                                    Border.all(color: Colors.black, width: 2)),
+                            child: Column(children: listWidgetRight),
+                          );
+                  },
+                  onAccept: (data) {
+                    Widget wget = Container(
+                        child: data,
+                        margin: EdgeInsets.symmetric(vertical: 5.h));
+                    listWidgetRight.add(wget);
+                    Get.snackbar("Notification", "Add Answer Succesfully");
+                  },
+                ),
+              ),
             ],
           ),
           SizedBox(
@@ -959,7 +1018,8 @@ class _GroupFormState extends State<GroupForm> {
                   borderRadius: BorderRadius.circular(20.r),
                   border: Border.all(width: 2, color: Colors.black)),
               child: Center(
-                  child: Draggable(
+                  child: Draggable<Widget>(
+                      data: BoxAddQuestionType(),
                       feedback: BoxAddQuestionType(),
                       child: BoxAddQuestionType())))
           // Widget ComponentTextDescription untuk instruksi tambahan
@@ -1149,6 +1209,40 @@ class FillBlankForm extends StatefulWidget {
 
 class _FillBlankFormState extends State<FillBlankForm> {
   List<Widget> listWidgetQUestion = [];
+  String? selectedImage = "";
+
+  Future<void> pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+
+    // Pick an image from the gallery
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      // Crop the selected image
+      ImageCropper imageCropper = ImageCropper();
+      CroppedFile? croppedImage = await imageCropper.cropImage(
+          sourcePath: image.path,
+          cropStyle: CropStyle.rectangle,
+          uiSettings: [
+            AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: Color.fromARGB(255, 32, 36, 47),
+                activeControlsWidgetColor: Color.fromARGB(255, 114, 87, 215),
+                toolbarWidgetColor: Colors.white,
+                backgroundColor: Colors.black,
+                hideBottomControls: true,
+                initAspectRatio: CropAspectRatioPreset.square,
+                lockAspectRatio: true),
+          ]);
+
+      setState(() {
+        selectedImage = image.path;
+      });
+    } else {
+      // User canceled the selection
+      print('No image selected');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1335,6 +1429,7 @@ class _FillBlankFormState extends State<FillBlankForm> {
         fontSize: size.sizeTextDescriptionGlobal - 3.sp,
         maxLines: 4,
       ),
+
       ComponentTextDescription(
         " - Fill the box below and drag it in the text box above.\n - You can add up to 6 blanks of 30 chracters each.\n - To remove a box, drag it outside the text area.",
         fontSize: size.sizeTextDescriptionGlobal - 3.sp,
@@ -1347,23 +1442,86 @@ class _FillBlankFormState extends State<FillBlankForm> {
       SizedBox(
         height: 10.h,
       ),
-      GestureDetector(
-        child: CardButtonLong(
-          nameButton: "Add Image",
-          routeName: "profile_picture",
-          fontWeight: FontWeight.bold,
-          colorButton: ListColor.backgroundItemRatingCyan,
-          colorFont: Colors.black,
-          borderShape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.r),
-            side: BorderSide(
-              width: size.sizeBorderBlackGlobal,
-              color: Colors.black,
+      if (selectedImage!.isEmpty)
+        GestureDetector(
+          child: CardButtonLong(
+            nameButton: "Add Image",
+            routeName: "profile_picture",
+            fontWeight: FontWeight.bold,
+            colorButton: ListColor.backgroundItemRatingCyan,
+            colorFont: Colors.black,
+            borderShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.r),
+              side: BorderSide(
+                width: size.sizeBorderBlackGlobal,
+                color: Colors.black,
+              ),
             ),
           ),
+          onTap: () {
+            pickImage();
+          },
         ),
-        onTap: () {},
-      ),
+      if (selectedImage!.isNotEmpty)
+        Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(12.0.w),
+              child: AspectRatio(
+                aspectRatio: 1.0,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.r),
+                      border: Border.all(width: 3, color: Colors.black)),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(18.r),
+                    child: Image.file(
+                      File(selectedImage!),
+                      width: 50.w,
+                      height: 50.h,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: 1,
+              child: Container(
+                transform: Matrix4.translationValues(5, -20.h, 0),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedImage = "";
+                      // Clear selected image here
+                    });
+                  },
+                  child: Card(
+                    color: Color.fromARGB(255, 214, 214, 214),
+                    shape: CircleBorder(
+                      side: BorderSide(
+                        width: size.sizeBorderBlackGlobal,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5.h, horizontal: 15.w),
+                      child: Center(
+                        child: ComponentTextDescription(
+                          '\u00D7',
+                          fontSize: size.sizeTextDescriptionGlobal + 15.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       // Widget ComponentTextDescription untuk instruksi tambahan
     ]);
   }
@@ -1469,6 +1627,8 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
   }
 
   String latexCode = "";
+  bool displayLatex = false;
+
   Future<void> _showMyDialogAddLatex() async {
     showDialog(
       context: context,
@@ -1665,6 +1825,16 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
     );
   }
 
+  Future<void> pickFile() async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.audio);
+    if (result != null) {
+      File file = File(result.files.single.path!);
+    } else {
+      // User canceled the picker
+    }
+  }
+
   Future<void> pickImage() async {
     final ImagePicker _picker = ImagePicker();
 
@@ -1704,84 +1874,143 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      height: MediaQuery.of(context).size.height * 0.2,
+      height: MediaQuery.of(context).size.width * 0.3,
       width: MediaQuery.of(context).size.width * 0.3,
       decoration: BoxDecoration(
           color: Color.fromARGB(255, 235, 235, 235),
           border: Border.all(color: Colors.black, width: 2),
           borderRadius: BorderRadius.circular(20.r)),
       child: resultAddText == ""
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    _showMyDialogAddText();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 168, 252, 155),
-                        borderRadius: BorderRadius.circular(30.r),
-                        border: Border.all(color: Colors.black)),
+          ? Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                      child: ComponentTextDescription(
-                        "Add Text",
-                        fontWeight: FontWeight.bold,
-                        fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+                      padding: EdgeInsets.all(6.0.w),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                _showMyDialogAddText();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 168, 252, 155),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                child: Center(
+                                  child: ComponentTextDescription(
+                                    "Text",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        size.sizeTextDescriptionGlobal - 3.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                _showMyDialogAddLatex();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 120, 215, 222),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                child: Center(
+                                  child: ComponentTextDescription(
+                                    "Latex",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        size.sizeTextDescriptionGlobal - 3.sp,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    _showMyDialogAddLatex();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 120, 215, 222),
-                        borderRadius: BorderRadius.circular(30.r),
-                        border: Border.all(color: Colors.black)),
+                  Expanded(
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
-                      child: ComponentTextDescription(
-                        "add latex",
-                        fontWeight: FontWeight.bold,
-                        fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+                      padding: EdgeInsets.all(6.0.w),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                pickImage();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 238, 189, 251),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.image),
+                                    ComponentTextDescription(
+                                      "Image",
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal - 3.sp,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                pickFile();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 238, 189, 251),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.music_note),
+                                    ComponentTextDescription(
+                                      "Sound",
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal - 3.sp,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    pickImage();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 238, 189, 251),
-                        borderRadius: BorderRadius.circular(30.r),
-                        border: Border.all(color: Colors.black)),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
-                      child: ComponentTextDescription(
-                        "Add Image",
-                        fontWeight: FontWeight.bold,
-                        fontSize: size.sizeTextDescriptionGlobal - 5.sp,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                  )
+                ],
+              ),
             )
           : isImageAdded == true
               ? Stack(
@@ -1828,10 +2057,21 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
               : Stack(
                   children: [
                     isLatexAdded == true
-                        ? Container(
-                            height: 110.h,
-                            width: 110.w,
-                            child: TeXView(
+                        ? displayLatex == false
+                            ? Container(
+                                height: 110.h,
+                                width: 110.w,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      displayLatex = true;
+                                    });
+                                  },
+                                  child: AutoSizeText("${latexCode}",
+                                      style: TextStyle(fontSize: 2)),
+                                ),
+                              )
+                            : TeXView(
                                 loadingWidgetBuilder: (BuildContext ctx) {
                                   return const Center(
                                       child: CircularProgressIndicator());
@@ -1842,8 +2082,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                           style: TeXViewStyle(
                                               padding: TeXViewPadding.all(10))),
                                     ]),
-                                    id: "id_0")),
-                          )
+                                    id: "id_0"))
                         : Container(
                             height: 110.h,
                             width: 110.w,
@@ -2049,6 +2288,68 @@ class _QuizFormWidgetState extends State<QuizFormWidget> {
         ),
         SizedBox(height: 20.h),
         // Widget untuk pilihan jawaban
+        GestureDetector(
+          onTap: () {},
+          child: TextFieldFormMultiLine(
+            minCharacterHint: 20,
+            hintStyle: GoogleFonts.nunito(
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+              color: ListColor.colorOutlineTextFieldWhenEmpty,
+            ),
+            labelText: "Answer 2",
+            textEditingControllerEmail:
+                TextEditingController(text: answerText[0]),
+            hintText: "Max 200 characters",
+            showIndicatorMin: false,
+            showIndicatorMax: false,
+            minLines: 5,
+            lengthMax: 700,
+            colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+          ),
+        ),
+        SizedBox(height: 20.h),
+        // Widget untuk pilihan jawaban
+        GestureDetector(
+          onTap: () {},
+          child: TextFieldFormMultiLine(
+            minCharacterHint: 20,
+            hintStyle: GoogleFonts.nunito(
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+              color: ListColor.colorOutlineTextFieldWhenEmpty,
+            ),
+            labelText: "Answer 3",
+            textEditingControllerEmail:
+                TextEditingController(text: answerText[0]),
+            hintText: "Max 200 characters",
+            showIndicatorMin: false,
+            showIndicatorMax: false,
+            minLines: 5,
+            lengthMax: 700,
+            colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+          ),
+        ),
+        SizedBox(height: 20.h),
+        // Widget untuk pilihan jawaban
+        GestureDetector(
+          onTap: () {},
+          child: TextFieldFormMultiLine(
+            minCharacterHint: 20,
+            hintStyle: GoogleFonts.nunito(
+              fontSize: size.sizeTextDescriptionGlobal.sp,
+              color: ListColor.colorOutlineTextFieldWhenEmpty,
+            ),
+            labelText: "Answer 4",
+            textEditingControllerEmail:
+                TextEditingController(text: answerText[0]),
+            hintText: "Max 200 characters",
+            showIndicatorMin: false,
+            showIndicatorMax: false,
+            minLines: 5,
+            lengthMax: 700,
+            colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
+          ),
+        ),
+
         GridView.builder(
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
