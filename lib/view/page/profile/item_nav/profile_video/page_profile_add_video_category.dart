@@ -1118,6 +1118,7 @@ class DropDownWidget extends StatefulWidget {
   VoidCallback? voidCallbackDropDownArrowOnTap;
   Color? colorBackgroundDropDown;
   Color? colorBackgroundItemDropDown;
+  final Function(String name, int position)? onItemSelected;
   Function(bool isFiled, String data)? isFilledWithData;
   DropDownWidget(
       {this.voidCallbackDropDownArrowOnTap,
@@ -1127,7 +1128,8 @@ class DropDownWidget extends StatefulWidget {
       required this.labelText,
       required this.listData,
       this.containerListHeight,
-      this.isFilledWithData});
+      this.isFilledWithData,
+      this.onItemSelected});
   @override
   State<DropDownWidget> createState() => _DropDownWidgetState();
 }
@@ -1329,6 +1331,10 @@ class _DropDownWidgetState extends State<DropDownWidget>
                                         widget.textEditingControllerDropDown
                                             .text = widget.listData![index];
                                         // widget.initialValueDropDown =
+                                        if (widget.onItemSelected != null) {
+                                          widget.onItemSelected!(
+                                              widget.listData![index], index);
+                                        }
                                         //     widget.listData![index];
                                         setState(() {
                                           double screenHeight =
