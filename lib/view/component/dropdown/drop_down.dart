@@ -62,6 +62,7 @@ class _DropDownWidgetState extends State<DropDownWidget>
       vsync: this,
       duration: Duration(milliseconds: 100),
     );
+
     _animationShake =
         Tween(begin: -5.0, end: 5.0).animate(_animationControllerShake)
           ..addStatusListener((status) {
