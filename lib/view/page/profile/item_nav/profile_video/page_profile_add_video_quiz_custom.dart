@@ -923,6 +923,7 @@ class _GroupFormState extends State<GroupForm> {
             height: 10.h,
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: DragTarget<Widget>(
@@ -1887,7 +1888,8 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(6.0.w),
+                      padding: EdgeInsets.only(
+                          left: 7.w, right: 7.w, bottom: 5.w, top: 5.w),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1945,7 +1947,8 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(6.0.w),
+                      padding:
+                          EdgeInsets.only(left: 5.w, right: 7.w, bottom: 5.w),
                       child: Row(
                         children: [
                           Expanded(
@@ -1991,9 +1994,10 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                 ),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Icon(Icons.music_note),
+                                    SvgPicture.asset("assets/icon/ic_wave.svg"),
                                     ComponentTextDescription(
                                       "Sound",
                                       fontWeight: FontWeight.bold,
@@ -2073,14 +2077,17 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                               )
                             : TeXView(
                                 loadingWidgetBuilder: (BuildContext ctx) {
-                                  return const Center(
+                                  return Center(
                                       child: CircularProgressIndicator());
                                 },
                                 child: TeXViewInkWell(
                                     child: TeXViewColumn(children: [
-                                      TeXViewDocument(latexCode,
-                                          style: TeXViewStyle(
-                                              padding: TeXViewPadding.all(10))),
+                                      TeXViewDocument(
+                                        latexCode,
+                                        style: TeXViewStyle(
+                                            padding: TeXViewPadding.all(10),
+                                            sizeUnit: TeXViewSizeUnit.pixels),
+                                      ),
                                     ]),
                                     id: "id_0"))
                         : Container(
