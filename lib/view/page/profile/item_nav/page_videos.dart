@@ -12,6 +12,7 @@ import 'package:teacher_mobile_app/view/component/appbar/app_bar.dart';
 import 'package:teacher_mobile_app/view/component/button/button_long.dart';
 import 'package:teacher_mobile_app/view/component/button/text_description.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_course.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 
 import 'page_nav_profile_select_picture.dart';
@@ -607,35 +608,45 @@ class _PageVideosState extends State<PageVideos> {
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return index == 0
-                              ? Container(
-                                  color: Color.fromARGB(255, 17, 0, 49),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      ComponentTextDescription("New Course",
-                                          teksColor: Color.fromARGB(
-                                              255, 255, 123, 159),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize:
-                                              size.sizeTextDescriptionGlobal +
-                                                  0.sp),
-                                      Card(
-                                        color:
-                                            Color.fromARGB(255, 141, 99, 150),
-                                        shape: CircleBorder(),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(10.0.h),
-                                          child: ComponentTextDescription("+",
+                              ? GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                PageProfileAddVideoCourse()));
+                                  },
+                                  child: Container(
+                                      color: Color.fromARGB(255, 17, 0, 49),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          ComponentTextDescription("New Course",
                                               teksColor: Color.fromARGB(
                                                   255, 255, 123, 159),
+                                              fontWeight: FontWeight.bold,
                                               fontSize:
-                                                  size.sizeTextHeaderGlobal +
-                                                      4.sp),
-                                        ),
-                                      )
-                                    ],
-                                  ))
+                                                  size.sizeTextDescriptionGlobal +
+                                                      0.sp),
+                                          Card(
+                                            color: Color.fromARGB(
+                                                255, 141, 99, 150),
+                                            shape: CircleBorder(),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(10.0.h),
+                                              child: ComponentTextDescription(
+                                                  "+",
+                                                  teksColor: Color.fromARGB(
+                                                      255, 255, 123, 159),
+                                                  fontSize:
+                                                      size.sizeTextHeaderGlobal +
+                                                          4.sp),
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                )
                               : Container(
                                   decoration: BoxDecoration(
                                       gradient: LinearGradient(
