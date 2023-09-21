@@ -939,6 +939,7 @@ class _GroupFormState extends State<GroupForm> {
                             child: Column(children: listWidget),
                           )
                         : Container(
+                            height: 450.h,
                             padding: EdgeInsets.only(top: 5, bottom: 5),
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 226, 254, 235),
@@ -975,6 +976,7 @@ class _GroupFormState extends State<GroupForm> {
                             child: Column(children: listWidgetRight),
                           )
                         : Container(
+                            height: 450.h,
                             padding: EdgeInsets.only(top: 5, bottom: 5),
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 226, 254, 235),
@@ -1357,6 +1359,7 @@ class _FillBlankFormState extends State<FillBlankForm> {
                     child: ComponentTextDescription(
                       "Text Field",
                       fontWeight: FontWeight.bold,
+                      teksColor: const Color.fromARGB(255, 70, 70, 70),
                       fontSize: size.sizeTextDescriptionGlobal.sp,
                     ),
                   ),
@@ -1370,6 +1373,7 @@ class _FillBlankFormState extends State<FillBlankForm> {
                     child: ComponentTextDescription(
                       "Main Field",
                       fontSize: size.sizeTextDescriptionGlobal.sp,
+                      teksColor: const Color.fromARGB(255, 70, 70, 70),
                     ),
                   ),
                 ),
@@ -1403,6 +1407,7 @@ class _FillBlankFormState extends State<FillBlankForm> {
                     child: ComponentTextDescription(
                       "Main Field",
                       fontWeight: FontWeight.bold,
+                      teksColor: const Color.fromARGB(255, 70, 70, 70),
                       fontSize: size.sizeTextDescriptionGlobal.sp,
                     ),
                   ),
@@ -1417,6 +1422,7 @@ class _FillBlankFormState extends State<FillBlankForm> {
                       "Main Field",
                       fontWeight: FontWeight.bold,
                       fontSize: size.sizeTextDescriptionGlobal.sp,
+                      teksColor: const Color.fromARGB(255, 70, 70, 70),
                     ),
                   ),
                 ),
@@ -1889,7 +1895,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(
-                          left: 7.w, right: 7.w, bottom: 5.w, top: 5.w),
+                          left: 9.w, right: 9.w, bottom: 7.w, top: 7.w),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1900,6 +1906,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                 _showMyDialogAddText();
                               },
                               child: Container(
+                                height: 38.h,
                                 decoration: BoxDecoration(
                                   color: Color.fromARGB(255, 168, 252, 155),
                                   borderRadius: BorderRadius.circular(10),
@@ -1925,6 +1932,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                 _showMyDialogAddLatex();
                               },
                               child: Container(
+                                height: 38.h,
                                 decoration: BoxDecoration(
                                   color: Color.fromARGB(255, 120, 215, 222),
                                   borderRadius: BorderRadius.circular(10),
@@ -1948,7 +1956,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                   Expanded(
                     child: Padding(
                       padding:
-                          EdgeInsets.only(left: 5.w, right: 7.w, bottom: 5.w),
+                          EdgeInsets.only(left: 9.w, right: 9.w, bottom: 8.w),
                       child: Row(
                         children: [
                           Expanded(
@@ -1957,6 +1965,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                 pickImage();
                               },
                               child: Container(
+                                height: 36.h,
                                 decoration: BoxDecoration(
                                   color: Color.fromARGB(255, 238, 189, 251),
                                   borderRadius: BorderRadius.circular(10),
@@ -1971,7 +1980,7 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                       "Image",
                                       fontWeight: FontWeight.bold,
                                       fontSize:
-                                          size.sizeTextDescriptionGlobal - 3.sp,
+                                          size.sizeTextDescriptionGlobal - 5.sp,
                                     ),
                                   ],
                                 ),
@@ -1987,23 +1996,26 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                 pickFile();
                               },
                               child: Container(
+                                height: 36.h,
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 238, 189, 251),
+                                  color: Color.fromARGB(255, 252, 240, 193),
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.black),
                                 ),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
+                                    SizedBox(height: 5.h),
                                     SvgPicture.asset("assets/icon/ic_wave.svg"),
                                     ComponentTextDescription(
-                                      "Sound",
+                                      "Audio",
                                       fontWeight: FontWeight.bold,
                                       fontSize:
-                                          size.sizeTextDescriptionGlobal - 3.sp,
+                                          size.sizeTextDescriptionGlobal - 5.sp,
                                     ),
+                                    SizedBox(height: 1.h),
                                   ],
                                 ),
                               ),
