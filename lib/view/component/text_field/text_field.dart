@@ -729,59 +729,63 @@ class _TextFieldFormMultiLineState extends State<TextFieldFormMultiLine>
                       ),
                     )
                   : Container(),
-              Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                      height: 23.h,
-                      transform: Matrix4.translationValues(-15.w, -5.h, 0),
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 2.0),
-                          borderRadius: BorderRadius.circular(20.r),
-                          color: Color.fromARGB(255, 108, 58, 183)),
-                      child: Padding(
-                          padding: EdgeInsets.only(left: 15.h),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ComponentTextDescription("LaTex",
-                                  teksColor: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      size.sizeTextDescriptionGlobal - 3.sp),
-                              Theme(
-                                data: Theme.of(context).copyWith(
-                                  unselectedWidgetColor: Colors.white,
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      color: Colors.green,
+              widget.showLatex == true
+                  ? Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                          height: 23.h,
+                          transform: Matrix4.translationValues(-15.w, -5.h, 0),
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 2.0),
+                              borderRadius: BorderRadius.circular(20.r),
+                              color: Color.fromARGB(255, 108, 58, 183)),
+                          child: Padding(
+                              padding: EdgeInsets.only(left: 15.h),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ComponentTextDescription("LaTex",
+                                      teksColor: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: size.sizeTextDescriptionGlobal -
+                                          3.sp),
+                                  Theme(
+                                    data: Theme.of(context).copyWith(
+                                      unselectedWidgetColor: Colors.white,
                                     ),
-                                    Checkbox(
-                                      fillColor: MaterialStatePropertyAll(
-                                          Color.fromARGB(255, 249, 220, 253)),
-                                      activeColor:
-                                          Color.fromARGB(255, 227, 49, 176),
-                                      checkColor: Colors.green,
-                                      value: checkboxLatexClikcked,
-                                      onChanged: (value) {
-                                        if (checkboxLatexClikcked == true) {
-                                          setState(() {
-                                            checkboxLatexClikcked = false;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            checkboxLatexClikcked = true;
-                                          });
-                                        }
-                                      },
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          color: Colors.green,
+                                        ),
+                                        Checkbox(
+                                          fillColor: MaterialStatePropertyAll(
+                                              Color.fromARGB(
+                                                  255, 249, 220, 253)),
+                                          activeColor:
+                                              Color.fromARGB(255, 227, 49, 176),
+                                          checkColor: Colors.green,
+                                          value: checkboxLatexClikcked,
+                                          onChanged: (value) {
+                                            if (checkboxLatexClikcked == true) {
+                                              setState(() {
+                                                checkboxLatexClikcked = false;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                checkboxLatexClikcked = true;
+                                              });
+                                            }
+                                          },
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          )))),
+                                  )
+                                ],
+                              ))))
+                  : Container(),
               widget.showIndicatorMin == true
                   ? _currentMin == 0
                       ? Container()
