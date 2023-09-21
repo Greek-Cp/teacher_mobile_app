@@ -23,6 +23,7 @@ import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_menu/page_
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_playgorund.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_category.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_quiz.dart';
+import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_add_video_quiz_custom.dart';
 import 'package:teacher_mobile_app/view/page/profile/item_nav/profile_video/page_profile_upload_video.dart';
 import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
@@ -288,8 +289,19 @@ class _PageProfileAddVideoMenuState extends State<PageProfileAddVideoMenu>
                                                   )
                                                 : Container(
                                                     child: Center(
-                                                      child: Image.file(
-                                                          selectedImageThumbnail!),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.r),
+                                                        child: Image.file(
+                                                          selectedImageThumbnail!,
+                                                          fit: BoxFit.cover,
+                                                          width:
+                                                              double.infinity,
+                                                          height:
+                                                              double.infinity,
+                                                        ),
+                                                      ),
                                                     ),
                                                   )),
                                       ),
@@ -362,7 +374,7 @@ class _PageProfileAddVideoMenuState extends State<PageProfileAddVideoMenu>
                                         context,
                                         MaterialPageRoute(
                                             builder: (_) =>
-                                                PageProfileAddVideoQuiz()));
+                                                PageProfileAddVideoQuizCustom()));
                                   },
                                   child: CardMenuVideoProfile(
                                       ListColor.backgroundItemRatingCyan,
