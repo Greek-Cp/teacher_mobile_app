@@ -258,6 +258,18 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
 
   List<int> listData = [];
   Color? buttonColor;
+  List<String> items1 = [];
+  List<String> items2 = [
+    'Item 4',
+    'Item 5',
+    'Item 6',
+    'Item 7',
+    'Item 8',
+    'Item 9',
+    'Item 10',
+    'Item 11',
+    'Item 12'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -325,7 +337,7 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   SizedBox(
                                     height: 40.h,
@@ -561,7 +573,26 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                                       labelVideo: "labelVideo"),
                                   Container(
                                     height: 30.h,
-                                  )
+                                  ),
+                                  Container(
+                                    height: 500.h,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Expanded(
+                                          child:
+                                              buildGridView(items1, items2, 3),
+                                        ),
+                                        ComponentTextDescription("My Videos",
+                                            fontSize: size
+                                                .sizeTextDescriptionGlobal.sp),
+                                        Expanded(
+                                          child:
+                                              buildGridView(items2, items1, 0),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ]),
                           ),
                         ),
@@ -628,6 +659,73 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
           ],
         ),
       ),
+    );
+  }
+
+  GridView buildGridView(
+      List<String> items, List<String> otherItems, int gridSize) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+      ),
+      itemCount: items.length + gridSize,
+      itemBuilder: (context, index) {
+        return DragTarget<String>(
+          onWillAccept: (data) => true,
+          onAccept: (data) {
+            setState(() {
+              if (!items.contains(data)) {
+                if (index < items.length) {
+                  items.insert(index, data);
+                } else {
+                  items.add(data);
+                }
+                otherItems.remove(data);
+              } else {
+                int oldIndex = items.indexOf(data);
+                items.removeAt(oldIndex);
+                if (index < items.length) {
+                  items.insert(index, data);
+                } else {
+                  items.add(data);
+                }
+              }
+            });
+          },
+          builder: (context, candidateData, rejectedData) {
+            if (index < items.length) {
+              return Draggable<String>(
+                data: items[index],
+                child: Container(
+                  alignment: Alignment.center,
+                  color: Colors.blue[100],
+                  child: Text(items[index]),
+                ),
+                feedback: Material(
+                  child: Container(
+                    alignment: Alignment.center,
+                    color: Colors.blue[300],
+                    child: Text(items[index]),
+                  ),
+                ),
+                onDragEnd: (details) {
+                  if (!details.wasAccepted) {
+                    setState(() {
+                      otherItems.add(items[index]);
+                      items.removeAt(index);
+                    });
+                  }
+                },
+              );
+            } else {
+              return Container(
+                alignment: Alignment.center,
+                color: Colors.grey[200], // Color for empty slot
+              );
+            }
+          },
+        );
+      },
     );
   }
 
