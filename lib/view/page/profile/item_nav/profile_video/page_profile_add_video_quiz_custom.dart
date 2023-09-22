@@ -33,6 +33,7 @@ import 'package:teacher_mobile_app/view/page/profile/page_dashboard_profile.dart
 import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:flutter/services.dart';
+import 'package:zoom_widget/zoom_widget.dart';
 
 import '../../../../../res/border/border.dart';
 import '../page_nav_profile_select_picture.dart';
@@ -1079,10 +1080,10 @@ class ComponentTextFieldDragQuest extends StatefulWidget {
 
 class _ComponentTextFieldDragQuestState
     extends State<ComponentTextFieldDragQuest> {
-  TextEditingController _textController =
-      TextEditingController(text: " Type Text ");
+  TextEditingController _textController = TextEditingController(text: "");
   double _textFieldWidth = 100.0;
   int i = 1;
+  bool isEmptyText = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -1091,45 +1092,56 @@ class _ComponentTextFieldDragQuestState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Color.fromARGB(255, 250, 231, 249),
-          borderRadius: BorderRadius.circular(10)),
-      width: _textFieldWidth,
-      child: TextField(
-        controller: _textController,
-        style: GoogleFonts.nunito(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            fontSize: size.sizeTextDescriptionGlobal.sp),
-        decoration: InputDecoration(
-          border: InputBorder.none, // Remove the outline
-        ),
-        onEditingComplete: () {
-          if (i == 1) {
-            _textController.text = ' ' + _textController.text;
-          }
-          setState(() {
-            i++;
-          });
-        },
-        onSubmitted: (value) {
-          if (i == 1) {
-            _textController.text = ' ' + _textController.text;
-          }
-          setState(() {
-            i++;
-          });
-        },
-        onChanged: (value) {
-          // Calculate the required width based on the text input length
-
-          setState(() {
-            _textFieldWidth = (value.length * 10).toDouble();
-          });
-        },
-      ),
-    );
+    return isEmptyText == true
+        ? SizedBox(
+            width: 0,
+            height: 0,
+          )
+        : Container(
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 250, 231, 249),
+                borderRadius: BorderRadius.circular(10)),
+            width: _textFieldWidth,
+            child: TextField(
+              controller: _textController,
+              style: GoogleFonts.nunito(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: size.sizeTextDescriptionGlobal.sp),
+              decoration: InputDecoration(
+                  border: InputBorder.none, // Remove the outline
+                  hintText: "Text"),
+              onEditingComplete: () {
+                if (i == 1) {
+                  _textController.text = ' ' + _textController.text;
+                }
+                setState(() {
+                  i++;
+                });
+              },
+              onSubmitted: (value) {
+                if (i == 1) {
+                  _textController.text = ' ' + _textController.text;
+                }
+                setState(() {
+                  i++;
+                });
+              },
+              onChanged: (value) {
+                // Calculate the required width based on the text input length
+                if (value.isEmpty) {
+                  setState(() {
+                    _textFieldWidth = 0;
+                    isEmptyText = true;
+                  });
+                  Get.snackbar("Notification", "Is Empty");
+                }
+                setState(() {
+                  _textFieldWidth = (value.length * 10).toDouble();
+                });
+              },
+            ),
+          );
   }
 
   @override
@@ -2087,21 +2099,30 @@ class _BoxAddQuestionTypeState extends State<BoxAddQuestionType> {
                                       style: TextStyle(fontSize: 2)),
                                 ),
                               )
-                            : TeXView(
-                                loadingWidgetBuilder: (BuildContext ctx) {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                },
-                                child: TeXViewInkWell(
-                                    child: TeXViewColumn(children: [
-                                      TeXViewDocument(
-                                        latexCode,
-                                        style: TeXViewStyle(
-                                            padding: TeXViewPadding.all(10),
-                                            sizeUnit: TeXViewSizeUnit.pixels),
-                                      ),
-                                    ]),
-                                    id: "id_0"))
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Zoom(
+                                  maxZoomWidth: 100,
+                                  maxZoomHeight: 400,
+                                  child: TeXView(
+                                      loadingWidgetBuilder: (BuildContext ctx) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      },
+                                      child: TeXViewInkWell(
+                                          child: TeXViewColumn(children: [
+                                            TeXViewDocument(
+                                              latexCode,
+                                              style: TeXViewStyle(
+                                                  padding:
+                                                      TeXViewPadding.all(10),
+                                                  sizeUnit:
+                                                      TeXViewSizeUnit.pixels),
+                                            ),
+                                          ]),
+                                          id: "id_0")),
+                                ),
+                              )
                         : Container(
                             height: 110.h,
                             width: 110.w,
