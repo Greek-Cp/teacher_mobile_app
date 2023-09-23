@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'dart:ui';
+import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
@@ -893,6 +893,7 @@ class _GroupFormState extends State<GroupForm> {
             showIndicatorMin: false,
             minLines: 5,
             lengthMax: 700,
+            showLatex: true,
             colorBackgroundTextField: Color.fromARGB(255, 249, 220, 253),
           ),
           Row(
@@ -1259,6 +1260,41 @@ class _FillBlankFormState extends State<FillBlankForm> {
     }
   }
 
+  late TextEditingController _controllerText;
+  late TextEditingController _controllerAnswer;
+  late FocusNode _focusNodeText;
+  late FocusNode _focusNodeAnswer;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllerText = TextEditingController();
+    _controllerAnswer = TextEditingController();
+    _controllerText.addListener(() {
+      setState(() {
+        textValueController.value = _controllerText.text;
+      });
+    });
+    _controllerAnswer.addListener(() {
+      answerValueController.value = _controllerAnswer.text;
+    });
+    _focusNodeText = FocusNode();
+    _focusNodeAnswer = FocusNode();
+  }
+
+  var textValueController = "".obs;
+  var answerValueController = "".obs;
+
+  @override
+  void dispose() {
+    _focusNodeText.dispose();
+    _focusNodeAnswer.dispose();
+    _controllerText.dispose();
+    _controllerAnswer.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -1324,11 +1360,48 @@ class _FillBlankFormState extends State<FillBlankForm> {
         onAccept: (data) {
           if (data == "textfield") {
             Get.snackbar("Alert", "TextField Added");
-            listWidgetQUestion.add(ComponentTextFieldDragQuest());
+            listWidgetQUestion.add(
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10.w),
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 249, 234, 249),
+                    border: Border.all(width: 0, color: Colors.black),
+                    borderRadius: BorderRadius.circular(10.r)),
+                child: Expanded(
+                  child: ComponentTextDescription(
+                    textValueController.value,
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    teksColor: const Color.fromARGB(255, 70, 70, 70),
+                    maxLines: 3,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            );
+            _controllerText.text = "";
           }
           if (data == "answer_textfield") {
             Get.snackbar("Alert", "Answer TextField Added");
-            listWidgetQUestion.add(ComponentTextFieldDragAnswer());
+            listWidgetQUestion.add(
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10.w),
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 202, 126, 207),
+                    border: Border.all(width: 2, color: Colors.black),
+                    borderRadius: BorderRadius.circular(10.r)),
+                child: Expanded(
+                  child: ComponentTextDescription(
+                    fontWeight: FontWeight.bold,
+                    answerValueController.value,
+                    fontSize: size.sizeTextDescriptionGlobal.sp,
+                    teksColor: const Color.fromARGB(255, 70, 70, 70),
+                    maxLines: 3,
+                  ),
+                ),
+              ),
+            );
+
+            _controllerAnswer.text = "";
           }
         },
       ),
@@ -1336,11 +1409,7 @@ class _FillBlankFormState extends State<FillBlankForm> {
       SizedBox(
         height: 10.h,
       ),
-
-      SizedBox(
-        height: 10.h,
-      ),
-      Row(
+      Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -1358,37 +1427,45 @@ class _FillBlankFormState extends State<FillBlankForm> {
                     color: Color.fromARGB(255, 249, 221, 251),
                     border: Border.all(width: 2, color: Colors.black),
                     borderRadius: BorderRadius.circular(10.r)),
-                child: Draggable(
-                  data: "textfield",
-                  child: Container(
-                    height: 40.h,
-                    padding: EdgeInsets.all(10.w),
-                    margin: EdgeInsets.all(10.w),
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 249, 234, 249),
-                        border: Border.all(width: 2, color: Colors.black),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: ComponentTextDescription(
-                      "Text Field",
-                      fontWeight: FontWeight.bold,
-                      teksColor: const Color.fromARGB(255, 70, 70, 70),
-                      fontSize: size.sizeTextDescriptionGlobal.sp,
-                    ),
-                  ),
-                  feedback: Container(
-                    padding: EdgeInsets.all(10.w),
-                    margin: EdgeInsets.all(10.w),
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 249, 234, 249),
-                        border: Border.all(width: 2, color: Colors.black),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: ComponentTextDescription(
-                      "Main Field",
-                      fontSize: size.sizeTextDescriptionGlobal.sp,
-                      teksColor: const Color.fromARGB(255, 70, 70, 70),
-                    ),
-                  ),
-                ),
+                child: Obx(() {
+                  return textValueController.value.isEmpty == true
+                      ? TextField(
+                          focusNode: _focusNodeText,
+                          style:
+                              GoogleFonts.nunito(fontWeight: FontWeight.bold),
+                          controller: _controllerText,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              hintText: "Add Text"),
+                        )
+                      : Draggable(
+                          data: "textfield",
+                          child: TextField(
+                            focusNode: _focusNodeText,
+                            controller: _controllerText,
+                            style:
+                                GoogleFonts.nunito(fontWeight: FontWeight.bold),
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                hintText: "Add Text"),
+                          ),
+                          feedback: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 249, 234, 249),
+                                  border:
+                                      Border.all(width: 2, color: Colors.black),
+                                  borderRadius: BorderRadius.circular(10.r)),
+                              child: ComponentTextDescription(
+                                textValueController.value,
+                                fontSize: size.sizeTextDescriptionGlobal.sp,
+                                teksColor:
+                                    const Color.fromARGB(255, 70, 70, 70),
+                              )),
+                        );
+                }),
               ),
             ],
           ),
@@ -1398,47 +1475,46 @@ class _FillBlankFormState extends State<FillBlankForm> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ComponentTextDescription("Add Blanks",
-                  fontWeight: FontWeight.bold,
-                  fontSize: size.sizeTextDescriptionGlobal.sp),
-              Container(
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 249, 221, 251),
-                    border: Border.all(width: 2, color: Colors.black),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Draggable(
+              ComponentTextDescription(
+                "Add Blank",
+                fontSize: size.sizeTextDescriptionGlobal.sp,
+                fontWeight: FontWeight.bold,
+              ),
+              Obx(() {
+                return Draggable(
                   data: "answer_textfield",
                   child: Container(
-                    height: 40.h,
-                    padding: EdgeInsets.all(10.w),
-                    margin: EdgeInsets.all(10.w),
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 213, 139, 215),
+                        color: Color.fromARGB(255, 249, 221, 251),
                         border: Border.all(width: 2, color: Colors.black),
                         borderRadius: BorderRadius.circular(10.r)),
-                    child: ComponentTextDescription(
-                      "Main Field",
-                      fontWeight: FontWeight.bold,
-                      teksColor: const Color.fromARGB(255, 70, 70, 70),
-                      fontSize: size.sizeTextDescriptionGlobal.sp,
+                    child: TextField(
+                      focusNode: _focusNodeAnswer,
+                      controller: _controllerAnswer,
+                      style: GoogleFonts.nunito(fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                          fillColor: Color.fromARGB(255, 202, 126, 207),
+                          filled: true,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          focusColor: Color.fromARGB(255, 202, 126, 207),
+                          hintText: "Answer Text"),
                     ),
                   ),
                   feedback: Container(
-                    padding: EdgeInsets.all(10.w),
-                    margin: EdgeInsets.all(10.w),
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 213, 139, 215),
-                        border: Border.all(width: 2, color: Colors.black),
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: ComponentTextDescription(
-                      "Main Field",
-                      fontWeight: FontWeight.bold,
-                      fontSize: size.sizeTextDescriptionGlobal.sp,
-                      teksColor: const Color.fromARGB(255, 70, 70, 70),
-                    ),
-                  ),
-                ),
-              ),
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 202, 126, 207),
+                          border: Border.all(width: 2, color: Colors.black),
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: ComponentTextDescription(
+                        answerValueController.value,
+                        fontWeight: FontWeight.bold,
+                        fontSize: size.sizeTextDescriptionGlobal.sp,
+                        teksColor: const Color.fromARGB(255, 70, 70, 70),
+                      )),
+                );
+              }),
             ],
           ),
         ],

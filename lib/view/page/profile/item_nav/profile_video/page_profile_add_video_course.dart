@@ -260,15 +260,15 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
   Color? buttonColor;
   List<String> items1 = [];
   List<String> items2 = [
-    'Item 4',
-    'Item 5',
-    'Item 6',
-    'Item 7',
-    'Item 8',
-    'Item 9',
-    'Item 10',
-    'Item 11',
-    'Item 12'
+    '100',
+    '200',
+    '300',
+    '400',
+    '500',
+    '600',
+    '700',
+    '800',
+    '900'
   ];
 
   @override
@@ -580,15 +580,15 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Expanded(
-                                          child:
-                                              buildGridView(items1, items2, 3),
+                                          child: buildGridView(
+                                              items1, items2, 1, true),
                                         ),
                                         ComponentTextDescription("My Videos",
                                             fontSize: size
                                                 .sizeTextDescriptionGlobal.sp),
                                         Expanded(
-                                          child:
-                                              buildGridView(items2, items1, 0),
+                                          child: buildGridView(
+                                              items2, items1, 0, false),
                                         ),
                                       ],
                                     ),
@@ -662,12 +662,14 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
     );
   }
 
-  GridView buildGridView(
-      List<String> items, List<String> otherItems, int gridSize) {
+  GridView buildGridView(List<String> items, List<String> otherItems,
+      int gridSize, bool isPlaylistPlace) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-      ),
+          crossAxisCount: 3,
+          childAspectRatio: 2 / 3,
+          mainAxisSpacing: 1.5.w,
+          crossAxisSpacing: 1..w),
       itemCount: items.length + gridSize,
       itemBuilder: (context, index) {
         return DragTarget<String>(
@@ -697,16 +699,113 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
               return Draggable<String>(
                 data: items[index],
                 child: Container(
-                  alignment: Alignment.center,
-                  color: Colors.blue[100],
-                  child: Text(items[index]),
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 179, 192, 250),
+                      borderRadius: BorderRadius.all(Radius.circular(0.r))),
+                  width: MediaQuery.of(context).size.width *
+                      0.3, // 30% of the screen width
+                  height: MediaQuery.of(context).size.width * 0.8,
+                  child: Center(
+                      child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Stack(
+                      children: [
+                        isPlaylistPlace == false
+                            ? Container()
+                            : Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  margin:
+                                      EdgeInsets.only(left: 5.w, bottom: 5.w),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color.fromARGB(255, 109, 197, 135),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ComponentTextDescription(
+                                      index.toString(),
+                                      fontWeight: FontWeight.bold,
+                                      teksColor: Colors.white,
+                                      fontSize:
+                                          size.sizeTextDescriptionGlobal.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Container(
+                            margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 0, 1, 16),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.play_arrow_outlined,
+                                  color: Color.fromARGB(255, 133, 146, 193),
+                                ),
+                                ComponentTextDescription(
+                                  "${items[index]}",
+                                  fontSize: size.sizeTextDescriptionGlobal,
+                                  teksColor: Color.fromARGB(255, 133, 146, 193),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
                 ),
-                feedback: Material(
-                  child: Container(
-                    alignment: Alignment.center,
-                    color: Colors.blue[300],
-                    child: Text(items[index]),
-                  ),
+                feedback: Container(
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 179, 192, 250),
+                      borderRadius: BorderRadius.all(Radius.circular(0.r))),
+                  width: MediaQuery.of(context).size.width *
+                      0.3, // 30% of the screen width
+                  height: MediaQuery.of(context).size.width * 0.4,
+                  child: Center(
+                      child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Container(
+                            margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 0, 1, 16),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.play_arrow_outlined,
+                                  color: Color.fromARGB(255, 133, 146, 193),
+                                ),
+                                ComponentTextDescription(
+                                  "45641",
+                                  fontSize: size.sizeTextDescriptionGlobal,
+                                  teksColor: Color.fromARGB(255, 133, 146, 193),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
                 ),
                 onDragEnd: (details) {
                   if (!details.wasAccepted) {
@@ -719,8 +818,16 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
               );
             } else {
               return Container(
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
                 alignment: Alignment.center,
                 color: Colors.grey[200], // Color for empty slot
+                child: ComponentTextDescription(
+                  "Drag and drop a Video to add it to the course",
+                  fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+                  maxLines: 4,
+                  fontWeight: FontWeight.bold,
+                  textAlign: TextAlign.center,
+                ),
               );
             }
           },
