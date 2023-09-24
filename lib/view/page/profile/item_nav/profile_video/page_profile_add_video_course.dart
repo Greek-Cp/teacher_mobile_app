@@ -245,6 +245,8 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
   int limitLanguage = 0;
   int maxLanguage = 2;
   int widgetDropDown = 0;
+  String ad = "or";
+  String b = "b";
   bool showTextAddWidget = true;
   TextEditingController textEditingControllerMainLanguage =
       TextEditingController();
@@ -503,7 +505,6 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                                         itemCount, name, statusRemove) {
                                       dropdownController.updateItem(
                                           index, isFIlled, 2);
-
                                       dropdownController
                                           .listIsFilledDataDropDown[4]
                                           .value = isFIlled;
