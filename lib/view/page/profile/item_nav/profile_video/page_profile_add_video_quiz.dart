@@ -219,7 +219,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
         isQuizFilled = false;
         break;
       } else {
-        print("is empy false ${listImageQuiz[indexQuiz][b].path}");
+        print("is empy false  s${listImageQuiz[indexQuiz][b].path}");
       }
     }
 
