@@ -410,7 +410,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
         statusRequirement: false),
     ModelPhotoRequirements(
         photoRequirements:
-            "-Your quizzes should be in the same language of the video.",
+            "-Your quizzes should be  in the same language of the video.",
         statusRequirement: false),
   ];
 
