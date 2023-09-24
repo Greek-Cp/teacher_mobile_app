@@ -578,7 +578,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
                         //         top: 1575.w,
                         //         left: size.sizePaddingLeftAndRightPage + 25.w,
                         //         right: size.sizePaddingLeftAndRightPage + 25.w),
-                        //     child: ButtonLongForm(
+                        //     child : ButtonLongForm(
                         //         nameButton: "Save Quiz",
                         //         routeName: PageProfileAddVideoQuiz.routeName
                         //             .toString(),
