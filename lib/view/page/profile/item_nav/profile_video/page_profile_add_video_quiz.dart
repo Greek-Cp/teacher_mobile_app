@@ -207,7 +207,7 @@ class _PageProfileAddVideoQuizState extends State<PageProfileAddVideoQuiz>
     print("mx ${mx1}");
     print("mx ${mx2}");
     for (int y = 0; y < 3 + mx1 + mx2; y++) {
-      print("y index ${y}");
+      print("y inde x ${y}");
       if (listTextEditingController[indexQuiz][y].text.isEmpty) {
         isQuizFilled = false;
         break;
