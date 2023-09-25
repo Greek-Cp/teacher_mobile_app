@@ -246,7 +246,9 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
   int maxLanguage = 2;
   int widgetDropDown = 0;
   String ad = "or";
-  String b = "b";
+
+  ScrollController _controller1 = ScrollController();
+  ScrollController _controller2 = ScrollController();
   bool showTextAddWidget = true;
   TextEditingController textEditingControllerMainLanguage =
       TextEditingController();
@@ -270,7 +272,12 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
     '600',
     '700',
     '800',
-    '900'
+    '900',
+    '1000',
+    '1100',
+    '1200',
+    '1300',
+    '1400'
   ];
 
   @override
@@ -311,11 +318,12 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                 child: Stack(
                   children: [
                     Container(
-                      height: 820.h,
+                      height: 1655.h,
                       margin: EdgeInsets.only(
                           left: size.sizePaddingLeftAndRightPage.w,
                           right: size.sizePaddingLeftAndRightPage.w,
-                          top: 20.h),
+                          top: 20.h,
+                          bottom: 50.w),
                       decoration: BoxDecoration(
                         color: ListColor
                             .colBackroundColorContainer, // Jangan gunakan warna latar belakang untuk membuat outline terlihat
@@ -576,20 +584,20 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                                     height: 30.h,
                                   ),
                                   Container(
-                                    height: 500.h,
+                                    height: 600.h,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Expanded(
-                                          child: buildGridView(
-                                              items1, items2, 1, true),
+                                          child: buildGridView(items1, items2,
+                                              1, true, _controller1),
                                         ),
                                         ComponentTextDescription("My Videos",
                                             fontSize: size
                                                 .sizeTextDescriptionGlobal.sp),
                                         Expanded(
-                                          child: buildGridView(
-                                              items2, items1, 0, false),
+                                          child: buildGridView(items2, items1,
+                                              0, false, _controller2),
                                         ),
                                       ],
                                     ),
@@ -604,7 +612,7 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                         padding: EdgeInsets.only(
                             bottom: 50.h, left: 20.w, right: 20.w),
                         margin: EdgeInsets.only(
-                            top: 820.h, left: 20.h, right: 20.h),
+                            top: 1650.h, left: 20.h, right: 20.h),
                         child: Center(
                             child: ButtonLongForm(
                           nameButton: "Next",
@@ -663,177 +671,200 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
     );
   }
 
-  GridView buildGridView(List<String> items, List<String> otherItems,
-      int gridSize, bool isPlaylistPlace) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 2 / 3,
-          mainAxisSpacing: 1.5.w,
-          crossAxisSpacing: 1..w),
-      itemCount: items.length + gridSize,
-      itemBuilder: (context, index) {
-        return DragTarget<String>(
-          onWillAccept: (data) => true,
-          onAccept: (data) {
-            setState(() {
-              if (!items.contains(data)) {
-                if (index < items.length) {
-                  items.insert(index, data);
+  Widget buildGridView(List<String> items, List<String> otherItems,
+      int gridSize, bool isPlaylistPlace, ScrollController controller) {
+    return Container(
+      decoration:
+          BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
+      child: GridView.builder(
+        controller: controller,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 2 / 3,
+            mainAxisSpacing: 1.5.w,
+            crossAxisSpacing: 1..w),
+        itemCount: items.length + gridSize,
+        itemBuilder: (context, index) {
+          return DragTarget<String>(
+            onWillAccept: (data) => true,
+            onAccept: (data) {
+              setState(() {
+                bool isNewItem = !items
+                    .contains(data); // Variable to track if the item is new
+
+                if (isNewItem) {
+                  if (index < items.length) {
+                    items.insert(index, data);
+                  } else {
+                    items.add(data);
+                  }
+                  otherItems.remove(data);
                 } else {
-                  items.add(data);
+                  // Only perform the swap if the index is within the list's range
+                  if (index < items.length) {
+                    int oldIndex = items.indexOf(data);
+
+                    // Make sure the old index is also valid
+                    if (oldIndex >= 0 && oldIndex < items.length) {
+                      String temp = items[index];
+                      items[index] = items[oldIndex];
+                      items[oldIndex] = temp;
+                    }
+                  }
                 }
-                otherItems.remove(data);
-              } else {
-                int oldIndex = items.indexOf(data);
-                items.removeAt(oldIndex);
-                if (index < items.length) {
-                  items.insert(index, data);
-                } else {
-                  items.add(data);
+
+                // Only auto-scroll if the item is new
+                if (isNewItem) {
+                  controller.animateTo(
+                    controller.position.maxScrollExtent,
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeOut,
+                  );
                 }
-              }
-            });
-          },
-          builder: (context, candidateData, rejectedData) {
-            if (index < items.length) {
-              return Draggable<String>(
-                data: items[index],
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 179, 192, 250),
-                      borderRadius: BorderRadius.all(Radius.circular(0.r))),
-                  width: MediaQuery.of(context).size.width *
-                      0.3, // 30% of the screen width
-                  height: MediaQuery.of(context).size.width * 0.8,
-                  child: Center(
-                      child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Stack(
-                      children: [
-                        isPlaylistPlace == false
-                            ? Container()
-                            : Align(
-                                alignment: Alignment.topLeft,
-                                child: Container(
-                                  margin:
-                                      EdgeInsets.only(left: 5.w, bottom: 5.w),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Color.fromARGB(255, 109, 197, 135),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ComponentTextDescription(
-                                      index.toString(),
-                                      fontWeight: FontWeight.bold,
-                                      teksColor: Colors.white,
-                                      fontSize:
-                                          size.sizeTextDescriptionGlobal.sp,
+              });
+            },
+            builder: (context, candidateData, rejectedData) {
+              if (index < items.length) {
+                return Draggable<String>(
+                  data: items[index],
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 179, 192, 250),
+                        borderRadius: BorderRadius.all(Radius.circular(0.r))),
+                    width: MediaQuery.of(context).size.width *
+                        0.3, // 30% of the screen width
+                    height: MediaQuery.of(context).size.width * 0.8,
+                    child: Center(
+                        child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Stack(
+                        children: [
+                          isPlaylistPlace == false
+                              ? Container()
+                              : Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Container(
+                                    margin:
+                                        EdgeInsets.only(left: 5.w, bottom: 5.w),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromARGB(255, 109, 197, 135),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ComponentTextDescription(
+                                        (index + 1).toString(),
+                                        fontWeight: FontWeight.bold,
+                                        teksColor: Colors.white,
+                                        fontSize:
+                                            size.sizeTextDescriptionGlobal.sp,
+                                      ),
                                     ),
                                   ),
                                 ),
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Container(
+                              margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 0, 1, 16),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.play_arrow_outlined,
+                                    color: Color.fromARGB(255, 133, 146, 193),
+                                  ),
+                                  ComponentTextDescription(
+                                    "${items[index]}",
+                                    fontSize: size.sizeTextDescriptionGlobal,
+                                    teksColor:
+                                        Color.fromARGB(255, 133, 146, 193),
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  )
+                                ],
                               ),
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Container(
-                            margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 0, 1, 16),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.play_arrow_outlined,
-                                  color: Color.fromARGB(255, 133, 146, 193),
-                                ),
-                                ComponentTextDescription(
-                                  "${items[index]}",
-                                  fontSize: size.sizeTextDescriptionGlobal,
-                                  teksColor: Color.fromARGB(255, 133, 146, 193),
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                )
-                              ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )),
-                ),
-                feedback: Container(
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 179, 192, 250),
-                      borderRadius: BorderRadius.all(Radius.circular(0.r))),
-                  width: MediaQuery.of(context).size.width *
-                      0.3, // 30% of the screen width
-                  height: MediaQuery.of(context).size.width * 0.4,
-                  child: Center(
-                      child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Container(
-                            margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 0, 1, 16),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.play_arrow_outlined,
-                                  color: Color.fromARGB(255, 133, 146, 193),
-                                ),
-                                ComponentTextDescription(
-                                  "45641",
-                                  fontSize: size.sizeTextDescriptionGlobal,
-                                  teksColor: Color.fromARGB(255, 133, 146, 193),
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                )
-                              ],
+                        ],
+                      ),
+                    )),
+                  ),
+                  feedback: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 179, 192, 250),
+                        borderRadius: BorderRadius.all(Radius.circular(0.r))),
+                    width: MediaQuery.of(context).size.width *
+                        0.3, // 30% of the screen width
+                    height: MediaQuery.of(context).size.width * 0.4,
+                    child: Center(
+                        child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Container(
+                              margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 0, 1, 16),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.play_arrow_outlined,
+                                    color: Color.fromARGB(255, 133, 146, 193),
+                                  ),
+                                  ComponentTextDescription(
+                                    "${items[index]}",
+                                    fontSize: size.sizeTextDescriptionGlobal,
+                                    teksColor:
+                                        Color.fromARGB(255, 133, 146, 193),
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )),
-                ),
-                onDragEnd: (details) {
-                  if (!details.wasAccepted) {
-                    setState(() {
-                      otherItems.add(items[index]);
-                      items.removeAt(index);
-                    });
-                  }
-                },
-              );
-            } else {
-              return Container(
-                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                alignment: Alignment.center,
-                color: Colors.grey[200], // Color for empty slot
-                child: ComponentTextDescription(
-                  "Drag and drop a Video to add it to the course",
-                  fontSize: size.sizeTextDescriptionGlobal - 5.sp,
-                  maxLines: 4,
-                  fontWeight: FontWeight.bold,
-                  textAlign: TextAlign.center,
-                ),
-              );
-            }
-          },
-        );
-      },
+                        ],
+                      ),
+                    )),
+                  ),
+                  onDragEnd: (details) {
+                    if (!details.wasAccepted) {
+                      setState(() {
+                        otherItems.add(items[index]);
+                        items.removeAt(index);
+                      });
+                    }
+                  },
+                );
+              } else {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  alignment: Alignment.center,
+                  color: Colors.grey[200], // Color for empty slot
+                  child: ComponentTextDescription(
+                    "Drag and drop a Video to add it to the course",
+                    fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+                    maxLines: 4,
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              }
+            },
+          );
+        },
+      ),
     );
   }
 
