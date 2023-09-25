@@ -872,6 +872,8 @@ class GroupForm extends StatefulWidget {
 class _GroupFormState extends State<GroupForm> {
   List<Widget> listWidget = [];
   List<Widget> listWidgetRight = [];
+  int heightLeftContainer = 120;
+  int heightRightContainer = 120;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -941,8 +943,8 @@ class _GroupFormState extends State<GroupForm> {
                             child: Column(children: listWidget),
                           )
                         : Container(
-                            height: 450.h,
-                            padding: EdgeInsets.only(top: 5, bottom: 5),
+                            height: heightLeftContainer.h,
+                            padding: EdgeInsets.only(top: 7, bottom: 5),
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 226, 254, 235),
                                 borderRadius: BorderRadius.circular(20.r),
@@ -956,7 +958,9 @@ class _GroupFormState extends State<GroupForm> {
                         child: data,
                         margin: EdgeInsets.symmetric(vertical: 5.h));
                     listWidget.add(wget);
-
+                    setState(() {
+                      heightLeftContainer += 90;
+                    });
                     Get.snackbar("Notification", "Add Answer Succesfully");
                   },
                 ),
@@ -978,8 +982,8 @@ class _GroupFormState extends State<GroupForm> {
                             child: Column(children: listWidgetRight),
                           )
                         : Container(
-                            height: 450.h,
-                            padding: EdgeInsets.only(top: 5, bottom: 5),
+                            height: heightRightContainer.h,
+                            padding: EdgeInsets.only(top: 7, bottom: 5),
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 226, 254, 235),
                                 borderRadius: BorderRadius.circular(20.r),
@@ -993,6 +997,10 @@ class _GroupFormState extends State<GroupForm> {
                         child: data,
                         margin: EdgeInsets.symmetric(vertical: 5.h));
                     listWidgetRight.add(wget);
+
+                    setState(() {
+                      heightRightContainer += 90;
+                    });
                     Get.snackbar("Notification", "Add Answer Succesfully");
                   },
                 ),
@@ -1365,7 +1373,6 @@ class _FillBlankFormState extends State<FillBlankForm> {
                 padding: EdgeInsets.symmetric(vertical: 10.w),
                 decoration: BoxDecoration(
                     color: Color.fromARGB(255, 249, 234, 249),
-                    border: Border.all(width: 0, color: Colors.black),
                     borderRadius: BorderRadius.circular(10.r)),
                 child: Expanded(
                   child: ComponentTextDescription(
@@ -1428,43 +1435,29 @@ class _FillBlankFormState extends State<FillBlankForm> {
                     border: Border.all(width: 2, color: Colors.black),
                     borderRadius: BorderRadius.circular(10.r)),
                 child: Obx(() {
-                  return textValueController.value.isEmpty == true
-                      ? TextField(
-                          focusNode: _focusNodeText,
-                          style:
-                              GoogleFonts.nunito(fontWeight: FontWeight.bold),
-                          controller: _controllerText,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: "Add Text"),
-                        )
-                      : Draggable(
-                          data: "textfield",
-                          child: TextField(
-                            focusNode: _focusNodeText,
-                            controller: _controllerText,
-                            style:
-                                GoogleFonts.nunito(fontWeight: FontWeight.bold),
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                hintText: "Add Text"),
-                          ),
-                          feedback: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 249, 234, 249),
-                                  border:
-                                      Border.all(width: 2, color: Colors.black),
-                                  borderRadius: BorderRadius.circular(10.r)),
-                              child: ComponentTextDescription(
-                                textValueController.value,
-                                fontSize: size.sizeTextDescriptionGlobal.sp,
-                                teksColor:
-                                    const Color.fromARGB(255, 70, 70, 70),
-                              )),
-                        );
+                  return Draggable(
+                    data: "textfield",
+                    child: TextField(
+                      focusNode: _focusNodeText,
+                      controller: _controllerText,
+                      style: GoogleFonts.nunito(fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          hintText: "Add Text"),
+                    ),
+                    feedback: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 249, 234, 249),
+                            border: Border.all(width: 2, color: Colors.black),
+                            borderRadius: BorderRadius.circular(10.r)),
+                        child: ComponentTextDescription(
+                          textValueController.value,
+                          fontSize: size.sizeTextDescriptionGlobal.sp,
+                          teksColor: const Color.fromARGB(255, 70, 70, 70),
+                        )),
+                  );
                 }),
               ),
             ],
