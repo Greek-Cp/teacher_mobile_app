@@ -279,7 +279,7 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
     '1300',
     '1400'
   ];
-
+  TextEditingController courseName = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
@@ -548,12 +548,11 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                                           .colorOutlineTextFieldWhenEmpty,
                                     ),
                                     labelText: "Course Name",
-                                    textEditingControllerEmail:
-                                        TextEditingController(text: ""),
+                                    textEditingControllerEmail: courseName,
                                     hintText: "course name Max 50 char.",
                                     showIndicatorMin: false,
                                     minLines: 5,
-                                    lengthMax: 700,
+                                    lengthMax: 30,
                                     colorBackgroundTextField:
                                         Color.fromARGB(255, 249, 220, 253),
                                   ),
@@ -573,7 +572,7 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                                     hintText: "course name Max 80 char.",
                                     showIndicatorMin: false,
                                     minLines: 5,
-                                    lengthMax: 700,
+                                    lengthMax: 100,
                                     colorBackgroundTextField:
                                         Color.fromARGB(255, 249, 220, 253),
                                   ),
@@ -588,13 +587,26 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
+                                        Container(
+                                          margin: EdgeInsets.only(top: 15.w),
+                                          child: ComponentTextDescription(
+                                              courseName.text,
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal
+                                                  .sp),
+                                        ),
                                         Expanded(
                                           child: buildGridView(items1, items2,
                                               1, true, _controller1),
                                         ),
-                                        ComponentTextDescription("My Videos",
-                                            fontSize: size
-                                                .sizeTextDescriptionGlobal.sp),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 15.w),
+                                          child: ComponentTextDescription(
+                                              "My Videos",
+                                              fontSize: size
+                                                  .sizeTextDescriptionGlobal
+                                                  .sp),
+                                        ),
                                         Expanded(
                                           child: buildGridView(items2, items1,
                                               0, false, _controller2),
@@ -674,196 +686,202 @@ class _PageProfileAddVideoCourseState extends State<PageProfileAddVideoCourse>
   Widget buildGridView(List<String> items, List<String> otherItems,
       int gridSize, bool isPlaylistPlace, ScrollController controller) {
     return Container(
-      decoration:
-          BoxDecoration(border: Border.all(width: 2, color: Colors.black)),
-      child: GridView.builder(
-        controller: controller,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 2 / 3,
-            mainAxisSpacing: 1.5.w,
-            crossAxisSpacing: 1..w),
-        itemCount: items.length + gridSize,
-        itemBuilder: (context, index) {
-          return DragTarget<String>(
-            onWillAccept: (data) => true,
-            onAccept: (data) {
-              setState(() {
-                bool isNewItem = !items
-                    .contains(data); // Variable to track if the item is new
+      decoration: BoxDecoration(
+          border: Border.all(width: 2, color: Colors.black),
+          borderRadius: BorderRadius.circular(20.r)),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.r),
+        child: GridView.builder(
+          controller: controller,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 2 / 3,
+              mainAxisSpacing: 1.5.w,
+              crossAxisSpacing: 1..w),
+          itemCount: items.length + gridSize,
+          itemBuilder: (context, index) {
+            return DragTarget<String>(
+              onWillAccept: (data) => true,
+              onAccept: (data) {
+                setState(() {
+                  bool isNewItem = !items
+                      .contains(data); // Variable to track if the item is new
 
-                if (isNewItem) {
-                  if (index < items.length) {
-                    items.insert(index, data);
+                  if (isNewItem) {
+                    if (index < items.length) {
+                      items.insert(index, data);
+                    } else {
+                      items.add(data);
+                    }
+                    otherItems.remove(data);
                   } else {
-                    items.add(data);
-                  }
-                  otherItems.remove(data);
-                } else {
-                  // Only perform the swap if the index is within the list's range
-                  if (index < items.length) {
-                    int oldIndex = items.indexOf(data);
+                    // Only perform the swap if the index is within the list's range
+                    if (index < items.length) {
+                      int oldIndex = items.indexOf(data);
 
-                    // Make sure the old index is also valid
-                    if (oldIndex >= 0 && oldIndex < items.length) {
-                      String temp = items[index];
-                      items[index] = items[oldIndex];
-                      items[oldIndex] = temp;
+                      // Make sure the old index is also valid
+                      if (oldIndex >= 0 && oldIndex < items.length) {
+                        String temp = items[index];
+                        items[index] = items[oldIndex];
+                        items[oldIndex] = temp;
+                      }
                     }
                   }
-                }
 
-                // Only auto-scroll if the item is new
-                if (isNewItem) {
-                  controller.animateTo(
-                    controller.position.maxScrollExtent,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.easeOut,
-                  );
-                }
-              });
-            },
-            builder: (context, candidateData, rejectedData) {
-              if (index < items.length) {
-                return Draggable<String>(
-                  data: items[index],
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 179, 192, 250),
-                        borderRadius: BorderRadius.all(Radius.circular(0.r))),
-                    width: MediaQuery.of(context).size.width *
-                        0.3, // 30% of the screen width
-                    height: MediaQuery.of(context).size.width * 0.8,
-                    child: Center(
-                        child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Stack(
-                        children: [
-                          isPlaylistPlace == false
-                              ? Container()
-                              : Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Container(
-                                    margin:
-                                        EdgeInsets.only(left: 5.w, bottom: 5.w),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Color.fromARGB(255, 109, 197, 135),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: ComponentTextDescription(
-                                        (index + 1).toString(),
-                                        fontWeight: FontWeight.bold,
-                                        teksColor: Colors.white,
-                                        fontSize:
-                                            size.sizeTextDescriptionGlobal.sp,
+                  // Only auto-scroll if the item is new
+                  if (isNewItem) {
+                    controller.animateTo(
+                      controller.position.maxScrollExtent,
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                    );
+                  }
+                });
+              },
+              builder: (context, candidateData, rejectedData) {
+                if (index < items.length) {
+                  return Draggable<String>(
+                    data: items[index],
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 179, 192, 250),
+                          borderRadius: BorderRadius.all(Radius.circular(0.r))),
+                      width: MediaQuery.of(context).size.width *
+                          0.3, // 30% of the screen width
+                      height: MediaQuery.of(context).size.width * 0.8,
+                      child: Center(
+                          child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Stack(
+                          children: [
+                            isPlaylistPlace == false
+                                ? Container()
+                                : Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                          left: 5.w, bottom: 5.w),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                            Color.fromARGB(255, 109, 197, 135),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: ComponentTextDescription(
+                                          (index + 1).toString(),
+                                          fontWeight: FontWeight.bold,
+                                          teksColor: Colors.white,
+                                          fontSize:
+                                              size.sizeTextDescriptionGlobal.sp,
+                                        ),
                                       ),
                                     ),
                                   ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Container(
+                                margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 0, 1, 16),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.play_arrow_outlined,
+                                      color: Color.fromARGB(255, 133, 146, 193),
+                                    ),
+                                    ComponentTextDescription(
+                                      "${items[index]}",
+                                      fontSize: size.sizeTextDescriptionGlobal,
+                                      teksColor:
+                                          Color.fromARGB(255, 133, 146, 193),
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    )
+                                  ],
                                 ),
-                          Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Container(
-                              margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 0, 1, 16),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.play_arrow_outlined,
-                                    color: Color.fromARGB(255, 133, 146, 193),
-                                  ),
-                                  ComponentTextDescription(
-                                    "${items[index]}",
-                                    fontSize: size.sizeTextDescriptionGlobal,
-                                    teksColor:
-                                        Color.fromARGB(255, 133, 146, 193),
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  )
-                                ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )),
-                  ),
-                  feedback: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 179, 192, 250),
-                        borderRadius: BorderRadius.all(Radius.circular(0.r))),
-                    width: MediaQuery.of(context).size.width *
-                        0.3, // 30% of the screen width
-                    height: MediaQuery.of(context).size.width * 0.4,
-                    child: Center(
-                        child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Container(
-                              margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 0, 1, 16),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.play_arrow_outlined,
-                                    color: Color.fromARGB(255, 133, 146, 193),
-                                  ),
-                                  ComponentTextDescription(
-                                    "${items[index]}",
-                                    fontSize: size.sizeTextDescriptionGlobal,
-                                    teksColor:
-                                        Color.fromARGB(255, 133, 146, 193),
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  )
-                                ],
+                          ],
+                        ),
+                      )),
+                    ),
+                    feedback: Container(
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 179, 192, 250),
+                          borderRadius: BorderRadius.all(Radius.circular(0.r))),
+                      width: MediaQuery.of(context).size.width *
+                          0.3, // 30% of the screen width
+                      height: MediaQuery.of(context).size.width * 0.4,
+                      child: Center(
+                          child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Container(
+                                margin: EdgeInsets.only(left: 5.w, bottom: 5.h),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 0, 1, 16),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.play_arrow_outlined,
+                                      color: Color.fromARGB(255, 133, 146, 193),
+                                    ),
+                                    ComponentTextDescription(
+                                      "${items[index]}",
+                                      fontSize: size.sizeTextDescriptionGlobal,
+                                      teksColor:
+                                          Color.fromARGB(255, 133, 146, 193),
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )),
-                  ),
-                  onDragEnd: (details) {
-                    if (!details.wasAccepted) {
-                      setState(() {
-                        otherItems.add(items[index]);
-                        items.removeAt(index);
-                      });
-                    }
-                  },
-                );
-              } else {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  alignment: Alignment.center,
-                  color: Colors.grey[200], // Color for empty slot
-                  child: ComponentTextDescription(
-                    "Drag and drop a Video to add it to the course",
-                    fontSize: size.sizeTextDescriptionGlobal - 5.sp,
-                    maxLines: 4,
-                    fontWeight: FontWeight.bold,
-                    textAlign: TextAlign.center,
-                  ),
-                );
-              }
-            },
-          );
-        },
+                          ],
+                        ),
+                      )),
+                    ),
+                    onDragEnd: (details) {
+                      if (!details.wasAccepted) {
+                        setState(() {
+                          otherItems.add(items[index]);
+                          items.removeAt(index);
+                        });
+                      }
+                    },
+                  );
+                } else {
+                  return Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    alignment: Alignment.center,
+                    color:
+                        Colors.white.withOpacity(0.5), // Color for empty slot
+                    child: ComponentTextDescription(
+                      "Drag and drop a Video to add it to the course",
+                      fontSize: size.sizeTextDescriptionGlobal - 5.sp,
+                      maxLines: 4,
+                      fontWeight: FontWeight.bold,
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                }
+              },
+            );
+          },
+        ),
       ),
     );
   }
